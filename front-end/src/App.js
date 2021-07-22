@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
+import Register from './pages/Register';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <Route exact path="/" component={ Login }>
           {window.location.pathname === '/' ? <Redirect to="/login" /> : ''}
         </Route>
+        <Route exact path="/register" component={ Register } />
       </Switch>
     </BrowserRouter>
   );
