@@ -11,7 +11,7 @@ module.exports = {
       },
       user_id: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         references: {
           model: 'users',
           key: 'id',
@@ -21,7 +21,7 @@ module.exports = {
       },
       seller_id: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         references: {
           model: 'users',
           key: 'id',
@@ -35,11 +35,11 @@ module.exports = {
       },
       delivery_address: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(100),
       },
       delivery_number: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(50),
       },
       sale_date: {
         allowNull: false,
@@ -47,7 +47,7 @@ module.exports = {
       },
       status: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(50),
       },
     });
 
