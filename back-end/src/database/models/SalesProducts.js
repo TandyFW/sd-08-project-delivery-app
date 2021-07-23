@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
   const SalesProduct = sequelize.define(
     'SalesProduct',
     {
-      quantity: DataTypes.STRING(10),
+      quantity: DataTypes.INTEGER,
     },
     { timestamps: false }
   );
