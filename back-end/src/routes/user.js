@@ -1,5 +1,7 @@
-// const routes = require('express').Router();
+const routes = require('express').Router();
 
-// routes.post('/')
+const UserController = require('../controllers/userController');
 
-// module.exports = routes;
+routes.post('/', UserController.create);
+
+module.exports = routes;
