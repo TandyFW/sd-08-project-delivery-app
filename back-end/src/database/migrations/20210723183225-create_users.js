@@ -28,8 +28,8 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    down: async (queryInterface, Sequelize) => {
+
       queryInterface.dropTable("users");
     }
-  }
-};
+}
+
