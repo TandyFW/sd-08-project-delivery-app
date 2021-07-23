@@ -1,9 +1,5 @@
-const tokenGeneration = require('../services/tokenGeneration');
-
 const userLogin = async (req, res) => {
-  const { email, id } = req.body;
-
-  const token = tokenGeneration({ email, id });
+  const { token } = req;
 
   return res.status(200).json({ token });
 };
