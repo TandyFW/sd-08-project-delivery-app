@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => queryInterface.bulkInsert('Users',
+  up: async (queryInterface, Sequelize) => queryInterface.bulkInsert('users',
     [
       {
         name: 'Delivery App Admin',
@@ -22,5 +22,5 @@ module.exports = {
         role: 'customer',
       },
     ], { timestamps: false}),
-  down: async (queryInterface, Sequelize) => queryInterface.bulkDelete('Users', null, {})
+  down: async (queryInterface, Sequelize) => queryInterface.bulkDelete('users', null, {})
 };
