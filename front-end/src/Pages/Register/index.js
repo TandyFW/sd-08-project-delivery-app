@@ -3,23 +3,30 @@ import PropTypes from 'prop-types';
 
 import { TextField, Button } from '@material-ui/core/';
 
-import { LoginForm, LoginPage } from './styled';
+import { RegisterPage, RegisterForm } from './styled';
 
-const Login = ({ history }) => {
+const Register = ({ history }) => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleChange = {
+    name: ({ target }) => setName(target.value),
     email: ({ target }) => setEmail(target.value),
     password: ({ target }) => setPassword(target.value),
   };
 
   return (
-    <LoginPage>
+    <RegisterPage>
       <div>
         <p>LOGO, alguma mensagem, outra coisa</p>
       </div>
-      <LoginForm>
+      <RegisterForm>
+        <TextField
+          label="Nome"
+          value={ name }
+          onChange={ handleChange.email }
+        />
         <TextField
           label="Email"
           value={ email }
@@ -35,25 +42,25 @@ const Login = ({ history }) => {
           variant="contained"
           color="primary"
         >
-          LOGIN
+          CADASTRAR
         </Button>
         <Button
           variant="contained"
           color="secondary"
-          onClick={ () => history.push('/register') }
+          onClick={ () => history.push('/login') }
         >
-          AINDA NÃO TENHO CONTA
+          JÁ TENHO UMA CONTA
         </Button>
-      </LoginForm>
-    </LoginPage>
+      </RegisterForm>
+    </RegisterPage>
 
   );
 };
 
-Login.propTypes = {
+Register.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
 };
 
-export default Login;
+export default Register;
