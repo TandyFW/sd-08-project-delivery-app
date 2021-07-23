@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
   product.associate = (models) => {
-    product.belongsTo(models.salesProduct);
+    product.hasOne(models.sales_product);
   };
 
   return product;

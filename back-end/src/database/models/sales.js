@@ -13,9 +13,9 @@ module.exports = (sequelize, DataTypes) => {
     });
 
   sale.associate = (models) => {
-    sale.hasOne(models.user, { as: 'userId', foreignKey: 'user_id' });
-    sale.hasOne(models.user, { as: 'sellerId', foreignKey: 'seller_id' });
-    sale.belongsTo(models.salesProduct);
+    sale.belongsTo(models.user, { as: 'userId', foreignKey: 'user_id' });
+    sale.belongsTo(models.user, { as: 'sellerId', foreignKey: 'seller_id' });
+    sale.hasOne(models.sales_product);
   };
 
   return sale;
