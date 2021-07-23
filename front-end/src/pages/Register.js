@@ -1,60 +1,59 @@
-import React, { useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
 import contextDelivery from '../context/Context';
 
-function Login() {
+function Register() {
   const {
-    email,
+    name,
+    setName,
     setEmail,
+    email,
     password,
     setPassword,
-    disable,
     setDisable,
+    disable,
   } = useContext(contextDelivery);
 
   useEffect(() => {
-    console.log(email, password);
     function buttonAble() {
       const validEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-      const minOfCaracteres = 6;
-      if (validEmail.test(email) && password.length >= minOfCaracteres) {
+      const SEIS = 6;
+      const DOZE = 12;
+      if (validEmail.test(email) && password.length >= SEIS && name.length >= DOZE) {
         setDisable(false);
       } else setDisable(true);
     }
     buttonAble();
-  }, [email, password, setDisable]);
+  }, [email, password, name, setDisable]);
 
   return (
     <fieldset>
       <input
         type="text"
-        datatestid="common_login__input-email"
+        datatestid="common_register__input-name"
+        placeholder="Name"
+        onChange={ (e) => setName(e.target.value) }
+      />
+      <input
+        type="text"
+        datatestid="common_register__input-email"
         placeholder="Email"
         onChange={ (e) => setEmail(e.target.value) }
       />
       <input
         type="password"
-        datatestid="common_login__input-password"
+        datatestid="common_register__input-password"
         placeholder="Senha"
         onChange={ (e) => setPassword(e.target.value) }
       />
       <button
         type="button"
-        datatestid="common_login__button-login"
+        datatestid="common_register__button-register"
         disabled={ disable }
       >
-        LOGIN
+        CADASTRAR
       </button>
-      <Link to="/register">
-        <button
-          type="button"
-          datatestid="common_login__button-register"
-        >
-          Ainda não tenho conta
-        </button>
-      </Link>
     </fieldset>
   );
 }
 
-export default Login;
+export default Register;

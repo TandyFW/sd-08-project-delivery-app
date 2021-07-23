@@ -6,9 +6,12 @@ function DeliveryProvider() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disable, setDisable] = useState(true);
+  const [name, setName] = useState('');
   const contextValue = {
     email,
     setEmail,
+    name,
+    setName,
     password,
     setPassword,
     disable,
