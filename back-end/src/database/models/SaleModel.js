@@ -10,6 +10,7 @@ const Sale = (sequelize, DataTypes) => {
   },
   {
     timestamps: false,
+    tableName: 'sales',
   });
   
   sale.associate = (models) => {
@@ -17,8 +18,6 @@ const Sale = (sequelize, DataTypes) => {
       { foreignKey: 'userId', as: 'client' });
     sale.belongsTo(models.User,
       { foreignKey: 'sellerId', as: 'seller' });
-    sale.hasMany(models.SaleProducts,
-      {foreignKey: 'saleId', as: 'sale' })
   };
 
   return sale;
