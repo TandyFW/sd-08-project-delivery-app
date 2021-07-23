@@ -5,6 +5,7 @@ import { Reset } from 'styled-reset';
 
 import Provider from './context/Provider';
 import Login from './Pages/Login';
+import Register from './Pages/Register';
 import theme from './theme';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             <Redirect to="/login" />
           </Route>
           <Route exact path="/login" component={ Login } />
+          <Route exact path="/register" component={ Register } />
         </Switch>
       </ThemeProvider>
     </Provider>
