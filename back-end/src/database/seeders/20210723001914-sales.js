@@ -8,7 +8,7 @@ module.exports = {
       totalPrice: 20.7,
       deliveryAddress: 'Rua Aleatoria E. Duvidosa',
       deliveryNumber: '+8000',
-      salesDate: Date.now(),
+      salesDate: '2021-07-23 16:35:54',
       status: 'Esquecido',
     }], {});
   },

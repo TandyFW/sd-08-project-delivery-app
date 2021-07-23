@@ -16,13 +16,9 @@ function App() {
   return (
     <GlobalProvider>
       <Switch>
-        <Route
-          exact
-          path="/"
-          component={
-            <Redirect to="/login" />
-          }
-        />
+        <Route exact path="/">
+          <Redirect to="/login" />
+        </Route>
         <Route exact path="/login" component={ Login } />
         <Route exact path="/register" component={ Register } />
         <Route exact path="/customer/products" component={ Products } />
