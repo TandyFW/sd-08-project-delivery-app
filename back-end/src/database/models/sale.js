@@ -1,6 +1,6 @@
-const Sale = (sequelize, DataTypes) => {
-  const SaleTable = sequelize.define("Sale", {
-    totalPrice: DataTypes.DECIMAL(9,2),
+const sale = (sequelize, DataTypes) => {
+  const SaleTable = sequelize.define("sale", {
+    totalPrice: DataTypes.DECIMAL,
     deliveryAddress: DataTypes.STRING,
     deliveryNumber: DataTypes.STRING,
     saleDate: DataTypes.DATE,
@@ -8,7 +8,7 @@ const Sale = (sequelize, DataTypes) => {
   }, { timestamps: false });
 
   SaleTable.associate = (models) => {
-    SaleTable.belongsTo(models.User,
+    SaleTable.belongsTo(models.user,
   { onDelete: 'CASCADE', foreignKey: 'userId', as: 'user' },
   { onDelete: 'CASCADE', foreignKey: 'sellerId', as: 'user' }
   );
@@ -16,4 +16,4 @@ const Sale = (sequelize, DataTypes) => {
   return SaleTable;
 };
 
-module.exports = Sale;
+module.exports = sale;

@@ -1,21 +1,21 @@
-const SaleProduct = (sequelize, DataTypes) => {
-  const SaleProductTable = sequelize.define('SaleProduct', {
+const saleProduct = (sequelize, DataTypes) => {
+  const SaleProductTable = sequelize.define('saleProduct', {
     quantity: DataTypes.STRING,
   }, { timestamps: false });
 
   SaleProductTable.associate = (models) => {
-    models.Sale.belongsToMany(models.Product, {
+    models.sale.belongsToMany(models.product, {
       onDelete: 'CASCADE',
       as: 'products',
-      through: SalesProducts,
+      through: SaleProductTable,
       foreignKey: 'saleId',
       otherKey: 'productId',
     });
 
-    models.Product.belongsToMany(models.Sale, {
+    models.product.belongsToMany(models.sale, {
       onDelete: 'CASCADE',
       as: 'sales',
-      through: SalesProducts,
+      through: SaleProductTable,
       foreignKey: 'productId',
       otherKey: 'saleId',
     });
@@ -24,4 +24,4 @@ const SaleProduct = (sequelize, DataTypes) => {
   return SaleProductTable;
 };
 
-module.exports = SaleProduct;
+module.exports = saleProduct;
