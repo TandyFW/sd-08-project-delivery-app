@@ -26,15 +26,15 @@ module.exports = {
       },
       total_price: {
         allowNull: false,
-        type: Sequelize.DECIMAL
+        type: Sequelize.DECIMAL(9, 2)
       },
       delivery_address: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING(100)
       },
       delivery_number: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING(50)
       },
       sale_date: {
         allowNull: false,
@@ -42,7 +42,7 @@ module.exports = {
       },
       status: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING(50)
       }
     });
   },

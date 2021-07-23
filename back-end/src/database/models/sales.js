@@ -1,14 +1,12 @@
-const { DataTypes } = require("sequelize");
-
 module.exports = (sequelize, DataTypes) => {
   const sale = sequelize.define('sale', {
     user_id: DataTypes.INTEGER,
     seller_id: DataTypes.INTEGER,
-    total_price: DataTypes.DECIMAL(9,2),
-    delivery_address: DataTypes.STRING(100),
-    delivery_number: DataTypes.STRING(50),
+    total_price: DataTypes.DECIMAL,
+    delivery_address: DataTypes.STRING,
+    delivery_number: DataTypes.STRING,
     sale_date: DataTypes.DATE,
-    status: DataTypes.STRING(50)
+    status: DataTypes.STRING
   },
   {
     timestamps: false,

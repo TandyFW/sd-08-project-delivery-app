@@ -10,16 +10,16 @@ module.exports = {
       },
       name: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(100),
         unique: true
       },
       price: {
         allowNull: false,
-        type: Sequelize.DECIMAL
+        type: Sequelize.DECIMAL(4, 2)
       },
       url_image: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING(200)
       }
     });
   },
