@@ -12,6 +12,15 @@ function Register() {
     }
     return true;
   }
+  const handleSubmit = async () => {
+    const myInit = {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+    };
+    const rawResponse = await fetch('localhost:3000/register', myInit);
+    const data = await rawResponse.json();
+    return data;
+  };
   return (
     <div className="main-wrapper">
       <h2>Cadastro</h2>
@@ -23,7 +32,7 @@ function Register() {
         />
         <input
           data-testid="common_register__input-email"
-          type="text"
+          type="email"
           placeholder="seu-email@teste.com.br"
           onChange={ (e) => setEmail(e.target.value) }
         />
@@ -35,8 +44,9 @@ function Register() {
         />
         <button
           data-testid="common_register__button-register"
-          type="button"
+          type="submit"
           disabled={ checkInputs() }
+          onClick={ handleSubmit }
         >
           CADASTRAR
         </button>
