@@ -13,6 +13,15 @@ function Login() {
     }
     return true;
   }
+  const handleSubmit = async () => {
+    const myInit = {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+    };
+    const rawResponse = await fetch('localhost:3000/login', myInit);
+    const data = await rawResponse.json();
+    return data;
+  };
   return (
     <div className="main-wrapper">
       <h2>ONzé Delivery</h2>
@@ -35,6 +44,7 @@ function Login() {
           data-testid="common_login__button-login"
           type="submit"
           disabled={ checkInputs() }
+          onClick={ handleSubmit }
         >
           LOGIN
         </button>
