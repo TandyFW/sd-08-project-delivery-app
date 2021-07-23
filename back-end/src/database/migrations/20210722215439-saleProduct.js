@@ -23,7 +23,7 @@ module.exports = {
         field: 'product_id',
       },
       quantity: {
-        type: Sequelize.STRING(10),
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
     });

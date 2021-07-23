@@ -1,7 +1,7 @@
 const SaleProduct = (sequelize, DataTypes) => {
   const saleProduct = sequelize.define('SaleProduct', {
     quantity: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   },
