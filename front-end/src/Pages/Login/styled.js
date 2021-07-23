@@ -23,6 +23,12 @@ export const LoginForm = styled.form`align-items: center;
     background-color: ${(props) => props.theme.colors.primary};
     filter: brightness(1.2);
   }
+
+  .MuiButtonBase-root:nth-child( 2n ) {
+    background-color: white;
+    border: 2px solid ${(props) => props.theme.colors.primary};
+    color: ${(props) => props.theme.colors.primary};
+  }
 `;
 
 export const LoginPage = styled.div`align-items: center;
