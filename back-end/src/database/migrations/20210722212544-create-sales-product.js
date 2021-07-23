@@ -7,6 +7,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       saleId: {
+        primaryKey: true,
         type: Sequelize.INTEGER,
         field: 'saleId',
         references: {
@@ -17,6 +18,7 @@ module.exports = {
         onDelete: 'CASCADE',
       },
       productId: {
+        primaryKey: true,
         type: Sequelize.INTEGER,
         field: 'productId',
         references: {
@@ -25,6 +27,10 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
+      },
+      quantity: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
       },
     });
   },
