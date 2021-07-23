@@ -5,7 +5,7 @@ export const LoginForm = styled.form`align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 10px;
+  padding: 15px 30px;
   width: 300px;
 
   .MuiFormControl-root {
@@ -15,6 +15,7 @@ export const LoginForm = styled.form`align-items: center;
 
   .MuiButtonBase-root {
     background-color: ${(props) => props.theme.colors.primary};
+    font-weight: 550;
     margin: 10px 0;
     width: 100%;
   }
