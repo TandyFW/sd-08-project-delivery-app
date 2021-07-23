@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import './styles.css';
 
-function Login() {
+function Register() {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const history = useHistory();
   function checkInputs() {
     const PASSWORD_MIN_LENGTH = 6;
     const re = /.+@[A-z]+[.]com/;
@@ -16,39 +14,35 @@ function Login() {
   }
   return (
     <div className="main-wrapper">
-      <h2>ONzé Delivery</h2>
+      <h2>Cadastro</h2>
       <div className="content">
         <input
+          data-testid="common_register__input-name"
           type="text"
-          value={ email }
-          placeholder="digite seu e-mail..."
-          data-testid="common_login__input-email"
+          placeholder="Seu Nome"
+        />
+        <input
+          data-testid="common_register__input-email"
+          type="text"
+          placeholder="seu-email@teste.com.br"
           onChange={ (e) => setEmail(e.target.value) }
         />
         <input
-          value={ password }
+          data-testid="common_register__input-password"
           type="password"
-          placeholder="digite sua senha..."
-          data-testid="common_login__input-password"
+          placeholder="******"
           onChange={ (e) => setPassword(e.target.value) }
         />
         <button
-          data-testid="common_login__button-login"
-          type="submit"
+          data-testid="common_register__button-register"
+          type="button"
           disabled={ checkInputs() }
         >
-          LOGIN
-        </button>
-        <button
-          datatest-id="common_login__button-register"
-          type="button"
-          onClick={ () => history.push('/register') }
-        >
-          Ainda não tenho conta
+          CADASTRAR
         </button>
       </div>
     </div>
   );
 }
 
-export default Login;
+export default Register;
