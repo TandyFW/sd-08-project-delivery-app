@@ -1,15 +1,13 @@
 import React from 'react';
+import Routes from './routes';
+import ConxtextProvider from './context';
 import './App.css';
-import rockGlass from './images/rockGlass.svg';
 
 function App() {
   return (
-    <div className="App">
-      <span className="logo">TRYBE</span>
-      <object className="rocksGlass" type="image/svg+xml" data={ rockGlass }>
-        Glass
-      </object>
-    </div>
+    <ConxtextProvider>
+      <Routes />
+    </ConxtextProvider>
   );
 }
 
