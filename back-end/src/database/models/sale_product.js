@@ -1,8 +1,8 @@
 module.exports = (sequelize, DataTypes) => {
   const sale_product = sequelize.define('sale_product', {
-    sale_id: DataTypes.INT,
-    product_id: DataTypes.INT,
-    quantity: DataTypes.INT,
+    sale_id: DataTypes.INTEGER,
+    product_id: DataTypes.INTEGER,
+    quantity: DataTypes.INTEGER,
   },
   {
     timestamps: false,
