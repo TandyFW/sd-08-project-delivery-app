@@ -1,0 +1,56 @@
+FRONT
+[comum]
+/register
+/
+/login/ 
+[Usuario]
+/customer/ 
+/customer/products    => products / get
+/customer/checkout    => orders / post
+/customer/            => orders / get
+/customer/orders/:id
+[Vendedor ]
+/seller/ 
+/seller/orders      => orders / get
+/seller/orders/:id  => orders  / get || / put 
+[Administradora 39-44]
+/admin/           
+/admin/manage /     => login / get || delete
+
+
+BACK
+register / post 
+login / post {email, password, label(adm/vendedor/usuario)}
+login / get
+login / delete
+products / get 
+products /:id get 
+orders / post
+orders / get
+orders / put
+
+
+front 
+Redux
+
+Freamworks
+yup/joy
+SASS
+bootstrap
+-not Boom
+
+bora voltar para o zoom.
+https://trybe.zoom.us/j/97367377919?pwd=Rm8yYWhXL29ESlJPSU02c3EvRnJTdz09
+
+
+Formato do localStorage do carrinho de compras :
+
+
+
+Quais as frameworks que vamos usar ?
+yup/joy
+SASS
+bootstrap
+- not Boom
+
+
