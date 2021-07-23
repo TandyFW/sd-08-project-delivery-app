@@ -14,7 +14,7 @@ module.exports = {
         role: 'user',
       },
       {
-        name: 'Pessoa Vendedora',
+        name: 'Pessoa Vendedorea',
         email: 'seller@gmail.com',
         password: '123456',
         role: 'seller',
@@ -34,7 +34,7 @@ module.exports = {
     );
   },
 
-  down: async (queryInterface, _Sequelize) => {
+  down: async (queryInterface, Sequelize) => {
     await queryInterface.bulkDelete('users', null, {});
   }
 };
