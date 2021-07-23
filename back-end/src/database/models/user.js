@@ -6,6 +6,10 @@ const User = (sequelize, DataTypes) => {
     role: DataTypes.STRING,
   }, { tableName: 'users', timestamps: false});
 
+  User.associate =(models) => {
+    User.hasMany(models.Sales, { foreingKey: 'user_id', foreingKey: 'seller_id', as: 'sales'})
+  }
+
   return User;
 };
 
