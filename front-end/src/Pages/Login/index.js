@@ -24,16 +24,19 @@ const Login = ({ history }) => {
           label="Email"
           value={ email }
           onChange={ handleChange.email }
+          data-testid='common_login__input-email'
         />
         <TextField
           type="password"
           label="Senha"
           value={ password }
           onChange={ handleChange.password }
+          data-testid='common_login__input-password'
         />
         <Button
           variant="contained"
           color="primary"
+          data-testid='common_login__button-login'
         >
           LOGIN
         </Button>
@@ -41,6 +44,7 @@ const Login = ({ history }) => {
           variant="contained"
           color="secondary"
           onClick={ () => history.push('/register') }
+          data-testid='common_login__button-register'
         >
           AINDA NÃO TENHO CONTA
         </Button>
