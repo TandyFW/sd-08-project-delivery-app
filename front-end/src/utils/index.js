@@ -1,7 +1,6 @@
-// const tryCatchWrapper = require('./tryCatchWrapper');
-// const getStatusByCode = require('./getStatusByCode');
+const {
+  isValidUserForRegistration } = require('./validations');
 
-// module.exports = {
-//   tryCatchWrapper,
-//   getStatusByCode,
-// };
+module.exports = {
+  isValidUserForRegistration,
+};
