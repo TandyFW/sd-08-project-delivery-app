@@ -16,7 +16,17 @@ const requestApi = async (route, method = 'GET', data, token) => {
 
   return axios(options)
     .then((response) => response.data)
-    .catch((err) => err.response.data.message);
+    .catch((err) => err.response);
+};
+
+export const login = (user) => {
+  requestApi('/login', 'POST', user)
+    .then(console.log);
+};
+
+export const register = (user) => {
+  requestApi('/user', 'POST', user)
+    .then(console.log);
 };
 
 export default requestApi;

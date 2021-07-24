@@ -5,18 +5,13 @@ import { TextField, Button } from '@material-ui/core/';
 
 import { LoginForm, LoginPage } from './styled';
 
-import requestApi from '../../services/api';
+import { login } from '../../services/api';
 
 import { emailVerify, passwordVerify } from '../../services/validations';
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const login = (user) => {
-    requestApi('/login', 'POST', user)
-      .then(console.log);
-  };
 
   const handleChange = {
     email: ({ target }) => setEmail(target.value),
