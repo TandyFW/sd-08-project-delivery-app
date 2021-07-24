@@ -6,12 +6,12 @@ const createUsers = async (dataForCreate) => {
   if (error) {
    return { 
      error: true,
-     statusCode: 600,
+     status: 500,
      message: error.details[0].message,
    };
   }
-  await user.create(dataForCreate);
-  // console.log(result);
+  const users = await user.create(dataForCreate);
+  return users.dataValues
 };
 
 // const getAllUsers = async () => {
