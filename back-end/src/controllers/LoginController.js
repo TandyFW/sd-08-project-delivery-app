@@ -9,6 +9,7 @@ module.exports = async (req, res) => {
   if (!user || user.password !== md5(password)) {
     return res.status(404).json({ message: 'User not found' });
   }
+  const { name, role } = user;
   const token = generateJWTToken(user);
-  return res.status(200).json({ token });
+  return res.status(200).json({ name, email, role, token });
 };

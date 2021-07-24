@@ -10,8 +10,7 @@ const findByName = async (name) => {
 
 const findByEmail = async (email) => {
   const user = await User.findOne({ where: { email } });
-  const { password, ...data } = user;
-  return data;
+  return user;
 };
 
 const create = async (newUserInfo) => {
