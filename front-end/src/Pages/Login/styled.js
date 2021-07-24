@@ -37,3 +37,8 @@ export const LoginPage = styled.div`align-items: center;
   height: 100vh;
   justify-content: center;
 `;
+
+export const ErrorMessage = styled.p`align-items: center;
+  padding: 30px;
+  position: absolute;
+`;

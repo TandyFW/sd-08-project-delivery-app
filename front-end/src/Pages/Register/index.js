@@ -27,20 +27,26 @@ const Register = ({ history }) => {
           label="Nome"
           value={ name }
           onChange={ handleChange.name }
-          data-testid="common_register__input-name"
+          inputProps={ {
+            'data-testid': 'common_register__input-name',
+          } }
         />
         <TextField
           label="Email"
           value={ email }
           onChange={ handleChange.email }
-          data-testid="common_register__input-email"
+          inputProps={ {
+            'data-testid': 'common_register__input-email',
+          } }
         />
         <TextField
           type="password"
           label="Senha"
           value={ password }
           onChange={ handleChange.password }
-          data-testid="common_register__input-password"
+          inputProps={ {
+            'data-testid': 'common_register__input-password',
+          } }
         />
         <Button
           variant="contained"
