@@ -10,6 +10,5 @@ module.exports = async (req, res) => {
     return res.status(404).json({ message: 'User not found' });
   }
   const token = generateJWTToken(user);
-  console.log('token', token);
   return res.status(200).json({ token });
 };
