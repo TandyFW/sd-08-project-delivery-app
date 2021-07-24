@@ -26,25 +26,25 @@ const Register = ({ history }) => {
           label="Nome"
           value={ name }
           onChange={ handleChange.email }
-          data-testid='common_register__input-name'
+          data-testid="common_register__input-name"
         />
         <TextField
           label="Email"
           value={ email }
           onChange={ handleChange.email }
-          data-testid='common_register__input-email'
+          data-testid="common_register__input-email"
         />
         <TextField
           type="password"
           label="Senha"
           value={ password }
           onChange={ handleChange.password }
-          data-testid='common_register__input-password'
+          data-testid="common_register__input-password"
         />
         <Button
           variant="contained"
           color="primary"
-          data-testid='common_register__button-register'
+          data-testid="common_register__button-register"
         >
           CADASTRAR
         </Button>
