@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap') ;
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap') ;
+
+img {
+  border-radius: 10px;
+  height: 300px;
+}
+
+.title {
+  color: #fffffe;
+  font-family: Nunito , monospace;
+  font-size: 48px;
+  text-align: center;
+}
+
+form {
+  align-items: center;
+  background-color: #abd1c6;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  margin: auto;
+  width: 400px;
+}
+
+label {
+  color: #fffffe;
+  display: flex;
+  flex-direction: column;
+  font-size: large;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+input {
+  border: 1px solid #001e1d;
+  border-radius: 5px;
+  font-size: x-large;
+  height: 40px;
+  margin-top: 5px;
+  width: 300px;
+}
+
+.login-button {
+  background-color: #f9bc60;
+  border: 2px solid #001e1d;
+  border-radius: 5px;
+  color: #001e1d;
+  font-family: Poppins , monospace;
+  font-size: x-large;
+  font-weight: 600;
+  height: 40px;
+  margin-top: 15px;
+  width: 300px;
+}
+
+.password-button {
+  background-color: #f9bc60;
+  border: 2px solid #001e1d;
+  border-radius: 5px;
+  color: #001e1d;
+  font-family: Poppins , monospace;
+  font-size: x-large;
+  font-weight: 600;
+  height: 40px;
+  margin-top: 15px;
+  width: 300px;
+}
