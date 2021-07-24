@@ -15,18 +15,22 @@ const requestApi = async (route, method = 'GET', data, token) => {
   };
 
   return axios(options)
-    .then((response) => response.data)
-    .catch((err) => err.response);
+    .then((response) => response.data);
 };
 
-export const login = (user) => {
+export const login = (user, setUsrNotFound) => {
   requestApi('/login', 'POST', user)
-    .then(console.log);
+    .then(console.log)
+    .catch((err) => {
+      setUsrNotFound(true);
+      return err.response;
+    });
 };
 
 export const register = (user) => {
   requestApi('/user', 'POST', user)
-    .then(console.log);
+    .then(console.log)
+    .catch((err) => err.response);
 };
 
 export default requestApi;

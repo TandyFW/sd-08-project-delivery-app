@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 
 import { TextField, Button } from '@material-ui/core/';
 
-import { LoginForm, LoginPage } from './styled';
+import { LoginForm, LoginPage, ErrorMessage } from './styled';
 
 import { login } from '../../services/api';
 
 import { emailVerify, passwordVerify } from '../../services/validations';
 
 const Login = ({ history }) => {
+  const [usrNotFound, setUsrNotFound] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -23,11 +24,19 @@ const Login = ({ history }) => {
       <div>
         <p>LOGO, alguma mensagem, outra coisa</p>
       </div>
-      <p
-        data-testid="common_login__element-invalid-email"
-      >
-        asds
-      </p>
+      { usrNotFound && (
+        <ErrorMessage
+          data-testid="common_login__element-invalid-email"
+        >
+          <p>Usuário não cadastrado</p>
+          <button
+            type="button"
+            onClick={ () => setUsrNotFound(false) }
+          >
+            ok
+          </button>
+        </ErrorMessage>
+      )}
       <LoginForm>
         <TextField
           label="Email"
@@ -50,7 +59,7 @@ const Login = ({ history }) => {
           variant="contained"
           color="primary"
           data-testid="common_login__button-login"
-          onClick={ () => login({ email, password }) }
+          onClick={ () => login({ email, password }, setUsrNotFound) }
           disabled={ !passwordVerify(password) || !emailVerify(email) }
         >
           LOGIN

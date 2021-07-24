@@ -38,7 +38,10 @@ export const LoginPage = styled.div`align-items: center;
   justify-content: center;
 `;
 
-export const ErrorMessage = styled.p`align-items: center;
+export const ErrorMessage = styled.div`align-items: center;
+  color: red;
+  background: rgb(200,200,200);
   padding: 30px;
   position: absolute;
+  z-index: 1;
 `;
