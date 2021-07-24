@@ -1,4 +1,4 @@
-.App {
+.loader {
   align-items: center;
   background: #0fa36b;
   color: #464646;
@@ -10,11 +10,12 @@
   width: 100%;
 }
 
-.App > .logo {
+.loader > .logo {
   animation: shake 1.5s infinite ease;
-  color: aliceblue;
+  color: $darkWhite;
+  // color: $lightBlack;
   font-family: Montserrat , sans-serif;
-  font-size: 3em;
+  font-size: 3.5em;
   font-weight: 900;
 }
 

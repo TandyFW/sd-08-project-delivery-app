@@ -1,6 +1,6 @@
 const express = require('express');
+const path = require('path');
 const { usersRoute, customerRoute } = require('./routes');
-const Success = require('../utils/success');
 const handleErros = require('../middlewares/errorHandler');
 
 const app = express();
@@ -12,8 +12,6 @@ app.use('/users', usersRoute);
 app.use('/customer', customerRoute);
 
 app.use(handleErros);
-
-const path = require('path');
 
 app.use('/images', express.static(path.resolve(__dirname, '../../public/images')));
 

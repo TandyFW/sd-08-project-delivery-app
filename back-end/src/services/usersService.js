@@ -11,7 +11,7 @@ const createUsers = async (dataForCreate) => {
    };
   }
   const users = await user.create(dataForCreate);
-  return users.dataValues
+  return users.dataValues;
 };
 
 // const getAllUsers = async () => {
