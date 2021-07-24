@@ -7,11 +7,11 @@ import { getAllUsers, getProducts } from '../services';
 class Login extends React.Component {
   constructor() {
     super();
-    this.handleChange = this.handleChange.bind(this);
     this.state = {
       email: false,
       password: false,
     };
+    this.handleChange = this.handleChange.bind(this);
   }
 
   async componentDidMount() {
@@ -24,7 +24,7 @@ class Login extends React.Component {
   handleChange({ target: { name, value } }) {
     const maxLength = 5;
     if (name === 'email') {
-      const isValid = validator.validate(value);
+      const isValid = validator.validate(value.toLowerCase());
       if (isValid) {
         this.setState({ email: true });
       } else {
@@ -41,8 +41,8 @@ class Login extends React.Component {
   }
 
   render() {
-    const { history } = this.props;
     const { email, password } = this.state;
+    const { history } = this.props;
     return (
       <div className="login-container">
         <div className="input-div">
@@ -71,7 +71,7 @@ class Login extends React.Component {
           <button
             type="button"
             className="btn-create"
-            onClick={ () => history.push('/register') }
+            onClick={ () => history.push('./register') }
           >
             Ainda não tenho conta
           </button>
