@@ -5,6 +5,7 @@ function Register() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [data, setData] = useState('');
   function checkInputs() {
     const PASSWORD_MIN_LENGTH = 6;
     const NAME_MIN_LENGTH = 12;
@@ -19,12 +20,17 @@ function Register() {
   const handleSubmit = async () => {
     const myInit = {
       method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({ name, email, password }),
     };
-    const rawResponse = await fetch('localhost:3000/register', myInit);
-    const data = await rawResponse.json();
-    return data;
+    const rawResponse = await fetch('http://localhost:3001/register', myInit);
+    const content = await rawResponse.json();
+    return setData(content);
   };
+  console.log(data);
   return (
     <div className="main-wrapper">
       <h2>Cadastro</h2>
