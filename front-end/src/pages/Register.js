@@ -71,9 +71,7 @@ class Register extends React.Component {
       }, spanMaxTime);
       return null;
     }
-    if (user.role === 'client') {
-      history.push('./products');
-    }
+    history.push('./login');
   }
 
   render() {
