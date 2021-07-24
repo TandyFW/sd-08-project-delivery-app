@@ -28,10 +28,6 @@ const Sales = (sequelize, DataTypes) => {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  sale_data: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
   status: {
     type: DataTypes.STRING,
     allowNull: false,
