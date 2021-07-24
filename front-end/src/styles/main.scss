@@ -15,6 +15,10 @@ code {
     monospace;
 }
 
+@import './home';
+
 @import './TrybeLoader.scss';
 
 @import './login.scss';
+
+@import './register.scss';

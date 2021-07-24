@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import validator from 'email-validator';
+import { getAllUsers, getProducts } from '../services';
 
 class Login extends React.Component {
   constructor() {
@@ -11,6 +12,13 @@ class Login extends React.Component {
       email: false,
       password: false,
     };
+  }
+
+  async componentDidMount() {
+    const users = await getAllUsers();
+    console.log(users);
+    const products = await getProducts();
+    console.log(products);
   }
 
   handleChange({ target: { name, value } }) {
@@ -42,7 +50,6 @@ class Login extends React.Component {
           <input
             name="email"
             placeholder="Digite seu Email"
-            data-testid="email-input"
             onChange={ this.handleChange }
           />
           <span>Senha</span>
@@ -50,7 +57,6 @@ class Login extends React.Component {
             name="password"
             type="password"
             placeholder="Digite sua Senha"
-            data-testid="password-input"
             onChange={ this.handleChange }
           />
         </div>
@@ -58,7 +64,6 @@ class Login extends React.Component {
           <button
             type="button"
             className="btn-login"
-            data-testid="signin-btn"
             disabled={ !email || !password }
           >
             Entrar
@@ -66,7 +71,6 @@ class Login extends React.Component {
           <button
             type="button"
             className="btn-create"
-            data-testid="no-account-btn"
             onClick={ () => history.push('/register') }
           >
             Ainda não tenho conta

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import rockGlass from '../images/rockGlass.svg';
+import { Loader } from '../components';
 
 class Home extends React.Component {
   componentDidMount() {
@@ -14,11 +13,8 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div className="loader">
-        <span className="logo">Loading..</span>
-        <object className="rocksGlass" type="image/svg+xml" data={ rockGlass }>
-          Glass
-        </object>
+      <div className="home">
+        <Loader />
       </div>
     );
   }
@@ -28,4 +24,4 @@ Home.propTypes = {
   history: PropTypes.shape().isRequired,
 };
 
-export default connect(null, null)(Home);
+export default Home;

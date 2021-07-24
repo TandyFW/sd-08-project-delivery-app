@@ -1,11 +1,13 @@
 const express = require('express');
 const path = require('path');
-const { usersRoute, customerRoute } = require('./routes');
+const cors = require('cors');
+
 const handleErros = require('../middlewares/errorHandler');
+const { usersRoute, customerRoute } = require('./routes');
 
 const app = express();
-
 app.use(express.json());
+app.use(cors());
 
 app.use('/users', usersRoute);
 
