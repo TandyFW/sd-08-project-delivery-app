@@ -1,6 +1,6 @@
 const md5 = require('md5');
 const { findByEmail } = require('../services/UserService');
-const { generateJWTToken } = require('../utils');
+const { generateJWTToken } = require('../services/UserService');
 
 module.exports = async (req, res) => {
   const { email, password } = req.body;
