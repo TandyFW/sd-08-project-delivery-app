@@ -2,13 +2,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap') ;
 
-img {
-  border-radius: 10px;
-  display: block;
-  height: 240px;
-  margin: auto;
-}
-
 .title {
   color: #fffffe;
   font-family: Nunito , monospace;
@@ -16,13 +9,13 @@ img {
   text-align: center;
 }
 
-.login-form {
+.register-form {
   align-items: center;
   background-color: #abd1c6;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  height: 320px;
+  height: 340px;
   margin: auto;
   width: 400px;
 }
@@ -40,29 +33,10 @@ input {
   border: 1px solid #001e1d;
   border-radius: 5px;
   font-size: x-large;
-  height: 40px;
+  height: 30px;
   margin-top: 5px;
+  padding: 10px 20px;
   width: 300px;
-}
-
-.login-button {
-  background-color: #f9bc60;
-  border: 2px solid #001e1d;
-  border-radius: 5px;
-  color: #001e1d;
-  cursor: pointer;
-  font-family: Poppins , monospace;
-  font-size: x-large;
-  font-weight: 600;
-  margin-top: 15px;
-  padding: 4px;
-  transition: 0.5s;
-  width: 340px;
-}
-
-.login-button:hover {
-  background-color: #001e1d;
-  color: #f9bc60;
 }
 
 .register-button {
