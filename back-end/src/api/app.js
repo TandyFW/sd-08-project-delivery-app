@@ -22,4 +22,4 @@ app.get('/coffee', (_req, res) => res.status(418).end());
 
 const PORT = process.env.SOCKET_PORT || 3002;
 http.listen(PORT, () => console.log(`Socket na porta ${PORT}`));
-module.exports = app;
+module.exports = app; 
