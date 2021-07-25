@@ -9,16 +9,16 @@ const customerRoute = express.Router();
 
 loginRoute.get('/', loginController.login);
 
-userRoute.post('/', userController.create);
-userRoute.get('/', userController.getAll);
-userRoute.get('/:id', userController.getById);
-userRoute.put('/:id', userController.updateById);
-userRoute.delete('/:id', userController.deleteById);
+userRoute.post('/', userController.createUser);
+userRoute.get('/', userController.getAllUsers);
+userRoute.get('/:id', userController.getByIdUser);
+userRoute.put('/:id', userController.updateByIdUser);
+userRoute.delete('/:id', userController.deleteByIdUser);
 
 customerRoute.get('/products', customerController.getAllProducts);
 
 module.exports = {
+  loginRoute,
   userRoute,
   customerRoute,
-  loginRoute,
 };

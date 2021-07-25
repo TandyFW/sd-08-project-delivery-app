@@ -1,6 +1,5 @@
 const INTERNAL_SERVER_ERROR = 500;
 const handleErros = (err, _req, res, _next) => {
-  console.log(err);
   res.status(err.statusCode || INTERNAL_SERVER_ERROR).json({ message: err.message || err.error });
 };
 
