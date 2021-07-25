@@ -1,30 +1,24 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Form, Button, Spinner } from 'react-bootstrap';
-import Joi from 'joi';
-import { GlobalContext } from '../context/GlobalProvider';
+import { loginValidator } from '../lib/validator';
+import { LoginContext } from '../context/LoginProvider';
 
 export default function SignInSide() {
-  const { functions: { handleRequestSubmit } } = useContext(GlobalContext);
+  const { functions: {
+    handleLoginRequest,
+  }, values: {
+    loginError,
+    loading,
+  } } = useContext(LoginContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isValidAll, setIsValidAll] = useState(false);
   const [isValidSubmit, setIsValidSubmit] = useState(true);
-  const [hasLoading, setHasLoading] = useState(false);
 
   useEffect(() => {
-    const MIN_PASSWORD = 6;
-    const schema = Joi.object({
-      email: Joi.string()
-        .email({
-          minDomainSegments: 2,
-          tlds: { allow: ['com', 'net'] } }),
-      password: Joi.string().min(MIN_PASSWORD),
-    });
-    const checked = schema.validate({ email, password });
-    if (!checked.error) setIsValidSubmit(false);
+    const { error } = loginValidator.validate({ email, password });
+    if (!error) setIsValidSubmit(false);
     else setIsValidSubmit(true);
   }, [email, password]);
-
   return (
     <Form className="p-4">
       <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -35,7 +29,7 @@ export default function SignInSide() {
           onChange={ ({ target }) => setEmail(target.value) }
           type="email"
           placeholder="Enter email"
-          disabled={ isValidAll }
+          disabled={ loading }
         />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -46,7 +40,7 @@ export default function SignInSide() {
           onChange={ ({ target }) => setPassword(target.value) }
           type="password"
           placeholder="Password"
-          disabled={ isValidAll }
+          disabled={ loading }
         />
         <Form.Text className="text-muted">
           Bem, nunca compartilhe sua senha com ninguém..
@@ -56,20 +50,18 @@ export default function SignInSide() {
         <Button
           onClick={ (e) => {
             e.preventDefault();
-            setHasLoading(true);
-            setIsValidAll(true);
-            handleRequestSubmit({ email, password });
+            handleLoginRequest({ email, password });
           } }
           variant="success"
           type="submit"
           size="lg"
-          data-testid="common_login__input-button-login"
-          disabled={ isValidSubmit || isValidAll }
+          data-testid="common_login__button-login"
+          disabled={ isValidSubmit || loading }
         >
           Login
           { ' ' }
           <Spinner
-            className={ hasLoading ? 'visible' : 'invisible' }
+            className={ loading ? 'visible' : 'invisible' }
             as="span"
             animation="grow"
             size="sm"
@@ -81,12 +73,13 @@ export default function SignInSide() {
           variant="secondary"
           type="submit"
           size="lg"
-          data-testid="common_login__input-button-register"
-          disabled={ isValidAll }
+          data-testid="common_login__button-register"
+          disabled={ loading }
         >
           Ainda não tenho conta
         </Button>
       </div>
+      <span>{ loginError }</span>
     </Form>
   );
 }
