@@ -1,8 +1,15 @@
+const cors = require('cors');
+const express = require('express');
 const port = process.env.PORT || 3001;
 const app = require('./app');
-const userController = require('../database/controllers/userControllers');
+const routes = require('../database/router/routes');
 
-app.use('/register', userController);
+app.use(express.json());
 
-app.listen(port);
-console.log(`Api rodando na porta ${port}`);
+app.get('/', (_req, res) => {
+  res.send('ok');
+});
+app.use(cors());
+// app.use('/delivery', routes);
+
+app.listen(port, () => console.log(`Api rodando na porta ${port}`));

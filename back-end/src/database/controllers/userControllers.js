@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { createUser, getUsers } = require('../services/userServices');
-const { CREATED, BAD_REQUEST } = require('../services/statusCode')
+const { CREATED, BAD_REQUEST } = require('../services/statusCode');
 
 router.post('/', async (req, res) => {
   const newUser = await createUser(req.body);

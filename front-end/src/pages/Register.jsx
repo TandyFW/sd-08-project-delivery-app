@@ -27,7 +27,7 @@ const Register = () => {
     console.log('clicked');
     const { data } = await axios({
       method: 'post',
-      url: 'http://localhost:3001/register',
+      url: 'http://localhost:3001/delivery/users',
       data: { name, email, password },
     });
     console.log(data);
