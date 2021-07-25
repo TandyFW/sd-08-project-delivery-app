@@ -21,14 +21,14 @@ export default function Login(props) {
         <button
           type="submit"
           className="login-button"
-          date-testid="common_login__button-login"
+          data-testid="common_login__button-login"
         >
           LOGIN
         </button>
         <button
           type="submit"
           className="password-button"
-          date-testid="common_login__button-register"
+          data-testid="common_login__button-register"
         >
           Ainda não tenho conta
         </button>
