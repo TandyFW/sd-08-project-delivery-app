@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useHistory } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import registerValidation from '../services/registerValidation';
 import Button from '../components/Button';
@@ -22,8 +23,14 @@ const Register = () => {
     }
   }, [name, email, password]);
 
-  userRegister = async () => {
-    const { data } = await axios.post('/register', { name, email, password });
+  const userRegister = async () => {
+    console.log('clicked');
+    const { data } = await axios({
+      method: 'post',
+      url: 'http://localhost:3001/register',
+      data: { name, email, password },
+    });
+    console.log(data);
     if (!data.error) history.push('/customer/products');
   };
 
@@ -53,6 +60,7 @@ const Register = () => {
           label="CADASTRAR"
           datatestid={ `${prefix}button-register` }
           disabled={ validBtn }
+          onClick={ userRegister }
         />
       </fieldset>
     </>

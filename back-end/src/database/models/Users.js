@@ -1,5 +1,5 @@
 const Users = (sequelize, DataTypes) => {
-  const users = sequelize.defined('users', {
+  const users = sequelize.define('users', {
     email: {
       type: DataTypes.STRING,
       notNull: true,
