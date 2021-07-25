@@ -2,19 +2,13 @@ import React, { createContext } from 'react';
 
 import PropTypes from 'prop-types';
 
-export const GlobalContext = createContext();
+const GlobalContext = createContext();
 
 function GlobalProvider({ children }) {
-  const handleRequestSubmit = ({ email, password }) => {
-    // axios
-    console.log(email, password);
-  };
-
   const provide = {
     values: {
     },
     functions: {
-      handleRequestSubmit,
     },
   };
   return (
