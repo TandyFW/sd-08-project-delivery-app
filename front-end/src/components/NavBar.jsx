@@ -1,7 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Button from './Button';
+import { MenuItem, Menu } from '../styles/components/NavBar.styled';
+import colors from '../styles/colors';
 
 function NavBar({ user }) {
   const prefix = 'customer_products__';
@@ -9,29 +10,38 @@ function NavBar({ user }) {
   const goToRoute = (route) => {
     history.push(route);
   };
+
   return (
-    <div className="navBar-container">
-      <Button
-        label="Produtos"
+    <Menu>
+      <MenuItem
+        color={ colors.mediumseagreen }
         onClick={ () => goToRoute('/login') }
-        datatestid={ `${prefix}element-navbar-link-products` }
-      />
-      <Button
-        label="Meus Pedidos"
+        data-testid={ `${prefix}element-navbar-link-products` }
+      >
+        Produtos
+      </MenuItem>
+      <MenuItem
+        color={ colors.teal }
         onClick={ () => goToRoute('/login') }
-        datatestid={ `${prefix}element-navbar-link-orders` }
-      />
-      <Button
-        label={ user }
+        data-testid={ `${prefix}element-navbar-link-orders` }
+      >
+        Meus Pedidos
+      </MenuItem>
+      <MenuItem
+        color={ colors.indigo }
         onClick={ () => goToRoute('/login') }
-        datatestid={ `${prefix}element-navbar-user-full-name` }
-      />
-      <Button
-        label="Sair"
+        data-testid={ `${prefix}element-navbar-user-full-name` }
+      >
+        {user}
+      </MenuItem>
+      <MenuItem
+        color={ colors.dodgerblue }
         onClick={ () => goToRoute('/login') }
-        datatestid={ `${prefix}element-navbar-link-logout` }
-      />
-    </div>
+        data-testid={ `${prefix}element-navbar-link-logout` }
+      >
+        Sair
+      </MenuItem>
+    </Menu>
   );
 }
 NavBar.propTypes = {
