@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useHistory } from 'react';
+import axios from 'axios';
 import registerValidation from '../services/registerValidation';
 import Button from '../components/Button';
 import Input from '../components/Input';
@@ -10,6 +11,7 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [validBtn, setValidBtn] = useState(true);
+  const history = useHistory();
 
   useEffect(() => {
     const validation = registerValidation
@@ -19,6 +21,11 @@ const Register = () => {
       setValidBtn(true);
     }
   }, [name, email, password]);
+
+  userRegister = async () => {
+    const { data } = await axios.post('/register', { name, email, password });
+    if (!data.error) history.push('/customer/products');
+  };
 
   return (
     <>
