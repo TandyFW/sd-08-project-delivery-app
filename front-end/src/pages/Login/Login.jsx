@@ -1,6 +1,6 @@
 import React from 'react';
 import './Login.css';
-import delivery from '../images/delivery.jpeg';
+import delivery from '../../images/delivery.jpeg';
 
 export default function Login() {
   return (
