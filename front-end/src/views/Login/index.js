@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import './styles.css';
 
 function Login() {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-
+  const history = useHistory();
   function checkInputs() {
     const PASSWORD_MIN_LENGTH = 6;
     const re = /.+@[A-z]+[.]com/;
@@ -51,6 +52,7 @@ function Login() {
         <button
           datatest-id="common_login__button-register"
           type="button"
+          onClick={ () => history.push('/register') }
         >
           Ainda não tenho conta
         </button>
