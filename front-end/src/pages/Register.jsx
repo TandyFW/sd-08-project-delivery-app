@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 import registerValidation from '../services/registerValidation';
 import Button from '../components/Button';
 import Input from '../components/Input';
@@ -10,6 +12,7 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [validBtn, setValidBtn] = useState(true);
+  const history = useHistory();
 
   useEffect(() => {
     const validation = registerValidation
@@ -19,6 +22,17 @@ const Register = () => {
       setValidBtn(true);
     }
   }, [name, email, password]);
+
+  const userRegister = async () => {
+    console.log('clicked');
+    const { data } = await axios({
+      method: 'post',
+      url: 'http://localhost:3001/delivery/users',
+      data: { name, email, password },
+    });
+    console.log(data);
+    if (!data.error) history.push('/customer/products');
+  };
 
   return (
     <>
@@ -46,6 +60,7 @@ const Register = () => {
           label="CADASTRAR"
           datatestid={ `${prefix}button-register` }
           disabled={ validBtn }
+          onClick={ userRegister }
         />
       </fieldset>
     </>
