@@ -1,6 +1,7 @@
 import { Redirect, Route, Switch } from 'react-router-dom';
 import React from 'react';
 import Login from './Pages/Login';
+import SellerOrders from './Pages/SellerOrders';
 
 export default () => (
   <Switch>
@@ -10,7 +11,7 @@ export default () => (
     <Route path="/login" exact>
       <Login />
     </Route>
-    {/*  <Route path="/register" exact>
+    {/* <Route path="/register" exact>
       <Register />
     </Route>
     <Route path="/customer/products" exact>
@@ -24,11 +25,11 @@ export default () => (
     </Route>
     <Route path="/customer/orders/:id" exact>
       <CustomerOrdersDetails />
-    </Route>
+    </Route> */}
     <Route path="/seller/orders" exact>
       <SellerOrders />
     </Route>
-    <Route path="/seller/orders/:id" exact>
+    {/* <Route path="/seller/orders/:id" exact>
       <SellerOrdersDetails />
     </Route>
     <Route path="/admin/manage" exact>
