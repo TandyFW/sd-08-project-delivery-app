@@ -1,10 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './Login.css';
 import delivery from '../images/delivery.jpeg';
 
-export default function Login(props) {
-  const { isValidEmail } = props;
+export default function Login() {
   return (
     <div>
       <img src={ delivery } alt="Entrega de produto" />
@@ -32,13 +30,7 @@ export default function Login(props) {
         >
           Ainda não tenho conta
         </button>
-        { isValidEmail
-          && <span data-testid="common_login__element-invalid-email">Email</span> }
       </form>
     </div>
   );
 }
-
-Login.propTypes = {
-  isValidEmail: PropTypes.bool.isRequired,
-};
