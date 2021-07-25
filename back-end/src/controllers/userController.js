@@ -5,8 +5,8 @@ const success = require('../utils/success');
 const create = rescue(async (req, res, next) => {
   const { name, email, password, role } = req.body;
   const result = await userServices.create({ name, email, password, role });
-  if (result.statusCode) return next(result);
-  res.status(success.OK).json({ newUser: result });
+  if (result.error) return next(result);
+  res.status(success.Created).json({ newUser: result });
 });
 
 const getAll = rescue(async (_req, res, next) => {

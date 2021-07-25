@@ -49,10 +49,16 @@ const deleteById = async (id) => {
   return `Success Delete Id: ${id}`;
 };
 
+const getByEmail = async (email) => {
+  const user = await User.findOne({ where: { email } });
+  return user;
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   updateById,
   deleteById,
+  getByEmail,
 };
