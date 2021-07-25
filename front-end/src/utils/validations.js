@@ -4,7 +4,7 @@ const MIN_SIZE_NAME = 12;
 const isValidName = (name) => name.length >= MIN_SIZE_NAME;
 
 const isValidEmail = (email) => {
-  const emailRegex = /^([a-zA-Z0-9_-]+)@([a-zA-Z_-]+).([a-zA-Z_-]+)/;
+  const emailRegex = /^([a-zA-Z0-9_.-]+)@([a-zA-Z_-]+)\.([a-zA-Z_-]+)/;
   return emailRegex.test(email);
 };
 
