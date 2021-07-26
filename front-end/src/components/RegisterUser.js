@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Form, Button, Spinner } from 'react-bootstrap';
-import schema from '../lib/validator';
+import schema from '../lib/validatorRegister';
 
 export default function SignUpSide() {
   const [name, setName] = useState('');
