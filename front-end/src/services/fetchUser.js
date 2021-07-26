@@ -5,8 +5,8 @@ const fetchUser = async (email, password) => {
     username: email,
     password,
   })
-    .the(response => response)
-    .catch(err => err);
+    .the((response) => response)
+    .catch((err) => err);
   return user;
 };
 

@@ -84,7 +84,14 @@ export default function FormLogin() {
           <Link to="/register">REGISTRE-SE</Link>
         </button>
       </form>
-      {showMessage && <p className="error-message" data-testid="common_login__element-invalid-email">Usuário não encontrado.</p>}
+      {showMessage
+        && (
+          <p
+            className="error-message"
+            data-testid="common_login__element-invalid-email"
+          >
+            Usuário não encontrado.
+          </p>)}
       {redirect && <Redirect to="/customer/products" />}
     </>
   );
