@@ -7,7 +7,7 @@ import emailVerify from '../utils/functions';
 export default function FormLogin() {
   const [isValid, setIsValid] = useState(false);
   const [currentEmail, setCurrentEmail] = useState('');
-  const [currentPassword, setCurrentPassword] = useState('');
+  const [encryptPassword, setEncryptPassword] = useState('');
   const [showMessage, setShowMessage] = useState(false);
   const [redirect, setRedirect] = useState(false);
 
@@ -18,7 +18,7 @@ export default function FormLogin() {
     const password = passwordInput.value;
     const MIN_PASSWORRD_LENGTH = 6;
     setCurrentEmail(email);
-    setCurrentPassword(md5(password));
+    setEncryptPassword(md5(password));
     if (!emailVerify(email) || password.length < MIN_PASSWORRD_LENGTH) {
       setIsValid(false);
     }
@@ -28,12 +28,12 @@ export default function FormLogin() {
   };
 
   const login = async () => {
-    const user = await fetchUser(currentEmail);
+    const user = await fetchUser(currentEmail, encryptPassword);
     if (user) {
       setShowMessage(false);
+      setRedirect(true);
     }
     setShowMessage(true);
-    if (user && confirma)
   };
 
   return (

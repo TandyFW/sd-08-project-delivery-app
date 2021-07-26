@@ -1,12 +1,13 @@
-const fetchUser = async (email) => {
-  try {
-    const userEmail = await fetch(`${URL}/${email}`);
-    if (userEmail) return true;
-    return false;
-  } catch (err) {
-    console.log(err);
-    return false;
-  }
+const axios = require('axios');
+
+const fetchUser = async (email, password) => {
+  const user = axios.post(`${URL}`, {
+    username: email,
+    password,
+  })
+    .the(response => response)
+    .catch(err => err);
+  return user;
 };
 
 export default fetchUser;
