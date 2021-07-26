@@ -1,13 +1,15 @@
-import React, { useContext } from 'react';
-import { Navbar, Container, Nav } from 'react-bootstrap';
-import { GlobalContext } from '../context/GlobalProvider';
+import React from 'react';
+import { Navbar, Container, Nav, Button } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 
 export default function Header() {
-  const {
-    values: {
-      name,
-    },
-  } = useContext(GlobalContext);
+  const obj = localStorage.getItem('user');
+  const { name } = JSON.parse(obj);
+
+  const logout = () => {
+    localStorage.clear();
+    return <Redirect to="/login" />;
+  };
 
   return (
     <Navbar bg="light" variant="light">
@@ -31,12 +33,13 @@ export default function Header() {
           >
             Meus Pedidos
           </Nav.Link>
-          <Nav.Link
-            href="/login"
+          <Button
+            variant="danger"
+            onClick={ logout }
             data-testid="customer_products__element-navbar-link-logout"
           >
             Sair
-          </Nav.Link>
+          </Button>
         </Nav>
       </Container>
     </Navbar>
