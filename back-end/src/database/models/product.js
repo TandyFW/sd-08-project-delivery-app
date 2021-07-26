@@ -8,17 +8,8 @@ const product = (sequelize, DataTypes) => {
         type: DataTypes.STRING(255),
         field: "url_image",
       },
-      createdAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
-        field: 'created_at',
-      },
-      updatedAt: {
-        allowNull: false,
-        type: DataTypes.DATE, 
-        field: 'updated_at',
-      }
-    },
+     },
+     { timestamps : false }
   );
 
   return product;
