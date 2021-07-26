@@ -1,7 +1,22 @@
-// const baseUrl = 'bla';
+import axios from 'axios';
+
+const BASEURL = 'http://localhost:3001/';
+const LOGIN = 'users/login';
+const REGISTER = 'users/create';
 
 export default {
-  endpoint1: () => {
-
+  loginFetch: async (email, password) => {
+    const loginObj = { email, password };
+    const res = await axios
+      .post(`${BASEURL}${LOGIN}`,
+        loginObj);
+    return res;
+  },
+  registerFetch: async (name, email, password) => {
+    const registerObj = { name, email, password };
+    const res = await axios
+      .post(`${BASEURL}${REGISTER}`,
+        registerObj);
+    return res;
   },
 };
