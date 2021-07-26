@@ -1,21 +1,23 @@
 const express = require('express');
 const loginController = require('../controllers/loginController');
-const userController = require('../controllers/userController');
-const customerController = require('../controllers/customerController');
+const registerController = require('../controllers/registerController');
+const productsController = require('../controllers/productsController');
 
 const loginRoute = express.Router();
-const userRoute = express.Router();
-const customerRoute = express.Router();
+const registerRoute = express.Router();
+const productsRoute = express.Router();
 
-loginRoute.get('/', loginController.login);
+loginRoute.post('/', loginController.login);
 
-userRoute.post('/', userController.createUser);
-userRoute.get('/', userController.getAllUsers);
-userRoute.get('/:id', userController.getByIdUser);
-userRoute.put('/:id', userController.updateByIdUser);
-userRoute.delete('/:id', userController.deleteByIdUser);
+registerRoute.post('/', registerController.createRegister);
+registerRoute.get('/', registerController.getAllRegisters);
+registerRoute.get('/:id', registerController.getByIdRegister);
+registerRoute.put('/:id', registerController.updateByIdRegister); // não é usado no projeto
+registerRoute.delete('/:id', registerController.deleteByIdRegister);
 
-customerRoute.get('/products', customerController.getAllProducts);
+productsRoute.get('/', productsController.getAll);
+// TODOmudar para a nossa rota padrão
+// TODO COLOCAR O md5 para funci
 
 // OrderRoute.post('/', OrderController.createOrder); // usado nos testes 4 
 // OrderRoute.get('/', OrderController.getAllOrders); // usadas nos testes 5 e 7
@@ -25,6 +27,10 @@ customerRoute.get('/products', customerController.getAllProducts);
 
 module.exports = {
   loginRoute,
-  userRoute,
-  customerRoute,
+  registerRoute,
+  productsRoute,
 };
+
+// register => login
+// user => register
+// customer => products

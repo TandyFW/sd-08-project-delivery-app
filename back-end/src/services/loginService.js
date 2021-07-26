@@ -1,26 +1,26 @@
-const userServices = require('./userService');
+const registerServices = require('./registerService');
 const createToken = require('../auth/createToken');
 const loginSchema = require('../schemas/loginSchema');
 const clientError = require('../utils/clientError');
 
-let dataUserDB = null;
+let dataloginDB = null;
 
-const login = async (dataForLogin) => {
-  const { error } = loginSchema.login.validate(dataForLogin);
+const login = async (dataForlogin) => {
+  const { error } = loginSchema.login.validate(dataForlogin);
   if (error) return clientError.badRequest(error.details[0].message);
 
   try {
-  const { dataValues } = await userServices.getByEmail(dataForLogin.email);
-  dataUserDB = dataValues;
+  const { dataValues } = await registerServices.getByEmail(dataForlogin.email);
+  dataloginDB = dataValues;
   } catch (err) {
-    return clientError.badRequest('User Not Registered');
+    return clientError.badRequest('User Not registered');
   }
   
-  if (dataUserDB.password !== dataForLogin.password) {
+  if (dataloginDB.password !== dataForlogin.password) {
     return clientError.badRequest('Email Our Password Invalid');
   }
   
-  const { name, email, id } = dataUserDB;
+  const { name, email, id } = dataloginDB;
    const token = await createToken({ name, email, id });
    return token;
 };

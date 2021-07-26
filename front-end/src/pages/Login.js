@@ -51,6 +51,7 @@ class Login extends React.Component {
             name="email"
             placeholder="Digite seu Email"
             onChange={ this.handleChange }
+            data-testid="user-input-email"
           />
           <span>Senha</span>
           <input
@@ -58,12 +59,14 @@ class Login extends React.Component {
             type="password"
             placeholder="Digite sua Senha"
             onChange={ this.handleChange }
+            data-testid="user-input-password"
           />
         </div>
         <div className="button-div">
           <button
             type="button"
             className="btn-login"
+            data-testid="user-button-login"
             disabled={ !email || !password }
           >
             Entrar
@@ -71,6 +74,7 @@ class Login extends React.Component {
           <button
             type="button"
             className="btn-create"
+            data-testid="user-button-register"
             onClick={ () => history.push('./register') }
           >
             Ainda não tenho conta

@@ -3,7 +3,7 @@ import axios from 'axios';
 const URL_BASE = 'http://localhost:3001';
 
 export async function getAllUsers() {
-  const users = await axios.get(`${URL_BASE}/users/get`)
+  const users = await axios.get(`${URL_BASE}/users`)
     .then((response) => response.data);
   return users;
 }
