@@ -34,7 +34,7 @@ function Login() {
       />
       <input
         type="password"
-        datatestid="common_login__input-password"
+        data-testid="common_login__input-password"
         placeholder="Senha"
         onChange={ (e) => setPassword(e.target.value) }
       />
