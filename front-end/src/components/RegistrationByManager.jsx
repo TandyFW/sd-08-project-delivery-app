@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { isValidUserForRegistration } from '../utils';
 import { request } from '../utils/request';
+import TransitionAlerts from './TransitionAlerts';
 // import AlertTransitionSlide from './AlertTransitionSlide';
 // import ContextProvider from '../context';
 
@@ -34,7 +35,7 @@ export default function RegistrationByManager() {
   const [password, setPassword] = useState('');
   const [isDisabled, setDisable] = useState(true);
   const [user, setUser] = useState({});
-  // const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   useEffect(() => {
     setDisable(!isValidUserForRegistration(name, email, password));
@@ -52,16 +53,22 @@ export default function RegistrationByManager() {
       password,
       role });
     setUser(userObj);
+    setOpen(true);
+  };
+
+  const handleAlert = (bool) => {
+    setOpen(bool);
   };
 
   const renderErrorMessage = () => {
     if ('message' in user) {
       return (
-        // <AlertTransitionSlide
-        //   title="Imposível cadastrar"
-        //   text="Usuário já existente"
-        // />
-        <h1 data-testid="admin_manage__element-invalid-register">{user.message}</h1>
+        <TransitionAlerts
+          message={ user.message }
+          handler={ handleAlert }
+          open={ open }
+        />
+        // <h1 data-testid="admin_manage__element-invalid-register">{user.message}</h1>
       );
     }
   };
@@ -114,7 +121,6 @@ export default function RegistrationByManager() {
         </Button>
       </form>
       {renderErrorMessage()}
-      {/* <AlertTransitionSlide title="Imposível cadastrar" text="Usuário já existente" /> */}
     </div>
   );
 }
