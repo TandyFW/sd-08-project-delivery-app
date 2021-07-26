@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './styles.css';
 import Error from '../../components/error';
@@ -16,6 +16,13 @@ function Login() {
     }
     return true;
   }
+
+  useEffect(() => {
+    if (data.token) {
+      history.push('/customer/products');
+    }
+  }, [data, history]);
+
   const handleSubmit = async () => {
     const myInit = {
       method: 'POST',
