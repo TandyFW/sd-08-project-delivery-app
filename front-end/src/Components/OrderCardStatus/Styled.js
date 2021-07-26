@@ -5,7 +5,7 @@ export default styled.p`
   background-color: yellow;
   border-radius: 10px;
   display: flex;
-  font-size: 24px;
+  font-size: 32px;
   font-weight: 700;
   height: 140px;
   justify-content: center;

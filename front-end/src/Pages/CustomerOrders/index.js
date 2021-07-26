@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import OrderCard from '../../Components/OrderCard';
+import api from '../../Apis/api1';
 
 const CustomerOrders = () => {
   const [orders, setOrders] = useState([]);
 
-  useEffect(() => {
-    axios.get('http://localhost:3001/sales').then((response) => setOrders(response.result));
-  }, []);
+  useEffect(() => api.getAllSales().then((response) => setOrders(response)), []);
 
   console.log(orders);
+
   return (
     <div>
-      <OrderCard id={ 1 } status="preparando" />
+      {orders.length
+        && orders.map((order) => <OrderCard key={ order.id } orderData={ order } />)}
     </div>
   );
 };

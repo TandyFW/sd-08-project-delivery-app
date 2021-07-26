@@ -1,7 +1,10 @@
-const baseUrl = 'bla';
+import axios from 'axios';
+
+const BASEURL = 'http://localhost:3001/';
+const SALES = 'sales';
 
 export default {
-  endpoint1: () => {
-
-  },
+  getAllSales: async () => axios
+    .get(`${BASEURL}${SALES}`)
+    .then((result) => result.data.response),
 };

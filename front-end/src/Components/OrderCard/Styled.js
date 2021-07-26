@@ -50,7 +50,7 @@ export const OrderDetailsInfo = styled.div`
   background-color: rgba(242, 255, 252, 0.75);
   border-radius: 10px;
   display: flex;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 700;
   height: 65px;
   justify-content: center;
