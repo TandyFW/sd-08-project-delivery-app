@@ -1,9 +1,8 @@
-
+const SalesServices = require('../services/Sales')
 
 const getAllSales = async (req, res) => {
-  console.log('oi');
-  // const response = await sales.findAll();
-  res.status(200).json({ response: 'oi!' });
+  const response = await SalesServices.getAllSales();
+  res.status(200).json({ response });
 };
 
 module.exports = {

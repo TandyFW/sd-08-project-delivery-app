@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-// const Products = require('../routes/products');
 
 const app = express();
 app.use(cors());
@@ -18,7 +17,7 @@ require('../sockets/socket')(io);
 
 const Sales = require('../database/routes/sales');
 
-// app.use('/products', Products);
+app.use(express.json());
 app.use('/sales', Sales);
 
 // app.get('/coffee', (_req, res) => res.status(418).end());

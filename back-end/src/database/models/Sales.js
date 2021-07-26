@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Sale = sequelize.define(
-    'Sale',
+    'sale',
     {
       user_id: DataTypes.INTEGER,
       seller_id: DataTypes.INTEGER,
@@ -15,11 +15,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
   Sale.associate = (models) => {
-    Sale.belongsTo(models.User, {
+    Sale.belongsTo(models.user, {
       foreignKey: 'user_id',
       as: 'userId',
     });
-    Sale.belongsTo(models.User, {
+    Sale.belongsTo(models.user, {
       foreignKey: 'seller_id',
       as: 'sellerId',
     });
