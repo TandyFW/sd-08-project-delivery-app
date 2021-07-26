@@ -4,7 +4,9 @@
 
 img {
   border-radius: 10px;
-  height: 300px;
+  display: block;
+  height: 240px;
+  margin: auto;
 }
 
 .title {
@@ -14,13 +16,13 @@ img {
   text-align: center;
 }
 
-form {
+.login-form {
   align-items: center;
   background-color: #abd1c6;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  height: 300px;
+  height: 320px;
   margin: auto;
   width: 400px;
 }
@@ -48,23 +50,37 @@ input {
   border: 2px solid #001e1d;
   border-radius: 5px;
   color: #001e1d;
+  cursor: pointer;
   font-family: Poppins , monospace;
   font-size: x-large;
   font-weight: 600;
-  height: 40px;
   margin-top: 15px;
-  width: 300px;
+  padding: 4px;
+  transition: 0.5s;
+  width: 340px;
 }
 
-.password-button {
+.login-button:hover {
+  background-color: #001e1d;
+  color: #f9bc60;
+}
+
+.register-button {
   background-color: #f9bc60;
   border: 2px solid #001e1d;
   border-radius: 5px;
   color: #001e1d;
+  cursor: pointer;
   font-family: Poppins , monospace;
   font-size: x-large;
   font-weight: 600;
-  height: 40px;
   margin-top: 15px;
-  width: 300px;
+  padding: 4px;
+  transition: 0.5s;
+  width: 340px;
+}
+
+.register-button:hover {
+  background-color: #001e1d;
+  color: #f9bc60;
 }
