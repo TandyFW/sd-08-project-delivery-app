@@ -1,5 +1,5 @@
 const Products = (sequelize, DataTypes) => {
-  const products = sequelize.defined("products", {
+  const products = sequelize.define("products", {
     name: {
       type: DataTypes.STRING,
       notNull: true,
