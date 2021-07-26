@@ -3,7 +3,7 @@ const express = require('express');
 
 const port = process.env.PORT || 3001;
 const app = require('./app');
-const routes = require('../database/router/routes');
+const routes = require('../api/router/routes');
 
 app.use(express.json());
 
