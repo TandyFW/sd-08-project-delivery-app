@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { TextField, Button } from '@material-ui/core/';
 import { LoginForm, LoginPage } from './styled';
 
-import { login } from '../../services/api';
+import { loginRequest } from '../../services/api';
 import { emailVerify, passwordVerify } from '../../services/validations';
 
 import LoginErrorMessage from '../../components/LoginErrorMessage';
@@ -19,10 +19,16 @@ const Login = ({ history }) => {
     password: ({ target }) => setPassword(target.value),
   };
 
+  const login = async () => {
+    const data = await loginRequest({ email, password }, setUsrNotFound, history);
+    console.log(data);
+    localStorage.setItem('user', JSON.stringify(data));
+  };
+
   return (
     <LoginPage>
       <div>
-        <p>LOGO, alguma mensagem, outra coisa</p>
+        <p>LOGO</p>
       </div>
       { usrNotFound && <LoginErrorMessage disableMessage={ setUsrNotFound } />}
       <LoginForm>
@@ -47,7 +53,7 @@ const Login = ({ history }) => {
           variant="contained"
           color="primary"
           data-testid="common_login__button-login"
-          onClick={ () => login({ email, password }, setUsrNotFound) }
+          onClick={ login }
           disabled={ !passwordVerify(password) || !emailVerify(email) }
         >
           LOGIN

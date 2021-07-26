@@ -5,5 +5,5 @@ export const emailVerify = (email) => (
 const MAX_LENGTH_PASSWORD = 6;
 
 export const passwordVerify = (password) => (
-  password.length === MAX_LENGTH_PASSWORD
+  password.length >= MAX_LENGTH_PASSWORD
 );
