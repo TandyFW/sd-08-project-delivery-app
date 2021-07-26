@@ -1,5 +1,7 @@
 import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import contextDelivery from '../context/Context';
+import loginApi from '../services/loginApi';
 
 function Register() {
   const {
@@ -25,6 +27,13 @@ function Register() {
     buttonAble();
   }, [email, password, name, setDisable]);
 
+  const history = useHistory();
+
+  function handleClick() {
+    loginApi(email, password, name);
+    history.push('/products');
+  }
+
   return (
     <fieldset>
       <input
@@ -49,6 +58,7 @@ function Register() {
         type="button"
         data-testid="common_register__button-register"
         disabled={ disable }
+        onClick={ handleClick }
       >
         CADASTRAR
       </button>

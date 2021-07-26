@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import contextDelivery from '../context/Context';
+import loginApi from '../services/loginApi';
 
 function Login() {
   const {
@@ -13,7 +14,6 @@ function Login() {
   } = useContext(contextDelivery);
 
   useEffect(() => {
-    console.log(email, password);
     function buttonAble() {
       const validEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
       const minOfCaracteres = 6;
@@ -23,6 +23,13 @@ function Login() {
     }
     buttonAble();
   }, [email, password, setDisable]);
+
+  const history = useHistory();
+
+  async function handleClick() {
+    loginApi(email, password);
+    if (localStorage.getItem('token')) history.push('/products');
+  }
 
   return (
     <fieldset>
@@ -42,6 +49,7 @@ function Login() {
         type="button"
         data-testid="common_login__button-login"
         disabled={ disable }
+        onClick={ handleClick }
       >
         LOGIN
       </button>
