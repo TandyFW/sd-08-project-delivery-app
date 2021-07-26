@@ -30,10 +30,10 @@ router.post('/register',
 
 router.get('/customer/products',
   tokenValidation,
-  productsController.getAllProducts);
+  productsController.getAll);
 
 router.get('/customer/products/:id',
   tokenValidation,
-  productsController.getProductById);
+  productsController.getById);
 
 module.exports = router;
