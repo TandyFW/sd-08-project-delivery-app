@@ -1,0 +1,65 @@
+#page-login {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items:center;
+    height: 810px;
+    width: 100%;
+    background: #1d6939;
+}
+
+#Image-logo {
+    height: 150px;
+    width: 150px;
+    border: red 1px dashed;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: rgb(153,164,34);
+    color: linear-gradient(
+        90deg, rgba(153,164,34,1) 46%,
+        rgba(236,255,0,1) 96%
+    );
+}
+
+#card-login {
+    background-color: #E5E5E5;
+    display: flex;
+    flex-flow: column wrap;
+    align-items:center;
+    height: 250px;
+    width: 240px;
+    border-radius: 5%;
+}
+
+form #legend-login {
+    margin-top: 20px;
+}
+
+form #Input-login {
+    width: 98%;
+    height: 20%;
+    margin-bottom: 15px;
+}
+
+form #Input-password {
+    width: 98%;
+    height: 20%;
+}
+
+#btn-login {
+    padding: 3% 30%;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    color: white;
+    background-color: green;
+    border-radius: 5%;
+}
+
+#btn-cadastro {
+    padding: 3% 7%;
+    color: green;
+    border: green 1px solid;
+    border-radius: 5%;
+}
