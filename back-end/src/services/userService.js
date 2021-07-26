@@ -27,14 +27,14 @@ const login = async (email, password) => {
     return userErrors.wrongPassword;
   }
   const token = await generateToken(email, user.role);
-  return token;
+  return { token, role: user.role };
 };
 
 const registerClient = async (name, email, password) => {
   const nameAlredyExists = await User.findOne({ where: { email } });
   const emailAlredyExists = await User.findOne({ where: { name } });
   console.log('name:', !(nameAlredyExists && emailAlredyExists));
-  if ((nameAlredyExists || emailAlredyExists)) return userErrors.emailOrNameAlreadyExists;
+  if (nameAlredyExists || emailAlredyExists) return userErrors.emailOrNameAlreadyExists;
   const passwordMd5 = md5(password);
   await User.create({ name, email, password: passwordMd5, role: 'customer' });
   const token = await generateToken(email, 'customer');
