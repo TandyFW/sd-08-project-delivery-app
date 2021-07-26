@@ -17,6 +17,14 @@ userRoute.delete('/:id', userController.deleteByIdUser);
 
 customerRoute.get('/products', customerController.getAllProducts);
 
+// OrderRoute.post('/', OrderController.createOrder); // usado nos testes 4 
+// OrderRoute.get('/', OrderController.getAllOrders); // usadas nos testes 5 e 7
+// OrderRoute.get('/:id', OrderController.getByIdOrder); // usada nos testes 6 e 8
+// OrderRoute.put('/:id', OrderController.updateByIdOrder); // usada nos testes 9 e 10
+// OrderRoute.delete('/:id', OrderController.deleteByIdOrder); // não é usada 
+
+
+
 module.exports = {
   loginRoute,
   userRoute,
