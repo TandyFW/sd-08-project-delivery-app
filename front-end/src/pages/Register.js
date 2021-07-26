@@ -35,7 +35,7 @@ function Register() {
       />
       <input
         type="text"
-        datatestid="common_register__input-email"
+        data-testid="common_register__input-email"
         placeholder="Email"
         onChange={ (e) => setEmail(e.target.value) }
       />
