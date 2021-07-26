@@ -11,6 +11,7 @@ const Routes = () => (
     <Route exact path="/">
       <Redirect to="/login" />
     </Route>
+    <Route path="/admin/manage" component={ Pages.AdminManage } />
   </Switch>
 );
 
