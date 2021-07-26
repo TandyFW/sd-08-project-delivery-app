@@ -1,4 +1,4 @@
-const { user } = require("../models");
+const { user } = require("../../database/models");
 const md5 = require("md5");
 const createUser = async ({ name, email, password }) => {
   try {

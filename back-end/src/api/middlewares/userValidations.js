@@ -1,5 +1,5 @@
 const { Op } = require("sequelize");
-const { user } = require("../models");
+const { user } = require("../../database/models");
 const { CONFLICT } = require("../services/statusCode");
 
 const findUserByNameOrEmail = async (req, res, next) => {
