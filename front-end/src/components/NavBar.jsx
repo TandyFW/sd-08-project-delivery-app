@@ -1,40 +1,65 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
-import { Button, IconButton, Tab, Tabs, Toolbar, Typography } from '@material-ui/core';
+import { Button, Tab, Tabs, Toolbar, Typography } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/styles';
+import { useLocation } from 'react-router';
 
-function NavBar() {
-  const headerButtons = [
-    {
-      label: 'PRODUTOS',
-      href: '/products'
-    },
-    {
-      label: 'MEUS PEDIDOS',
-      href: '/orders' 
-    },
-  ]
+// Model of prop to receive:
 
-  // const { headerButtons } = this.props;
+// const headerButtons = [
+//   {
+//     label: 'PRODUTOS',
+//     href: '/products',
+//   },
+//   {
+//     label: 'MEUS PEDIDOS',
+//     href: '/orders',
+//   },
+// ];
+
+//---------------------------
+
+const useStyles = makeStyles((theme) => (
+  {
+
+    root: {
+      flexGrow: 1,
+      marginLeft: theme.spacing(2),
+      marginRight: theme.spacing(2),
+    },
+
+  }));
+function NavBar(props) {
+  const { headerButtons } = props;
+  const location = useLocation();
+  const classes = useStyles();
+
   return (
-    <>
+    <div>
       <AppBar position="static">
         <Toolbar>
-          <Tabs indicatorColor="secondary" textColor="secondary">
+          <Tabs
+            indicatorColor="secondary"
+            // textColor="primary"
+            value={ location.pathname }
+          >
             {headerButtons.map(({ label, href }) => (
-              <Tab label={label} href={hreaf} />
+              <Tab label={ label } href={ href } key={ label } value={ href } />
             ))}
-            <Tab label="PRODUTOS" href="/login" />
-            <Tab label="MEUS PEDIDOS" href="/trash" />
           </Tabs>
-          <Typography>User</Typography>
-          <IconButton>
-            <Button size="large" variant="contained" color="secondary">Sair</Button>
-          </IconButton>
+          <Typography className={ classes.root } align="right">User</Typography>
+          <Button size="large" variant="contained" color="secondary">Sair</Button>
         </Toolbar>
       </AppBar>
-      <p>Barra</p>
-    </>
+    </div>
   );
 }
+
+NavBar.propTypes = {
+  headerButtons: PropTypes.arrayOf(
+    PropTypes.shape({}),
+  ).isRequired,
+};
 
 export default NavBar;
