@@ -18,14 +18,16 @@ const requestApi = async (route, method = 'GET', data, token) => {
     .then((response) => response.data);
 };
 
-export const login = (user, setUsrNotFound) => {
+export const loginRequest = (user, setUsrNotFound, history) => (
   requestApi('/login', 'POST', user)
-    .then(console.log)
+    .then((response) => {
+      history.push('/customer/products');
+      return response;
+    })
     .catch((err) => {
       setUsrNotFound(true);
       return err.response;
-    });
-};
+    }));
 
 export const register = (user) => {
   requestApi('/user', 'POST', user)

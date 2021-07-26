@@ -5,8 +5,8 @@ const LoginService = require('../services/loginService');
 
 const login = rescue(async (req, res) => {
   const { email, password } = req.body;
-  const token = await LoginService.login(email, password);
-  res.status(OK).json({ token });
+  const userData = await LoginService.login(email, password);
+  res.status(OK).json(userData);
 });
 
 module.exports = {
