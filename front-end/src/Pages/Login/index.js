@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { TextField, Button } from '@material-ui/core/';
-
-import { LoginForm, LoginPage, ErrorMessage } from './styled';
+import { LoginForm, LoginPage } from './styled';
 
 import { login } from '../../services/api';
-
 import { emailVerify, passwordVerify } from '../../services/validations';
+
+import LoginErrorMessage from '../../components/LoginErrorMessage';
 
 const Login = ({ history }) => {
   const [usrNotFound, setUsrNotFound] = useState(false);
@@ -24,19 +24,7 @@ const Login = ({ history }) => {
       <div>
         <p>LOGO, alguma mensagem, outra coisa</p>
       </div>
-      { usrNotFound && (
-        <ErrorMessage
-          data-testid="common_login__element-invalid-email"
-        >
-          <p>Usuário não cadastrado</p>
-          <button
-            type="button"
-            onClick={ () => setUsrNotFound(false) }
-          >
-            ok
-          </button>
-        </ErrorMessage>
-      )}
+      { usrNotFound && <LoginErrorMessage disableMessage={ setUsrNotFound } />}
       <LoginForm>
         <TextField
           label="Email"
