@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
+const fs = require('fs')
 
-const secret = '8onzeDelivery8';
+const secret = fs.readFileSync('jwt.evaluation.key');
 
 module.exports = (req, res, next) => {
 const userData = req.body;

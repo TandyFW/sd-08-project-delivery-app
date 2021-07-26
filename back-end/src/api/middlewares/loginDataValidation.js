@@ -1,22 +1,20 @@
-const md5 = require('md5');
-
-const { user } = require('../../database/models');
-// const { loginValidation } = require('../services/loginValidation');
-
-module.exports = async (req, res, next) => {
+module.exports = (req, res, next) => {
   const { email, password } = req.body;
+  const PASSWORD_MIN_LENGTH = 6;
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/i;
 
-  // const validation = loginValidation(email, password);
-  // if (validation) return res.status(validation.code).json({ message: validation.message });
-
-  const getUser = await user.findOne({
-    where: { email },
-  });
-  if (!getUser) return res.status(404).json({ message: 'User not found!' });
-  if (md5(password) !== getUser.password) {
-    return res.status(403).json({ message: 'Incorrect password!' });
+  if (!email) {
+    return res.status(400).send({ message: '"email" must not be emppty' });
   }
-  req.body.id = getUser.id;
+  if (!password) {
+    return res.status(400).send({ message: '"password" must not be empty' });
+  }
 
+  if (!emailRegex.test(email)) {
+    return res.status(400).send({ message: '"email" must be a valid email' });
+  }
+  if (password.length < PASSWORD_MIN_LENGTH) {
+    return res.status(400).send({ message: '"password" length must be 6 characters long' });
+  }
   next();
 };
