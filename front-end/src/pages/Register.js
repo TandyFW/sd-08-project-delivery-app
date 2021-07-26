@@ -29,7 +29,7 @@ function Register() {
     <fieldset>
       <input
         type="text"
-        datatestid="common_register__input-name"
+        data-testid="common_register__input-name"
         placeholder="Name"
         onChange={ (e) => setName(e.target.value) }
       />
