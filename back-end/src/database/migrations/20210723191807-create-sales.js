@@ -36,10 +36,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      sale_data: {
-        type: Sequelize.DATE,
-        allowNull: false,
-      },
       status: {
         type: Sequelize.STRING,
         allowNull: false,
