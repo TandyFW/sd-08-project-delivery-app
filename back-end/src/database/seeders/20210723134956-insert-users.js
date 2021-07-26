@@ -16,7 +16,7 @@ module.exports = {
       role: 'seller'
     },
     {
-      name: 'Zé Birita',
+      name: 'Cliente Zé Birita',
       email: 'zebirita@email.com',
       password: md5('$#zebirita#$'),
       role: 'customer'

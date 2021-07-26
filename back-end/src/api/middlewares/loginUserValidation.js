@@ -13,6 +13,8 @@ module.exports = async (req, res, next) => {
     return res.status(403).json({ message: 'Incorrect password!' });
   }
   req.body.id = getUser.id;
+  req.body.name = getUser.name;
+  req.body.role = getUser.role;
 
   next();
 };

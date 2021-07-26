@@ -17,6 +17,8 @@ module.exports = async (req, res, next) => {
   const createUser = await user.create({ name, email, password: md5(password), role: 'customer' });
 
   req.body.id = createUser.id;
+  req.body.name = createUser.name;
+  req.body.role = createUser.role;
 
   next();
 };
