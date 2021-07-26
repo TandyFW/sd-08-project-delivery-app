@@ -16,7 +16,6 @@ registerRoute.put('/:id', registerController.updateByIdRegister); // não é usa
 registerRoute.delete('/:id', registerController.deleteByIdRegister);
 
 productsRoute.get('/', productsController.getAll);
-// TODOmudar para a nossa rota padrão
 // TODO COLOCAR O md5 para funci
 
 // OrderRoute.post('/', OrderController.createOrder); // usado nos testes 4 
