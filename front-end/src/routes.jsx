@@ -12,6 +12,7 @@ const Routes = () => (
       <Redirect to="/login" />
     </Route>
     <Route path="/admin/manage" component={ Pages.AdminManage } />
+    <Route path="/customer/products" component={ Pages.Products } />
   </Switch>
 );
 
