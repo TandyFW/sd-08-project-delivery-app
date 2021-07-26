@@ -1,9 +1,12 @@
 const router = require("express").Router();
-const controller = require("../controllers/userController");
+const userController = require("../controllers/userController");
+const productController = require("../controllers/productController");
 const middlewares = require("../middlewares/userValidations");
 
-router.post("/login", controller.validUser);
-router.post("/users", middlewares.findUserByNameOrEmail,controller.addUser);
-router.get("/users", controller.getAllUsers);
+router.post("/login", userController.validUser);
+router.post("/users", middlewares.findUserByNameOrEmail, userController.addUser);
+router.get("/users", userController.getAllUsers);
+
+router.get('/products', productController.getAllProducts);
 
 module.exports = router;
