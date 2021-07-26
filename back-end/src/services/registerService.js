@@ -10,7 +10,7 @@ const create = async (dataForCreate) => {
   if (error) return clientError.badRequest(error.details[0].message);
 
   const { dataValues: { password: _, ...result } } = await user
-    .create(dataForCreate );
+    .create(dataForCreate);
   return result;
 };
 
