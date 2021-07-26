@@ -41,7 +41,7 @@ function Register() {
       />
       <input
         type="password"
-        datatestid="common_register__input-password"
+        data-testid="common_register__input-password"
         placeholder="Senha"
         onChange={ (e) => setPassword(e.target.value) }
       />
