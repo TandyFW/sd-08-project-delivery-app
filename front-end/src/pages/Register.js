@@ -47,7 +47,7 @@ function Register() {
       />
       <button
         type="button"
-        datatestid="common_register__button-register"
+        data-testid="common_register__button-register"
         disabled={ disable }
       >
         CADASTRAR
