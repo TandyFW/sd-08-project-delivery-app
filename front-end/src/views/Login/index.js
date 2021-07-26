@@ -56,7 +56,7 @@ function Login() {
           LOGIN
         </button>
         <button
-          datatest-id="common_login__button-register"
+          data-testid="common_login__button-register"
           type="button"
           onClick={ () => history.push('/register') }
         >
