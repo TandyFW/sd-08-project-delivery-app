@@ -70,7 +70,7 @@ export default function Register() {
         </label>
         <button
           type="submit"
-          // className="register-button"
+          className="register-button"
           data-testid="common_register__button-register"
           disabled={ isDisabled }
         >
