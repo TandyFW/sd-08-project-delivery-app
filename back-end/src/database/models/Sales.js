@@ -13,7 +13,7 @@ const Sales = (sequelize, DataTypes) => {
       notNull: true,
     },
     sale_date: {
-      type: DataTypes.DATETIME,
+      type: DataTypes.DATE,
       notNull: true,
     },
     status: {
