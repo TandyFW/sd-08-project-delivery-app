@@ -10,6 +10,10 @@ const options = {
   dialectOptions: {
     timezone: 'Z',
   },
+  define: {
+    underscored: true,
+    timestamps: false,
+  },
   logging: false,
 };
 
