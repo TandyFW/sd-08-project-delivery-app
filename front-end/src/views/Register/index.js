@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './styles.css';
+import { useHistory } from 'react-router-dom';
 import Error from '../../components/error';
 
 function Register() {
@@ -7,6 +8,7 @@ function Register() {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [data, setData] = useState('');
+  const history = useHistory();
   function checkInputs() {
     const PASSWORD_MIN_LENGTH = 6;
     const NAME_MIN_LENGTH = 12;
@@ -31,6 +33,11 @@ function Register() {
     const content = await rawResponse.json();
     return setData(content);
   };
+  useEffect(() => {
+    if (data.token) {
+      history.push('/customer/products');
+    }
+  }, [data, history]);
   return (
     <div className="main-wrapper">
       <h2>Cadastro</h2>
