@@ -12,7 +12,7 @@ ul {
 
 li {
   float: left;
-  font: 400 13.33px ARIAL, sans-serif;
+  font-size: 13.33px;
   text-align: center;
   text-decoration: none;
 }
