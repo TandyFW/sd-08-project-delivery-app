@@ -4,7 +4,7 @@ const clientError = require('../utils/clientError');
 // const md5 = require('md5');
 
 const create = async (dataForCreate) => {
-  const encoded = md5(dataForCreate.password);
+  // const encoded = md5(dataForCreate.password);
 
   const { error } = registerSchema.create.validate(dataForCreate);
   if (error) return clientError.badRequest(error.details[0].message);
