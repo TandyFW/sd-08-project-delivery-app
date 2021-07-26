@@ -5,10 +5,14 @@ const Navbar = ({ name }) => (
   <header>
     <nav>
       <ul>
-        <Link to="/customer/products"><li>Produtos</li></Link>
-        <Link to="/customer/orders"><li>Pedidos</li></Link>
-        <li>{ name }</li>
-        <li>Logout</li>
+        <Link to="/customer/products">
+          <li data-testid="customer_products__element-navbar-link-products">Produtos</li>
+        </Link>
+        <Link to="/customer/orders">
+          <li data-testid="customer_products__element-navbar-link-orders">Meus Pedidos</li>
+        </Link>
+        <li data-testid="customer_products__element-navbar-user-full-name">{ name || ""}</li>
+        <li data-testid="customer_products__element-navbar-link-logout">Sair</li>
       </ul>
     </nav>
   </header>

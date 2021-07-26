@@ -4,23 +4,23 @@ import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
 
 const CustomerProducts = (props) => {
-  // const [shouldRedirect, setShouldRedirect] = useState(false);
+  const [user, setUser] = useState({});
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    const { token } = JSON.parse(localStorage.getItem('user'));
-    // if (!token) { setShouldRedirect(true); }
+    const userData = JSON.parse(localStorage.getItem('user'));
+    setUser(user);
     axios.get('http://localhost:3001/customer/products', {
       headers: {
-        authorization: token,
+        authorization: userData.token,
       },
     })
       .then((response) => setProducts(response.data))
       .catch((error) => console.error(error));
-  }, []);
+  }, [user]);
   return (
     <>
-      <Navbar />
+      <Navbar name={ user.name } />
       { products.map((product) => <ProductCard key={ product.id } product />) }
     </>
   );
