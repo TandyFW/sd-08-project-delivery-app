@@ -1,4 +1,4 @@
-import { STORE_EMAIL } from '../actions';
+import { STORE_EMAIL } from '../actions/index.action';
 
 const INITIAL_STATE = {
   email: '',
