@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -28,12 +28,15 @@ const useStyles = makeStyles({
     marginBottom: 12,
     textAlign: 'center',
   },
-  image: {
+  input: {
+    width: 20,
+    textAlign: 'center',
   },
 });
 
 function ProductCard({ product }) {
   const classes = useStyles();
+  const [quantity, setQuantity] = useState(0);
 
   return (
     <Card className={ classes.root } variant="outlined">
@@ -65,11 +68,20 @@ function ProductCard({ product }) {
       <CardActions>
         <Button
           data-testid={ `customer_products__button-card-rm-item-${product.id}` }
+          onClick={ () => (quantity === 0 ? null : setQuantity(quantity - 1)) }
         >
           -
         </Button>
+        <input
+          type="text"
+          data-testid={ `customer_products__input-card-quantity-${product.id}` }
+          className={ classes.input }
+          value={ quantity }
+          readOnly
+        />
         <Button
           data-testid={ `customer_products__button-card-add-item-${product.id}` }
+          onClick={ () => setQuantity(quantity + 1) }
         >
           +
         </Button>
@@ -79,8 +91,11 @@ function ProductCard({ product }) {
 }
 
 ProductCard.propTypes = {
-  product: PropTypes.objectOf({
+  product: PropTypes.shape({
     name: PropTypes.string,
+    price: PropTypes.string,
+    id: PropTypes.number,
+    urlImage: PropTypes.string,
   }).isRequired,
 };
 

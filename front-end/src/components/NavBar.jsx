@@ -22,8 +22,6 @@ const NavBar = ({ screens, user }) => {
 
   const classes = useStyles();
 
-  console.log(screens);
-
   return (
     <div>
       <AppBar position="static">

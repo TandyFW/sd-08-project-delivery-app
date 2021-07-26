@@ -23,7 +23,6 @@ const ProductsList = () => {
       setProducts(result);
     };
     if (products.length === 0) getProducts();
-    console.log(products);
   }, [products]);
 
   return (
