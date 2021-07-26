@@ -53,7 +53,7 @@ export default function Login() {
         </label>
         <button
           type="submit"
-          // className="login-button"
+          className="login-button"
           data-testid="common_login__button-login"
           disabled={ isDisabled }
         >
