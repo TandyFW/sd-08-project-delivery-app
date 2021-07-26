@@ -3,7 +3,7 @@ const fs = require('fs');
 
 const secret = fs.readFileSync('jwt.evaluation.key');
 
-module.exports = (req, _res, next) => {
+module.exports = (req, res, next) => {
   const token = req.headers.authorization;
 
   if (!token) {
