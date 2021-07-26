@@ -3,6 +3,6 @@ const { registerByAdminController } = require('../controllers');
 
 const route = express.Router();
 
-route.post('/register/Admin', registerByAdminController.register);
+route.post('/admin', registerByAdminController.register);
 
 module.exports = route;
