@@ -4,7 +4,7 @@ const createToken = require('../auth/createToken');
 const loginSchema = require('../schemas/loginSchema');
 const clientError = require('../utils/clientError');
 
-let dataLoginDB  =  null;
+let dataLoginDB = null;
 const login = async (dataForLogin) => {
   const { error } = loginSchema.login.validate(dataForLogin);
   if (error) return clientError.badRequest(error.details[0].message);
