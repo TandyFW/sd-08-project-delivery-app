@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './styles.css';
+import Error from '../../components/error';
 
 function Register() {
   const [name, setName] = useState('');
@@ -30,7 +31,6 @@ function Register() {
     const content = await rawResponse.json();
     return setData(content);
   };
-  console.log(data);
   return (
     <div className="main-wrapper">
       <h2>Cadastro</h2>
@@ -61,6 +61,11 @@ function Register() {
         >
           CADASTRAR
         </button>
+        {data.message
+        && <Error
+          testid="common_register__element-invalid_register"
+          message={ data.message }
+        />}
       </div>
     </div>
   );
