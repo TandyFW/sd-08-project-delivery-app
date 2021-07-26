@@ -23,6 +23,7 @@ export default function TransitionAlerts({ message, handler, open }) {
     <div className={ classes.root }>
       <Collapse in={ open }>
         <Alert
+          inputProps={ { 'data-testid': 'admin_manage__element-invalid-register' } }
           severity="warning"
           action={
             <IconButton
