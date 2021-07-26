@@ -3,11 +3,8 @@ const createToken = require('../auth/createToken');
 const loginSchema = require('../schemas/loginSchema');
 const clientError = require('../utils/clientError');
 
-let dataLoginDB = null;
-
 const login = async (dataForLogin) => {
   const { error } = loginSchema.login.validate(dataForLogin);
-  console.log(dataForLogin);
   if (error) return clientError.badRequest(error.details[0].message);
 
   try {
@@ -29,3 +26,4 @@ const login = async (dataForLogin) => {
 module.exports = {
   login,
 };
+

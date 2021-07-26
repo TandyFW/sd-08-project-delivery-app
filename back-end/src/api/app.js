@@ -13,6 +13,6 @@ app.use('/products', productsRoute);
 // app.use('/order', orderRoute);
 app.use('/images', express.static(path.resolve(__dirname, '../../public/images')));
 app.use(handleError);
-app.all('*', (_req, res) => res.status(404).json({ message: 'Not Found' }));
+app.all('*', (_req, res) => console.log('cai aqui') || res.status(404).json({ message: 'Not Found' }) );
 
 module.exports = app;
