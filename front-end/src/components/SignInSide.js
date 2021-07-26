@@ -56,7 +56,7 @@ export default function SignInSide() {
           type="submit"
           size="lg"
           data-testid="common_login__button-login"
-          disabled={ isValidSubmit || loading }
+          disabled={ isValidSubmit }
         >
           Login
           { ' ' }
