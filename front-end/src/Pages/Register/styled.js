@@ -6,27 +6,23 @@ export const Container = styled.div`
   height: 100vh;
   justify-content: center;
 `;
+
 export const InnerContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 700px;
   width: 400px;
 `;
-export const ProfileImage = styled.img`
-  background: url(https://www.collinsdictionary.com/images/full/beer_123784216.jpg);
-  background-position: center;
-  background-size: 150px;
-  border: 2px dashed black;
-  cursor: pointer;
-  height: 150px;
-  transition: 0.2s ease all;
-  width: 150px;
-  &:hover {
-    opacity: 0.5;
-  }
+
+export const ContainerForm = styled.div`
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  width: 100%;
 `;
-export const AppName = styled.h1``;
-export const AreaImage = styled.div`
+
+export const AreaTitle = styled.div`
   align-items: center;
   border-bottom: 1px solid black;
   display: flex;
@@ -35,12 +31,8 @@ export const AreaImage = styled.div`
   justify-content: center;
   width: 100%;
 `;
-export const ContainerForm = styled.div`
-  align-items: center;
-  display: flex;
-  flex: 1;
-  justify-content: center;
-  width: 100%;
+export const CadastroTitle = styled.h1`
+  text-align: center;
 `;
 export const FormContainer = styled.form`
   align-items: center;
@@ -51,11 +43,18 @@ export const FormContainer = styled.form`
   justify-content: center;
   width: 80%;
 `;
+
+export const NameInput = styled.input`
+  padding: 10px;
+  border-radius: 5px;
+  outline: none;
+  margin-bottom: 15px;
+`;
 export const LoginInput = styled.input`
   border-radius: 5px;
+  padding: 10px;
   margin-bottom: 15px;
   outline: none;
-  padding: 10px;
 `;
 export const PasswordInput = styled.input`
   border-radius: 5px;
@@ -63,6 +62,7 @@ export const PasswordInput = styled.input`
   outline: none;
   padding: 10px;
 `;
+
 export const SubmitButton = styled.button`
   background-color: green;
   border: none;
@@ -70,45 +70,34 @@ export const SubmitButton = styled.button`
   color: white;
   cursor: pointer;
   font-size: 15px;
-  font-weight: bold;
+  font-weight: 700;
   margin-bottom: 15px;
   outline: none;
   padding: 10px;
   transition: 0.2s ease all;
   width: 200px;
+
   &:hover {
     background-color: white;
     color: green;
   }
 `;
-export const RegisterButton = styled.button`
-  background-color: white;
-  border: 1px solid green;
-  border-radius: 5px;
-  color: green;
-  cursor: pointer;
+
+export const NameLabel = styled.label`
   font-size: 15px;
-  font-weight: bold;
-  margin-bottom: 15px;
-  outline: none;
-  padding: 10px;
-  transition: all ease 0.5s;
-  width: 200px;
-  &:hover {
-    background-color: green;
-    color: white;
-  }
+  font-weight: 700;
+  margin-bottom: 7px;
+  margin-right: 150px;
 `;
-export const LoginLabel = styled.label`
+export const EmailLabel = styled.label`
   font-size: 15px;
-  font-weight: bold;
+  font-weight: 700;
   margin-bottom: 7px;
   margin-right: 150px;
 `;
 export const PassLabel = styled.label`
   font-size: 15px;
-  font-weight: bold;
+  font-weight: 700;
   margin-bottom: 7px;
   margin-right: 120px;
 `;
-export const InvalidBox = styled.div``;
