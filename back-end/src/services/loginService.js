@@ -11,7 +11,12 @@ const login = async (email, password) => {
   const user = await User.findOne({ where: { email, password: passwordMd5 } });
   if (!user) throw notFound('User not found');
   const token = generateToken(email);
-  return token;
+  delete user.dataValues.password;
+  // const { password: pass, ...userData } = user.dataValues;
+  return {
+    ...user.dataValues,
+    token,
+  };
 };
 
 module.exports = {

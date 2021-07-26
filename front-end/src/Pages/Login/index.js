@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { TextField, Button } from '@material-ui/core/';
-
 import { LoginForm, LoginPage } from './styled';
 
+import { loginRequest } from '../../services/api';
+import { emailVerify, passwordVerify } from '../../services/validations';
+
+import LoginErrorMessage from '../../components/LoginErrorMessage';
+
 const Login = ({ history }) => {
+  const [usrNotFound, setUsrNotFound] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -14,29 +19,42 @@ const Login = ({ history }) => {
     password: ({ target }) => setPassword(target.value),
   };
 
+  const login = async () => {
+    const data = await loginRequest({ email, password }, setUsrNotFound, history);
+    console.log(data);
+    localStorage.setItem('user', JSON.stringify(data));
+  };
+
   return (
     <LoginPage>
       <div>
-        <p>LOGO, alguma mensagem, outra coisa</p>
+        <p>LOGO</p>
       </div>
+      { usrNotFound && <LoginErrorMessage disableMessage={ setUsrNotFound } />}
       <LoginForm>
         <TextField
           label="Email"
           value={ email }
           onChange={ handleChange.email }
-          data-testid='common_login__input-email'
+          inputProps={ {
+            'data-testid': 'common_login__input-email',
+          } }
         />
         <TextField
           type="password"
           label="Senha"
           value={ password }
           onChange={ handleChange.password }
-          data-testid='common_login__input-password'
+          inputProps={ {
+            'data-testid': 'common_login__input-password',
+          } }
         />
         <Button
           variant="contained"
           color="primary"
-          data-testid='common_login__button-login'
+          data-testid="common_login__button-login"
+          onClick={ login }
+          disabled={ !passwordVerify(password) || !emailVerify(email) }
         >
           LOGIN
         </Button>
@@ -44,7 +62,7 @@ const Login = ({ history }) => {
           variant="contained"
           color="secondary"
           onClick={ () => history.push('/register') }
-          data-testid='common_login__button-register'
+          data-testid="common_login__button-register"
         >
           AINDA NÃO TENHO CONTA
         </Button>
