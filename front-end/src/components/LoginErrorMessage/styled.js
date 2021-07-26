@@ -11,7 +11,8 @@ const ErrorMessage = styled.div`align-items: center;
   z-index: 1;
 
   div {
-    background: linear-gradient(rgb(200, 200, 200), rgb(240, 240, 240));
+    background: linear-gradient(rgb(195, 220, 210), white);
+    border: 1px solid ${({ theme }) => theme.colors.primary};
     border-radius: 6px;
     display: flex;
     flex-direction: column;
