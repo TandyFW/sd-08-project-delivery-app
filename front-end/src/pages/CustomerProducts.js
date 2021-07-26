@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
+import ProductCard from '../components/ProductCard';
 
 const CustomerProducts = (props) => {
   // const [shouldRedirect, setShouldRedirect] = useState(false);
@@ -18,8 +19,10 @@ const CustomerProducts = (props) => {
       .catch((error) => console.error(error));
   }, []);
   return (
-    <Navbar />
-
+    <>
+      <Navbar />
+      { products.map((product) => <ProductCard key={ product.id } product />) }
+    </>
   );
 };
 
