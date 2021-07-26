@@ -28,11 +28,11 @@ router.post('/register',
   tokenGeneration,
   registerController.userRegister);
 
-router.get('/client/products',
+router.get('/customer/products',
   tokenValidation,
   productsController.getAllProducts);
 
-router.get('/client/products/:id',
+router.get('/customer/products/:id',
   tokenValidation,
   productsController.getProductById);
 
