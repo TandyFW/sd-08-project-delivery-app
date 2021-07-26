@@ -79,7 +79,12 @@ export default function SignInSide() {
           Ainda não tenho conta
         </Button>
       </div>
-      <span>{ loginError }</span>
+      <span
+        className={ loginError ? 'visible' : 'invisible' }
+        data-testid="common_login__element-invalid-email"
+      >
+        { loginError }
+      </span>
     </Form>
   );
 }

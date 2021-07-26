@@ -6,6 +6,6 @@ exports.login = async (req, res) => {
       const access = await sessionsUseCase.auth({ email, password });
       res.status(200).json(access);
     } catch (error) {
-      return res.status(401).json(error.responseError());
+      return res.status(error.statusCode).json(error.responseError());
     }
 };

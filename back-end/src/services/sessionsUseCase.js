@@ -10,20 +10,21 @@ const HandleError = require('../utils/handleError');
 
 exports.auth = async ({ email, password }) => {
   const [user] = await users.findAll({
-    where: {
-      email: { [Op.eq]: email },
-    },
+    where: { email: { [Op.eq]: email } },
   });
-  if (!user || md5(password) !== user.password) {
+  if (!user) {
     throw new HandleError(
-      'Invalid fields email or password', 
-      StatusCodes.UNAUTHORIZED,
-      getReasonPhrase(StatusCodes.UNAUTHORIZED),
+      'Not found', StatusCodes.NOT_FOUND,
+      getReasonPhrase(StatusCodes.NOT_FOUND),
     );
   }
-  const token = await signToken({ user: {
-    id: user.id,
-    role: user.role,
-  } });
+  if (md5(password) !== user.password) {
+    throw new HandleError(
+      'Invalid fields email or password', 
+      StatusCodes.BAD_REQUEST,
+      getReasonPhrase(StatusCodes.BAD_REQUEST),
+    );
+  }
+  const token = await signToken({ user: { id: user.id, role: user.role } });
   return { token };
 };
