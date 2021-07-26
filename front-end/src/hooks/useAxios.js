@@ -18,7 +18,7 @@ const useAxios = () => {
       setResponse(result);
       setLoading(false);
     } catch (err) {
-      setLoginError(JSON.parse(err.request.response).err.message);
+      setLoginError(err.request.response);
       setLoading(false);
     }
   }, []);

@@ -1,5 +1,4 @@
 import React, { createContext } from 'react';
-// import axios from 'axios';
 import PropTypes from 'prop-types';
 import { API_LOGIN_URL } from '../service/backendApi';
 import useAxios from '../hooks/useAxios';
@@ -19,7 +18,9 @@ export function LoginProvider({ children }) {
       method: 'post', url: API_LOGIN_URL, data: { email, password },
     };
     await request(options);
+    if (response) console.log('pag products');
   };
+  console.log(response, loginError);
 
   const provide = {
     values: {
