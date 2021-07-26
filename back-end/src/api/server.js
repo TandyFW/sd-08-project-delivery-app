@@ -5,7 +5,9 @@ const app = require('./app');
 const routes = require('../database/router/routes');
 
 app.use(express.json());
+
 app.use(cors());
+
 
 app.use('/delivery', routes);
 
