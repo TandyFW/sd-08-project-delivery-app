@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { TextField, Button } from '@material-ui/core/';
-
 import { RegisterPage, RegisterForm } from './styled';
+
+import { register } from '../../services/api';
 
 const Register = ({ history }) => {
   const [name, setName] = useState('');
@@ -25,22 +26,33 @@ const Register = ({ history }) => {
         <TextField
           label="Nome"
           value={ name }
-          onChange={ handleChange.email }
+          onChange={ handleChange.name }
+          inputProps={ {
+            'data-testid': 'common_register__input-name',
+          } }
         />
         <TextField
           label="Email"
           value={ email }
           onChange={ handleChange.email }
+          inputProps={ {
+            'data-testid': 'common_register__input-email',
+          } }
         />
         <TextField
           type="password"
           label="Senha"
           value={ password }
           onChange={ handleChange.password }
+          inputProps={ {
+            'data-testid': 'common_register__input-password',
+          } }
         />
         <Button
           variant="contained"
           color="primary"
+          data-testid="common_register__button-register"
+          onClick={ () => register({ name, password, email }) }
         >
           CADASTRAR
         </Button>

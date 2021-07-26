@@ -1,7 +1,9 @@
-export const emailVeryfy = (email) => (
-  /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i.test(email)
+export const emailVerify = (email) => (
+  /^[a-z0-9._]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i.test(email)
 );
 
-const MIN_LENGTH_PASSWORD = 5;
+const MAX_LENGTH_PASSWORD = 6;
 
-export const passwordVeryfy = (password) => password.length > MIN_LENGTH_PASSWORD;
+export const passwordVerify = (password) => (
+  password.length === MAX_LENGTH_PASSWORD
+);
