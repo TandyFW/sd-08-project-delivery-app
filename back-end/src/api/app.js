@@ -1,18 +1,15 @@
+require('dotenv').config();
 const express = require('express');
-const bodyparser = require('body-parser');
 const cors = require('cors');
+const { Users } = require('../database/models');
 const md5 = require('md5');
-const Sequelize = require('sequelize');
-const { Op } = Sequelize;
-const { Sales, Products, Users } = require('../database/models');
+const sessionsRouter = require('../routes/sessionsRouter');
 
 const app = express();
 
-app.use(bodyparser.urlencoded({ extended: false }));
-app.use(bodyparser.json());
 app.use(cors());
 app.use(express.json());
-
+app.use('/login', sessionsRouter);
 app.get('/coffee', (_req, res) => res.status(418).end());
 
 app.post('/register', async (req, res) => {

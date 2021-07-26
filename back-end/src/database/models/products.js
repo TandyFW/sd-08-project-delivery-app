@@ -1,5 +1,5 @@
-const Product = (sequelize, DataTypes) => {
-  const Products = sequelize.define('Products', {
+const product = (sequelize, DataTypes) => {
+  const products = sequelize.define('products', {
     name: DataTypes.STRING,
     price: DataTypes.DECIMAL,
     url_image: DataTypes.STRING,
@@ -7,7 +7,7 @@ const Product = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
-  return Products;
+  return products;
 };
 
-module.exports = Product;
+module.exports = product;
