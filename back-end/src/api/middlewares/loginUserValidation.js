@@ -1,20 +1,19 @@
 const md5 = require('md5');
 
-const { user } = require('../../database/models');
+const { getUser } = require('../services');
 
 module.exports = async (req, res, next) => {
   const { email, password } = req.body;
 
-  const getUser = await user.findOne({
-    where: { email },
-  });
-  if (!getUser) return res.status(404).json({ message: 'User not found!' });
-  if (md5(password) !== getUser.password) {
+  const validUser = await getUser(email);
+
+  if (!validUser) return res.status(404).json({ message: 'User not found!' });
+  if (md5(password) !== validUser.password) {
     return res.status(403).json({ message: 'Incorrect password!' });
   }
-  req.body.id = getUser.id;
-  req.body.name = getUser.name;
-  req.body.role = getUser.role;
+  req.body.id = validUser.id;
+  req.body.name = validUser.name;
+  req.body.role = validUser.role;
 
   next();
 };
