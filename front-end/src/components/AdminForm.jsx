@@ -57,7 +57,7 @@ function AdminForm() {
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
-        value="role"
+        value={ select }
         datatest-id="admin_manage__select-role"
         onChange={ ({ target }) => setSelect(target.value) }
       >
