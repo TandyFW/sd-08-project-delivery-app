@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './styles.css';
+import Error from '../../components/error';
 
 function Login() {
   const [password, setPassword] = useState('');
@@ -28,7 +29,6 @@ function Login() {
     const content = await rawResponse.json();
     return setData(content);
   };
-  console.log(data);
   return (
     <div className="main-wrapper">
       <h2>ONzé Delivery</h2>
@@ -62,6 +62,11 @@ function Login() {
         >
           Ainda não tenho conta
         </button>
+        {data.message
+        && <Error
+          testid="common_login__element-invalid-email"
+          message={ data.message }
+        />}
       </div>
     </div>
   );
