@@ -48,7 +48,7 @@ function Login() {
       <Link to="/register">
         <button
           type="button"
-          datatestid="common_login__button-register"
+          data-testid="common_login__button-register"
         >
           Ainda não tenho conta
         </button>
