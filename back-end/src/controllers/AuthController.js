@@ -5,6 +5,7 @@ module.export = async (req, res) => {
     return res.status(403).json({ message: 'Token not found' });
   }
   try {
+    const secret = fs.readFileSync('./jwt.evaluation.key', 'utf-8');
     const decoded = jwt.verify(token, secret);
     const user = await User.findOne({ where: { email: decoded.data.email } });
     if (!user) {
