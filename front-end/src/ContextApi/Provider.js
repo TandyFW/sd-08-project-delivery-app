@@ -1,28 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import myContext from './CreateContext';
 
 function Provider({ children }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [disabled, setDisabled] = useState(true);
-
-  const handleEmail = ({ target: { value } }) => {
-    setEmail(value);
-  };
-
-  const handlePassword = ({ target: { value } }) => {
-    setPassword(value);
-  };
-
-  const value = {
-    email,
-    handleEmail,
-    password,
-    handlePassword,
-    disabled,
-    setDisabled,
-  };
+  const value = {  };
 
   return (
     <myContext.Provider value={ value }>

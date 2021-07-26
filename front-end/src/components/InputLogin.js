@@ -1,16 +1,19 @@
-import React, { useContext, useEffect } from 'react';
-import myContext from '../ContextApi/CreateContext';
+import React, { useEffect } from 'react';
 import '../cssPages/cssLogin/login.css';
 
 export default function InputLogin() {
-  const {
-    handleEmail,
-    email,
-    handlePassword,
-    password,
-    disabled,
-    setDisabled,
-  } = useContext(myContext);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [disabled, setDisabled] = useState(true);
+
+  const handleEmail = ({ target: { value } }) => {
+    setEmail(value);
+  };
+
+  const handlePassword = ({ target: { value } }) => {
+    setPassword(value);
+  };
+
 
   useEffect(() => {
     const NUMBER_SIX = 6;
