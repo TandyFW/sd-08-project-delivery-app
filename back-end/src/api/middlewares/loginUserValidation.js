@@ -1,13 +1,9 @@
 const md5 = require('md5');
 
 const { user } = require('../../database/models');
-// const { loginValidation } = require('../services/loginValidation');
 
 module.exports = async (req, res, next) => {
   const { email, password } = req.body;
-
-  // const validation = loginValidation(email, password);
-  // if (validation) return res.status(validation.code).json({ message: validation.message });
 
   const getUser = await user.findOne({
     where: { email },

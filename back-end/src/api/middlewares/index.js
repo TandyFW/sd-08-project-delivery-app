@@ -1,5 +1,13 @@
 const loginUserValidation = require('./loginUserValidation');
-const loginDataValidation = require('./loginDataValidation');
+const emailPasswordDataValidation = require('./emailPasswordDataValidation');
 const tokenGeneration = require('./tokenGeneration');
+const userNameDataValidation = require('./userNameDataValidation');
+const registerUserValidation = require('./registerUserValidation');
 
-module.exports = { loginUserValidation, loginDataValidation, tokenGeneration };
+module.exports = {
+  loginUserValidation,
+  emailPasswordDataValidation,
+  tokenGeneration,
+  userNameDataValidation,
+  registerUserValidation,
+};

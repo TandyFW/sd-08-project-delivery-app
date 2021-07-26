@@ -1,16 +1,33 @@
 const router = require('express').Router();
 
-const loginController = require('./controllers/loginController');
+const {
+  loginController,
+  registerController,
+} = require('./controllers');
 
-const { loginDataValidation, loginUserValidation, tokenGeneration } = require('./middlewares');
 
-router.post('/login',
-  loginDataValidation,
+const {
+  emailPasswordDataValidation,
   loginUserValidation,
   tokenGeneration,
-  loginController.userLogin);
+  userNameDataValidation,
+  registerUserValidation,
+} = require('./middlewares');
 
-router.post('/register',);
+router.post('/login',
+  emailPasswordDataValidation,
+  loginUserValidation,
+  tokenGeneration,
+  loginController.userLogin
+);
+
+router.post('/register',
+  emailPasswordDataValidation,
+  userNameDataValidation,
+  registerUserValidation,
+  tokenGeneration,
+  registerController.userRegister
+);
 
 
 module.exports = router;
