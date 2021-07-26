@@ -1,8 +1,11 @@
 import React from 'react';
+import AdminForm from '../../components/AdminForm';
 
 function Management() {
   return (
-    <div><p>Management</p></div>
+    <div>
+      <AdminForm />
+    </div>
   );
 }
 
