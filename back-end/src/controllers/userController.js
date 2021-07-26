@@ -1,11 +1,18 @@
 const rescue = require('express-rescue');
 const userService = require('../services/userService');
 
+const PATHS = {
+  administrator: '',
+  seller: '',
+  customer: 'customer/products',
+};
+
 const login = rescue(async (req, res, next) => {
   const { email, password } = req.body;
-  const user = await userService.login(email, password);
-  if (user.err) return next(user);
-  res.status(200).json(user);
+  const { err, token, role } = await userService.login(email, password);
+  if (err) return next({ err });
+  const path = PATHS[role];
+  return res.status(200).json({ token, path });
 });
 
 const registerClient = rescue(async (req, res, next) => {
