@@ -40,7 +40,7 @@ function Login() {
       />
       <button
         type="button"
-        datatestid="common_login__button-login"
+        data-testid="common_login__button-login"
         disabled={ disable }
       >
         LOGIN
