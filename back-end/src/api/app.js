@@ -16,9 +16,12 @@ const io = require('socket.io')(http, {
 
 require('../sockets/socket')(io);
 
-// app.use('/products', Products);
+const Sales = require('../database/routes/sales');
 
-app.get('/coffee', (_req, res) => res.status(418).end());
+// app.use('/products', Products);
+app.use('/sales', Sales);
+
+// app.get('/coffee', (_req, res) => res.status(418).end());
 
 const PORT = process.env.SOCKET_PORT || 3002;
 http.listen(PORT, () => console.log(`Socket na porta ${PORT}`));

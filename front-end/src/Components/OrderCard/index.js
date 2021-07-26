@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SellerCardOrderStatus from '../SellerCardOrderStatus';
+import OrderCardStatus from '../OrderCardStatus';
 import {
   OrderAddress,
   OrderContainer,
@@ -18,7 +18,7 @@ const renderAddress = (id) => (
   </OrderAddress>
 );
 
-const SellerCardOrder = ({ id, status, isSeller }) => {
+const OrderCard = ({ id, status, isSeller }) => {
   const TARGET_LENGTH = 4;
   return (
     <OrderContainer>
@@ -30,7 +30,7 @@ const SellerCardOrder = ({ id, status, isSeller }) => {
       </OrderIdContainer>
       <OrderGeneral>
         <OrderData>
-          <SellerCardOrderStatus
+          <OrderCardStatus
             data-testid={ `seller_orders__element-delivery-status-${id}` }
             status={ status }
             id={ id }
@@ -50,14 +50,14 @@ const SellerCardOrder = ({ id, status, isSeller }) => {
   );
 };
 
-export default SellerCardOrder;
+export default OrderCard;
 
-SellerCardOrder.propTypes = {
+OrderCard.propTypes = {
   id: PropTypes.number.isRequired,
   status: PropTypes.string.isRequired,
   isSeller: PropTypes.bool,
 };
 
-SellerCardOrder.defaultProps = {
+OrderCard.defaultProps = {
   isSeller: false,
 };
