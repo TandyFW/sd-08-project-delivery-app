@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import './styles.css';
 
-function Login() {
+function Register() {
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [data, setData] = useState('');
-  const history = useHistory();
   function checkInputs() {
     const PASSWORD_MIN_LENGTH = 6;
+    const NAME_MIN_LENGTH = 12;
     const re = /.+@[A-z]+[.]com/;
-    if (password.length >= PASSWORD_MIN_LENGTH && re.test(email)) {
+    if (name.length >= NAME_MIN_LENGTH
+      && password.length >= PASSWORD_MIN_LENGTH
+      && re.test(email)) {
       return false;
     }
     return true;
@@ -22,49 +24,46 @@ function Login() {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ name, email, password }),
     };
-    const rawResponse = await fetch('http://localhost:3001/login', myInit);
+    const rawResponse = await fetch('http://localhost:3001/register', myInit);
     const content = await rawResponse.json();
     return setData(content);
   };
   console.log(data);
   return (
     <div className="main-wrapper">
-      <h2>ONzé Delivery</h2>
+      <h2>Cadastro</h2>
       <div className="content">
         <input
+          data-testid="common_register__input-name"
+          type="text"
+          placeholder="Seu Nome"
+          onChange={ (e) => setName(e.target.value) }
+        />
+        <input
+          data-testid="common_register__input-email"
           type="email"
-          value={ email }
-          placeholder="digite seu e-mail..."
-          data-testid="common_login__input-email"
+          placeholder="seu-email@teste.com.br"
           onChange={ (e) => setEmail(e.target.value) }
         />
         <input
-          value={ password }
+          data-testid="common_register__input-password"
           type="password"
-          placeholder="digite sua senha..."
-          data-testid="common_login__input-password"
+          placeholder="******"
           onChange={ (e) => setPassword(e.target.value) }
         />
         <button
-          data-testid="common_login__button-login"
+          data-testid="common_register__button-register"
           type="submit"
           disabled={ checkInputs() }
           onClick={ handleSubmit }
         >
-          LOGIN
-        </button>
-        <button
-          datatest-id="common_login__button-register"
-          type="button"
-          onClick={ () => history.push('/register') }
-        >
-          Ainda não tenho conta
+          CADASTRAR
         </button>
       </div>
     </div>
   );
 }
 
-export default Login;
+export default Register;
