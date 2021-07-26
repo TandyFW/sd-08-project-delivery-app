@@ -1,7 +1,7 @@
 const registerSchema = require('../schemas/registerSchema');
 const { user } = require('../database/models');
 const clientError = require('../utils/clientError');
-const md5 = require('md5');
+// const md5 = require('md5');
 
 const create = async (dataForCreate) => {
   const encoded = md5(dataForCreate.password);
