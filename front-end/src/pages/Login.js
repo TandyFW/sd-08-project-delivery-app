@@ -1,8 +1,12 @@
 import React from 'react';
+import { Container } from 'react-bootstrap';
+import SignUpSide from '../components/SignInSide';
 
 function Login() {
   return (
-    <div>Alow</div>
+    <Container>
+      <SignUpSide />
+    </Container>
   );
 }
 
