@@ -91,7 +91,7 @@ export default function Login() {
           />
         </label>
         <button
-          type="submit"
+          type="button"
           className="login-button"
           data-testid="common_login__button-login"
           disabled={ isDisabled }
@@ -101,7 +101,7 @@ export default function Login() {
         </button>
         <Link to="/register">
           <button
-            type="submit"
+            type="button"
             className="register-button"
             data-testid="common_login__button-register"
           >
