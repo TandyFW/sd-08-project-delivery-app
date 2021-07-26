@@ -28,7 +28,7 @@ function Login() {
     <fieldset>
       <input
         type="text"
-        datatestid="common_login__input-email"
+        data-testid="common_login__input-email"
         placeholder="Email"
         onChange={ (e) => setEmail(e.target.value) }
       />
