@@ -1,4 +1,5 @@
 import React, { createContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { API_LOGIN_URL } from '../service/backendApi';
 import useAxios from '../hooks/useAxios';
@@ -20,7 +21,11 @@ export function LoginProvider({ children }) {
     await request(options);
     if (response) console.log('pag products');
   };
-  console.log(response, loginError);
+
+  const history = useHistory();
+  if (response) {
+    history.push('/customer/products');
+  }
 
   const provide = {
     values: {
