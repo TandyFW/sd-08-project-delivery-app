@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import NavBar from './styled';
 
-const Header = ({ dinamicButtons }) => (
+const Header = ({ dinamicButtons = [] }) => (
   <NavBar>
     <nav>
       {/* renderiza dinamicamente a quantidade de Links que passarmos por props */}
