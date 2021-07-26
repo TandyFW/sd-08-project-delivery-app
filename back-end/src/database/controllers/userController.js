@@ -1,5 +1,5 @@
 const { userService, createUser, getUsers } = require('../services/validUser');
-const { CREATED, BAD_REQUEST } = require('../services/statusCode');
+const { CREATED, BAD_REQUEST, CONFLICT, OK } = require('../services/statusCode');
 
 const validUser = async (req, res) => {
   try {
@@ -15,13 +15,13 @@ const validUser = async (req, res) => {
 
 const addUser = async (req, res) => {
   const newUser = await createUser(req.body);
-  if (newUser.error) return res.status(BAD_REQUEST).json({ message: newUser.error.message });
-  return res.status(CREATED).json({ user: newUser, response: true });
+  if (newUser.message) return res.status(BAD_REQUEST).json({ message: newUser.error.message });
+  return res.status(CREATED).json(newUser);
 };
 
 const getAllUsers = async (_req, res) => {
   const users = await getUsers();
-  res.status(CREATED).json(users);
+  res.status(OK).json(users);
 };
 
 module.exports = {
