@@ -10,6 +10,7 @@ export default function FormLogin() {
   const [encryptPassword, setEncryptPassword] = useState('');
   const [showMessage, setShowMessage] = useState(false);
   const [redirect, setRedirect] = useState(false);
+  const [URL, setURL] = useState('');
 
   const validation = () => {
     const emailInput = document.querySelector('#login-email');
@@ -31,6 +32,16 @@ export default function FormLogin() {
     const user = await fetchUser(currentEmail, encryptPassword);
     if (user) {
       setShowMessage(false);
+      switch (user) {
+      case customer:
+        return setURL('/customer/products');
+      case seller:
+        return setURL('/seller/products');
+      case admin:
+        return setURL('/admin/manage');
+      default:
+        break;
+      }
       setRedirect(true);
     }
     setShowMessage(true);
@@ -92,7 +103,7 @@ export default function FormLogin() {
           >
             Usuário não encontrado.
           </p>)}
-      {redirect && <Redirect to="/customer/products" />}
+      {redirect && <Redirect to={ URL } />}
     </>
   );
 }
