@@ -1,9 +1,9 @@
-const { user } = require("../../database/models");
-const md5 = require("md5");
+const md5 = require('md5');
+const { user } = require('../../database/models');
 
 const createUser = async ({ name, email, password }) => {
   try {
-    const newUser = { name, email, password: md5(password), role: "customer" };
+    const newUser = { name, email, password: md5(password), role: 'customer' };
     const registredUser = await user.create(newUser);
     return registredUser;
   } catch (error) {
@@ -22,7 +22,7 @@ const getUsers = async () => {
 
 const userLogin = async (email) => {
   const findUser = await user.findOne({ where: { email } });
-  if (!findUser) throw new Error("Not found");
+  if (!findUser) throw new Error('Not found');
   return findUser;
 };
 
