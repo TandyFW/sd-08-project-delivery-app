@@ -1,12 +1,12 @@
-const { userService, createUser, getUsers } = require('../services/validUser');
-const { CREATED, BAD_REQUEST, CONFLICT, OK } = require('../services/statusCode');
+const { userLogin, createUser, getUsers } = require('../services/userService');
+const { CREATED, BAD_REQUEST, OK } = require('../services/statusCode');
 
 const validUser = async (req, res) => {
   try {
     const { email } = req.body;
-    const user = await userService.validUser(email);
+    const user = await userLogin(email);
     return res.status(200).json(user);
-  } catch(e) {
+  } catch (e) {
     return res.status(404).json({
       message: e.message,
     });
