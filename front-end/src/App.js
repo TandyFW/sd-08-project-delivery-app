@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
-import GlobalProvider from './context/GlobalProvider';
+import { GlobalProvider } from './context/GlobalProvider';
 import {
   Login,
   Register,

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Card, InputGroup, Button, FormControl } from 'react-bootstrap';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
@@ -29,14 +30,14 @@ export default function ProductCard(props) {
         <Card.Title
           data-prodid={ `customer_products__element-card-price-${id}` }
         >
-          {price}
+          { price }
         </Card.Title>
       </Card.ImgOverlay>
       <Card.Body>
         <Card.Title
           data-prodid={ `customer_products__element-card-title-${id}` }
         >
-          {name}
+          { name }
         </Card.Title>
         <InputGroup className="mb-3">
           <Button
@@ -44,7 +45,7 @@ export default function ProductCard(props) {
             onClick={ increaseNum }
             data-prodid={ `customer_products__button-card-add-item-${id}` }
           >
-            {RemoveIcon}
+            <AddIcon />
           </Button>
           <FormControl
             type="number"
@@ -56,7 +57,7 @@ export default function ProductCard(props) {
             onClick={ decreaseNum }
             data-prodid={ `customer_products__button-card-rm-item-${id}` }
           >
-            {AddIcon}
+            <RemoveIcon />
           </Button>
         </InputGroup>
       </Card.Body>
@@ -66,7 +67,7 @@ export default function ProductCard(props) {
 
 ProductCard.propTypes = {
   product: PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.number,
     name: PropTypes.string,
     price: PropTypes.number,
     url_image: PropTypes.string,

@@ -1,14 +1,18 @@
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 
 import PropTypes from 'prop-types';
 
-const GlobalContext = createContext();
+export const GlobalContext = createContext();
 
-function GlobalProvider({ children }) {
+export function GlobalProvider({ children }) {
+  const [name, setName] = useState('SEM-NOME');
+
   const provide = {
     values: {
+      name,
     },
     functions: {
+      setName,
     },
   };
   return (
@@ -21,5 +25,3 @@ function GlobalProvider({ children }) {
 GlobalProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
-
-export default GlobalProvider;

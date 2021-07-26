@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
-import GlobalContext from '../context/GlobalProvider';
+import { GlobalContext } from '../context/GlobalProvider';
 
 export default function Header() {
   const {
@@ -17,7 +17,7 @@ export default function Header() {
           <Navbar.Text
             data-testid="customer_products__element-navbar-user-full-name"
           >
-            {name}
+            { name }
           </Navbar.Text>
           <Nav.Link
             href="/customer/products"
