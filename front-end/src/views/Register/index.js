@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import './styles.css';
 import { useHistory } from 'react-router-dom';
 import Error from '../../components/error';
+import Context from '../../context/Context';
 
 function Register() {
+  const { setUserData, userData } = useContext(Context);
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [data, setData] = useState('');
   const history = useHistory();
   function checkInputs() {
     const PASSWORD_MIN_LENGTH = 6;
@@ -20,6 +21,13 @@ function Register() {
     }
     return true;
   }
+
+  useEffect(() => {
+    if (userData.token) {
+      history.push('/customer/products');
+    }
+  }, [history, userData.token]);
+
   const handleSubmit = async () => {
     const myInit = {
       method: 'POST',
@@ -31,13 +39,8 @@ function Register() {
     };
     const rawResponse = await fetch('http://localhost:3001/register', myInit);
     const content = await rawResponse.json();
-    return setData(content);
+    return setUserData(content);
   };
-  useEffect(() => {
-    if (data.token) {
-      history.push('/customer/products');
-    }
-  }, [data, history]);
   return (
     <div className="main-wrapper">
       <h2>Cadastro</h2>
@@ -68,10 +71,10 @@ function Register() {
         >
           CADASTRAR
         </button>
-        {data.message
+        {userData.message
         && <Error
           testid="common_register__element-invalid_register"
-          message={ data.message }
+          message={ userData.message }
         />}
       </div>
     </div>
