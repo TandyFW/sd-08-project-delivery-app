@@ -91,8 +91,8 @@ export default function Login() {
           />
         </label>
         <button
-          type="button"
-          // className="login-button"
+          type="submit"
+          className="login-button"
           data-testid="common_login__button-login"
           disabled={ isDisabled }
           onClick={ postLogin }

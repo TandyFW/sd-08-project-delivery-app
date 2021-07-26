@@ -50,11 +50,19 @@ input {
   font-weight: 600;
   margin-top: 15px;
   padding: 4px;
-  transition: 0.5s;
+  transition: 250ms;
   width: 340px;
 }
 
 .register-button:hover {
   background-color: #001e1d;
   color: #f9bc60;
+}
+
+.register-button:disabled {
+  background-color: white;
+  border: none;
+  color: black;
+  cursor: not-allowed;
+  transition: none;
 }
