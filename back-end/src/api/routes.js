@@ -23,8 +23,6 @@ customerRoute.get('/products', customerController.getAllProducts);
 // OrderRoute.put('/:id', OrderController.updateByIdOrder); // usada nos testes 9 e 10
 // OrderRoute.delete('/:id', OrderController.deleteByIdOrder); // não é usada 
 
-
-
 module.exports = {
   loginRoute,
   userRoute,
