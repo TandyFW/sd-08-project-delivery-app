@@ -1,7 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-// const Products = require('../routes/products');
+const errorMiddleware = require('../database/middlewares/errorMiddleware');
+const productsRouter = require('../database/routes/products');
 
 const app = express();
 app.use(cors());
@@ -16,7 +17,9 @@ const io = require('socket.io')(http, {
 
 require('../sockets/socket')(io);
 
-// app.use('/products', Products);
+app.use(express.json());
+app.use('/products', productsRouter);
+app.use(errorMiddleware);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 

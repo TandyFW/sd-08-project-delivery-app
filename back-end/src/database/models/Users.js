@@ -14,11 +14,11 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = (models) => {
     User.hasMany(models.Sale, {
       foreignKey: 'user_id',
-      as: 'sales',
+      as: 'user',
     });
     User.hasMany(models.Sale, {
       foreignKey: 'seller_id',
-      as: 'sales',
+      as: 'seller',
     });
   };
 
