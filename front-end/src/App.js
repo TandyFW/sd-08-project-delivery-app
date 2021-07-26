@@ -1,8 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import Adm from './pages/Adm';
 import ClientProducts from './pages/CustomerProducts';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Seller from './pages/Seller';
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
         </Route>
         <Route exact path="/register" component={ Register } />
         <Route exact path="/customer/products" component={ ClientProducts } />
+        <Route exact path="/customer/seller" component={ Seller } />
+        <Route exact path="/customer/adm" component={ Adm } />
       </Switch>
     </BrowserRouter>
   );

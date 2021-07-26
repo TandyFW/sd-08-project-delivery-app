@@ -12,6 +12,7 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [validBtn, setValidBtn] = useState(true);
+  const [visible, setVisible] = useState('hidden');
   const history = useHistory();
 
   useEffect(() => {
@@ -24,14 +25,16 @@ const Register = () => {
   }, [name, email, password]);
 
   const userRegister = async () => {
-    console.log('clicked');
-    const { data } = await axios({
-      method: 'post',
-      url: 'http://localhost:3001/delivery/users',
-      data: { name, email, password },
-    });
-    console.log(data);
-    if (!data.error) history.push('/customer/products');
+    try {
+      await axios({
+        method: 'post',
+        url: 'http://localhost:3001/delivery/users',
+        data: { name, email, password },
+      });
+      history.push('/customer/products');
+    } catch (error) {
+      setVisible('visible');
+    }
   };
 
   return (
@@ -63,6 +66,12 @@ const Register = () => {
           onClick={ userRegister }
         />
       </fieldset>
+      <span
+        data-testid={ `${prefix}element-invalid_register` }
+        style={ { visibility: visible } }
+      >
+        Usuário já cadastrado!
+      </span>
     </>
   );
 };
