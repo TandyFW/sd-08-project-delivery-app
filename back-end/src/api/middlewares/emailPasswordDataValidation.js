@@ -1,4 +1,4 @@
-const loginValidation = (req, res, next) => {
+module.exports = (req, res, next) => {
   const { email, password } = req.body;
   const PASSWORD_MIN_LENGTH = 6;
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/i;
@@ -18,5 +18,3 @@ const loginValidation = (req, res, next) => {
   }
   next();
 };
-
-module.exports = loginValidation;
