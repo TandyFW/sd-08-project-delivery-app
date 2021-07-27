@@ -9,7 +9,7 @@ class Register extends React.Component {
   constructor() {
     super();
     this.state = {
-      loading: true,
+      loading: false,
       email: false,
       password: false,
       name: false,
@@ -18,12 +18,12 @@ class Register extends React.Component {
     this.signIn = this.signIn.bind(this);
   }
 
-  componentDidMount() {
-    const Loading = 1500;
-    setTimeout(() => {
-      this.setState({ loading: false });
-    }, Loading);
-  }
+  // componentDidMount() {
+  //   const Loading = 1500;
+  //   setTimeout(() => {
+  //     this.setState({ loading: false });
+  //   }, Loading);
+  // }
 
   handleChange({ target: { name, value } }) {
     if (name === 'email') {
@@ -65,6 +65,7 @@ class Register extends React.Component {
       const hiddenSpan = document.querySelector('.hidden-span');
       hiddenSpan.style.display = 'inline-block';
       hiddenSpan.innerHTML = user.message;
+      hiddenSpan.setAttribute('data-testid', 'common_register__input-name');
       setTimeout(() => {
         document.querySelector('.hidden-span').style.display = 'none';
       }, spanMaxTime);
