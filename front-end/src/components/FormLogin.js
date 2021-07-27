@@ -31,7 +31,6 @@ export default function FormLogin() {
 
   const login = async () => {
     const user = await fetchUser(currentEmail, encryptPassword);
-    console.log(user);
     if (user) {
       setShowMessage(false);
       switch (user) {
