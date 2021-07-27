@@ -2,11 +2,17 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap') ;
 
+.login {
+  background-color: #004643;
+  height: 100vh;
+}
+
 img {
   border-radius: 10px;
   display: block;
   height: 240px;
   margin: auto;
+  margin-top: 40px;
 }
 
 .title {
