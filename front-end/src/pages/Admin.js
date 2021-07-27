@@ -18,10 +18,11 @@ class Admin extends React.Component {
   // }
 
   render() {
-    const { history } = this.props;
-    const { loading } = this.state;
+    // const { history } = this.props;
+    // const { loading } = this.state;
     return (
       <div className="products-container">
+        kjhkjhlk
       </div>
     );
   }

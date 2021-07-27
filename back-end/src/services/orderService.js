@@ -1,5 +1,5 @@
 const registerSchema = require('../schemas/registerSchema');
-const { sale, sales_products , product } = require('../database/models');
+const { sale, salesProducts, product } = require('../database/models');
 const clientError = require('../utils/clientError');
 
 const create = async (dataForCreate) => {
@@ -9,7 +9,7 @@ const create = async (dataForCreate) => {
   return result;
 };
 
-const getAll = () => sales_products.findAll({
+const getAll = () => salesProducts.findAll({
   // include: [{model: sale, as: 'saleId' }, { model: product, as: 'productId' }],
 });
 
