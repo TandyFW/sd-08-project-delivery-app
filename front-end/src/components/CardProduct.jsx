@@ -14,7 +14,7 @@ import {
 import colors from '../styles/colors';
 
 const CardProduct = ({ prefix, price, tumbnail, title, id }) => {
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(0);
   // const products = useSelector((state) => state.products.products);
   const dispatch = useDispatch();
   const addItem = (idProduct) => {
@@ -26,14 +26,15 @@ const CardProduct = ({ prefix, price, tumbnail, title, id }) => {
     });
   };
   const decreaseItem = () => {
-    if (quantity > 1) {
+    if (quantity > 0) {
       setQuantity(quantity - 1);
     }
   };
   return (
     <Card color={ colors.white }>
       <ProductPrice data-testid={ `${prefix}element-card-price-${id}` }>
-        {price}
+        R$
+        {price.toString().replace('.', ',')}
       </ProductPrice>
       <ProductImage
         data-testid={ `${prefix}img-card-bg-image-${id}` }

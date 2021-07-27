@@ -1,26 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import NavBar from '../components/NavBar';
 import CardProduct from '../components/CardProduct';
 import { ProductList } from '../styles/pages/CustomerProducts.styled';
 import api from '../services/api';
 
-async function ClientProducts() {
-  const prefix = 'customer_products__';
+const getProducts = async () => {
   const result = await api.get('/delivery/products');
-  console.log(result);
+  console.log(result.data);
+  return result.data;
+};
+
+function ClientProducts() {
+  const prefix = 'customer_products__';
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    getProducts().then((response) => setProducts(response));
+    setLoading(false);
+  }, []);
   return (
-    <>
+    <div>
       <NavBar user="Sicrano da Silva" />
       <ProductList>
-        <CardProduct
-          prefix={ prefix }
-          price="R$ 3,99"
-          tumbnail="https://static.paodeacucar.com/img/uploads/1/54/12060054.png"
-          title="Becks 300ml"
-          id={ 1 }
-        />
+        {!loading
+          && products.map((product, index) => (
+            <CardProduct
+              key={ index }
+              prefix={ prefix }
+              price={ product.price }
+              tumbnail={ product.urlImage }
+              title={ product.name }
+              id={ product.id }
+            />
+          ))}
       </ProductList>
-    </>
+    </div>
   );
 }
 
