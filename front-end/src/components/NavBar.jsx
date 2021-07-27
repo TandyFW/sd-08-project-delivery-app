@@ -10,6 +10,10 @@ function NavBar({ user }) {
   const goToRoute = (route) => {
     history.push(route);
   };
+  const logout = () => {
+    localStorage.removeItem('user');
+    goToRoute('/login');
+  };
 
   return (
     <Menu>
@@ -36,7 +40,7 @@ function NavBar({ user }) {
       </MenuItem>
       <MenuItem
         color={ colors.dodgerblue }
-        onClick={ () => goToRoute('/login') }
+        onClick={ () => logout() }
         data-testid={ `${prefix}element-navbar-link-logout` }
       >
         Sair

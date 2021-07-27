@@ -5,6 +5,7 @@ const validUser = async (req, res) => {
   try {
     const { email } = req.body;
     const user = await userLogin(email);
+    // const token = generateToken(user);
     return res.status(200).json(user);
   } catch (e) {
     return res.status(404).json({

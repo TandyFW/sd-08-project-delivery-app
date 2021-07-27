@@ -1,5 +1,14 @@
 const md5 = require('md5');
+const JWT = require('jsonwebtoken');
 const { user } = require('../../database/models');
+require('dotenv').config();
+
+const { SECRET } = process.env;
+
+const JWTCONFIG = {
+  expiresIn: '1d',
+  algorithm: 'HS256',
+};
 
 const createUser = async ({ name, email, password }) => {
   try {
@@ -26,8 +35,22 @@ const userLogin = async (email) => {
   return findUser;
 };
 
+const generateToken = (userFields) => JWT.sign({ data: userFields }, SECRET, JWTCONFIG);
+const verifyToken = (token) => {
+  if (!token) {
+    return { code: 401, message: 'invalid JWT' };
+  }
+  try {
+    const decoded = JWT.verify(token, SECRET);
+    return decoded.data;
+  } catch (err) {
+    return { code: 401, message: 'invalid JWT' };
+  }
+};
 module.exports = {
   userLogin,
   createUser,
   getUsers,
+  generateToken,
+  verifyToken,
 };

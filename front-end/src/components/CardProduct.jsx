@@ -55,6 +55,7 @@ const CardProduct = ({ prefix, price, tumbnail, title, id }) => {
           <QtdInput
             data-testid={ `${prefix}input-card-quantity-${id}` }
             type="text"
+            onChange={ ({ target }) => setQuantity(target.value) }
             value={ quantity }
           />
           <QtdButton
