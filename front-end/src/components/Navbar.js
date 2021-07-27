@@ -1,40 +1,53 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const Navbar = ({ name }) => (
-  <header>
-    <nav>
-      <ul>
-        <Link to="/customer/products">
-          <li data-testid="customer_products__element-navbar-link-products">Produtos</li>
-        </Link>
-        <Link to="/customer/orders">
+const Navbar = ({ name }) => {
+  const history = useHistory();
+
+  const logout = () => {
+    localStorage.removeItem('user');
+    history.push('/login');
+  };
+
+  return (
+    <header>
+      <nav>
+        <ul>
+          <Link to="/customer/products">
+            <li
+              data-testid="customer_products__element-navbar-link-products"
+            >
+              Produtos
+            </li>
+          </Link>
+          <Link to="/customer/orders">
+            <li
+              data-testid="customer_products__element-navbar-link-orders"
+            >
+              Meus Pedidos
+            </li>
+          </Link>
           <li
-            data-testid="customer_products__element-navbar-link-orders"
+            data-testid="customer_products__element-navbar-user-full-name"
           >
-            Meus Pedidos
+            { name || ''}
           </li>
-        </Link>
-        <li
-          data-testid="customer_products__element-navbar-user-full-name"
-        >
-          { name || ''}
-        </li>
-        <li
-          data-testid="customer_products__element-navbar-link-logout"
-        >
-          <button
-            onClick={ () => localStorage.removeItem('user') }
-            type="button"
+          <li
+            data-testid="customer_products__element-navbar-link-logout"
           >
-            Sair
-          </button>
-        </li>
-      </ul>
-    </nav>
-  </header>
-);
+            <button
+              onClick={ logout }
+              type="button"
+            >
+              Sair
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+  );
+};
 
 Navbar.propTypes = {
   name: PropTypes.string,

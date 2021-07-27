@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './ProductCard.css';
 
 const ProductCard = ({ product }) => {
   const { id, name, price, url_image: urlImage } = product;
   return (
-    <section className="card">
+    <div className="card">
       <span
+        className="price"
         data-testid={ `customer_products__element-card-price-${id}` }
       >
-        {'R$ {price}'}
+        {`R$ ${price}`}
       </span>
       <img
         data-testid={ `customer_products__img-card-bg-image-${id}` }
@@ -17,8 +19,6 @@ const ProductCard = ({ product }) => {
       />
       <div>
         <p data-testid={ `customer_products__element-card-title-${name}` }>{name}</p>
-      </div>
-      <div>
         <button
           data-testid={ `customer_products__button-card-rm-item-${id}` }
           type="button"
@@ -26,9 +26,10 @@ const ProductCard = ({ product }) => {
           -
         </button>
         <span
+          className="quantity"
           data-testid={ `customer_products__input-card-quantity-${id}` }
         >
-          {Number(price)}
+          0
         </span>
         <button
           data-testid={ `customer_products__button-card-add-item-${id}` }
@@ -37,13 +38,13 @@ const ProductCard = ({ product }) => {
           +
         </button>
       </div>
-    </section>
+    </div>
   );
 };
 
 ProductCard.propTypes = {
   product: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.string.isRequired,
     url_image: PropTypes.string.isRequired,
