@@ -74,7 +74,7 @@ export default function Register() {
   console.log(isDisabled);
 
   return (
-    <div>
+    <div className="register">
       <h1 className="title">Cadastro</h1>
       <form className="register-form">
         <label htmlFor="nome">

@@ -5,8 +5,6 @@ import Cards from '../../Components/Cards/Cards';
 
 import { requestAllProducts } from '../../redux/actions/index.action';
 
-import './Products.css';
-
 export default function Products() {
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.loadingReducer);
