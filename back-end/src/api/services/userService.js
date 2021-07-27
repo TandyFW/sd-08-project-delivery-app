@@ -35,7 +35,7 @@ const userLogin = async (email) => {
   return findUser;
 };
 
-const generateToken = (userFields) => JWT.sign({ data: userFields }, SECRET, JWTCONFIG);
+const generateToken = async (userFields) => JWT.sign({ data: userFields }, SECRET, JWTCONFIG);
 const verifyToken = async (token) => {
   if (!token) {
     return { code: 401, message: 'invalid JWT' };
