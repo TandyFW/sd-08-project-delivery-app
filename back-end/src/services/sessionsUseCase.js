@@ -26,5 +26,5 @@ exports.auth = async ({ email, password }) => {
     );
   }
   const token = await signToken({ user: { id: user.id, role: user.role } });
-  return { token };
+  return { name: user.name, email, role: user.role, token };
 };

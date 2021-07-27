@@ -30,7 +30,7 @@ export default function ProductCard(props) {
         <Card.Title
           data-prodid={ `customer_products__element-card-price-${id}` }
         >
-          { price }
+          { price.toString().replace('.', ',') }
         </Card.Title>
       </Card.ImgOverlay>
       <Card.Body>
