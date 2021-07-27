@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import validator from 'email-validator';
-import { getAllUsers, getProducts } from '../services';
+import { login } from '../services';
 
 class Login extends React.Component {
   constructor() {
@@ -14,11 +14,8 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  async componentDidMount() {
-    const users = await getAllUsers();
-    console.log(users);
-    const products = await getProducts();
-    console.log(products);
+  componentWillUnmount() {
+    document.querySelector('.hidden-span').style.display = 'none';
   }
 
   handleChange({ target: { name, value } }) {
@@ -40,6 +37,33 @@ class Login extends React.Component {
     }
   }
 
+  async signIn({ target }) {
+    const { history } = this.props;
+    const email = target.parentNode.parentNode.firstChild.childNodes[1].value;
+    const password = target.parentNode.parentNode.firstChild.childNodes[3].value;
+    const user = await login(email, password);
+    if (!user.status) {
+      localStorage.setItem('token', JSON.stringify(user));
+      if (user.role === 'seller') {
+        history.push('/seller/orders');
+      } else if (user.role === 'customer') {
+        history.push('/customer/products');
+      } else {
+        history.push('/register');
+      }
+    } else {
+      const spanMaxTime = 5000;
+      const hiddenSpan = document.querySelector('.hidden-span');
+      hiddenSpan.style.display = 'inline-block';
+      hiddenSpan.setAttribute('data-testid', 'common_login__element-invalid-email');
+      hiddenSpan.innerHTML = user.message;
+      setTimeout(() => {
+        hiddenSpan.style.display = 'none';
+      }, spanMaxTime);
+      return null;
+    }
+  }
+
   render() {
     const { email, password } = this.state;
     const { history } = this.props;
@@ -51,6 +75,7 @@ class Login extends React.Component {
             name="email"
             placeholder="Digite seu Email"
             onChange={ this.handleChange }
+            data-testid="common_login__input-email"
           />
           <span>Senha</span>
           <input
@@ -58,19 +83,24 @@ class Login extends React.Component {
             type="password"
             placeholder="Digite sua Senha"
             onChange={ this.handleChange }
+            data-testid="common_login__input-password"
           />
+          <span className="hidden-span" />
         </div>
         <div className="button-div">
           <button
             type="button"
             className="btn-login"
+            data-testid="common_login__button-login"
             disabled={ !email || !password }
+            onClick={ (event) => this.signIn(event) }
           >
             Entrar
           </button>
           <button
             type="button"
             className="btn-create"
+            data-testid="common_login__button-register"
             onClick={ () => history.push('./register') }
           >
             Ainda não tenho conta

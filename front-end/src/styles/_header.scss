@@ -1,0 +1,29 @@
+.globalheader-container {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background-color: $trybeGreen;
+  height: 55px;
+  top: 0;
+  .left {
+    button {
+      background: $trybeGreen;
+      height: 55px;
+    }
+  }
+  .right {
+    button {
+      background: $trybeGreen;
+    }
+  }
+  button {
+    color: $darkWhite;
+    font-size: 22px;
+    font-weight: 500;
+    padding: 0 55px;
+    outline: none;
+    border: none;
+  }
+}

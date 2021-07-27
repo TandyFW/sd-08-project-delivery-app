@@ -28,6 +28,7 @@ class Register extends React.Component {
   handleChange({ target: { name, value } }) {
     if (name === 'email') {
       const isValid = validator.validate(value.toLowerCase());
+      console.log(name, isValid);
       if (isValid) {
         this.setState({ email: true });
       } else {
@@ -43,10 +44,8 @@ class Register extends React.Component {
       }
     }
     if (name === 'name') {
-      const regex = /^[a-z ]+$/i;
-      const isValid = regex.test(value.toLowerCase());
-      const maxLength = 12;
-      if (isValid && value.length > maxLength) {
+      const MIN_LENGTH_NAME = 12;
+      if (value.length > MIN_LENGTH_NAME) {
         this.setState({ name: true });
       } else {
         this.setState({ name: false });
@@ -59,7 +58,7 @@ class Register extends React.Component {
     const name = target.parentNode.firstChild.childNodes[1].value;
     const email = target.parentNode.firstChild.childNodes[2].childNodes[1].value;
     const pass = target.parentNode.firstChild.childNodes[4].value;
-    const role = 'client';
+    const role = 'customer';
     const user = await create(name, email, pass, role);
     const spanMaxTime = 10000;
     if (user.statusText) {
@@ -71,7 +70,7 @@ class Register extends React.Component {
       }, spanMaxTime);
       return null;
     }
-    history.push('./login');
+    history.push('./customer/products');
   }
 
   render() {
@@ -92,6 +91,7 @@ class Register extends React.Component {
                   name="name"
                   className="input"
                   onChange={ this.handleChange }
+                  data-testid="common_register__input-name"
                 />
                 <div className="email-div">
                   <span>Email</span>
@@ -99,6 +99,7 @@ class Register extends React.Component {
                     name="email"
                     className="input"
                     onChange={ this.handleChange }
+                    data-testid="common_register__input-email"
                   />
                   <span className="hidden-span" />
                 </div>
@@ -108,10 +109,12 @@ class Register extends React.Component {
                   type="password"
                   className="input"
                   onChange={ this.handleChange }
+                  data-testid="common_register__input-password"
                 />
               </div>
               <button
                 type="button"
+                data-testid="common_register__button-register"
                 disabled={ !email || !password || !name }
                 onClick={ (event) => this.signIn(event) }
               >

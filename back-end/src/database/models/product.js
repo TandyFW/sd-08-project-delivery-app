@@ -1,6 +1,6 @@
-const Product = (sequelize, DataTypes) => {
-  const Product = sequelize.define(
-    "Product",
+const product = (sequelize, DataTypes) => {
+  const product = sequelize.define(
+    "product",
     {
       name: DataTypes.STRING(100),
       price: DataTypes.STRING(100),
@@ -8,20 +8,11 @@ const Product = (sequelize, DataTypes) => {
         type: DataTypes.STRING(255),
         field: "url_image",
       },
-      createdAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
-        field: 'created_at',
-      },
-      updatedAt: {
-        allowNull: false,
-        type: DataTypes.DATE, 
-        field: 'updated_at',
-      }
-    },
+     },
+     { timestamps : false }
   );
 
-  return Product;
+  return product;
 };
 
-module.exports = Product;
+module.exports = product;

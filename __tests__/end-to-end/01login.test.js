@@ -16,6 +16,8 @@ let database;
 
 beforeEach(async () => {
   database = global.__DATABASE__;
+  // console.log(' __DATABASE__',global.__DATABASE__);
+  // console.log('teste do teste',database);
   await expect(database).toReturnDataWith({
     query: users.query,
     types: users.types,

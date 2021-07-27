@@ -1,30 +1,37 @@
 const express = require('express');
 const loginController = require('../controllers/loginController');
-const userController = require('../controllers/userController');
-const customerController = require('../controllers/customerController');
+const registerController = require('../controllers/registerController');
+const productsController = require('../controllers/productsController');
+const orderController = require('../controllers/orderController');
 
 const loginRoute = express.Router();
-const userRoute = express.Router();
-const customerRoute = express.Router();
+const registerRoute = express.Router();
+const productsRoute = express.Router();
+const orderRoute = express.Router();
 
-loginRoute.get('/', loginController.login);
+loginRoute.post('/', loginController.login);
 
-userRoute.post('/', userController.createUser);
-userRoute.get('/', userController.getAllUsers);
-userRoute.get('/:id', userController.getByIdUser);
-userRoute.put('/:id', userController.updateByIdUser);
-userRoute.delete('/:id', userController.deleteByIdUser);
+registerRoute.post('/', registerController.createRegister);
+registerRoute.get('/', registerController.getAllRegisters);
+registerRoute.get('/:id', registerController.getByIdRegister);
+registerRoute.put('/:id', registerController.updateByIdRegister); // não é usado no projeto
+registerRoute.delete('/:id', registerController.deleteByIdRegister);
 
-customerRoute.get('/products', customerController.getAllProducts);
+productsRoute.get('/', productsController.getAll);
 
-// OrderRoute.post('/', OrderController.createOrder); // usado nos testes 4 
-// OrderRoute.get('/', OrderController.getAllOrders); // usadas nos testes 5 e 7
-// OrderRoute.get('/:id', OrderController.getByIdOrder); // usada nos testes 6 e 8
-// OrderRoute.put('/:id', OrderController.updateByIdOrder); // usada nos testes 9 e 10
-// OrderRoute.delete('/:id', OrderController.deleteByIdOrder); // não é usada 
+orderRoute.get('/all/:id', orderController.getAllAllorders); // usado nos testes 4 
+orderRoute.get('/', orderController.getAllorders); // usadas nos testes 5 e 7
+orderRoute.get('/:id', orderController.getByIdorder); // usada nos testes 6 e 8
+orderRoute.put('/:id', orderController.updateByIdorder); // usada nos testes 9 e 10
+orderRoute.delete('/:id', orderController.deleteByIdorder); // não é usada 
 
 module.exports = {
   loginRoute,
-  userRoute,
-  customerRoute,
+  registerRoute,
+  productsRoute,
+  orderRoute,
 };
+
+// register => login
+// user => register
+// customer => products
