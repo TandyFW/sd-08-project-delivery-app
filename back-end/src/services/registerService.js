@@ -1,16 +1,16 @@
+const md5 = require('md5');
 const registerSchema = require('../schemas/registerSchema');
 const { user } = require('../database/models');
 const clientError = require('../utils/clientError');
-// const md5 = require('md5');
 
 const create = async (dataForCreate) => {
-  // const encoded = md5(dataForCreate.password);
+  const hashPassword = md5(dataForCreate.email);
 
   const { error } = registerSchema.create.validate(dataForCreate);
   if (error) return clientError.badRequest(error.details[0].message);
 
   const { dataValues: { password: _, ...result } } = await user
-    .create(dataForCreate);
+    .create({ ...dataForCreate, password: hashPassword });
   return result;
 };
 

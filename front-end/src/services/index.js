@@ -8,7 +8,7 @@ export async function getAllUsers() {
   return users;
 }
 
-export async function getProducts() {
+export async function getAllProducts() {
   const products = await axios.get(`${URL_BASE}/products`)
     .then((response) => response.data);
   return products;

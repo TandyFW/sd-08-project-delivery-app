@@ -6,7 +6,7 @@ const createRegister = rescue(async (req, res, next) => {
   const { name, email, password, role } = req.body;
   const result = await registerServices.create({ name, email, password, role });
   if (result.error) return next(result);
-  res.status(success.Created).json({ newregister: result });
+  res.status(success.Created).json({ newRegister: result });
 });
 
 const getAllRegisters = rescue(async (_req, res, next) => {
