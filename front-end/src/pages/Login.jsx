@@ -34,7 +34,6 @@ const Login = () => {
         url: 'http://localhost:3001/delivery/login',
         data: { email, password },
       });
-      console.log(data);
       const userStorage = {
         name: data.user.name,
         email: data.user.email,

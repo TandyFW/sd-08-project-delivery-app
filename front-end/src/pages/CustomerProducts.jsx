@@ -36,6 +36,7 @@ function ClientProducts() {
             />
           ))}
       </ProductList>
+      <span data-testid={ `${prefix}checkout-bottom-value` } />
     </div>
   );
 }

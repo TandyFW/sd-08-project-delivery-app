@@ -3,11 +3,9 @@ const { CREATED, BAD_REQUEST, OK } = require('../services/statusCode');
 
 const validUser = async (req, res) => {
   try {
-    const { email } = req.body;
-    const user = await userLogin(email);
+    const { email, password } = req.body;
+    const user = await userLogin(email, password);
     const token = generateToken(user);
-    // user.token = token;
-    // console.log(user);
     return res.status(200).json({ user, token });
   } catch (e) {
     return res.status(404).json({
