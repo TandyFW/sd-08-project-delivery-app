@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import '../cssPages/cssLogin/login.css';
 
@@ -10,29 +10,28 @@ export default function InputLogin() {
   const [redirected, setRedirected] = useState(false);
 
   const history = useHistory();
-  
+
   function handleClick() {
-    history.push("/register");
+    history.push('/register');
   }
 
   async function handleLogin(e) {
     e.preventDefault();
     const user = await axios.post('http://localhost:3001/login', {
-    email, password
+      email, password,
     })
       .then((data) => data)
       .catch((err) => console.log(err));
-    
-      console.log(user)
-      if (user === undefined) {
-        setRedirected(true);
 
-      }
-      if (user.statusText === 'OK') {
-        setRedirected(false);
-        history.push('/customer/products');
-      } 
-  }
+    console.log(user);
+    if (user === undefined) {
+      setRedirected(true);
+    }
+    if (user.statusText === 'OK') {
+      setRedirected(false);
+      history.push('/customer/products');
+    }
+  };
 
   const handleEmail = ({ target: { value } }) => {
     setEmail(value);
@@ -41,7 +40,6 @@ export default function InputLogin() {
   const handlePassword = ({ target: { value } }) => {
     setPassword(value);
   };
-
 
   useEffect(() => {
     const NUMBER_SIX = 6;
@@ -100,13 +98,12 @@ export default function InputLogin() {
         </button>
       </div>
       {redirected && (
-          <b
-            data-testid="common_login__element-invalid-email"
-          >
-            Senha ou usuário incorreto
-          </b>
-        )
-      }
+        <b
+          data-testid="common_login__element-invalid-email"
+        >
+          Senha ou usuário incorreto
+        </b>
+      )}
     </div>
   );
 }

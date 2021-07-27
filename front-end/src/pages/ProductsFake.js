@@ -1,9 +1,9 @@
 import React from 'react';
 
-function ProductsFake () {
+function ProductsFake() {
   return (
-      <h1>Página fake!</h1>
-  )
+    <h1>Página fake!</h1>
+  );
 }
 
 export default ProductsFake;
