@@ -3,7 +3,7 @@ const UserService = require('../services/user');
 
 const create = rescue(async (req, res) => {
   const result = await UserService.create(req.body);
-  res.json(result);
+  res.status(201).json(result);
 });
 
 module.exports = {

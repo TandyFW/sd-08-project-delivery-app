@@ -1,7 +1,7 @@
 const express = require('express');
+const cors = require('cors');
 const middlewares = require('../middlewares');
 const routes = require('../routes');
-const cors = require('cors');
 
 const app = express();
 
@@ -9,7 +9,7 @@ app.use(express.json());
 
 app.use(cors({
   origin: '*',
-  methods: ['POST', 'GET']
+  methods: ['GET', 'POST'],
 }));
 
 app.use('/', routes);
