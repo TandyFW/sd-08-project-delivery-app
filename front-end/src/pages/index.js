@@ -1,7 +1,9 @@
 import Login from './Login';
 import AdminManage from './AdminManage';
+import SalesBySeller from './SalesBySeller';
 
-export default {
+export {
   Login,
   AdminManage,
+  SalesBySeller,
 };
