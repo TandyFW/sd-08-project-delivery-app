@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
@@ -6,6 +7,8 @@ import { Button } from '@material-ui/core';
 
 import { CardBody, CardImg } from './styled';
 import DeliveryContext from '../../context/DeliveryContext';
+
+import { minProductVerify } from '../../services/validations';
 
 const ProductCard = ({ product: { id, name, image, price } }) => {
   const [count, setCount] = useState(0);
@@ -73,6 +76,7 @@ const ProductCard = ({ product: { id, name, image, price } }) => {
           color="primary"
           onClick={ () => { setCount(count - 1); } }
           data-testid={ `customer_products__button-card-rm-item-${id}` }
+          disabled={ minProductVerify(count) }
         >
           <Remove />
         </Button>
@@ -81,6 +85,7 @@ const ProductCard = ({ product: { id, name, image, price } }) => {
           value={ count }
           onChange={ handleChange }
           data-testid={ `customer_products__input-card-quantity-${id}` }
+          min="0"
         />
         <Button
           type="button"
