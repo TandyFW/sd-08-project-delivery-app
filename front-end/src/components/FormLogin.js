@@ -1,8 +1,9 @@
-import md5 from 'md5';
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import fetchUser from '../services/fetchUser';
 import emailVerify from '../utils/functions';
+
+const md5 = require('md5');
 
 export default function FormLogin() {
   const [isValid, setIsValid] = useState(false);
@@ -30,14 +31,15 @@ export default function FormLogin() {
 
   const login = async () => {
     const user = await fetchUser(currentEmail, encryptPassword);
+    console.log(user);
     if (user) {
       setShowMessage(false);
       switch (user) {
-      case customer:
+      case 'customer':
         return setURL('/customer/products');
-      case seller:
+      case 'seller':
         return setURL('/seller/products');
-      case admin:
+      case 'admin':
         return setURL('/admin/manage');
       default:
         break;
@@ -77,7 +79,7 @@ export default function FormLogin() {
           />
         </label>
         <button
-          type="submit"
+          type="button"
           className="btn-login"
           disabled={ !isValid }
           onClick={ login }
