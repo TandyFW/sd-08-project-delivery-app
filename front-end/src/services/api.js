@@ -29,10 +29,16 @@ export const loginRequest = (user, setUsrNotFound, history) => (
       return err.response;
     }));
 
-export const register = (user) => {
+export const registerRequest = (user, setUsrExists, history) => (
   requestApi('/user', 'POST', user)
-    .then(console.log)
-    .catch((err) => err.response);
-};
+    .then((response) => {
+      history.push('/customer/products');
+      return response;
+    })
+    .catch((err) => {
+      setUsrExists(true);
+      return err.response;
+    })
+);
 
 export default requestApi;

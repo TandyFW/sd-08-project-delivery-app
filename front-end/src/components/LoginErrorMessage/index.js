@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import ErrorMessage from './styled';
 
-const LoginErrorMessage = ({ disableMessage }) => (
+const LoginErrorMessage = ({ disableMessage, testId }) => (
   <ErrorMessage
-    data-testid="common_login__element-invalid-email"
+    data-testid={ testId }
   >
     <div>
       <p>Usuário não cadastrado</p>
@@ -21,6 +21,7 @@ const LoginErrorMessage = ({ disableMessage }) => (
 
 LoginErrorMessage.propTypes = {
   disableMessage: PropTypes.func.isRequired,
+  testId: PropTypes.string.isRequired,
 };
 
 export default LoginErrorMessage;

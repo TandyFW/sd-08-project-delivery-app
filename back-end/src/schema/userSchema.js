@@ -2,7 +2,7 @@ const joi = require('joi');
 const Code = require('../statusCode');
 
 const userSchema = joi.object({
-  name: joi.string().max(12).required(),
+  name: joi.string().min(12).required(),
   email: joi.string()
   .email({ minDomainSegments: 2, tlds: { allow: ['com', 'br'] } }).required(),
   password: joi.string().min(6).required(),

@@ -12,7 +12,7 @@ const login = async (email, password) => {
   if (!user) throw notFound('User not found');
   const token = generateToken(email);
   delete user.dataValues.password;
-  // const { password: pass, ...userData } = user.dataValues;
+
   return {
     ...user.dataValues,
     token,
