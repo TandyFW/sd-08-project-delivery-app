@@ -14,7 +14,7 @@ const missingJWT = {
   message: 'Token not found',
 };
 
-const auth = rescue( async(req, res, next) => {
+const auth = rescue(async (req, res, next) => {
   const JWT_SECRET = await fs.readFileSync('jwt.evaluation.key', {
     encoding: 'utf8',
     flag: 'r',
