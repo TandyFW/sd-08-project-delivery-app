@@ -1,7 +1,7 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
 
-function productCard() {
+function ProductCard() {
   return (
     <Grid item xs={ 12 } s={ 6 } m={ 4 } l={ 3 }>
       <p>Card</p>
@@ -9,4 +9,4 @@ function productCard() {
   );
 }
 
-export default productCard;
+export default ProductCard;
