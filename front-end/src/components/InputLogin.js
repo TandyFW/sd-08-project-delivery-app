@@ -21,7 +21,8 @@ export default function InputLogin() {
     })
       .then((data) => data)
       .catch((err) => console.log(err));
-    localStorage.setItem('user', JSON.stringify(user.data));
+    console.log(user);
+    //  localStorage.setItem('user', JSON.stringify(user.data));
     if (user === undefined) {
       setRedirected(true);
     }
