@@ -2,7 +2,6 @@ import md5 from 'md5';
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
-
 export default function FormRegister() {
   const [isValid, setIsValid] = useState(false);
   const [currentName, setCurrentName] = useState('');
@@ -26,32 +25,32 @@ export default function FormRegister() {
     if (
       !emailVerify(email)
       || password.length < MIN_PASSWORRD_LENGTH
-      || name.length <  MIN_NAME_LENGTH
+      || name.length < MIN_NAME_LENGTH
     ) {
       setIsValid(false);
     }
     if (
       emailVerify(email)
       && password.length >= MIN_PASSWORRD_LENGTH
-      && name.length >=  MIN_NAME_LENGTH
+      && name.length >= MIN_NAME_LENGTH
     ) {
       setIsValid(true);
     }
   };
 
   const register = async () => {
-    try{
+    try {
       await registerUser(currentName, currentEmail, encryptPassword);
-      setShowMessage(false)
+      setShowMessage(false);
       setRedirect(true);
-    } catch(err) {
-      setShowMessage(true)
+    } catch (err) {
+      setShowMessage(true);
     }
   };
 
   return (
     <>
-      <form action="" method="GET" className="form-register">
+      <form action="" method="POST" className="form-register">
         <label htmlFor="register-name" className="register-label">
           Nome:
           <input
@@ -110,7 +109,7 @@ export default function FormRegister() {
           >
             Usuário não encontrado.
           </p>)}
-      {redirect && <Redirect to='/login' />}
+      {redirect && <Redirect to="/login" />}
     </>
   );
 }

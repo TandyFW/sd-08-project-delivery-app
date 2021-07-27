@@ -1,5 +1,5 @@
 import md5 from 'md5';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import fetchUser from '../services/fetchUser';
 import emailVerify from '../utils/functions';
@@ -28,28 +28,35 @@ export default function FormLogin() {
     }
   };
 
-  const login = async () => {
+  const redirectToggle = () => {
+    if (URL.length) setRedirect(true);
+  };
+
+  useEffect(() => redirectToggle(), [URL]);
+
+  const login = async (e) => {
+    e.preventDefault();
     const user = await fetchUser(currentEmail, encryptPassword);
-    if (user) {
+
+    if (user.length) {
       setShowMessage(false);
       switch (user) {
-      case customer:
+      case 'customer':
         return setURL('/customer/products');
-      case seller:
+      case 'seller':
         return setURL('/seller/products');
-      case admin:
+      case 'admin':
         return setURL('/admin/manage');
       default:
         break;
       }
-      setRedirect(true);
     }
     setShowMessage(true);
   };
 
   return (
     <>
-      <form action="" method="GET" className="form-login">
+      <form action="" method="POST" className="form-login">
         <label htmlFor="login-email" className="login-label">
           Email:
           <input
@@ -80,7 +87,7 @@ export default function FormLogin() {
           type="submit"
           className="btn-login"
           disabled={ !isValid }
-          onClick={ login }
+          onClick={ (e) => login(e) }
           id="btn-login"
           data-testid="common_login__button-login"
         >
