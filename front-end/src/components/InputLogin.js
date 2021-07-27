@@ -21,12 +21,13 @@ export default function InputLogin() {
     })
       .then((data) => data)
       .catch((err) => console.log(err));
+
     console.log(user);
-    //  localStorage.setItem('user', JSON.stringify(user.data));
     if (user === undefined) {
-      setRedirected(true);
+      return setRedirected(true);
     }
     if (user.statusText === 'OK') {
+      localStorage.setItem('user', JSON.stringify(user.data));
       setRedirected(false);
       history.push('/customer/products');
     }
