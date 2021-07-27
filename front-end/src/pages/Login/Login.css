@@ -1,10 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap') ;
-
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap') ;
-
 .login {
   background-color: #004643;
   height: 100vh;
+  position: absolute;
+  width: 100vw;
 }
 
 img {
@@ -12,13 +10,13 @@ img {
   display: block;
   height: 240px;
   margin: auto;
-  margin-top: 40px;
+  margin-top: 3em;
 }
 
-.title {
+.login-title {
   color: #fffffe;
   font-family: Nunito , monospace;
-  font-size: 48px;
+  font-size: 3em;
   text-align: center;
 }
 
