@@ -6,7 +6,8 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/styles';
 import { useGroupState } from '../hooks';
-import { isValidForLogin, request } from '../utils';
+import { isValidForLogin, request, getPathByRole,
+  getUserObjByToken, lStorage } from '../utils';
 import TransitionAlerts from './TransitionAlerts';
 
 const useStyles = makeStyles((theme) => ({
@@ -52,10 +53,12 @@ const LoginForm = () => {
     const { token, message } = await request('login', 'POST',
       { email: email.value, password: password.value });
 
-    if (message) openAlert.set(!openAlert.value);
+    if (message) openAlert.set(true);
     else {
-      console.log(token);
-      history.push('/customer/products');
+      const user = getUserObjByToken(token);
+      lStorage().user.set(user);
+      const homePage = getPathByRole(user.role);
+      history.push(homePage);
     }
   };
 
@@ -109,7 +112,7 @@ const LoginForm = () => {
       <TransitionAlerts
         open={ openAlert }
         severity="warning"
-        message="Usuário não encontrado"
+        message="Usuário ou senha inválido(a)"
         testId="common_login__element-invalid-email"
       />
     </>

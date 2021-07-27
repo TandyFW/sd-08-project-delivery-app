@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
+// import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -111,12 +111,13 @@ export default function RegistrationByManager() {
           id="demo-simple-select"
           value={ role.value }
           onChange={ (event) => handleChange(role.set, event) }
+          native
         >
-          <MenuItem value="seller">Vendedor</MenuItem>
-          <MenuItem value="customer">Cliente</MenuItem>
+          <option value="seller">Vendedor</option>
+          <option value="customer">Cliente</option>
         </Select>
         <Button
-          inputProps={ { 'data-testid': 'admin_manage__button-register' } }
+          data-testid="admin_manage__button-register"
           variant="contained"
           color="primary"
           disabled={ isDisabled.value }
