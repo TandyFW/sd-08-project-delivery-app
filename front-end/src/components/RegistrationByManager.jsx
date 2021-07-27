@@ -6,8 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { isValidUserForRegistration } from '../utils';
 import { request } from '../utils/request';
-// import AlertTransitionSlide from './AlertTransitionSlide';
-// import ContextProvider from '../context';
+import TransitionAlerts from './TransitionAlerts';
 
 const useStyles = makeStyles((theme) => ({
   selectEmpty: {
@@ -34,7 +33,7 @@ export default function RegistrationByManager() {
   const [password, setPassword] = useState('');
   const [isDisabled, setDisable] = useState(true);
   const [user, setUser] = useState({});
-  // const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   useEffect(() => {
     setDisable(!isValidUserForRegistration(name, email, password));
@@ -52,16 +51,21 @@ export default function RegistrationByManager() {
       password,
       role });
     setUser(userObj);
+    setOpen(true);
+  };
+
+  const handleAlert = (bool) => {
+    setOpen(bool);
   };
 
   const renderErrorMessage = () => {
     if ('message' in user) {
       return (
-        // <AlertTransitionSlide
-        //   title="Imposível cadastrar"
-        //   text="Usuário já existente"
-        // />
-        <h1 data-testid="admin_manage__element-invalid-register">{user.message}</h1>
+        <TransitionAlerts
+          message={ user.message }
+          handler={ handleAlert }
+          open={ open }
+        />
       );
     }
   };
@@ -71,7 +75,7 @@ export default function RegistrationByManager() {
       <form className={ classes.root }>
         <TextField
           value={ name }
-          data-testid="admin_manage__input-name"
+          inputProps={ { 'data-testid': 'admin_manage__input-name' } }
           id="outlined-basic"
           label="Nome"
           variant="outlined"
@@ -79,7 +83,7 @@ export default function RegistrationByManager() {
         />
         <TextField
           value={ email }
-          data-testid="admin_manage__input-email"
+          inputProps={ { 'data-testid': 'admin_manage__input-email' } }
           id="outlined-basic"
           label="Email"
           variant="outlined"
@@ -87,14 +91,14 @@ export default function RegistrationByManager() {
         />
         <TextField
           value={ password }
-          data-testid="admin_manage__input-password"
+          inputProps={ { 'data-testid': 'admin_manage__input-password' } }
           id="outlined-basic"
           label="Senha"
           variant="outlined"
           onChange={ (event) => handleChange(setPassword, event) }
         />
         <Select
-          data-testid="admin_manage__select-role"
+          inputProps={ { 'data-testid': 'admin_manage__select-role' } }
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={ role }
@@ -105,6 +109,7 @@ export default function RegistrationByManager() {
           <MenuItem value="Admin">Admin</MenuItem>
         </Select>
         <Button
+          inputProps={ { 'data-testid': 'admin_manage__button-register' } }
           variant="contained"
           color="primary"
           disabled={ isDisabled }
@@ -114,7 +119,6 @@ export default function RegistrationByManager() {
         </Button>
       </form>
       {renderErrorMessage()}
-      {/* <AlertTransitionSlide title="Imposível cadastrar" text="Usuário já existente" /> */}
     </div>
   );
 }
