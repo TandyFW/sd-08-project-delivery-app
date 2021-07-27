@@ -69,7 +69,7 @@ class Register extends React.Component {
       }, spanMaxTime);
       return null;
     }
-    history.push('./products');
+    history.push('./customer/products');
   }
 
   render() {

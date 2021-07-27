@@ -47,7 +47,7 @@ class Login extends React.Component {
       if (user.role === 'administrator') {
         history.push('/seller/orders');
       } else if (user.role === 'customer') {
-        history.push('/products');
+        history.push('/customer/products');
       } else {
         history.push('/register');
       }

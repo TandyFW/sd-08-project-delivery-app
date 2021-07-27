@@ -10,11 +10,11 @@ class Header extends React.Component {
 
   componentDidMount() {
     const { history: { location: { pathname } } } = this.props;
-    if (pathname === '/products') {
+    if (pathname === '/customer/products') {
       document.querySelector('#products')
         .style.boxShadow = 'inset 0 -17px 0px -14px #FFFFFF';
     }
-    if (pathname === '/products') {
+    if (pathname === '/customer/products') {
       document.querySelector('#products')
         .style.boxShadow = 'inset 0 -17px 0px -14px #FFFFFF';
     }

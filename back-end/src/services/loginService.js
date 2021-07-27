@@ -12,7 +12,7 @@ const login = async (dataForLogin) => {
     const { dataValues } = await registerServices.getByEmail(dataForLogin.email);
     dataLoginDB = dataValues;
   } catch (err) {
-    return clientError.badRequest('User Not registered');
+    return clientError.notFound('User Not registered');
   }
   const hashLogin = md5(dataForLogin.password);
   if (dataLoginDB.password !== hashLogin) {
