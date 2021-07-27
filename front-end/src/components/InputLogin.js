@@ -24,9 +24,10 @@ export default function InputLogin() {
 
     console.log(user);
     if (user === undefined) {
-      setRedirected(true);
+      return setRedirected(true);
     }
     if (user.statusText === 'OK') {
+      localStorage.setItem('user', JSON.stringify(user.data));
       setRedirected(false);
       history.push('/customer/products');
     }

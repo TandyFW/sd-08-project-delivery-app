@@ -1,8 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const path = require('path');
 const LoginRouter = require('../routers/LoginRouter');
 const RegisterRouter = require('../routers/RegisterRouter');
+const CustomerRouter = require('../routers/CustomerRouter');
 
 const app = express();
 app.use(cors({
@@ -10,10 +12,10 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use('/images', express.static(`${__dirname}/public`));
+app.use('/images', express.static(path.resolve('public')));
 app.use(LoginRouter);
 app.use(RegisterRouter);
+app.use(CustomerRouter);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 
