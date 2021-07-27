@@ -1,13 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import { Header, Loader } from '../components';
 
 class Admin extends React.Component {
-  constructor() {
-    super();
-    this.state = { loading: false };
-  }
+  // constructor() {
+  //   super();
+  //   // this.state = { loading: false };
+  // }
 
   // async componentDidMount() {
   //   // verificar se o usuario está autenticado
@@ -28,8 +28,8 @@ class Admin extends React.Component {
   }
 }
 
-Admin.propTypes = {
-  history: PropTypes.shape().isRequired,
-};
+// Admin.propTypes = {
+//   history: PropTypes.shape().isRequired,
+// };
 
 export default connect(null, null)(Admin);
