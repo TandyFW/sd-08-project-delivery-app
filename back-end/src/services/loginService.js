@@ -2,9 +2,9 @@ const { Op } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const jwt = require('jsonwebtoken');
-const user = require('../database/models');
+const { users } = require('../database/models');
 
-const secret = fs.readFile(path.join(__dirname, '../../', 'jwt.evaluation.key'), 'utf-8',
+const secret = fs.readFileSync(path.join(__dirname, '../../', 'jwt.evaluation.key'), 'utf-8',
   (err, data) => {
     if (err) throw err;
     return data;
@@ -19,7 +19,9 @@ const JWT = ({ id, email, role }) => jwt.sign({ id, email, role }, secret, jwtCo
 
 const findUser = async (email, password) => {
   try {
-    const result = await user.findOne({ where: { [Op.and]: [{ email }, { password }] } });
+    const result = await users
+      .findOne({ where: { [Op.and]: [{ email }, { password }] }, raw: true });
+      
     if (!result) {
       return {
         statusCode: 404,
@@ -27,10 +29,7 @@ const findUser = async (email, password) => {
       };
     }
 
-    return {
-      statusCode: 200,
-      json: { validate: true, token: JWT(result) },
-    };
+    return { statusCode: 200, json: { validate: true, token: JWT(result) } };
   } catch (err) {
     return {
       statusCode: 500,
