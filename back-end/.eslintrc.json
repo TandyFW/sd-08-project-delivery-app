@@ -1,4 +1,4 @@
 {
-  "root": true,
-  "extends": ["trybe-backend"]
-}
+    "root": true,
+    "extends": ["trybe-backend"]
+  }
