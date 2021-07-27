@@ -30,3 +30,20 @@ export async function create(name, email, password, role) {
     }
   }
 }
+
+export async function login(email, password) {
+  try {
+    const token = await axios.post(`${URL_BASE}/login`,
+      { email, password })
+      .then((response) => response.data);
+    return token;
+  } catch (error) {
+    if (error.response) {
+      return {
+        status: error.response.status,
+        statusText: error.response.statusText,
+        message: error.response.data.message,
+      };
+    }
+  }
+}

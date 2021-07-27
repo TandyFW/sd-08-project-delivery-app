@@ -59,7 +59,7 @@ class Register extends React.Component {
     const name = target.parentNode.firstChild.childNodes[1].value;
     const email = target.parentNode.firstChild.childNodes[2].childNodes[1].value;
     const pass = target.parentNode.firstChild.childNodes[4].value;
-    const role = 'client';
+    const role = 'customer';
     const user = await create(name, email, pass, role);
     const spanMaxTime = 10000;
     if (user.statusText) {
@@ -71,7 +71,7 @@ class Register extends React.Component {
       }, spanMaxTime);
       return null;
     }
-    history.push('./login');
+    history.push('./products');
   }
 
   render() {

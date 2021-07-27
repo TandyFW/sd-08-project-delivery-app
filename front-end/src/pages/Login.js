@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import validator from 'email-validator';
-import { getAllUsers, getAllProducts } from '../services';
+import { login } from '../services';
 
 class Login extends React.Component {
   constructor() {
@@ -12,13 +12,6 @@ class Login extends React.Component {
       password: false,
     };
     this.handleChange = this.handleChange.bind(this);
-  }
-
-  async componentDidMount() {
-    const users = await getAllUsers();
-    console.log(users);
-    const products = await getAllProducts();
-    console.log(products);
   }
 
   handleChange({ target: { name, value } }) {
@@ -37,6 +30,32 @@ class Login extends React.Component {
       } else {
         this.setState({ password: false });
       }
+    }
+  }
+
+  async signIn({ target }) {
+    const { history } = this.props;
+    const email = target.parentNode.parentNode.firstChild.childNodes[1].value;
+    const password = target.parentNode.parentNode.firstChild.childNodes[3].value;
+    const user = await login(email, password);
+    if (!user.status) {
+      localStorage.setItem('token', JSON.stringify(user));
+      if (user.role === 'administrator') {
+        history.push('/seller/orders');
+      } else if (user.role === 'customer') {
+        history.push('/products');
+      } else {
+        history.push('/register');
+      }
+    } else {
+      const spanMaxTime = 5000;
+      const hiddenSpan = document.querySelector('.hidden-span');
+      hiddenSpan.style.display = 'inline-block';
+      hiddenSpan.innerHTML = user.message;
+      setTimeout(() => {
+        document.querySelector('.hidden-span').style.display = 'none';
+      }, spanMaxTime);
+      return null;
     }
   }
 
@@ -61,6 +80,7 @@ class Login extends React.Component {
             onChange={ this.handleChange }
             data-testid="common_login__input-password"
           />
+          <span className="hidden-span" />
         </div>
         <div className="button-div">
           <button
@@ -68,6 +88,7 @@ class Login extends React.Component {
             className="btn-login"
             data-testid="common_login__button-login"
             disabled={ !email || !password }
+            onClick={ (event) => this.signIn(event) }
           >
             Entrar
           </button>

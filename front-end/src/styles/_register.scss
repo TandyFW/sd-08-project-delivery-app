@@ -23,8 +23,8 @@
     align-items: center;
     justify-content: center;
     margin: 250px auto;
-    width: 400px;
-    height: 430px;
+    min-width: 400px;
+    min-height: 430px;
     background-color: $trybeGreen;
     border: 1px rgba(0, 0, 0, 0.3)solid;
     border-radius: 25px;
