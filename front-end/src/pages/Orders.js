@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Container, Row } from 'react-bootstrap';
 import OrderCard from '../components/OrderCard';
 
@@ -27,7 +28,9 @@ function Orders() {
       <Row xs={ 4 } md={ 3 } className="p-4">
         {
           requests.map((variant, idx) => (
-            <OrderCard key={ idx } requests={ variant } user="customer" />
+            <Link key={ idx } to={ `/customer/orders/${variant.id}` }>
+              <OrderCard requests={ variant } user="customer" />
+            </Link>
           ))
         }
       </Row>
