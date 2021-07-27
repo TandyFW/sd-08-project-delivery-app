@@ -3,11 +3,9 @@ const { sale } = require('../database/models');
 const clientError = require('../utils/clientError');
 
 const create = async (dataForCreate) => {
-
  // const { error } = registerSchema.create.validate(dataForCreate);
  // if (error) return clientError.badRequest(error.details[0].message);
-
-  const { dataValues: { result } } = await sale.create(dataFrCreate);
+  const { dataValues: { result } } = await sale.create(dataForCreate);
   return result;
 };
 
@@ -18,7 +16,7 @@ const getById = async (id) => {
   if (error) return clientError.badRequest(error.details[0].message);
   
   try {
-    const { dataValues: { password: _, ...result } } = await sale.findByPk(id)
+    const { dataValues: { password: _, ...result } } = await sale.findByPk(id);
     console.log(sale);
     return result;
   } catch (err) {
@@ -36,7 +34,7 @@ const updateById = async (id, dataForUpdate) => {
   const checkFound = await getById(id);
   if (checkFound.error) return checkFound;
 
-  const result = await sale.update({ ...ataForUpdate }, { where: { id } });
+  const result = await sale.update({ ...dataForUpdate }, { where: { id } });
   if (!result[0]) return clientError.badRequest('Data is Already updated');
 
   return `Success Update Id: ${id}`;
@@ -54,7 +52,7 @@ const deleteById = async (id) => {
 const getAllAll = async (email) => {
   const foundsale = await sale.findOne({
      where: { email },
-     include:[{through:{ attributes: [] } }],
+     include: [{ through: { attributes: [] } }],
     });
   return foundsale;
 };

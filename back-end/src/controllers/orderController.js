@@ -2,7 +2,7 @@ const rescue = require('express-rescue');
 const orderServices = require('../services/orderService');
 const success = require('../utils/success');
 
-const createorder = rescue(async (req, res, next) => {
+const createorder = rescue(async (_req, _res, _next) => {
  // const { name, email, password, role } = req.body;
  // const result = await orderServices.create({ name, email, password, role });
  // if (result.error) return next(result);
