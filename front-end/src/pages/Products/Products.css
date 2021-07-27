@@ -1,6 +1,14 @@
-.title {
-  color: #fffffe;
-  font-family: Nunito , monospace;
-  font-size: 48px;
-  text-align: center;
+.container {
+  display: flex;
+  flex-direction: row;
 }
+
+input {
+  width: 50px;
+}
+
+button {
+  font-size: 30px;
+  height: 50px;
+  width: 50px;
+};
