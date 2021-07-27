@@ -1,16 +1,24 @@
+import { ThemeProvider } from '@material-ui/core';
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
-import Login from './pages/Login';
+import Management from './pages/admin/Management';
+import Products from './pages/client/Products';
 import Register from './pages/Register';
+import Login from './pages/Login';
+import theme from './theme/theme';
 
 function App() {
   return (
-    <Switch>
-      <Route exact path="/login" component={ Login } />
-      <Route path="/register" component={ Register } />
-      <Redirect from="/" to="/login" />
-    </Switch>
+    <ThemeProvider theme={ theme }>
+      <Switch>
+        <Route exact path="/login" component={ Login } />
+        <Route exact path="/register" component={ Register } />
+        <Route exact path="/customer/products" component={ Products } />
+        <Route exact path="/admin/manage" component={ Management } />
+        <Redirect from="/" to="/login" />
+      </Switch>
+    </ThemeProvider>
   );
 }
 

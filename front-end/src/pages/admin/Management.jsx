@@ -1,8 +1,20 @@
 import React from 'react';
+import AdminForm from '../../components/AdminForm';
+import NavBar from '../../components/NavBar';
 
 function Management() {
+  const headerButtons = [
+    {
+      label: 'GERENCIAR USUÁRIOS',
+      href: '/admin/manage',
+    },
+  ];
+
   return (
-    <div><p>Management</p></div>
+    <div>
+      <NavBar headerButtons={ headerButtons } />
+      <AdminForm />
+    </div>
   );
 }
 
