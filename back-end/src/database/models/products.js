@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     });
 
   product.associate = (models) => {
-    product.hasOne(models.sales_product);
+    product.belongsToMany(models.sale, { through: models.salesProduct });
+    product.hasMany(models.salesProduct);
   };
 
   return product;

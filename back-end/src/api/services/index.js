@@ -2,14 +2,18 @@ const getUser = require('./getUser');
 const getAllProducts = require('./getAllProducts');
 const getProductById = require('./getProductById');
 const registerUser = require('./registerUser');
-const createCustomerOrder = require('./createCustomerOrder');
+const createSaleOrder = require('./createSaleOrder');
+const createSaleProductOrder = require('./createSaleProductOrder');
 const getUsersByRole = require('./getUsersByRole');
+const getSaleById = require('./getSaleById');
 
 module.exports = {
   getUser,
   getAllProducts,
   getProductById,
   registerUser,
-  createCustomerOrder,
+  createSaleOrder,
+  createSaleProductOrder,
+  getSaleById,
   getUsersByRole,
 };

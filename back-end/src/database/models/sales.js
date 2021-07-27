@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   },
   {
     timestamps: false,
+    underscored: true,
     setterMethods: {
       userId: function (v) { this.setDataValue("user_id", v); },
       sellerId: function (v) { this.setDataValue("seller_id", v); },
@@ -17,13 +18,14 @@ module.exports = (sequelize, DataTypes) => {
       deliveryAddress: function (v) { this.setDataValue("delivery_address", v); },
       deliveryNumber: function (v) { this.setDataValue("delivery_number", v); },
       saleDate: function (v) { this.setDataValue("sale_date", v); }
-  }}
-  );
+    }
+  });
 
   sale.associate = (models) => {
-    sale.belongsTo(models.user, { as: 'userId', foreignKey: 'user_id' });
-    sale.belongsTo(models.user, { as: 'sellerId', foreignKey: 'seller_id' });
-    sale.hasOne(models.sales_product);
+    sale.belongsTo(models.user, { foreignKey: 'user_id' });
+    sale.belongsTo(models.user, { foreignKey: 'seller_id' });
+    sale.belongsToMany(models.product, { through: models.salesProduct });
+    sale.hasMany(models.salesProduct);
   };
 
   return sale;
