@@ -4,6 +4,7 @@ const BASEURL = 'http://localhost:3001/';
 const LOGIN = 'users/login';
 const REGISTER = 'users/create';
 const SALES = 'sales';
+// const USERS = 'users';
 const SELLERS = 'users/sellers';
 
 export default {
@@ -22,6 +23,10 @@ export default {
   getAllSales: async () => axios
     .get(`${BASEURL}${SALES}`)
     .then((result) => result.data.response),
+
+  // getAllUsers: async () => axios
+  //   .get(`${BASEURL}${USERS}`)
+  //   .then((result) => result.data.response),
 
   getAllSellers: async () => axios
     .get(`${BASEURL}${SELLERS}`)

@@ -14,7 +14,6 @@ const login = async (email, password) => {
   return result
 }
 
-
 const register = async (name, email, password) => {
   const [validUser] = await user.findAll({
     where: {
@@ -31,6 +30,10 @@ const register = async (name, email, password) => {
 
 }
 
+const getAllUsers = async () => {
+  const response = await user.findAll();
+  return response;
+};
 
 const getAllSellers = async () => {
   const response = await user.findAll({ where: { role: 'seller' } });
@@ -38,5 +41,5 @@ const getAllSellers = async () => {
 };
 
 module.exports = {
-  login, register, getAllSellers
+  login, register, getAllUsers, getAllSellers
 }

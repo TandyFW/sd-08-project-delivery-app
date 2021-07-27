@@ -13,6 +13,8 @@ import
 export default function Header() {
   const history = useHistory();
 
+  const name = JSON.parse(localStorage.user).userName;
+
   return (
     <Container>
       <ProductsButton
@@ -34,7 +36,7 @@ export default function Header() {
         data-testid="customer_products__element-navbar-user-full-name"
         // onClick={ () => history.push('/user') }
       >
-        Cicrano da Silva
+        { name }
       </UserButton>
       <LogoutButton
         type="button"
