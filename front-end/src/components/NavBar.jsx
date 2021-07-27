@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -20,7 +21,13 @@ const NavBar = ({ screens, user }) => {
     },
   }));
 
+  const history = useHistory();
+
   const classes = useStyles();
+
+  const logoutUser = () => {
+    history.push('/login');
+  };
 
   return (
     <div>
@@ -49,6 +56,7 @@ const NavBar = ({ screens, user }) => {
           <Button
             color="inherit"
             data-testid="customer_products__element-navbar-link-logout"
+            onClick={ logoutUser }
           >
             Sair
           </Button>

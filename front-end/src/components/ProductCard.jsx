@@ -38,12 +38,18 @@ function ProductCard({ product }) {
   const classes = useStyles();
   const [quantity, setQuantity] = useState(0);
 
-  const handleChange = (event) => {
+  const filterInput = (event) => {
     const lastKey = event.target.value[event.target.value.length - 1];
-    if (parseInt(lastKey, 10) || event.target.value === '') {
-      if (event.target.value === '') setQuantity(0);
-      else setQuantity(parseInt(event.target.value, 10));
+    if (parseInt(lastKey, 10) || event.target.value === '' || lastKey === '0') {
+      if (event.target.value === '') return null;
+      return parseInt(event.target.value, 10);
     }
+  };
+
+  const handleChange = (event) => {
+    const value = filterInput(event);
+    if (!value) setQuantity(0);
+    else setQuantity(value);
   };
 
   return (
