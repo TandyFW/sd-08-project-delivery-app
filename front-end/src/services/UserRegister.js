@@ -11,6 +11,7 @@ const UserRegister = async (name, email, password) => {
       if (response.message === 'Created') return true;
     })
     .catch((err) => console.log(err));
-    return false;
+  return false;
 };
+
 export default UserRegister;

@@ -1,6 +1,7 @@
 import md5 from 'md5';
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import UserRegister from '../services/UserRegister';
 
 export default function FormRegister() {
   const [isValid, setIsValid] = useState(false);
@@ -40,9 +41,11 @@ export default function FormRegister() {
 
   const register = async () => {
     try {
-      await registerUser(currentName, currentEmail, encryptPassword);
-      setShowMessage(false);
-      setRedirect(true);
+      const newRegister = await UserRegister(currentName, currentEmail, encryptPassword);
+      if (newRegister) {
+        setShowMessage(false);
+        setRedirect(true);
+      }
     } catch (err) {
       setShowMessage(true);
     }
