@@ -6,7 +6,7 @@ import api from '../services/api';
 
 const getProducts = async () => {
   const result = await api.get('/delivery/products');
-  console.log(result.data);
+  // console.log(result.data);
   return result.data;
 };
 
@@ -14,13 +14,15 @@ function ClientProducts() {
   const prefix = 'customer_products__';
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const user = JSON.parse(localStorage.getItem('user'));
+
   useEffect(() => {
     getProducts().then((response) => setProducts(response));
     setLoading(false);
   }, []);
   return (
     <div>
-      <NavBar user="Sicrano da Silva" />
+      <NavBar user={ user.name } />
       <ProductList>
         {!loading
           && products.map((product, index) => (
@@ -34,6 +36,7 @@ function ClientProducts() {
             />
           ))}
       </ProductList>
+      <span data-testid={ `${prefix}checkout-bottom-value` } />
     </div>
   );
 }

@@ -19,6 +19,15 @@ const CardProduct = ({ prefix, price, tumbnail, title, id }) => {
   const dispatch = useDispatch();
   const addItem = (idProduct) => {
     const data = { id: idProduct };
+    const carrinho = JSON.parse(localStorage.getItem('carrinho'));
+    const items = carrinho ? carrinho.some((item) => item.id === idProduct) : true;
+    if (!items) {
+      const product = { id: idProduct, quantity: quantity + 1, price };
+      carrinho.push(product);
+      localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    }
+    const product = { id: idProduct, quantity: quantity + 1, price };
+    localStorage.setItem('carrinho', JSON.stringify([product]));
     setQuantity(quantity + 1);
     dispatch({
       type: 'ADD_PRODUCT',
@@ -55,6 +64,7 @@ const CardProduct = ({ prefix, price, tumbnail, title, id }) => {
           <QtdInput
             data-testid={ `${prefix}input-card-quantity-${id}` }
             type="text"
+            onChange={ ({ target }) => setQuantity(target.value) }
             value={ quantity }
           />
           <QtdButton
