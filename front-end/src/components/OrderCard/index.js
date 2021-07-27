@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import OrderCardStatus from '../OrderCardStatus';
 import {
   OrderAddress,
@@ -13,19 +14,21 @@ import {
 } from './Styled';
 
 const renderAddress = (id, address, number) => (
-  <OrderAddress data-testid={ `seller_orders__element-card-address-${id}` }>
+  <OrderAddress data-testid={ `customer_orders__element-card-address-${id}` }>
     {`${address}, ${number}`}
   </OrderAddress>
 );
 
-const OrderCard = ({ orderData, isSeller }) => {
+export default function OrderCard({ orderData, isSeller }) {
+  const history = useHistory();
   const TARGET_LENGTH = 4;
+
   return (
-    <OrderContainer>
+    <OrderContainer onClick={ () => history.push(`/customer/orders/${orderData.id}`) }>
       <OrderIdContainer>
         <p>Pedido</p>
         <OrderId
-          data-testid={ `seller_orders__element-order-orderData.id-${orderData.id}` }
+          data-testid={ `customer_orders__element-order-id-${orderData.id}` }
         >
           {orderData.id.toString().padStart(TARGET_LENGTH, '0')}
         </OrderId>
@@ -33,18 +36,18 @@ const OrderCard = ({ orderData, isSeller }) => {
       <OrderGeneral>
         <OrderData>
           <OrderCardStatus
-            data-testid={ `seller_orders__element-delivery-status-${orderData.id}` }
+            data-testid={ `customer_orders__element-delivery-status-${orderData.id}` }
             status={ orderData.status }
             id={ orderData.id }
           />
           <OrderDetails>
             <OrderDetailsInfo
-              data-testid={ `seller_orders__element-order-date-${orderData.id}` }
+              data-testid={ `customer_orders__element-order-date-${orderData.id}` }
             >
               {orderData.sale_date}
             </OrderDetailsInfo>
             <OrderDetailsInfo
-              data-testid={ `seller_orders__element-card-price-${orderData.id}` }
+              data-testid={ `customer_orders__element-card-price-${orderData.id}` }
             >
               {`R$${orderData.total_price.toFixed(2)}`}
             </OrderDetailsInfo>
@@ -59,9 +62,7 @@ const OrderCard = ({ orderData, isSeller }) => {
       </OrderGeneral>
     </OrderContainer>
   );
-};
-
-export default OrderCard;
+}
 
 OrderCard.propTypes = {
   orderData: PropTypes.shape({

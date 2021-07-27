@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export default styled.p`
   align-items: center;
-  background-color: yellow;
+  background-color: ${({ bgColor }) => bgColor};
   border-radius: 10px;
   display: flex;
   font-size: 32px;

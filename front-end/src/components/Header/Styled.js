@@ -5,6 +5,7 @@ export const Container = styled.div`
   justify-content: center;
   margin: 0;
 `;
+
 export const ProductsButton = styled.button`
   background-color: #3FBF7F;
   padding: 10px;
@@ -17,11 +18,13 @@ export const ProductsButton = styled.button`
   cursor: pointer;
   transition: 0.2s ease all;
   font-size: 15px;
+
   &:hover {
     background-color: #6CCF9E;
     color: black;
   }
 `;
+
 export const OrdersButton = styled.button`
   background-color: #216844;
   padding: 10px;
@@ -34,11 +37,13 @@ export const OrdersButton = styled.button`
   cursor: pointer;
   transition: 0.2s ease all;
   font-size: 15px;
+
   &:hover {
     background-color: #298859;
     color: white;
   }
 `;
+
 export const UserButton = styled.button`
   background-color: #7033AC;
   padding: 10px;
@@ -51,11 +56,13 @@ export const UserButton = styled.button`
   cursor: pointer;
   transition: 0.2s ease all;
   font-size: 15px;
+
   &:hover {
     background-color: #9156CC;
     color: white;
   }
 `;
+
 export const LogoutButton = styled.button`
   background-color: #319CCD;
   padding: 10px;
@@ -68,6 +75,7 @@ export const LogoutButton = styled.button`
   cursor: pointer;
   transition: 0.2s ease all;
   font-size: 15px;
+  
   &:hover {
     background-color: #5AAFD7;
     color: white;

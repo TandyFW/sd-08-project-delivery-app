@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import OrderCard from '../../Components/OrderCard';
 import api from '../../Apis/api1';
+import { OrderCard, Header } from '../../components';
+import OrderCardContainer from './Styled';
 
 const CustomerOrders = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => api.getAllSales().then((response) => setOrders(response)), []);
 
-  console.log(orders);
-
   return (
-    <div>
-      {orders.length
-        && orders.map((order) => <OrderCard key={ order.id } orderData={ order } />)}
-    </div>
+    <main>
+      <Header />
+      <OrderCardContainer>
+        {!!orders.length
+          && orders.map((order) => (<OrderCard
+            key={ order.id }
+            orderData={ order }
+          />))}
+      </OrderCardContainer>
+    </main>
   );
 };
 
