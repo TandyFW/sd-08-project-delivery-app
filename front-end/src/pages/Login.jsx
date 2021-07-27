@@ -1,25 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { makeStyles } from '@material-ui/styles';
+import Grid from '@material-ui/core/Grid';
+import { LoginForm } from '../components';
+
+const useStyles = makeStyles(() => ({
+  root: {
+    height: '100vh',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+}));
 
 const Login = () => {
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-    const getUser = async () => {
-      const resp = await fetch('http://localhost:3001/login', {
-        headers: { 'Content-Type': 'application/json' },
-        method: 'POST',
-        body: JSON.stringify({ email: 'adm@deliveryapp' }),
-      });
-      const userObj = await resp.json();
-      console.log(userObj);
-      setUser(userObj);
-    };
-
-    getUser();
-  }, []);
+  const classes = useStyles();
 
   return (
-    <h1>{ JSON.stringify(user, null, 2) }</h1>
+    <Grid container className={ classes.root }>
+      <LoginForm />
+    </Grid>
   );
 };
 

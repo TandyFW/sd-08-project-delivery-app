@@ -1,9 +1,9 @@
 import React from 'react';
-import Components from '../components';
+import { TopBar, RegistrationByManager } from '../components';
 
 const AdminManage = () => (
   <div>
-    <Components.TopBar subject="Gerenciar Usuários" user="Admin" />
-    <Components.RegistrationByManager />
+    <TopBar subject="Gerenciar Usuários" user="Admin" />
+    <RegistrationByManager />
   </div>);
 export default AdminManage;

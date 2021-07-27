@@ -1,4 +1,4 @@
-const request = async (route, method, body) => {
+const request = async (route, method = 'GET', body = null) => {
   const resp = await fetch(`http://localhost:3001/${route}`, {
     headers: { 'Content-Type': 'application/json' },
     method,
@@ -8,6 +8,4 @@ const request = async (route, method, body) => {
   return userObj;
 };
 
-module.exports = {
-  request,
-};
+export default request;
