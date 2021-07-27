@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Form, Button, Spinner } from 'react-bootstrap';
 import { loginValidator } from '../lib/validator';
 import { LoginContext } from '../context/LoginProvider';
@@ -13,12 +14,14 @@ export default function SignInSide() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isValidSubmit, setIsValidSubmit] = useState(true);
+  const history = useHistory();
 
   useEffect(() => {
     const { error } = loginValidator.validate({ email, password });
     if (!error) setIsValidSubmit(false);
     else setIsValidSubmit(true);
   }, [email, password]);
+
   return (
     <Form className="p-4">
       <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -74,6 +77,7 @@ export default function SignInSide() {
           type="submit"
           size="lg"
           data-testid="common_login__button-register"
+          onClick={ () => history.push('/register') }
           disabled={ loading }
         >
           Ainda não tenho conta
