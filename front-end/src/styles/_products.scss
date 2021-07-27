@@ -4,13 +4,9 @@
   justify-content: center;
   width: 100%;
   margin: 80px auto 0 auto;
-  background-color: red;
   height: calc(100vh - 80px);
   @include loading-div(420px, 500px, $trybeGreen);
   .cardlist-container {
-    // display: grid;
-    // grid-template-columns: 15% 15% 15% 15% 15% 15%;
-    // grid-template-rows: 45% 45%;
     @include flex(flex, row, center, center);
     flex-wrap: wrap;
     width: 1600px;
