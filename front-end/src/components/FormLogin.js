@@ -4,8 +4,6 @@ import { Link, Redirect } from 'react-router-dom';
 import fetchUser from '../services/fetchUser';
 import emailVerify from '../utils/functions';
 
-const md5 = require('md5');
-
 export default function FormLogin() {
   const [isValid, setIsValid] = useState(false);
   const [currentEmail, setCurrentEmail] = useState('');
@@ -21,6 +19,7 @@ export default function FormLogin() {
     const password = passwordInput.value;
     const MIN_PASSWORRD_LENGTH = 6;
     setCurrentEmail(email);
+    console.log(md5(password));
     setEncryptPassword(md5(password));
     if (!emailVerify(email) || password.length < MIN_PASSWORRD_LENGTH) {
       setIsValid(false);
@@ -40,7 +39,7 @@ export default function FormLogin() {
     e.preventDefault();
     const user = await fetchUser(currentEmail, encryptPassword);
 
-    if (user.length) {
+    if (user) {
       setShowMessage(false);
       switch (user) {
       case 'customer':
