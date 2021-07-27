@@ -15,5 +15,7 @@ module.exports = (req, res, next) => {
     return res.status(401).json({ message: 'Expired or invalid token' });
   }
 
+  req.tokenData = decoded.data;
+
   next();
 };

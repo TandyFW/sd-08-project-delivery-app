@@ -10,7 +10,15 @@ module.exports = (sequelize, DataTypes) => {
   },
   {
     timestamps: false,
-    });
+    setterMethods: {
+      userId: function (v) { this.setDataValue("user_id", v); },
+      sellerId: function (v) { this.setDataValue("seller_id", v); },
+      totalPrice: function (v) { this.setDataValue("total_price", v); },
+      deliveryAddress: function (v) { this.setDataValue("delivery_address", v); },
+      deliveryNumber: function (v) { this.setDataValue("delivery_number", v); },
+      saleDate: function (v) { this.setDataValue("sale_date", v); }
+  }}
+  );
 
   sale.associate = (models) => {
     sale.belongsTo(models.user, { as: 'userId', foreignKey: 'user_id' });

@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   },
   {
     timestamps: false,
-    });
+  });
 
   salesProduct.associate = (models) => {
     salesProduct.belongsTo(models.sale, { foreignKey: 'sale_id' });
