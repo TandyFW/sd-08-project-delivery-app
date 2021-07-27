@@ -4,7 +4,7 @@ const {
   getReasonPhrase,
 } = require('http-status-codes');
 const HandleError = require('../../utils/handleError');
-const authConfig = require('../../../config/jwtConfig');
+const { SECRET } = require('../../../config/jwtConfig');
 
 module.exports = function isAuthenticated(req, res, next) {
   const authHeader = req.headers.authorization;
@@ -12,9 +12,9 @@ module.exports = function isAuthenticated(req, res, next) {
     throw new HandleError('JWT Token is missing.', StatusCodes.UNAUTHORIZED,
     getReasonPhrase(StatusCodes.UNAUTHORIZED)); 
   }
-  const [, token] = authHeader.split(' ');
   try {
-    req.user = verify(token, authConfig.jwt.secret);
+    const user = verify(authHeader, SECRET);
+    req.user = user;
     next();
   } catch (error) {
     throw new HandleError('Invalid JWT Token', 
