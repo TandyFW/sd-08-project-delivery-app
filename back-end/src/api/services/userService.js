@@ -1,13 +1,14 @@
 const md5 = require('md5');
 const JWT = require('jsonwebtoken');
 const path = require('path');
+const jwtKey = require('fs')
+  .readFileSync(path.resolve(__dirname, '../../../jwt.evaluation.key'),
+    { encoding: 'utf-8' })
+  .trim();
 const { user } = require('../../database/models');
 require('dotenv').config();
 
 // const { SECRET } = process.env;
-const jwtKey = require("fs")
-  .readFileSync(path.resolve(__dirname, "../../../jwt.evaluation.key"), { encoding: "utf-8" })
-  .trim();
 
 const JWTCONFIG = {
   expiresIn: '1d',
@@ -46,7 +47,7 @@ const verifyToken = (token) => {
     return { code: 401, message: 'invalid JWT' };
   }
   try {
-    const decoded = JWT.verify(token, SECRET);
+    const decoded = JWT.verify(token, jwtKey);
     return decoded.data;
   } catch (err) {
     return { code: 401, message: 'invalid JWT' };
