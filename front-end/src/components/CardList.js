@@ -25,7 +25,7 @@ class CardList extends React.Component {
       <div className="cardlist-container">
         { stateProducts
           && stateProducts.map((product, index) => (
-            <div id={ `${index}` } className="product" key={ product.id }>
+            <div className="product" key={ index }>
               <img
                 src={ product.urlImage }
                 alt={ product.name }

@@ -7,15 +7,14 @@
   height: calc(100vh - 80px);
   @include loading-div(420px, 500px, $trybeGreen);
   .cardlist-container {
-    display: grid;
-    grid-template-columns: 15% 15% 15% 15% 15% 15%;
-    grid-template-rows: 45% 45%;
-    flex-flow: wrap;
-    justify-content: center;
-    width: 90%;
-    height: 80vh;
+    @include flex(flex, row, center, center);
+    flex-wrap: wrap;
+    width: 1600px;
+    height: 800px;
     .product {
       @include flex(flex, column, space-evenly, center);
+      width: 220px;
+      height: 300px;
       text-align: center;
       margin: 20px;
       background-color: $white;
@@ -25,11 +24,13 @@
       transition: 0.2s;
       &:hover {
         box-shadow: 0 1px 7px 0 rgba(5, 3, 3, 0.2), 0 1px 2px 0 rgba(0, 0, 0, .1);
+        box-shadow: 0 1px 7px 0 rgba(5, 3, 3, 0.2), 0 1px 2px 0 rgba(0, 0, 0, .1);
+        box-shadow: 4px 5px 7px 0 rgba(5, 3, 3, 0.2), 0 1px 2px 0 rgba(0, 0, 0, .1);
         border: 1px solid rgb(185, 185, 185);
       }
       img {
         margin-top: 5px;
-        width: 80%;
+        width: 220px;
       }
       h4 {
         margin: 0;
