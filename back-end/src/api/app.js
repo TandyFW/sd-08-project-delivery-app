@@ -4,6 +4,9 @@ const loginController = require('../controllers/loginController');
 const registerController = require('../controllers/registerController');
 
 const app = express();
+app.use(express.json());
+
+app.use(cors());
 
 app.use(cors());
 

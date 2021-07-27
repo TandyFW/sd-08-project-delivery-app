@@ -6,7 +6,8 @@ const user = (sequelize, DataTypes) => {
     role: DataTypes.STRING,
   },
   {
-    timestamps: false
+    timestamps: false,
+    underscored: true,
   });
 
   user.associate = (models) => {

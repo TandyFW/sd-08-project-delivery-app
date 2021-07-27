@@ -4,6 +4,8 @@ import { Link, Redirect } from 'react-router-dom';
 import fetchUser from '../services/fetchUser';
 import emailVerify from '../utils/functions';
 
+const md5 = require('md5');
+
 export default function FormLogin() {
   const [isValid, setIsValid] = useState(false);
   const [currentEmail, setCurrentEmail] = useState('');
@@ -84,7 +86,7 @@ export default function FormLogin() {
           />
         </label>
         <button
-          type="submit"
+          type="button"
           className="btn-login"
           disabled={ !isValid }
           onClick={ (e) => login(e) }

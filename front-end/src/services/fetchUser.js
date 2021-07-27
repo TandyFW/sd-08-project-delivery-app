@@ -9,7 +9,7 @@ const fetchUser = async (email, password) => {
   })
     .then((response) => {
       const { data: { token } } = response;
-      console.log(token);
+      console.log(typeof token);
       if (token.length) {
         const decoded = jwt.verify(token, secret);
         console.log(decoded);
