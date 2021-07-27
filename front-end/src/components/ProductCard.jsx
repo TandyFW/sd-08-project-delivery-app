@@ -38,6 +38,14 @@ function ProductCard({ product }) {
   const classes = useStyles();
   const [quantity, setQuantity] = useState(0);
 
+  const handleChange = (event) => {
+    const lastKey = event.target.value[event.target.value.length - 1];
+    if (parseInt(lastKey, 10) || event.target.value === '') {
+      if (event.target.value === '') setQuantity(0);
+      else setQuantity(parseInt(event.target.value, 10));
+    }
+  };
+
   return (
     <Card className={ classes.root } variant="outlined">
       <CardContent className={ classes.card }>
@@ -77,7 +85,7 @@ function ProductCard({ product }) {
           data-testid={ `customer_products__input-card-quantity-${product.id}` }
           className={ classes.input }
           value={ quantity }
-          readOnly
+          onChange={ handleChange }
         />
         <Button
           data-testid={ `customer_products__button-card-add-item-${product.id}` }
