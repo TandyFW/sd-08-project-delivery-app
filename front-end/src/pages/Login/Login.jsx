@@ -4,7 +4,6 @@ import axios from 'axios';
 import './Login.css';
 import delivery from '../../images/delivery.jpeg';
 import setUserInfo from '../../service/setLocalStorage';
-import NavBar from '../../Components/NavBar/NavBar';
 
 export default function Login() {
   const history = useHistory();
@@ -73,7 +72,6 @@ export default function Login() {
 
   return (
     <div className="login">
-      <NavBar />
       <img src={ delivery } alt="Entrega de produto" />
       <h1 className="title">Delivery da Terezona</h1>
       <form className="login-form">
