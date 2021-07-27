@@ -1,13 +1,12 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import './App.css';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Products from './pages/Products/Products';
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Switch>
         <Route exact path="/">
           <Redirect to="/login" />

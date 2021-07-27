@@ -1,6 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap') ;
-
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap') ;
+.register {
+  background-color: #004643;
+  height: 100vh;
+  position: absolute;
+  width: 100vw;
+}
 
 .title {
   color: #fffffe;
@@ -15,7 +18,7 @@
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  height: 340px;
+  height: 360px;
   margin: auto;
   width: 400px;
 }
