@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 // import { Header, Loader } from '../components';
 
 class Admin extends React.Component {
-  constructor() {
-    super();
-    // this.state = { loading: false };
-  }
+  // constructor() {
+  //   super();
+  //   // this.state = { loading: false };
+  // }
 
   // async componentDidMount() {
   //   // verificar se o usuario está autenticado
