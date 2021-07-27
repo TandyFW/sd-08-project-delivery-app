@@ -1,4 +1,5 @@
 const md5 = require('md5');
+const Boom = require('@hapi/boom');
 const registerSchema = require('../schemas/registerSchema');
 const { user } = require('../database/models');
 const clientError = require('../utils/clientError');
@@ -7,11 +8,13 @@ const getAll = () => user.findAll();
 
 const create = async (dataForCreate) => {
   const hashPassword = md5(dataForCreate.password);
-  const userList = getAll();
-  const index = userList.findIndex((item)=> item.email === dataForCreate.email);
   const { error } = registerSchema.create.validate(dataForCreate);
   if (error) return clientError.badRequest(error.details[0].message);
-  if (index==-1) return clientError.conflict('Already registered user');
+  const userList = await getAll();
+  let index = -1;
+  if(userList) index = userList.findIndex((item)=> item.email === dataForCreate.email);
+  console.log(index, typeof index, index >= 0);
+  if (index >= 0) {console.log(clientError.conflict('User already registrad')); return clientError.conflict('User already registrad');};
   const { dataValues: { password: _, ...result } } = await user
     .create({ ...dataForCreate, password: hashPassword });
   return result;
