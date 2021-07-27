@@ -6,20 +6,35 @@ function AddressDetails() {
       <div className="checkout-container-inputs">
         <div className="select-input">
           <p>P/ Vendedora Responsável:</p>
-          <select name="seller">
+          <select
+            data-testid="customer_checkout__select-seller"
+            name="seller"
+          >
             <option value="seller">FAKE</option>
           </select>
         </div>
         <label htmlFor="adress">
           Endereço:
-          <input type="text" />
+          <input
+            data-testid="customer_checkout__input-address"
+            type="text"
+          />
         </label>
         <label htmlFor="number">
           Número:
-          <input type="text" />
+          <input
+            data-testid="customer_checkout__input-addressNumber"
+            type="text"
+          />
         </label>
       </div>
-      <button className="checkout-btn" type="button">FINALIZAR PEDIDO</button>
+      <button
+        data-testid="customer_checkout__button-submit-order"
+        className="checkout-btn"
+        type="button"
+      >
+        FINALIZAR PEDIDO
+      </button>
     </div>
   );
 }
