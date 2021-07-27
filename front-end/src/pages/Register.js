@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { teste } from '../services/api';
+import { createUser } from '../services/Api';
+import { saveState } from '../services/LocalStorage';
 import Input from '../components/Input';
 
 import beerToastIcon from '../images/beer.png';
@@ -12,21 +13,30 @@ const MIN_NAME_LENGTH = 12;
 const MIN_PASSWORD_LENGTH = 6;
 
 function Register() {
-  const [user, setNewUser] = useState('');
+  const [user, setUser] = useState(undefined);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [inputValue, setInputValue] = useState({
     Nome: '',
     Email: '',
     Senha: '',
   });
 
-  console.log(user);
+  const handleClick = async () => {
+    const newUser = await createUser({
+      name: inputValue.Nome, email: inputValue.Email, password: inputValue.Senha,
+    });
+
+    if (newUser) {
+      setUser(newUser);
+      saveState('user', newUser);
+    }
+
+    return !newUser && setShowErrorMessage(true);
+  };
 
   const history = useHistory();
 
-  const handleClick = async () => {
-    setNewUser(await teste());
-    history.push('/customer/products');
-  };
+  useEffect(() => user && history.push('/customer/products'), [user, history]);
 
   const handleChange = ({ target }) => {
     setInputValue({ ...inputValue, [target.name]: target.value });
@@ -83,13 +93,14 @@ function Register() {
           </button>
         </form>
       </div>
-
-      <p
-        className="error-message"
-        data-testid="common_register__element-invalid_register"
-      >
-        Usuário já cadastrado. Digite outro nome.
-      </p>
+      { showErrorMessage && (
+        <p
+          className="error-message"
+          data-testid="common_register__element-invalid_register"
+        >
+          Usuário já cadastrado.
+        </p>
+      )}
     </>
   );
 }

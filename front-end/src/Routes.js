@@ -19,7 +19,7 @@ function Routes() {
       <Route path="/login">
         <Login />
       </Route>
-      <Route path="/">
+      <Route exact path="/">
         <Redirect to="/login" />
       </Route>
     </Switch>
