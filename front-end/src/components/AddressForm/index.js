@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import api from '../../Apis/api1';
 
 import
 { Container,
@@ -14,17 +15,15 @@ import
   /* InvalidBox, */
 } from './Styled';
 
-const mockSellers = [
-  { id: 1, name: 'Fulana de tal' },
-  { id: 2, name: 'O Silva' },
-];
-
 export default function AddressForm() {
+  const [sellers, setSellers] = useState([]);
   const [message, setMessage] = useState(false);
   const [address, setAddress] = useState({
     street: '',
     number: '',
   });
+
+  useEffect(() => api.getAllSellers().then((response) => setSellers(response)), []);
 
   const handleAddress = ({ target: { name, value } }) => {
     setAddress({
@@ -45,7 +44,7 @@ export default function AddressForm() {
           <Paragraph>P. Vendedora Responsável</Paragraph>
           <ContainerLabel htmlFor="sellers">
             <ContainerSelect id="sellers" name="sellers">
-              { mockSellers.length > 0 ? mockSellers.map((seller) => (
+              { sellers ? sellers.map((seller) => (
                 <option key={ seller.id }>{ seller.name }</option>
               )) : '' }
             </ContainerSelect>

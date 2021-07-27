@@ -4,6 +4,7 @@ const BASEURL = 'http://localhost:3001/';
 const LOGIN = 'users/login';
 const REGISTER = 'users/create';
 const SALES = 'sales';
+const SELLERS = 'users/sellers';
 
 export default {
   loginFetch: async (email, password) => {
@@ -20,5 +21,9 @@ export default {
 
   getAllSales: async () => axios
     .get(`${BASEURL}${SALES}`)
+    .then((result) => result.data.response),
+
+  getAllSellers: async () => axios
+    .get(`${BASEURL}${SELLERS}`)
     .then((result) => result.data.response),
 };

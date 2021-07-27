@@ -1,7 +1,7 @@
 const md5 = require('md5');
 const { Op } = require('sequelize');
 const { user } = require('../models/index');
-
+// const { user } = require('../models');
 
 const hashTransformation = (password) => {
   return md5(password);
@@ -31,6 +31,12 @@ const register = async (name, email, password) => {
 
 }
 
+
+const getAllSellers = async () => {
+  const response = await user.findAll({ where: { role: 'seller' } });
+  return response;
+};
+
 module.exports = {
-  login, register
+  login, register, getAllSellers
 }
