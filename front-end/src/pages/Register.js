@@ -28,7 +28,6 @@ class Register extends React.Component {
   handleChange({ target: { name, value } }) {
     if (name === 'email') {
       const isValid = validator.validate(value.toLowerCase());
-      console.log(name, isValid);
       if (isValid) {
         this.setState({ email: true });
       } else {
@@ -60,11 +59,13 @@ class Register extends React.Component {
     const pass = target.parentNode.firstChild.childNodes[4].value;
     const role = 'customer';
     const user = await create(name, email, pass, role);
+    console.log(user.newRegister);
     const spanMaxTime = 10000;
     if (user.statusText) {
       const hiddenSpan = document.querySelector('.hidden-span');
       hiddenSpan.style.display = 'inline-block';
       hiddenSpan.innerHTML = user.message;
+      hiddenSpan.setAttribute('data-testid', 'common_register__element-invalid_register');
       setTimeout(() => {
         document.querySelector('.hidden-span').style.display = 'none';
       }, spanMaxTime);
