@@ -10,8 +10,8 @@ export const Card = styled.div`
 `;
 export const ProductImage = styled.img`
   margin: auto;
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 50%;
+  max-height: 50%;
   background-color: ${(props) => props.color};
 `;
 export const ProductPrice = styled.span`

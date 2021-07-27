@@ -6,6 +6,7 @@ export const Menu = styled.div`
 `;
 
 export const MenuItem = styled.button`
+  cursor: pointer;
   padding: 10px;
   border: none;
   color: white;
