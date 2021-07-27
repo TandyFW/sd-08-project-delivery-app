@@ -1,7 +1,8 @@
 const axios = require('axios');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
-const secret = 'grupo-8';
+const secret = process.env.REACT_APP_SECRET;
 
 const fetchUser = async (email, password) => {
   const user = axios.post('http://localhost:3001/login', {
@@ -10,11 +11,9 @@ const fetchUser = async (email, password) => {
   })
     .then((response) => {
       const { data: { token } } = response;
-      console.log(typeof token);
       if (token.length) {
         const decoded = jwt.verify(token, secret);
-        console.log(decoded);
-        // return decoded.role;
+        return decoded;
       }
     })
     .catch((err) => err);
