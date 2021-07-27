@@ -42,9 +42,10 @@ class Login extends React.Component {
     const email = target.parentNode.parentNode.firstChild.childNodes[1].value;
     const password = target.parentNode.parentNode.firstChild.childNodes[3].value;
     const user = await login(email, password);
+    console.log(user);
     if (!user.status) {
       localStorage.setItem('token', JSON.stringify(user));
-      if (user.role === 'administrator') {
+      if (user.role === 'seller') {
         history.push('/seller/orders');
       } else if (user.role === 'customer') {
         history.push('/customer/products');
@@ -55,6 +56,7 @@ class Login extends React.Component {
       const spanMaxTime = 5000;
       const hiddenSpan = document.querySelector('.hidden-span');
       hiddenSpan.style.display = 'inline-block';
+      hiddenSpan.setAttribute('data-testid', 'common_login__element-invalid-email');
       hiddenSpan.innerHTML = user.message;
       setTimeout(() => {
         hiddenSpan.style.display = 'none';
