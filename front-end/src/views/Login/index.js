@@ -38,7 +38,7 @@ function Login() {
     return setUserData(content);
   };
   return (
-    <div className="main-wrapper">
+    <div className="main-wrapper-login">
       <div className="content">
         <h1>ONzé Delivery</h1>
         <div className="form-control">
