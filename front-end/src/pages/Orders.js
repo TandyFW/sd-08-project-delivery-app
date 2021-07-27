@@ -1,33 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Row } from 'react-bootstrap';
 import OrderCard from '../components/OrderCard';
-
-const requests = [{
-  id: '0001',
-  salesDate: '08/04/21',
-  status: 'PENDENTE',
-  price: 'R$14,20',
-},
-{
-  id: '0002',
-  salesDate: '09/04/21',
-  status: 'PENDENTE',
-  price: 'R$20,50',
-},
-{
-  id: '0003',
-  salesDate: '19/04/21',
-  status: 'PENDENTE',
-  price: 'R$30,25',
-}];
+import useAxios from '../hooks/useAxios';
+import { API_CUSTUMER_ORDER_URL } from '../service/backendApi';
 
 function Orders() {
+  const { request, response } = useAxios();
+  useEffect(() => request(API_CUSTUMER_ORDER_URL), [request]);
   return (
     <Container>
-      <Row xs={ 4 } md={ 3 } className="p-4">
+      <Row xs={ 4 } md={ 2 } className="p-4">
         {
-          requests.map((variant, idx) => (
+          response && response.data.map((variant, idx) => (
             <Link key={ idx } to={ `/customer/orders/${variant.id}` }>
               <OrderCard requests={ variant } user="customer" />
             </Link>
