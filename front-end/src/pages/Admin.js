@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 class Admin extends React.Component {
   constructor() {
     super();
-    this.state = { loading: false };
+    // this.state = { loading: false };
   }
 
   // async componentDidMount() {
