@@ -12,7 +12,8 @@ export const register = async (name, email, password) => {
   return fetch(`${URL_BASE}/customer`, options)
     .then((response) => {
       if (response.status !== STATUS_CODES.CREATED) {
-        throw new Error('Error dfsfasd');
+        console.log(response.status);
+        throw new Error('Creation error');
       }
       return response.json();
     })
@@ -29,7 +30,7 @@ export const login = async (email, password) => {
   return fetch(`${URL_BASE}/login`, options)
     .then((response) => {
       if (response.status !== STATUS_CODES.OK) {
-        throw new Error('Error');
+        throw new Error('Login error');
       }
       return response.json();
     })

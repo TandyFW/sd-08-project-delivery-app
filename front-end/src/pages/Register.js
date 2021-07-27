@@ -1,37 +1,38 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import contextDelivery from '../context/Context';
+import useLocalStorage from '../hooks/useLocalStorage';
 import * as api from '../services/api';
 
 function Register() {
-  const {
-    name,
-    setName,
-    setEmail,
-    email,
-    password,
-    setPassword,
-    setDisable,
-    disable,
-  } = useContext(contextDelivery);
-
-  useEffect(() => {
-    function buttonAble() {
-      const validEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-      const SEIS = 6;
-      const DOZE = 12;
-      if (validEmail.test(email) && password.length >= SEIS && name.length >= DOZE) {
-        setDisable(false);
-      } else setDisable(true);
-    }
-    buttonAble();
-  }, [email, password, name, setDisable]);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const setToken = useLocalStorage('token')[1];
+  const [showWarning, setShowWarning] = useState(false);
 
   const history = useHistory();
 
-  function handleClick() {
-    api(email, password, name);
-    history.push('/products');
+  const isDisabled = () => {
+    const validEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    const SEIS = 6;
+    const DOZE = 12;
+    return !validEmail.test(email) || password.length < SEIS || name.length < DOZE;
+  };
+
+  async function handleClick() {
+    api.register(name, email, password)
+      .then(() => {
+        console.log('entrei aqui');
+        api.login(email, password)
+          .then((result) => {
+            setToken(result.token);
+            history.push('/customer/products');
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+        setShowWarning(true);
+      });
   }
 
   return (
@@ -57,11 +58,13 @@ function Register() {
       <button
         type="button"
         data-testid="common_register__button-register"
-        disabled={ disable }
+        disabled={ isDisabled() }
         onClick={ handleClick }
       >
         CADASTRAR
       </button>
+      { showWarning
+        && <p data-testid="common_register__element-invalid_register">Deu ruim!</p> }
     </fieldset>
   );
 }
