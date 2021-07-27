@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';
 import delivery from '../../images/delivery.jpeg';
+import setUserInfo from '../../service/setLocalStorage';
 
 export default function Login() {
   const history = useHistory();
@@ -52,10 +53,14 @@ export default function Login() {
           password,
         },
       });
-      setTokenLogin(response.data.token);
-      console.log('path', response.data.path);
-      history.push(response.data.path);
+      const { data } = response;
+      console.log(response);
+      const { name, role, token, path } = data;
+      setTokenLogin(token);
+      setUserInfo({ name, email, role, token });
+      history.push(path);
     } catch (e) {
+      console.log(e);
       const {
         response: { status },
       } = e;
