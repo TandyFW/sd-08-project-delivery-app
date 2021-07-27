@@ -33,7 +33,9 @@ const login = rescue(async (req, res) => {
 
   const user = await UserService.findByEmail(email);
 
-  if (!user || user.password !== md5(password)) {
+  if (!user) throw boom.notFound('User not found');
+
+  if (user.password !== md5(password)) {
     throw boom.unauthorized('Invalid user');
   }
 

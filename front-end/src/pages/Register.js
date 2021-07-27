@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import contextDelivery from '../context/Context';
-import loginApi from '../services/loginApi';
+import * as api from '../services/api';
 
 function Register() {
   const {
@@ -30,7 +30,7 @@ function Register() {
   const history = useHistory();
 
   function handleClick() {
-    loginApi(email, password, name);
+    api(email, password, name);
     history.push('/products');
   }
 
