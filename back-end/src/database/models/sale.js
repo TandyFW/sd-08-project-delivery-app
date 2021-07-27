@@ -8,12 +8,16 @@ const sale = (sequelize, DataTypes) => {
   }, { timestamps : false });
 
   sale.associate = (models) => {
-    models.sale.belongsTo(models.user, { 
+    models.sale.belongsToMany(models.user, { 
       as: "seller_id" ,
+      through: "users",
+      foreignKey: "seller_id",
       }
       );
-    models.sale.belongsTo(models.user, {
+    models.sale.belongsToMany(models.user, {
       as: "user_id",
+      through: "users",
+      foreignKey: "seller_id",
     });
   };
 

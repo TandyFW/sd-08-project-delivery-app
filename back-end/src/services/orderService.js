@@ -1,5 +1,5 @@
 const registerSchema = require('../schemas/registerSchema');
-const { sale } = require('../database/models');
+const { sale, user } = require('../database/models');
 const clientError = require('../utils/clientError');
 
 const create = async (dataForCreate) => {
@@ -49,10 +49,10 @@ const deleteById = async (id) => {
   return `Success Delete Id: ${id}`;
 };
 
-const getAllAll = async (email) => {
+const getAllAll = async (id) => {
   const foundsale = await sale.findOne({
-     where: { email },
-     include: [{ through: { attributes: [] } }],
+     where: { id },
+     include:  {model: user, as: 'seller_id', through: { attributes: [] },}
     });
   return foundsale;
 };

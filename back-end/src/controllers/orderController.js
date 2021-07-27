@@ -14,8 +14,9 @@ const getAllorders = rescue(async (_req, res, next) => {
   if (result.error) return next(result);
   res.status(success.OK).json({ orders: result });
 });
-const getAllAllorders = rescue(async (_req, res, next) => {
-  const result = await orderServices.getAllAll();
+const getAllAllorders = rescue(async (req, res, next) => {
+  const { id } = req.params;
+  const result = await orderServices.getAllAll(id);
   if (result.error) return next(result);
   res.status(success.OK).json({ orders: result });
 });
