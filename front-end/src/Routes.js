@@ -2,6 +2,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import React from 'react';
 import Login from './Pages/Login';
 import CustomerCheckout from './Pages/CustomerCheckout';
+import CustomerProducts from './Pages/CustomerProducts';
 
 export default () => (
   <Switch>
@@ -14,9 +15,10 @@ export default () => (
     {/* <Route path="/register" exact>
       <Register />
     </Route>
+    */}
     <Route path="/customer/products" exact>
       <CustomerProducts />
-    </Route> */}
+    </Route>
     <Route path="/customer/checkout" exact>
       <CustomerCheckout />
     </Route>
