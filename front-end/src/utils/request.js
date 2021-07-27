@@ -8,6 +8,4 @@ const request = async (route, method = 'GET', body = {}) => {
   return userObj;
 };
 
-module.exports = {
-  request,
-};
+export default request;

@@ -1,49 +1,29 @@
 'use strict';
+const md5 = require('md5');
 
 module.exports = {
   up: async (queryInterface, _Sequelize) => {
     await queryInterface.bulkInsert('users',
       [{
         id: 1,
-        name: 'Bruno Oliveira',
-        email: 'brunooliveira@gmail.com',
-        password: '123456',
-        role: 'customer',
+        name: 'Delivery App Admin',
+        email: 'adm@deliveryapp.com',
+        password: md5('--adm2@21!!--'),
+        role: 'administrator',
       },
       {
         id: 2,
-        name: 'Guilherme Cyrillo',
-        email: 'cyrillo@gmail.com',
-        password: '123456',
-        role: 'customer',
+        name: 'Fulana Pereira',
+        email: 'fulana@deliveryapp.com',
+        password: md5('fulana@123'),
+        role: 'seller'
       },
       {
         id: 3,
-        name: 'Raissa Baptista',
-        email: 'raissa@gmail.com',
-        password: '123456',
-        role: 'customer',
-      },
-      {
-        id: 4,
-        name: 'Vini Vasconcelos',
-        email: 'viniv@gmail.com',
-        password: '123456',
-        role: 'seller',
-      },
-      {
-        id: 5,
-        name: 'Francisco Neto',
-        email: 'neto@gmail.com',
-        password: '123456',
-        role: 'seller',
-      },
-      {
-        id: 6,
-        name: 'Dona Tereza',
-        email: 'adm@deliveryapp.com',
-        password: '--adm2@21!!--',
-        role: 'admin',
+        name: 'Cliente Zé Birita',
+        email: 'zebirita@email.com',
+        password: md5('$#zebirita#$'),
+        role: 'customer'
       },
       ], { timestamps: false });
   },

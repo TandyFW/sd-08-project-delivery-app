@@ -13,12 +13,17 @@ const isValidUser = async ({ name, email }) => {
     return user;
 };
 
-const validateLogin = async ({ email }) => {
+const validateLogin = async ({ email, password }) => {
   const validUser = await User.findOne({ where: { email } });
   if (!validUser) return { error: { code: 'notFound', message: 'Usuário não encontrado' } };
 
+  if (validUser.dataValues.password !== md5(password)) {
+    return { error: { code: 'notFound', message: 'Senha inválida' } };
+  }
+
   const secret = await getJwtSecret();
-  const token = jwt.sign(validUser, secret, { issuer: 'delivery-app', subject: 'login' });
+  const token = jwt.sign({ data: validUser.dataValues },
+    secret, { issuer: 'delivery-app', subject: 'login' });
 
   return { result: { token } };
 };

@@ -1,8 +1,7 @@
-const {
-  isValidUserForRegistration, isValidForLogin } = require('./validations');
-const { request } = require('./request');
+import { isValidUserForRegistration, isValidForLogin } from './validations';
+import request from './request';
 
-module.exports = {
+export {
   isValidUserForRegistration,
   isValidForLogin,
   request,

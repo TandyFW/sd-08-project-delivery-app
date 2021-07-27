@@ -18,7 +18,7 @@ const isValidForLogin = (email, password) => (
   isValidEmail(email) && isValidPassword(password)
 );
 
-module.exports = {
+export {
   isValidUserForRegistration,
   isValidForLogin,
 };

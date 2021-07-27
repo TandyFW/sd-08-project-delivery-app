@@ -9,44 +9,49 @@ import CloseIcon from '@material-ui/icons/Close';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    '& > * + *': {
-      marginTop: theme.spacing(2),
+    '& > *': {
+      position: 'absolute',
+      bottom: theme.spacing(2),
+      left: theme.spacing(2),
     },
   },
 }));
 
-export default function TransitionAlerts({ message, handler, open }) {
+export default function TransitionAlerts({ message, open, testId, severity }) {
   const classes = useStyles();
   // const [open, setOpen] = React.useState(true);
 
   return (
-    <div className={ classes.root }>
-      <Collapse in={ open }>
-        <Alert
-          inputProps={ { 'data-testid': 'admin_manage__element-invalid-register' } }
-          severity="warning"
-          action={
-            <IconButton
-              aria-label="close"
-              color="inherit"
-              size="small"
-              onClick={ () => {
-                handler(false);
-              } }
-            >
-              <CloseIcon fontSize="inherit" />
-            </IconButton>
-          }
-        >
-          {message}
-        </Alert>
-      </Collapse>
-    </div>
+    <Collapse className={ classes.root } in={ open.value }>
+      <Alert
+        // inputProps={ { 'data-testid': testId } }
+        data-testid={ testId }
+        severity={ severity }
+        action={
+          <IconButton
+            aria-label="close"
+            color="inherit"
+            size="small"
+            onClick={ () => {
+              open.set(!open.value);
+            } }
+          >
+            <CloseIcon fontSize="inherit" />
+          </IconButton>
+        }
+      >
+        { message }
+      </Alert>
+    </Collapse>
   );
 }
 
 TransitionAlerts.propTypes = {
   message: PropTypes.string.isRequired,
-  open: PropTypes.bool.isRequired,
-  handler: PropTypes.func.isRequired,
+  open: PropTypes.shape({
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+    set: PropTypes.func,
+  }).isRequired,
+  testId: PropTypes.string.isRequired,
+  severity: PropTypes.string.isRequired,
 };

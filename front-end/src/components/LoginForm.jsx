@@ -7,15 +7,29 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/styles';
 import { useGroupState } from '../hooks';
 import { isValidForLogin, request } from '../utils';
+import TransitionAlerts from './TransitionAlerts';
 
 const useStyles = makeStyles((theme) => ({
   form: {
     width: '100%',
+    maxWidth: '560px',
     display: 'flex',
+    marginInline: 'auto',
     flexDirection: 'column',
     backgroundColor: theme.palette.background.form,
     '& > *': {
       margin: theme.spacing(2),
+    },
+    '& > div + div': {
+      marginTop: theme.spacing(0),
+    },
+    '& > button:first-of-type': {
+      marginBottom: theme.spacing(1),
+      marginTop: theme.spacing(2),
+    },
+    '& > :last-child': {
+      marginTop: theme.spacing(0),
+      marginBottom: theme.spacing(2),
     },
   },
 }));
@@ -23,8 +37,8 @@ const useStyles = makeStyles((theme) => ({
 const LoginForm = () => {
   const classes = useStyles();
   const history = useHistory();
-  const { email, password, isDisable } = useGroupState({
-    email: '', password: '', isDisable: true });
+  const { email, password, isDisable, openAlert } = useGroupState({
+    email: '', password: '', isDisable: true, openAlert: false });
 
   useEffect(() => {
     isDisable.set(!isValidForLogin(email.value, password.value));
@@ -35,11 +49,14 @@ const LoginForm = () => {
   };
 
   const hadleSubmit = async () => {
-    const { token, message } = await request('/login', 'POST',
+    const { token, message } = await request('login', 'POST',
       { email: email.value, password: password.value });
 
-    // if (message)
-    history.push('/customer/products');
+    if (message) openAlert.set(!openAlert.value);
+    else {
+      console.log(token);
+      history.push('/customer/products');
+    }
   };
 
   const handleRegister = () => {
@@ -47,43 +64,55 @@ const LoginForm = () => {
   };
 
   return (
-    <Grid item xs={ 12 } sm={ 8 } md={ 6 } lg={ 4 }>
-      <Paper component="form" className={ classes.form }>
-        <TextField
-          variant="outlined"
-          label="Email"
-          value={ email.value }
-          onChange={ (event) => handleChange(email.set, event) }
-          inputProps={ { 'data-testid': 'common_login__input-email' } }
-        />
-        <TextField
-          variant="outlined"
-          label="Senha"
-          value={ password.value }
-          onChange={ (event) => handleChange(password.set, event) }
-          inputProps={ { 'data-testid': 'common_login__input-password' } }
-        />
-        <Button
-          type="button"
-          variant="contained"
-          onClick={ hadleSubmit }
-          disabled={ isDisable.value }
-          color="primary"
-          data-testid="common_login__button-login"
-        >
-          Login
-        </Button>
-        <Button
-          type="button"
-          variant="outlined"
-          onClick={ handleRegister }
-          color="secondary"
-          data-testid="common_login__button-register"
-        >
-          Registre-se
-        </Button>
-      </Paper>
-    </Grid>
+    <>
+      <Grid className={ classes.root } item xs={ 11 } sm={ 8 } md={ 6 } lg={ 4 }>
+        <Paper component="form" elevation={ 8 } className={ classes.form }>
+          <img src="images/delivery.svg" alt="logo" />
+          <TextField
+            variant="outlined"
+            label="Email"
+            value={ email.value }
+            onChange={ (event) => handleChange(email.set, event) }
+            inputProps={ { 'data-testid': 'common_login__input-email' } }
+            margin="dense"
+          />
+          <TextField
+            type="password"
+            variant="outlined"
+            label="Senha"
+            value={ password.value }
+            onChange={ (event) => handleChange(password.set, event) }
+            inputProps={ { 'data-testid': 'common_login__input-password' } }
+            margin="dense"
+          />
+          <Button
+            type="button"
+            variant="contained"
+            onClick={ hadleSubmit }
+            disabled={ isDisable.value }
+            color="primary"
+            data-testid="common_login__button-login"
+          >
+            Login
+          </Button>
+          <Button
+            type="button"
+            variant="outlined"
+            onClick={ handleRegister }
+            color="secondary"
+            data-testid="common_login__button-register"
+          >
+            Registre-se
+          </Button>
+        </Paper>
+      </Grid>
+      <TransitionAlerts
+        open={ openAlert }
+        severity="warning"
+        message="Usuário não encontrado"
+        testId="common_login__element-invalid-email"
+      />
+    </>
   );
 };
 
