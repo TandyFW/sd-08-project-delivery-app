@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import '../cssPages/cssLogin/login.css';
 
 export default function InputLogin() {
   const [email, setEmail] = useState('');
