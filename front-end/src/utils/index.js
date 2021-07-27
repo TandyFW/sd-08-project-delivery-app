@@ -1,8 +1,9 @@
 const {
-  isValidUserForRegistration } = require('./validations');
+  isValidUserForRegistration, isValidForLogin } = require('./validations');
 const { request } = require('./request');
 
 module.exports = {
   isValidUserForRegistration,
+  isValidForLogin,
   request,
 };

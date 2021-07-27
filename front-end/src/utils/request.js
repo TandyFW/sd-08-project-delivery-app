@@ -1,4 +1,4 @@
-const request = async (route, method, body) => {
+const request = async (route, method = 'GET', body = {}) => {
   const resp = await fetch(`http://localhost:3001/${route}`, {
     headers: { 'Content-Type': 'application/json' },
     method,

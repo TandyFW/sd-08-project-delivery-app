@@ -1,7 +1,9 @@
 import TopBar from './TopBar';
 import RegistrationByManager from './RegistrationByManager';
+import LoginForm from './LoginForm';
 
-export default {
+export {
   TopBar,
   RegistrationByManager,
+  LoginForm,
 };

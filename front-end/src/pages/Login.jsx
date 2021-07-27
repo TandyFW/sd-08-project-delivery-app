@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import Grid from '@material-ui/core/Grid';
+import { LoginForm } from '../components';
 
 const Login = () => {
   const [user, setUser] = useState({});
@@ -19,7 +21,10 @@ const Login = () => {
   }, []);
 
   return (
-    <h1>{ JSON.stringify(user, null, 2) }</h1>
+    <Grid container justifyContent="center" alignItems="flex-end">
+      <h1>{ JSON.stringify(user, null, 2) }</h1>
+      <LoginForm />
+    </Grid>
   );
 };
 
