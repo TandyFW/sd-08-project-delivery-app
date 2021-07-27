@@ -33,7 +33,8 @@ const CardProduct = ({ prefix, price, tumbnail, title, id }) => {
   return (
     <Card color={ colors.white }>
       <ProductPrice data-testid={ `${prefix}element-card-price-${id}` }>
-        R$ {price.toString().replace('.', ',')}
+        R$ 
+        {price.toString().replace('.', ',')}
       </ProductPrice>
       <ProductImage
         data-testid={ `${prefix}img-card-bg-image-${id}` }
