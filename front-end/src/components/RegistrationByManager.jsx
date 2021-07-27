@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 export default function RegistrationByManager() {
   const classes = useStyles();
 
+
   const { role, name, email, password, isDisabled, user, open } = useGroupState({
     role: 'seller',
     name: '',
@@ -62,6 +63,7 @@ export default function RegistrationByManager() {
       role });
     user.set(userObj);
     open.set(true);
+
   };
 
   // const handleAlert = (bool) => {
@@ -87,6 +89,7 @@ export default function RegistrationByManager() {
         <TextField
           value={ name.value }
           inputProps={ { 'data-testid': 'admin_manage__input-name' } }
+
           label="Nome"
           variant="outlined"
           onChange={ (event) => handleChange(name.set, event) }
@@ -94,6 +97,7 @@ export default function RegistrationByManager() {
         <TextField
           value={ email.value }
           inputProps={ { 'data-testid': 'admin_manage__input-email' } }
+
           label="Email"
           variant="outlined"
           onChange={ (event) => handleChange(email.set, event) }
@@ -101,6 +105,7 @@ export default function RegistrationByManager() {
         <TextField
           value={ password.value }
           inputProps={ { 'data-testid': 'admin_manage__input-password' } }
+
           label="Senha"
           variant="outlined"
           onChange={ (event) => handleChange(password.set, event) }
@@ -118,6 +123,7 @@ export default function RegistrationByManager() {
         </Select>
         <Button
           data-testid="admin_manage__button-register"
+
           variant="contained"
           color="primary"
           disabled={ isDisabled.value }
