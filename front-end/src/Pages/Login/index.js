@@ -21,16 +21,20 @@ const Login = ({ history }) => {
 
   const login = async () => {
     const data = await loginRequest({ email, password }, setUsrNotFound, history);
-    console.log(data);
     localStorage.setItem('user', JSON.stringify(data));
   };
 
   return (
     <LoginPage>
+      { usrNotFound && (
+        <LoginErrorMessage
+          disableMessage={ setUsrNotFound }
+          testId="common_login__element-invalid-email"
+        />
+      )}
       <div>
         <p>LOGO</p>
       </div>
-      { usrNotFound && <LoginErrorMessage disableMessage={ setUsrNotFound } />}
       <LoginForm>
         <TextField
           label="Email"

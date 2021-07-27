@@ -4,12 +4,17 @@ import PropTypes from 'prop-types';
 import { TextField, Button } from '@material-ui/core/';
 import { RegisterPage, RegisterForm } from './styled';
 
-import { register } from '../../services/api';
+import { registerRequest } from '../../services/api';
+import { emailVerify, passwordVerify, nameVerify } from '../../services/validations';
+
+import LoginErrorMessage from '../../components/LoginErrorMessage';
 
 const Register = ({ history }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const [usrExists, setUsrExists] = useState(false);
 
   const handleChange = {
     name: ({ target }) => setName(target.value),
@@ -17,8 +22,22 @@ const Register = ({ history }) => {
     password: ({ target }) => setPassword(target.value),
   };
 
+  const register = async () => {
+    const data = await registerRequest({ name, password, email }, setUsrExists, history);
+    localStorage.setItem('user', JSON.stringify(data));
+  };
+
+  console.log(!emailVerify(email), !passwordVerify(password), !nameVerify(name));
+
   return (
     <RegisterPage>
+      { usrExists && (
+        <LoginErrorMessage
+          testID="common_register__element-invalid_register"
+          disableMessage={ setUsrExists }
+        />
+      )}
+
       <div>
         <p>LOGO, alguma mensagem, outra coisa</p>
       </div>
@@ -52,7 +71,10 @@ const Register = ({ history }) => {
           variant="contained"
           color="primary"
           data-testid="common_register__button-register"
-          onClick={ () => register({ name, password, email }) }
+          onClick={ register }
+          disabled={
+            !emailVerify(email) || !passwordVerify(password) || !nameVerify(name)
+          }
         >
           CADASTRAR
         </Button>

@@ -30,6 +30,11 @@ export const RegisterForm = styled.form`align-items: center;
     border: 2px solid ${(props) => props.theme.colors.primary};
     color: ${(props) => props.theme.colors.primary};
   }
+
+  .MuiButtonBase-root:disabled {
+    border-color: grey;
+    color: grey;
+  }
 `;
 
 export const RegisterPage = styled.div`align-items: center;
