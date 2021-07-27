@@ -1,0 +1,5 @@
+Continuar a criação do UserProductsController;
+
+Renderizar os ProductCard;
+
+Implementar Logica de logout/redirecionamento;

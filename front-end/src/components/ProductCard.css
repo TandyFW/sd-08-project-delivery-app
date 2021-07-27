@@ -1,0 +1,30 @@
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  margin: 20px 10px;
+  position: relative;
+  transition: 0.3s;
+  width: 300px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+  max-height: 300px;
+  max-width: 300px;
+}
+
+.price {
+  position: absolute;
+  top: 10px;
+  z-index: 2;
+}
+
+
+.card div {
+  padding: 5px 10px;
+  text-align: center;
+  width: 100%;
+}
