@@ -3,17 +3,21 @@ const registerSchema = require('../schemas/registerSchema');
 const { user } = require('../database/models');
 const clientError = require('../utils/clientError');
 
+
+const getAll = () => user.findAll();
+
 const create = async (dataForCreate) => {
   const hashPassword = md5(dataForCreate.password);
   const { error } = registerSchema.create.validate(dataForCreate);
   if (error) return clientError.badRequest(error.details[0].message);
-
+  // console.log(dataForCreate.email);
+  const userList = await getAll();
+  const index = userList.findIndex((item) => item.email === dataForCreate.email)
+  if(index!== -1 ) return clientError.conflict('Usuario já cadastrado');
   const { dataValues: { password: _, ...result } } = await user
-    .create({ ...dataForCreate, password: hashPassword });
+  .create({ ...dataForCreate, password: hashPassword });
   return result;
 };
-
-const getAll = () => user.findAll();
 
 const getById = async (id) => {
   const { error } = registerSchema.checkId.validate(id);
@@ -31,30 +35,32 @@ const getById = async (id) => {
 const updateById = async (id, dataForUpdate) => {
   const { error } = registerSchema.updateById.validate(dataForUpdate);
   if (error) return clientError.badRequest(error.details[0].message);
-
+  
   const { error: errorID } = registerSchema.checkId.validate(id);
   if (errorID) return clientError.badRequest(errorID.details[0].message);
-
+  
   const checkFound = await getById(id);
   if (checkFound.error) return checkFound;
-
+  
   const result = await user.update({ ...dataForUpdate }, { where: { id } });
   if (!result[0]) return clientError.badRequest('Data is Already updated');
-
+  
   return `Success Update Id: ${id}`;
 };
 
 const deleteById = async (id) => {
   const { error } = registerSchema.checkId.validate(id);
   if (error) return clientError.badRequest(error.details[0].message);
-
+  
   const result = await user.destroy({ where: { id } });
   if (!result) return clientError.badRequest(`Not Found Id: ${id}`);
   return `Success Delete Id: ${id}`;
 };
 
 const getByEmail = async (email) => {
+  console.log('Tentando achar', email);
   const foundUser = await user.findOne({ where: { email } });
+  console.log(foundUser);
   return foundUser;
 };
 

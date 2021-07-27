@@ -65,6 +65,7 @@ class Register extends React.Component {
       const hiddenSpan = document.querySelector('.hidden-span');
       hiddenSpan.style.display = 'inline-block';
       hiddenSpan.innerHTML = user.message;
+      hiddenSpan.setAttribute('data-testid', 'common_register__element-invalid_register');
       setTimeout(() => {
         document.querySelector('.hidden-span').style.display = 'none';
       }, spanMaxTime);
