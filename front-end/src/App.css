@@ -1,54 +1,37 @@
-.App {
-  align-items: center;
-  background: #0fa36b;
-  color: #464646;
-  display: flex;
-  flex-direction: column;
-  font-family: sans-serif;
-  height: 100vh;
-  justify-content: center;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --white: #FFFFFF;
+
+  --gray-100: #AFB2B1;
+  --gray-500: #4E4B4B;
+  --gray-900: #001813;
+
+  --blue-100: #6F80AB;
+  --blue-200: #3B548F;
+
+  --orange-100: #FEC844;
+  --orange-200: #FF8E01
+
+}
+
+body {
+  height: 100%;
   width: 100%;
 }
 
-.App > .logo {
-  animation: shake 1.5s infinite ease;
-  color: aliceblue;
-  font-family: Montserrat , sans-serif;
-  font-size: 3em;
-  font-weight: 900;
-}
-
-.rocksGlass {
-  animation: shake 1s infinite ease;
-  max-height: 80vh;
-}
-
-@keyframes shake {
-
-  0% {
-    transform: rotate(5deg);
-  }
-
-  50% {
-    transform: rotate(-5deg);
-  }
-
-  100% {
-    transform: rotate(5deg);
-  }
-}
-
-@keyframes clink {
-
-  0% {
-    transform: rotate(-10deg);
-  }
-
-  50% {
-    transform: rotate(20deg);
-  }
-
-  100% {
-    transform: rotate(-10deg);
-  }
+#root {
+  align-items: center;
+  background: linear-gradient(rgba(255,255,255,.7), rgba(255,255,255,.7)), url('./images/background.jpg');
+  color: var(--gray-900);
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  height: 100vh;
+  justify-content: center;
+  width: 100%;
 }
