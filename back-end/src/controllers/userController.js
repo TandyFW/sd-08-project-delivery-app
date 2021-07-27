@@ -9,10 +9,10 @@ const PATHS = {
 
 const login = rescue(async (req, res, next) => {
   const { email, password } = req.body;
-  const { err, token, role } = await userService.login(email, password);
+  const { err, userInfo } = await userService.login(email, password);
   if (err) return next({ err });
-  const path = PATHS[role];
-  return res.status(200).json({ token, path });
+  userInfo.path = PATHS[userInfo.role];
+  return res.status(200).json(userInfo);
 });
 
 const registerClient = rescue(async (req, res, next) => {

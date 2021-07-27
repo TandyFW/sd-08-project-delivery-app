@@ -27,7 +27,13 @@ const login = async (email, password) => {
     return userErrors.wrongPassword;
   }
   const token = await generateToken(email, user.role);
-  return { token, role: user.role };
+  const userInfo = {
+    name: user.name,
+    email: user.email,
+    token,
+    role: user.role,
+  };
+  return { userInfo };
 };
 
 const registerClient = async (name, email, password) => {
