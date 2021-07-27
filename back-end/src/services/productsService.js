@@ -6,7 +6,7 @@ const findProducts = async () => {
     const result = await products.findAll({});
     return {
       statusCode: 200,
-      json: { result },
+      json: result,
     }
   } catch (error) {
     return {
