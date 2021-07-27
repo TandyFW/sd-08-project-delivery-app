@@ -7,7 +7,6 @@ const getAll = async () => {
   } catch (error) {
     return error.message;
   }
-
 };
 
 module.exports = {
