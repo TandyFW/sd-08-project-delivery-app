@@ -12,7 +12,7 @@ app.use(cors({
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/images', express.static(`${__dirname}/public`));
+app.get('/images', express.static(`${__dirname}/../../public`));
 app.use(LoginRouter);
 app.use(RegisterRouter);
 app.use(CustomerRouter);
