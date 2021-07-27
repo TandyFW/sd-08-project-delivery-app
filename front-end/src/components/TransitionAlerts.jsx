@@ -18,9 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 export default function TransitionAlerts({ message, open, testId, severity }) {
-
   const classes = useStyles();
   // const [open, setOpen] = React.useState(true);
 
