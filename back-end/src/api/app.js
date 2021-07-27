@@ -1,6 +1,11 @@
 const express = require('express');
+const loginController = require('../controllers/loginController');
+const registerController = require('../controllers/registerController');
 
 const app = express();
+
+app.post('/login', loginController);
+app.post('/register', registerController);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 
