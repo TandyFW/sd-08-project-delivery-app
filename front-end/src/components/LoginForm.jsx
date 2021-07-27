@@ -50,8 +50,15 @@ const LoginForm = () => {
   };
 
   const hadleSubmit = async () => {
-    const { token, message } = await request('login', 'POST',
-      { email: email.value, password: password.value });
+    const options = {
+      body: {
+        email: email.value,
+        password: password.value,
+      },
+      method: 'POST',
+    };
+
+    const { token, message } = await request('login', options);
 
     if (message) openAlert.set(true);
     else {

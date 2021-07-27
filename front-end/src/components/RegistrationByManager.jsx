@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { isValidUserForRegistration, request } from '../utils';
+import { isValidUserForRegistration, lStorage, request } from '../utils';
 import TransitionAlerts from './TransitionAlerts';
 import { useGroupState } from '../hooks';
 
@@ -37,17 +37,15 @@ export default function RegistrationByManager() {
     open: false,
   });
 
-  // const [role, setRole] = useState('Admin');
-  // const [name, setName] = useState('');
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
-  // const [isDisabled, setDisable] = useState(true);
-  // const [user, setUser] = useState({});
-  // const [open, setOpen] = React.useState(true);
-
   useEffect(() => {
     isDisabled.set(!isValidUserForRegistration(name.value, email.value, password.value));
   }, [name.value, email.value, password.value, isDisabled]);
+
+  useEffect(() => {
+    if (user.value.message) {
+      open.set(true);
+    }
+  }, [user.value]);
 
   const handleChange = (callback, event) => {
     callback(event.target.value);
@@ -55,31 +53,33 @@ export default function RegistrationByManager() {
 
   const handleClick = async (event) => {
     event.preventDefault();
-    const userObj = await request('admin', 'POST', {
-      name,
-      email,
-      password,
-      role });
+
+    const admin = lStorage().user.get();
+    const options = {
+      headers: {
+        Authorization: admin.token,
+      },
+      body: {
+        name: name.value,
+        email: email.value,
+        password: password.value,
+        role: role.value,
+      },
+      method: 'POST',
+    };
+
+    const userObj = await request('admin', options);
     user.set(userObj);
-    open.set(true);
   };
 
-  // const handleAlert = (bool) => {
-  //   setOpen(bool);
-  // };
-
-  const renderErrorMessage = () => {
-    if ('message' in user) {
-      return (
-        <TransitionAlerts
-          message={ user.message }
-          open={ open }
-          testId="admin_manage__element-invalid-register"
-          severity="warning"
-        />
-      );
-    }
-  };
+  const renderErrorMessage = () => (
+    <TransitionAlerts
+      message={ user.value.message }
+      open={ open }
+      testId="admin_manage__element-invalid-register"
+      severity="warning"
+    />
+  );
 
   return (
     <div>

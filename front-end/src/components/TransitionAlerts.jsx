@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
       position: 'absolute',
       bottom: theme.spacing(2),
       left: theme.spacing(2),
-
     },
   },
 }));
@@ -44,7 +43,6 @@ export default function TransitionAlerts({ message, open, testId, severity }) {
         { message }
       </Alert>
     </Collapse>
-
   );
 }
 
@@ -56,5 +54,4 @@ TransitionAlerts.propTypes = {
   }).isRequired,
   testId: PropTypes.string.isRequired,
   severity: PropTypes.string.isRequired,
-
 };
