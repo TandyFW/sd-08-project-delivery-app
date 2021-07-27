@@ -18,12 +18,12 @@ class Register extends React.Component {
     this.signIn = this.signIn.bind(this);
   }
 
-  // componentDidMount() {
-  //   const Loading = 1500;
-  //   setTimeout(() => {
-  //     this.setState({ loading: false });
-  //   }, Loading);
-  // }
+  componentDidMount() {
+    const Loading = 1500;
+    setTimeout(() => {
+      this.setState({ loading: false });
+    }, Loading);
+  }
 
   handleChange({ target: { name, value } }) {
     if (name === 'email') {
