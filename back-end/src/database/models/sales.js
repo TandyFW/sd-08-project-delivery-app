@@ -1,7 +1,7 @@
-const User = (sequelize, DataTypes) => {
+const Sales = (sequelize, DataTypes) => {
   const Sales = sequelize.define("Sales", {
   user_id: {
-    type: Sequelize.INTEGER,
+    type: DataTypes.INTEGER,
     allowNull: false,
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
@@ -11,7 +11,7 @@ const User = (sequelize, DataTypes) => {
     }
   },
   seller_id: {
-    type: Sequelize.INTEGER,
+    type: DataTypes.INTEGER,
     allowNull: false,
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
@@ -21,25 +21,21 @@ const User = (sequelize, DataTypes) => {
     }
   },
   delivery_address: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   delivery_number : {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  },
-  sale_data: {
-    type: Sequelize.DATE,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   status: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
   }
 }, { tableName: 'sales'});
 
 Sales.associate = (models) => {
-  Sales.belongsTo(model.User, { foreignKey: 'user_id', foreignKey: 'seller_id', as: 'user' });
+  Sales.belongsTo(models.User, { foreignKey: 'user_id', foreignKey: 'seller_id', as: 'user' });
 }
 
   return Sales;
