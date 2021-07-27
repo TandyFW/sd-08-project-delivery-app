@@ -9,6 +9,7 @@ const CustomerProducts = (props) => {
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem('user'));
+    if(!userData)
     setUser(user);
     axios.get('http://localhost:3001/customer/products', {
       headers: {
@@ -18,10 +19,11 @@ const CustomerProducts = (props) => {
       .then((response) => setProducts(response.data))
       .catch((error) => console.error(error));
   }, [user]);
+
   return (
     <>
       <Navbar name={ user.name } />
-      { products.map((product) => <ProductCard key={ product.id } product />) }
+      { products.map((product) => <ProductCard key={ product.id } product={product} />) }
     </>
   );
 };
