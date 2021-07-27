@@ -22,7 +22,7 @@ export default function Products() {
         <p>Loading...</p>
       ) : (
         <div>
-          <NavBar />
+          <NavBar screen="Produtos" />
           {products.map((product, index) => (
             <Cards
               key={ index }
