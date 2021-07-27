@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
+import { teste } from '../services/api';
 import Input from '../components/Input';
 
 import beerToastIcon from '../images/beer.png';
@@ -10,11 +12,21 @@ const MIN_NAME_LENGTH = 12;
 const MIN_PASSWORD_LENGTH = 6;
 
 function Register() {
+  const [user, setNewUser] = useState('');
   const [inputValue, setInputValue] = useState({
     Nome: '',
     Email: '',
     Senha: '',
   });
+
+  console.log(user);
+
+  const history = useHistory();
+
+  const handleClick = async () => {
+    setNewUser(await teste());
+    history.push('/customer/products');
+  };
 
   const handleChange = ({ target }) => {
     setInputValue({ ...inputValue, [target.name]: target.value });
@@ -32,12 +44,10 @@ function Register() {
   return (
     <>
       <div className="register-container">
-
         <header>
           <img src={ beerToastIcon } alt="beer toast" />
           <h1>Cadastro</h1>
         </header>
-
         <form className="register-form">
           <Input
             id="common_register__input-name"
@@ -63,7 +73,14 @@ function Register() {
             type="password"
             value={ inputValue.Senha }
           />
-          <button disabled={ !isRegisterValid() } type="button">Cadastrar</button>
+          <button
+            data-testid="common_register__button-register"
+            disabled={ !isRegisterValid() }
+            onClick={ handleClick }
+            type="button"
+          >
+            Cadastrar
+          </button>
         </form>
       </div>
 
