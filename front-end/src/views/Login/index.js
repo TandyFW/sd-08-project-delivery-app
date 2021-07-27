@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './styles.css';
 import Error from '../../components/error';
+import Context from '../../context/Context';
 
 function Login() {
+  const { setUserData, userData } = useContext(Context);
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [data, setData] = useState('');
   const history = useHistory();
   function checkInputs() {
     const PASSWORD_MIN_LENGTH = 6;
@@ -16,6 +17,13 @@ function Login() {
     }
     return true;
   }
+
+  useEffect(() => {
+    if (userData.token) {
+      history.push('/customer/products');
+    }
+  }, [history, userData]);
+
   const handleSubmit = async () => {
     const myInit = {
       method: 'POST',
@@ -27,7 +35,7 @@ function Login() {
     };
     const rawResponse = await fetch('http://localhost:3001/login', myInit);
     const content = await rawResponse.json();
-    return setData(content);
+    return setUserData(content);
   };
   return (
     <div className="main-wrapper">
@@ -62,10 +70,10 @@ function Login() {
         >
           Ainda não tenho conta
         </button>
-        {data.message
+        {userData.message
         && <Error
           testid="common_login__element-invalid-email"
-          message={ data.message }
+          message={ userData.message }
         />}
       </div>
     </div>
