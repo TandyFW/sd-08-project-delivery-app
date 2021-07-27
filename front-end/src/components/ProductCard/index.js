@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { Context } from '../../Context';
 
 export default function ProductCard(props) {
-  const { product: { id, name, price, urlImage } } = props;
-  console.log(props);
+  const { product } = props;
+  const { id, name, price, urlImage } = product;
+  const { products, setProducts } = useContext(Context);
+
+  const incrementItem = () => {
+    setProducts([...products, product]);
+  };
+
+  /* const decrementItem = () => console.log('Oi'); */
+
   return (
     <div>
       <h2
@@ -21,6 +30,7 @@ export default function ProductCard(props) {
         <button
           data-testid={ `customer_products__button-card-rm-item-${id}` }
           type="button"
+          // onClick={ decrementItem }
         >
           -
         </button>
@@ -31,6 +41,7 @@ export default function ProductCard(props) {
         <button
           data-testid={ `customer_products__button-card-add-item-${id}` }
           type="button"
+          onClick={ incrementItem }
         >
           +
         </button>

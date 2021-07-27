@@ -5,7 +5,7 @@ import { io } from 'socket.io-client';
 export const Context = createContext();
 
 const Provider = ({ children }) => {
-  const [text, setText] = useState('');
+  const [products, setProducts] = useState([]);
 
   const client = io('http://localhost:3002');
 
@@ -14,8 +14,8 @@ const Provider = ({ children }) => {
   }, [client]);
 
   const obj = {
-    text,
-    setText,
+    products,
+    setProducts,
   };
   return <Context.Provider value={ obj }>{children}</Context.Provider>;
 };

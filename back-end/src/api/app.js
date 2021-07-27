@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 app.use(cors());
@@ -19,8 +20,8 @@ const Users = require('../database/routes/users');
 const errorMiddleware = require('../database/middlewares/errorMiddleware');
 const productsRouter = require('../database/routes/products');
 
+app.use(express.static(path.join(__dirname + '../../../public')));
 app.use(express.json());
-
 app.use('/products', productsRouter);
 app.use('/users', Users);
 app.use(errorMiddleware);
