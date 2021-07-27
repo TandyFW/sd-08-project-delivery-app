@@ -1,10 +1,38 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Redirect, useHistory } from 'react-router-dom';
+import axios from 'axios';
 import '../cssPages/cssLogin/login.css';
 
 export default function InputLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
+  const [redirected, setRedirected] = useState(false);
+
+  const history = useHistory();
+  
+  function handleClick() {
+    history.push("/register");
+  }
+
+  async function handleLogin(e) {
+    e.preventDefault();
+    const user = await axios.post('http://localhost:3001/login', {
+    email, password
+    })
+      .then((data) => data)
+      .catch((err) => console.log(err));
+    
+      console.log(user)
+      if (user === undefined) {
+        setRedirected(true);
+
+      }
+      if (user.statusText === 'OK') {
+        setRedirected(false);
+        history.push('/customer/products');
+      } 
+  }
 
   const handleEmail = ({ target: { value } }) => {
     setEmail(value);
@@ -19,7 +47,7 @@ export default function InputLogin() {
     const NUMBER_SIX = 6;
     const emailRegex = /\S+@\S+\.\S+/;
 
-    if (emailRegex.test(email) && password.length > NUMBER_SIX) {
+    if (emailRegex.test(email) && password.length >= NUMBER_SIX) {
       setDisabled(false);
     } else { setDisabled(true); }
   }, [email, password, setDisabled]);
@@ -35,7 +63,7 @@ export default function InputLogin() {
         <form>
           <legend id="legend-login">Login</legend>
           <input
-            data-testid="common_login__input-login"
+            data-testid="common_login__input-email"
             type="text"
             id="Input-login"
             placeholder="example@gmail.com"
@@ -55,19 +83,30 @@ export default function InputLogin() {
         </form>
         <button
           type="button"
+          data-testid="common_login__button-login"
           id="btn-login"
           disabled={ disabled }
+          onClick={ handleLogin }
         >
           LOGIN
         </button>
         <button
           type="button"
+          data-testid="common_login__button-register"
           id="btn-cadastro"
-          disabled={ disabled }
+          onClick={ handleClick }
         >
           Ainda não tenho cadastro
         </button>
       </div>
+      {redirected && (
+          <b
+            data-testid="common_login__element-invalid-email"
+          >
+            Senha ou usuário incorreto
+          </b>
+        )
+      }
     </div>
   );
 }
