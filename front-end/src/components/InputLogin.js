@@ -31,7 +31,7 @@ export default function InputLogin() {
       setRedirected(false);
       history.push('/customer/products');
     }
-  };
+  }
 
   const handleEmail = ({ target: { value } }) => {
     setEmail(value);

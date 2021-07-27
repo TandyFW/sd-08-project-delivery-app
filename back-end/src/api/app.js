@@ -6,7 +6,7 @@ const RegisterRouter = require('../routers/RegisterRouter');
 
 const app = express();
 app.use(cors({
-  origin: '*'
+  origin: '*',
 }));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));

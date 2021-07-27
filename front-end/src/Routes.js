@@ -9,7 +9,7 @@ function Routes() {
         <ProductsFake />
       </Route>
       <Route path="/login"><Login /></Route>
-      <Route path="/"><Redirect to="/login"/></Route>    
+      <Route path="/"><Redirect to="/login" /></Route>
     </Switch>
   );
 }
