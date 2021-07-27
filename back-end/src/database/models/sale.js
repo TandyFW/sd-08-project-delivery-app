@@ -5,21 +5,15 @@ const sale = (sequelize, DataTypes) => {
     deliveryNumber: DataTypes.STRING(100),
     salesDate: DataTypes.DATE,
     status: DataTypes.STRING(100),
-  });
+  }, { timestamps : false });
 
   sale.associate = (models) => {
     models.sale.belongsTo(models.user, { 
-      as: "user" ,
-      foreignKey: "seller_id",
-      through: sale,
-      otherKey: 'id'
+      as: "seller_id" ,
       }
       );
     models.sale.belongsTo(models.user, {
-      as: "user",
-      foreignKey: "user_id", 
-      through: sale, 
-      otherKey: 'id' 
+      as: "user_id",
     });
   };
 
