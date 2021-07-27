@@ -3,14 +3,20 @@ import Proptypes from 'prop-types';
 import { ListGroup, Row, Card, Col } from 'react-bootstrap';
 
 export default function OrderCard(props) {
-  const { requests: { id, price, salesDate, status } } = props;
+  const { requests: { id, price, salesDate, status }, user, children } = props;
   return (
     <Card className="m-2">
       <Row>
-        <Col className="text-center p-4">
+        <Col
+          data-testid={ `${user}_orders__element-order-id-${id}` }
+          className="text-center p-4"
+        >
           { id }
         </Col>
-        <Col className="text-center p-4">
+        <Col
+          data-testid={ `${user}_orders__element-order-status-${id}` }
+          className="text-center p-4"
+        >
           { status }
         </Col>
         <Col>
@@ -18,11 +24,15 @@ export default function OrderCard(props) {
             <ListGroup.Item className="text-center">
               { salesDate }
             </ListGroup.Item>
-            <ListGroup.Item className="text-center">
+            <ListGroup.Item
+              data-testid={ `${user}_orders__element-price-id-${id}` }
+              className="text-center"
+            >
               { price }
             </ListGroup.Item>
           </ListGroup>
         </Col>
+        { children }
       </Row>
     </Card>
   );
@@ -30,5 +40,7 @@ export default function OrderCard(props) {
 
 OrderCard.propTypes = {
   requests: Proptypes.shape().isRequired,
+  user: Proptypes.string().isRequired,
+  children: Proptypes.element().isRequired,
 
 };
