@@ -1,5 +1,7 @@
 .main-wrapper {
   align-items: center;
+  background-color: steelblue;
+  color: white;
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -9,19 +11,65 @@
 }
 
 .content {
-  align-items: center;
-  background-color: rgb(236, 233, 233);
-  display: flex;
-  flex-direction: column;
-  height: 300px;
-  justify-content: center;
-  width: 300px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+  padding: 20px 40px;
+}
+
+.content h1 {
+  margin-bottom: 30px;
+  text-align: center;
 }
 
 .content input {
   margin: 10px;
 }
 
-.content button {
-  margin: 5px;
+.btn {
+  background: lightblue;
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+  font-family: inherit;
+  font-size: 16px;
+  padding: 15px;
+  width: 100%;
+}
+
+.btn:focus {
+  outline: 0;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.form-control {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 300px;
+}
+
+.form-control input {
+  background-color: transparent;
+  border: 0;
+  border-bottom: 2px white solid;
+  color: white;
+  display: block;
+  font-size: 18px;
+  padding: 15px 0;
+  width: 100%;
+}
+
+.form-control input:focus, .form-control input:valid {
+  border-bottom-color: lightblue;
+  outline: 0;
+}
+
+p {
+  margin: 0;
+  margin-bottom: 40px;
 }

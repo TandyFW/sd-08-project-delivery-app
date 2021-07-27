@@ -44,7 +44,7 @@ function Register() {
   return (
     <div className="main-wrapper">
       <h2>Cadastro</h2>
-      <div className="content">
+      <div className="content-register">
         <input
           data-testid="common_register__input-name"
           type="text"

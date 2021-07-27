@@ -39,23 +39,32 @@ function Login() {
   };
   return (
     <div className="main-wrapper">
-      <h2>ONzé Delivery</h2>
       <div className="content">
-        <input
-          type="email"
-          value={ email }
-          placeholder="digite seu e-mail..."
-          data-testid="common_login__input-email"
-          onChange={ (e) => setEmail(e.target.value) }
-        />
-        <input
-          value={ password }
-          type="password"
-          placeholder="digite sua senha..."
-          data-testid="common_login__input-password"
-          onChange={ (e) => setPassword(e.target.value) }
-        />
+        <h1>ONzé Delivery</h1>
+        <div className="form-control">
+          <input
+            id="email"
+            name="email"
+            type="email"
+            value={ email }
+            data-testid="common_login__input-email"
+            onChange={ (e) => setEmail(e.target.value) }
+          />
+        </div>
+        <p>Email</p>
+        <div className="form-control">
+          <input
+            id="password"
+            name="password"
+            value={ password }
+            type="password"
+            data-testid="common_login__input-password"
+            onChange={ (e) => setPassword(e.target.value) }
+          />
+        </div>
+        <p>Password</p>
         <button
+          className="btn"
           data-testid="common_login__button-login"
           type="submit"
           disabled={ checkInputs() }
@@ -64,6 +73,7 @@ function Login() {
           LOGIN
         </button>
         <button
+          className="btn"
           data-testid="common_login__button-register"
           type="button"
           onClick={ () => history.push('/register') }
