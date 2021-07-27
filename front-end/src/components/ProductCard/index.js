@@ -1,17 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { Add, Remove } from '@material-ui/icons';
 import { Button } from '@material-ui/core';
 
 import { CardBody, CardImg } from './styled';
+import DeliveryContext from '../../context/DeliveryContext';
 
 const ProductCard = ({ product: { id, name, image, price } }) => {
   const [count, setCount] = useState(0);
 
+  const { cart, setCart } = useContext(DeliveryContext);
+
   const handleChange = ({ target }) => {
     setCount(target.value);
   };
+
+  const updateCard = () => {
+    const itemExists = cart.find((elem) => elem.id === id);
+
+    if (count === 0) {
+      const removeProduct = cart.filter((elem) => elem.id !== id);
+      setCart(removeProduct);
+    } else if (itemExists) {
+      const updatedCart = cart.map((elem) => {
+        if (elem.id === id) {
+          return {
+            ...elem,
+            count,
+          };
+        }
+        return elem;
+      });
+      setCart(updatedCart);
+    } else {
+      const item = {
+        id,
+        price,
+        name,
+        count,
+      };
+
+      setCart([...cart, item]);
+    }
+  };
+
+  useEffect(() => {
+    updateCard();
+  }, [count]);
 
   return (
     <CardBody>
