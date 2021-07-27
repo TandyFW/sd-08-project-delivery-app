@@ -25,7 +25,6 @@ const findUser = async (email, password) => {
       };
     }
     const newToken = JWT(result);
-    console.log(newToken);
     return { statusCode: 200, json: { validate: true, token: newToken } };
   } catch (err) {
     return {
