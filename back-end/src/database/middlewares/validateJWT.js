@@ -1,19 +1,16 @@
 const jwt = require('jsonwebtoken');
-const usersModel = require('../models/usersModel');
-const { code } = require('../helpers/messages');
-
-const secret = 'seusecretdetoken';
+const fs = require('fs');
+const { User } = require('../models');
 
 const validateJWT = async (req, res, next) => {
   const token = req.headers.authorization;
   try {
-    if (!token) throw new Error('missing auth token');
+    if (!token) return res.status(401).json({ message: 'Token inexistente!'});
+    const secret = fs.readFileSync('../../../jwt.evaluation.key', 'utf-8');
     const decoded = jwt.verify(token, secret);
-    const user = await usersModel.findUserByEmail(decoded.email);
-    if (!user) throw new Error('jwt malformed');
-    req.body.userId = user._id;
-    req.body.role = user.role;
-    // console.log(req.body.role);
+    const user = await User.findOne({ where: { email: decoded.dataUser.email } });
+    if (!user) return res.status(404).json({ message: 'Usuário não encontrado!'});
+    req.user = decoded.dataUser;
     next();
   } catch (error) {
     return res.status(code.UNAUTHORIZED).json({ message: error.message });
