@@ -4,7 +4,7 @@ const { user } = require('../database/models');
 const clientError = require('../utils/clientError');
 
 const create = async (dataForCreate) => {
-  const hashPassword = md5(dataForCreate.password)
+  const hashPassword = md5(dataForCreate.password);
   const { error } = registerSchema.create.validate(dataForCreate);
   if (error) return clientError.badRequest(error.details[0].message);
 

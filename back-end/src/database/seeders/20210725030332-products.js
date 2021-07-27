@@ -75,6 +75,12 @@ module.exports = {
             price: 3.49,
             url_image: "http://localhost:3001/images/stella_artois_275ml.jpg",
           },
+          {
+            id: 12,
+            name: "Da mantiqueira Red Ale",
+            price: 17.49,
+            url_image: "http://localhost:3001/images/da_mantiqueira_red_ale.jpg",
+          },
         ],
         {}
       ),

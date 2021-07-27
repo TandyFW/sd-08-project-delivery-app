@@ -14,6 +14,10 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentWillUnmount() {
+    document.querySelector('.hidden-span').style.display = 'none';
+  }
+
   handleChange({ target: { name, value } }) {
     const maxLength = 5;
     if (name === 'email') {
@@ -53,7 +57,7 @@ class Login extends React.Component {
       hiddenSpan.style.display = 'inline-block';
       hiddenSpan.innerHTML = user.message;
       setTimeout(() => {
-        document.querySelector('.hidden-span').style.display = 'none';
+        hiddenSpan.style.display = 'none';
       }, spanMaxTime);
       return null;
     }

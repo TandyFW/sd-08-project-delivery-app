@@ -52,7 +52,7 @@ const deleteById = async (id) => {
 const getAllAll = async (id) => {
   const foundsale = await sale.findOne({
     where: { id },
-    include: { model: user, as: 'seller_id', through: { attributes: [] }, },
+    include: { model: user, as: 'seller_id', through: { attributes: [] } },
   });
   return foundsale;
 };

@@ -44,7 +44,7 @@ class Register extends React.Component {
     }
     if (name === 'name') {
       const maxLength = 1;
-      if (isValid && value.length > maxLength) {
+      if (value.length > maxLength) {
         this.setState({ name: true });
       } else {
         this.setState({ name: false });
