@@ -71,7 +71,7 @@ export default function Login() {
   console.log(tokenLogin);
 
   return (
-    <div>
+    <div className="login">
       <img src={ delivery } alt="Entrega de produto" />
       <h1 className="title">Delivery da Terezona</h1>
       <form className="login-form">
