@@ -1,6 +1,6 @@
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
-const { findByEmail } = require('../services/UserService')
+const { findByEmail } = require('../services/UserService');
 
 module.exports = async (req, res, next) => {
   const token = req.headers.authorization;
@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
   try {
     const secret = fs.readFileSync(`${__dirname}/../../jwt.evaluation.key`, 'utf-8');
     const decoded = jwt.verify(token, secret);
-    console.log('decoded: ', decoded)
+    console.log('decoded: ', decoded);
     const user = await findByEmail(decoded.data.email);
     if (!user) {
       return res.status(403).json({ message: 'Expired or invalid token' });
@@ -18,7 +18,7 @@ module.exports = async (req, res, next) => {
     req.user = decoded.data;
     next();
   } catch (error) {
-    console.log('error:', error)
+    console.log('error:', error);
     return res.status(403).json({ message: error });
   }
-}
+};

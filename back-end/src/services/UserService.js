@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const fs = require('fs');
 
 const { User } = require('../database/models');
+
 const secret = fs.readFileSync('./jwt.evaluation.key', 'utf-8');
 
 const generateJWTToken = (user) => {

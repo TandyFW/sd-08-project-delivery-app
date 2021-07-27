@@ -4,6 +4,6 @@ const UserProductsController = require('../controllers/UserProductsController');
 
 const CustomerRouter = express.Router();
 
-CustomerRouter.get('/customer/products', AuthController, UserProductsController)
+CustomerRouter.get('/customer/products', AuthController, UserProductsController);
 
 module.exports = CustomerRouter;
