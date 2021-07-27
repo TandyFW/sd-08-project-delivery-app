@@ -33,7 +33,7 @@ const Register = ({ history }) => {
     <RegisterPage>
       { usrExists && (
         <LoginErrorMessage
-          testID="common_register__element-invalid_register"
+          testId="common_register__element-invalid_register"
           disableMessage={ setUsrExists }
         />
       )}
