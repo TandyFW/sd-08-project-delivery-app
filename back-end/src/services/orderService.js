@@ -1,5 +1,5 @@
 const registerSchema = require('../schemas/registerSchema');
-const { sale, user , sales_products , product } = require('../database/models');
+const { sale, sales_products , product } = require('../database/models');
 const clientError = require('../utils/clientError');
 
 const create = async (dataForCreate) => {
@@ -55,11 +55,12 @@ const getAllAll = async (id) => {
   const foundsale = await sale.findOne({
     where: { id },
     include: [{
-      model: product, as: 'productId', 
+      model: product, 
+      as: 'productId', 
       attributes: { exclude: ['user_id', 'seller_id'] }, 
       required: false,
       through: { 
-        attributes: { exclude: ['user_id', 'seller_id'] } 
+        attributes: { exclude: ['user_id', 'seller_id'] }, 
       },
     }],
     // include: [{model: user, as: 'userId' }, { model: user, as: 'sellerId' }],

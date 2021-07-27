@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Header, Loader, UserTable } from '../components';
+// import { Header, Loader } from '../components';
 
 class Admin extends React.Component {
   constructor() {
@@ -22,16 +22,6 @@ class Admin extends React.Component {
     const { loading } = this.state;
     return (
       <div className="products-container">
-        <Header history={ history } />
-        {loading
-          ? (
-            <div className="loading-div">
-              <Loader />
-            </div>
-          )
-          : (
-            <UserTable history={ history } />
-          )}
       </div>
     );
   }
