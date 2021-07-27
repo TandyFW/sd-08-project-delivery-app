@@ -1,0 +1,88 @@
+.register-container {
+  align-items: center;
+  background: var(--white);
+  border: 1px solid var(--gray-100);
+  border-radius: 10px;
+  box-shadow: 3px 3px 10px;
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+  justify-content: space-around;
+  overflow: hidden;
+  width: 20vw;
+}
+
+.register-container header {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.register-container img {
+  margin: 13px;
+  width: 15%;
+}
+
+.register-container h1 {
+  font-size: 2rem;
+  margin: 20px 0;
+}
+
+.register-form {
+  align-items: center;
+  background: var(--orange-100);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+
+.register-form label {
+  width: 90%;
+}
+
+.register-form label p {
+  margin-left: 30px;
+}
+
+.register-form input {
+  border: 1px solid var(--gray-100);
+  border-radius: 5px;
+  box-shadow: 2px 2px 7px var(--gray-500);
+  font-size: 1.3rem;
+  margin: 5px;
+  padding: 3.5%;
+  width: 95%;
+}
+
+.register-form button {
+  background: var(--blue-100);
+  border: 1px solid var(--gray-500);
+  border-radius: 10px;
+  box-shadow: 4px 4px 10px var(--gray-500);
+  color: var(--white);
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 15px;
+  padding: 12px;
+  transition: 0.5s;
+  width: 85%;
+}
+
+.register-form button:disabled {
+  cursor: default;
+  opacity: 0.65;
+}
+
+.register-form button:hover:enabled {
+  background: var(--blue-200);
+}
+
+.error-message {
+  color: var(--orange-200);
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-top: 15px;
+}

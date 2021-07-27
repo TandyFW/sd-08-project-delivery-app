@@ -1,4 +1,7 @@
-import React, { Switch, Route, Redirect } from 'react-router-dom';
+import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+
+import Register from './pages/Register';
 import Login from './pages/Login';
 import CustomerProducts from './pages/CustomerProducts';
 import CustomerCheckout from './pages/CustomerCheckout';
@@ -6,6 +9,7 @@ import CustomerCheckout from './pages/CustomerCheckout';
 function Routes() {
   return (
     <Switch>
+      <Route path="/register" component={ Register } />
       <Route path="/customer/products">
         <CustomerProducts />
       </Route>
