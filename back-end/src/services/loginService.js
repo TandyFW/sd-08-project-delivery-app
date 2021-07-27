@@ -5,14 +5,13 @@ const jwt = require('jsonwebtoken');
 const { users } = require('../database/models');
 
 const secret = fs.readFileSync(path.resolve(__dirname, '..', '..', 'jwt.evaluation.key'), 'utf-8');
-console.log(secret);
 
 const jwtConfig = {
   expiresIn: '1d',
   algorithm: 'HS256',
 };
 
-const JWT = ({ id, email, role }) => console.log(`secret: ${secret}`) || jwt.sign({ id, email, role }, secret, jwtConfig);
+const JWT = ({ id, email, role }) => jwt.sign({ id, email, role }, secret, jwtConfig);
 
 const findUser = async (email, password) => {
   try {
