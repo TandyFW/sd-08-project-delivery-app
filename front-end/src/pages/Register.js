@@ -43,9 +43,7 @@ class Register extends React.Component {
       }
     }
     if (name === 'name') {
-      const regex = /^[a-z ]+$/i;
-      const isValid = regex.test(value.toLowerCase());
-      const maxLength = 12;
+      const maxLength = 1;
       if (isValid && value.length > maxLength) {
         this.setState({ name: true });
       } else {
@@ -112,6 +110,7 @@ class Register extends React.Component {
               </div>
               <button
                 type="button"
+                data-testid="common_register__button-register"
                 disabled={ !email || !password || !name }
                 onClick={ (event) => this.signIn(event) }
               >
