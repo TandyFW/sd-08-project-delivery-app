@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
 import Header from '../../components/Header';
 import DeliveryContext from '../../context/DeliveryContext';
@@ -17,7 +18,7 @@ const productsHeaderLinks = [
   },
 ];
 
-const Products = () => {
+const Products = ({ history }) => {
   const { cart } = useContext(DeliveryContext);
 
   const totalPrice = () => cart.reduce((acc, curr) => (
@@ -30,10 +31,17 @@ const Products = () => {
       <Button
         variant="contained"
         color="primary"
+        onClick={ () => history.push('/customer/checkout') }
       >
         {`Ver Carrinho R$ ${totalPrice()}`}
       </Button>
     </>);
+};
+
+Products.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
 export default Products;
