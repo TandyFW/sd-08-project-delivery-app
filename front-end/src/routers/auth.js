@@ -1,5 +1,5 @@
 const isAuthenticated = () => {
-  const SID = localStorage.getItem('users');
+  const SID = localStorage.getItem('user');
   if (SID) return true;
   return false;
 };
