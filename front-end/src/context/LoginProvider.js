@@ -20,6 +20,7 @@ export function LoginProvider({ children }) {
 
   const history = useHistory();
   if (response) {
+    localStorage.setItem('user', JSON.stringify(response.data));
     history.push('/customer/products');
   }
 
