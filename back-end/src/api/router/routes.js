@@ -11,5 +11,6 @@ router.get('/users', userController.getAllUsers);
 router.get('/products', productController.getAllProducts);
 
 router.get('/sales', saleController.getAllSales);
+router.get('/sales', saleController.createSales);
 
 module.exports = router;

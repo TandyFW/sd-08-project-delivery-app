@@ -9,6 +9,17 @@ const getAll = async () => {
   }
 };
 
+const create = async (sale) => {
+  try {
+    const newSale = await sales.create(sale);
+    return newSale;
+  } catch (error) {
+    return error.message;
+  }
+  
+};
+
 module.exports = {
   getAll,
+  create,
 };
