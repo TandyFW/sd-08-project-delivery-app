@@ -11,7 +11,7 @@ const Products = ({ history }) => {
   const { cart } = useContext(DeliveryContext);
 
   const totalPrice = () => cart.reduce((acc, curr) => (
-    acc + (curr.count * curr.price)), 0).toFixed(2);
+    acc + (curr.count * curr.price)), 0).toFixed(2).replace('.', ',');
 
   return (
     <>
@@ -21,8 +21,14 @@ const Products = ({ history }) => {
         variant="contained"
         color="primary"
         onClick={ () => history.push('/customer/checkout') }
+        disabled={ cart.length === 0 }
       >
-        {`Ver Carrinho R$ ${totalPrice()}`}
+        Ver Carrinho
+        <span
+          data-testid="customer_products__checkout-bottom-value"
+        >
+          {totalPrice()}
+        </span>
       </Button>
     </>);
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../../components/Header';
-import OrderList from '../../components/OrderList';
+import OrderDetails from '../../components/OrderDetails';
 
 import { clientHeaderLinks } from '../../services/HeaderButtons';
 
@@ -8,7 +8,7 @@ function Checkout() {
   return (
     <div>
       <Header dinamicButtons={ clientHeaderLinks } />
-      <OrderList />
+      <OrderDetails />
     </div>
   );
 }

@@ -55,11 +55,15 @@ const ProductCard = ({ product: { id, name, urlImage, price } }) => {
 
   return (
     <CardBody>
-      <span
-        data-testid={ `customer_products__element-card-price-${id}` }
-      >
-        { `R$ ${price}` }
-      </span>
+      <div>
+        R$
+        <span
+          data-testid={ `customer_products__element-card-price-${id}` }
+        >
+          {String(price).replace('.', ',')}
+        </span>
+
+      </div>
       <CardImg
         src={ urlImage }
         alt={ name }
