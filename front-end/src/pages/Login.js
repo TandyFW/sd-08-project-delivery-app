@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import useLocalStorage from '../hooks/useLocalStorage';
 import * as api from '../services/api';
-
+import Context from '../context/Context';
 import FormContainer from '../components/FormContainer';
 import Input from '../components/Input';
 import { ButtonPrimary, ButtonTertiary } from '../components/Button';
@@ -21,23 +20,25 @@ const StyledFormContainer = styled(FormContainer)`
 `;
 
 function Login() {
-  const [email, setEmail] = useState('');
+  const [localEmail, setLocalEmail] = useState('');
   const [password, setPassword] = useState('');
-  const setToken = useLocalStorage('token')[1];
   const [showWarning, setShowWarning] = useState(false);
-
+  const { setName, setEmail, setRole, setToken } = useContext(Context);
   const history = useHistory();
 
   const isDisabled = () => {
     const validEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
     const minOfCaracteres = 6;
-    return !validEmail.test(email) || password.length < minOfCaracteres;
+    return !validEmail.test(localEmail) || password.length < minOfCaracteres;
   };
 
   async function handleClick() {
-    api.login(email, password)
-      .then((result) => {
-        setToken(result.token);
+    api.login(localEmail, password)
+      .then(({ name, email, role, token }) => {
+        setName(name);
+        setEmail(email);
+        setRole(role);
+        setToken(token);
         history.push('/customer/products');
       })
       .catch(() => {
@@ -52,8 +53,8 @@ function Login() {
           type="text"
           data-testid="common_login__input-email"
           placeholder="Email"
-          value={ email }
-          onChange={ ({ target }) => setEmail(target.value) }
+          value={ localEmail }
+          onChange={ ({ target }) => setLocalEmail(target.value) }
         />
 
         <Input

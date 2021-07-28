@@ -30,7 +30,7 @@ beforeEach(async () => {
   });
 });
 
-describe.only(requirement(11), () => {
+describe(requirement(11), () => {
   test("O avaliador testará a existência dos data-testids referentes ao navbar", async () => {
     await expect(page).toFindElement(
       customerProductsPage.element.navbar.links.products
@@ -76,7 +76,7 @@ describe(requirement(12), () => {
   );
 });
 
-describe(requirement(13), () => {
+describe.only(requirement(13), () => {
   test("O avaliador testará se o local storage contém os dados da pessoa usuária", async () => {
     const { name, email } = user.customer();
 

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import Context from '../context/Context';
 
 const StyledNavbar = styled.nav`
   background-color: ${({ theme }) => theme.colors.primary};
@@ -34,15 +35,23 @@ const ChildrenWrapper = styled.div`
   }
 `;
 
-const Navbar = ({ className, children }) => (
-  <StyledNavbar className={ className }>
-    <ChildrenWrapper>{ children }</ChildrenWrapper>
-    <Username data-testid="customer_products__element-navbar-user-full-name">
-      Paulo Simões
-    </Username>
-    <Exit data-testid="customer_products__element-navbar-link-logout">Sair</Exit>
-  </StyledNavbar>
-);
+const Navbar = ({ className, children }) => {
+  const { name } = useContext(Context);
+  return (
+    <StyledNavbar className={ className }>
+      <ChildrenWrapper>{ children }</ChildrenWrapper>
+      <Username data-testid="customer_products__element-navbar-user-full-name">
+        { name }
+      </Username>
+      <Exit
+        onClick={ () => localStorage.clear() }
+        data-testid="customer_products__element-navbar-link-logout"
+      >
+        Sair
+      </Exit>
+    </StyledNavbar>
+  );
+};
 
 Navbar.propTypes = {
   children: PropTypes.oneOfType([

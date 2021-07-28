@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import contextDelivery from './Context';
 import App from '../App';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 function DeliveryProvider() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [disable, setDisable] = useState(true);
-  const [name, setName] = useState('');
+  const [name, setName] = useLocalStorage('name');
+  const [email, setEmail] = useLocalStorage('email');
+  const [role, setRole] = useLocalStorage('role');
+  const [token, setToken] = useLocalStorage('token');
   const contextValue = {
     email,
     setEmail,
     name,
     setName,
-    password,
-    setPassword,
-    disable,
-    setDisable,
+    role,
+    setRole,
+    token,
+    setToken,
   };
 
   return (

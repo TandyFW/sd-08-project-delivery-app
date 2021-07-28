@@ -1,12 +1,9 @@
 import { useState } from 'react';
 
-const useLocalStorage = (key, initialValue) => {
+const useLocalStorage = (key, initialValue = '') => {
   const [item, setItem] = useState(() => {
-    if (initialValue) {
-      localStorage.setItem(key, initialValue);
-      return initialValue;
-    }
-    return localStorage.getItem(key);
+    localStorage.setItem(key, initialValue);
+    return initialValue;
   });
 
   const updateItem = (newItem) => {
