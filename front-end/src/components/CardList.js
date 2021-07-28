@@ -7,19 +7,29 @@ import { cartAction, productsAction } from '../redux/actions';
 class CardList extends React.Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0 };
   }
 
   async componentDidMount() {
-    const { dispatchProducts } = this.props;
+    const { dispatchProducts, dispatchCart } = this.props;
     const products = await getAllProducts();
+    const localstorage = JSON.parse(localStorage.getItem('cart'));
+    if (localstorage && localstorage.length > 0) {
+      localstorage.forEach((element) => {
+        // pass the quantities to this.state
+        const { state } = this;
+        state[element.id] = element.quantity;
+      });
+      dispatchCart(localstorage);
+    }
     products.forEach((product) => {
       product.quantity = 1;
     });
     dispatchProducts(products);
   }
 
-  addQuantity({ target }) {
+  addQuantity({ target }, id) {
     const { dispatchCart, stateProducts } = this.props;
     // selects the product on DOM
     const productName = target.parentNode.parentNode
@@ -33,17 +43,21 @@ class CardList extends React.Component {
       // send to redux && local storage
       stateCart.push(selectedProduct[0]);
       stateCart.sort((a, b) => a.id - b.id);
+      this.setState({ [id]: 1 });
       localStorage.setItem('cart', JSON.stringify(stateCart));
       dispatchCart(stateCart);
     } else {
       // just increase one
-      selectedProduct[0].quantity += 1;
+      stateCart.forEach((element, index) => {
+        if (element.id === id) stateCart[index].quantity += 1;
+      });
+      this.setState((prevState) => ({ [id]: prevState[id] + 1 }));
       localStorage.setItem('cart', JSON.stringify(stateCart));
       dispatchCart(stateCart);
     }
   }
 
-  decreaseQuantity({ target }) {
+  decreaseQuantity({ target }, id) {
     const { dispatchCart, stateCart } = this.props;
     // selects the product on DOM
     const productName = target.parentNode.parentNode
@@ -55,13 +69,15 @@ class CardList extends React.Component {
       if (selectedProduct[0].quantity < 2) {
         const cartWithout = stateCart
           .filter((prod) => prod.name !== selectedProduct[0].name);
-        dispatchCart(cartWithout);
+        this.setState({ [id]: 0 });
         localStorage.setItem('cart', JSON.stringify(cartWithout));
+        dispatchCart(cartWithout);
       } else {
         // else decrease one
         selectedProduct[0].quantity -= 1;
-        dispatchCart(stateCart);
+        this.setState((prevState) => ({ [id]: prevState[id] - 1 }));
         localStorage.setItem('cart', JSON.stringify(stateCart));
+        dispatchCart(stateCart);
       }
     }
   }
@@ -70,6 +86,7 @@ class CardList extends React.Component {
     // const { history } = this.props;
     // console.log(history);
     const { stateProducts } = this.props;
+    const { state } = this;
     return (
       <div className="cardlist-container">
         { stateProducts
@@ -86,17 +103,17 @@ class CardList extends React.Component {
                 <button
                   type="button"
                   id="minus"
-                  onClick={ (event) => this.decreaseQuantity(event) }
+                  onClick={ (event) => this.decreaseQuantity(event, product.id) }
                 >
                   <i className="fas fa-minus" />
                 </button>
                 <span>
-                  0
+                  { state[product.id] }
                 </span>
                 <button
                   type="button"
                   id="plus"
-                  onClick={ (event) => this.addQuantity(event) }
+                  onClick={ (event) => this.addQuantity(event, product.id) }
                 >
                   <i className="fas fa-plus" />
                 </button>
