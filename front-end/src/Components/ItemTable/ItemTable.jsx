@@ -19,6 +19,8 @@ export default function ItemTable() {
     dispatch(actionChangeTotalValue());
   };
 
+  const prefix = 'customer_checkout__element-order';
+
   return (
     <div>
       <h1>Finalizar Pedido</h1>
@@ -34,31 +36,21 @@ export default function ItemTable() {
         {getLocalData
           && getLocalData.map((item, i) => (
             <tr key={ i }>
-              <td
-                data-testid={ `customer_checkout__element-order-table-item-number-${i}` }
-              >
+              <td data-testid={ `${prefix}-table-item-number-${i}` }>
                 {i + 1}
               </td>
-              <td
-                data-testid={ `customer_checkout__element-order-table-name-${i}` }
-              >
+              <td data-testid={ `${prefix}-table-name-${i}` }>
                 {item.name}
               </td>
-              <td
-                data-testid={ `customer_checkout__element-order-table-quantity-${i}` }
-              >
+              <td data-testid={ `${prefix}-table-quantity-${i}` }>
                 {item.quantity}
               </td>
-              <td
-                data-testid={ `customer_checkout__element-order-table-unity-price-${i}` }
-              >
+              <td data-testid={ `${prefix}-table-unit-price-${i}` }>
                 R$
                 {' '}
                 {Number(item.price).toFixed(2).toString().replace('.', ',')}
               </td>
-              <td
-                data-testid={ `customer_checkout__element-order-table-sub-total-${i}` }
-              >
+              <td data-testid={ `${prefix}-table-sub-total-${i}` }>
                 R$
                 {' '}
                 {(item.quantity * Number(item.price))
@@ -66,9 +58,7 @@ export default function ItemTable() {
                   .toString()
                   .replace('.', ',')}
               </td>
-              <td
-                data-testid={ `customer_checkout__element-order-table-remove-${i}` }
-              >
+              <td data-testid={ `${prefix}-table-remove-${i}` }>
                 <button
                   type="button"
                   onClick={ () => removeProductFromCarrinho(item.id) }

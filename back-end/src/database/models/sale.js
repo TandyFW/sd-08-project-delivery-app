@@ -3,18 +3,18 @@ module.exports = (sequelize, DataTypes) => {
     'Sale',
     {
       id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-      userId: {
+      user_id: {
         type: DataTypes.INTEGER,
         foreignKey: true,
       },
-      sellerId: {
+      seller_id: {
         type: DataTypes.INTEGER,
         foreignKey: true,
       },
-      totalPrice: DataTypes.DECIMAL,
-      deliveryAddress: DataTypes.STRING,
-      deliveryNumber: DataTypes.STRING,
-      salesDate: DataTypes.DATE,
+      total_price: DataTypes.DECIMAL,
+      delivery_address: DataTypes.STRING,
+      delivery_number: DataTypes.STRING,
+      sales_date: DataTypes.DATE,
       status: DataTypes.STRING,
     },
     {

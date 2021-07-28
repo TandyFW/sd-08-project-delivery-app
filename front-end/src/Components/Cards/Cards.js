@@ -19,7 +19,7 @@ export default function Cards({ product }) {
     }
   };
 
-  const { name, price, urlImage, id } = product;
+  const { name, price, url_image: urlImage, id } = product;
 
   // productInfos deve conter {id, name, price, quantity, urlImage}
   useEffect(() => {
@@ -87,7 +87,7 @@ export default function Cards({ product }) {
 Cards.propTypes = {
   product: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    urlImage: PropTypes.string.isRequired,
+    url_image: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.string.isRequired,
   }).isRequired,
