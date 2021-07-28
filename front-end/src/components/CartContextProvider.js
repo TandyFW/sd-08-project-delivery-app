@@ -8,10 +8,10 @@ const CartContextProvider = ({ children }) => {
     if (cart.some((item) => item.id === obj.id)) {
       const newCart = cart.map((item) => (item.id === obj.id ? obj : item));
       setCart(newCart);
-      localStorage.setItem('carinho', JSON.stringify(cart));
+      localStorage.setItem('carrinho', JSON.stringify(cart));
     } else {
       setCart([...cart, obj]);
-      localStorage.setItem('carinho', JSON.stringify(cart));
+      localStorage.setItem('carrinho', JSON.stringify(cart));
     }
   };
 
