@@ -1,5 +1,5 @@
 const registerSchema = require('../schemas/registerSchema');
-const { sale, salesProducts, user} = require('../database/models');
+const { sale, salesProducts, user } = require('../database/models');
 const clientError = require('../utils/clientError');
 
 const create = async (dataForCreate) => {
