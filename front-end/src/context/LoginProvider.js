@@ -19,11 +19,11 @@ export function LoginProvider({ children }) {
       method: 'post', url: API_LOGIN_URL, data: { email, password },
     };
     await request(options);
-    if (response) console.log('pag products');
   };
 
   const history = useHistory();
   if (response) {
+    localStorage.setItem('users', JSON.stringify(response.data));
     history.push('/customer/products');
   }
 
