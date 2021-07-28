@@ -9,7 +9,7 @@ export default function Table({heading, body}) {
         </tr>
       </thead>
       <tbody>
-        {body.map((row, index) => <TableRow className="products-table-row" row={row} key={index}/>)}
+        {body.map((row, index) => <TableRow className="products-table-row" row={row} tableIndex={index} key={index}/>)}
       </tbody>
     </table>
   );

@@ -14,8 +14,8 @@ export default function FormLogin() {
   const [URL, setURL] = useState('');
 
   const validation = () => {
-    const emailInput = document.querySelector('#login-email');
-    const passwordInput = document.querySelector('#login-password');
+    const emailInput = document.querySelector('#loginEmail');
+    const passwordInput = document.querySelector('#loginPassword');
     const email = emailInput.value;
     const password = passwordInput.value;
     const MIN_PASSWORRD_LENGTH = 6;
@@ -51,7 +51,7 @@ export default function FormLogin() {
   return (
     <>
       <form action="" method="GET" className="form-login">
-        <label htmlFor="login-email" className="login-label">
+        <label htmlFor="loginEmail" className="login-label">
           Email:
           <input
             type="email"
@@ -60,11 +60,11 @@ export default function FormLogin() {
             className="email-input"
             onKeyUp={ validation }
             autoComplete="username"
-            id="login-email"
+            id="loginEmail"
             data-testid="common_login__input-email"
           />
         </label>
-        <label htmlFor="login-password" className="login-label">
+        <label htmlFor="loginPassword" className="login-label">
           Senha:
           <input
             type="password"
@@ -73,7 +73,7 @@ export default function FormLogin() {
             className="password-input"
             onKeyUp={ validation }
             autoComplete="current-password"
-            id="login-password"
+            id="loginPassword"
             data-testid="common_login__input-password"
           />
         </label>
@@ -82,7 +82,7 @@ export default function FormLogin() {
           className="btn-login"
           disabled={ !isValid }
           onClick={ login }
-          id="btn-login"
+          id="btnLogin"
           data-testid="common_login__button-login"
         >
           LOGIN
@@ -90,7 +90,7 @@ export default function FormLogin() {
         <button
           type="button"
           className="btn-link-register"
-          id="btn-link-register"
+          id="btnLinkRegister"
           data-testid="common_login__button-register"
         >
           <Link to="/register">REGISTRE-SE</Link>
