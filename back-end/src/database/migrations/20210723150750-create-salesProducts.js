@@ -1,8 +1,7 @@
-'use strict';
-
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable('salesProducts', {
+  // eslint-disable-next-line max-lines-per-function
+  up: async (queryInterface, Sequelize) => 
+    queryInterface.createTable('salesProducts', {
       saleId: {
         primaryKey: true,
         allowNull: false,
@@ -12,7 +11,7 @@ module.exports = {
         references: {
           model: 'sales',
           key: 'id',
-        }
+        },
       },
       productId: {
         primaryKey: true,
@@ -23,16 +22,15 @@ module.exports = {
         references: {
           model: 'products',
           key: 'id',
-        }
+        },
       },
       quantity: {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
-    });
-  },
+    }),
+  
+  down: async (queryInterface, _Sequelize) => 
+    queryInterface.dropTable('salesProducts'),
 
-  down: async (queryInterface, _Sequelize) => {
-    return queryInterface.dropTable('salesProducts')
-  }
 };
