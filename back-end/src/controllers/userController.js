@@ -15,14 +15,4 @@ routes.post('/', validateEmailExist, validateNameExist, async (req, res) => {
 	}
 });
 
-routes.post('/', async (req, res) => {
-	try {
-	const { email, password } = req.body;
-	const loginUser = await userService.loginUser({ email, password });
-	return res.status(status.OK).json({ loginUser });
-	} catch (error) {
-	return res.status(status.NotFound).json({ message: error.message });
-	}
-	});
-
 module.exports = routes;
