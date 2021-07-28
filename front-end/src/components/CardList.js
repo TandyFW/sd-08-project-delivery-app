@@ -15,12 +15,14 @@ class CardList extends React.Component {
     const { dispatchProducts, dispatchCart } = this.props;
     const products = await getAllProducts();
     const localstorage = JSON.parse(localStorage.getItem('cart'));
+    //
     if (localstorage && localstorage.length > 0) {
       localstorage.forEach((element) => {
-        // pass the quantities to this.state
+        // pass the quantity from localstorage to 'this.state'
         const { state } = this;
         state[element.id] = element.quantity;
       });
+      // pass all to redux to save the user changes
       dispatchCart(localstorage);
     }
     products.forEach((product) => {
@@ -47,10 +49,11 @@ class CardList extends React.Component {
       localStorage.setItem('cart', JSON.stringify(stateCart));
       dispatchCart(stateCart);
     } else {
-      // just increase one
+      // foreach to find the exact index of statecart, and add +1
       stateCart.forEach((element, index) => {
         if (element.id === id) stateCart[index].quantity += 1;
       });
+      // just increase one on state && localstorage
       this.setState((prevState) => ({ [id]: prevState[id] + 1 }));
       localStorage.setItem('cart', JSON.stringify(stateCart));
       dispatchCart(stateCart);
