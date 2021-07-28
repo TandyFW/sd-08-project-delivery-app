@@ -17,4 +17,5 @@ module.exports = {
   signToken,
   verifyToken,
   decodeToken,
+  SECRET,
 };

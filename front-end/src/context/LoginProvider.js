@@ -15,10 +15,7 @@ export function LoginProvider({ children }) {
   } = useAxios();
 
   const handleLoginRequest = async ({ email, password }) => {
-    const options = {
-      method: 'post', url: API_LOGIN_URL, data: { email, password },
-    };
-    await request(options);
+    await request(API_LOGIN_URL({ email, password }));
   };
 
   const history = useHistory();
