@@ -1,51 +1,52 @@
-import React, { useReducer } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Table = () => {
-  const products = useReducer((state) => state.products);
+  const products = useSelector((state) => state.products.products);
+  console.log(products);
   const [btnRemove, setBtnRemove] = useState(true);
-  useEffect( () => {
-  }, [btnRemove]);
+  useEffect(() => { }, [btnRemove]);
+
+  const dispatch = useDispatch();
+
+  const removeItem = (id) => {
+    dispatch({
+      type: 'REMOVE_ITEM',
+      payload: id,
+    });
+    setBtnRemove(!btnRemove);
+  };
 
   const renderExpenseRow = (item, index) => {
     const prefix = 'customer_checkout__';
-    const { id, qtd, price } = item;
+    const { id, qtd, price, title } = item;
     return (
       <tr key={ id }>
         <td data-testid={ `${prefix}element-order-table-item-number-${index}` }>
-          { index }
+          { index + 1 }
         </td>
         <td data-testid={ `${prefix}element-order-table-name-${index}` }>
-          { name }
+          { title }
         </td>
         <td data-testid={ `${prefix}element-order-table-quantity-${index}` }>
           { qtd }
         </td>
         <td data-testid={ `${prefix}element-order-table-unit-price-${index}` }>
-          { price }
+          { price.replace('.', ',') }
         </td>
         <td data-testid={ `${prefix}element-order-table-sub-total-${index}` }>
-          { Number(qtd) * Number(price) }
+          { (Number(qtd) * Number(price)).toFixed(2).replace('.', ',') }
         </td>
         <td data-testid={ `${prefix}element-order-table-remove-${index}` }>
           <button
             type="button"
-            onClick={ () => removeItem(id) }
+            onClick={ () => removeItem(index) }
           >
             Excluir
           </button>
         </td>
       </tr>
     );
-  };
-
-  const removeItem = (id) => {
-    const dispatch = useDispatch();
-    dispatch({
-      type: 'REMOVE_ITEM',
-      payload: { id },
-    });
-    setBtnRemove(!btnRemove);
   };
 
   return (
@@ -62,7 +63,10 @@ const Table = () => {
           </tr>
         </thead>
         <tbody>
-          { products && products.map((item, index) => renderExpenseRow(item, index)) }
+          {
+            products && products
+              .map((item, index) => renderExpenseRow(item, index))
+          }
         </tbody>
       </table>
     </div>

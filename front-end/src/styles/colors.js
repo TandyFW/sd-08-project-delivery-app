@@ -6,4 +6,5 @@ export default {
   whitesmoke: 'rgb(234,241,239)',
   white: 'rgb(255,255,255)',
   darkslategray: 'rgb(31,53,48)',
+  goldenrod: 'rgb(211,198,60)',
 };
