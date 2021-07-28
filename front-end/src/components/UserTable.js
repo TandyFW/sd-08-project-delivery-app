@@ -32,7 +32,7 @@ class UserTable extends React.Component {
     // const { history } = this.props;
     // console.log(history);
     const { stateUsers } = this.props;
-    console.log(stateUsers);
+    console.log(stateUsers.registers);
     // const tableUser = stateUsers.user || [{}];
     // const keyOfstatateUsers = Object.keys(tableUser[0]);
     // keyOfstatateUsers.push('Excluir');
@@ -48,7 +48,7 @@ class UserTable extends React.Component {
               <th key="excluir">Excluir</th>
             </tr>
           </thead>
-          <tbody>
+          {/* <tbody>
 
             { tableUser && tableUser.map((user, index) => (
               <tr
@@ -70,7 +70,7 @@ class UserTable extends React.Component {
                 </td>
               </tr>
             ))}
-          </tbody>
+          </tbody> */}
         </table>
       </div>
     );
@@ -82,7 +82,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  stateUsers: state.user.user,
+  stateUsers: state.userReducer.user,
 });
 
 UserTable.propTypes = {

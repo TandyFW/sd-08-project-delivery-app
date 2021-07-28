@@ -4,7 +4,7 @@ const INITIAL_STATE = {
   user: [{}],
 };
 
-export default function userReducer(state = INITIAL_STATE, action) {
+export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
   case USER:
     return {
