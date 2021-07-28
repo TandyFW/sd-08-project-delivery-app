@@ -12,7 +12,7 @@ const orders = [
   { order_id: 2, status: 'preparando', date: formatedDate, price: 88.98 },
   { order_id: 3, status: 'entregue', date: formatedDate, price: 25.30 },
 ];
-console.log(orders);
+// console.log(orders);
 
 class OrderList extends React.Component {
   constructor() {
