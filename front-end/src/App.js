@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
-import Routes from './routes';
+import Routes from './Routes';
 import ConxtextProvider from './context';
 import theme from './theme';
 import './App.css';

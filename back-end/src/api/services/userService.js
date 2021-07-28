@@ -10,11 +10,11 @@ const isValidUser = async ({ name, email }) => {
       { name },
       { email },
     ] } });
-    return user;
+  console.log(user);
+  return user;
 };
 
 const validateLogin = async ({ email, password }) => {
-  // Se possível substituir pela função isvalidUser
   const validUser = await User.findOne({ where: { email } });
   if (!validUser) return { error: { code: 'notFound', message: 'Usuário não encontrado' } };
 
@@ -23,8 +23,7 @@ const validateLogin = async ({ email, password }) => {
   }
 
   const secret = await getJwtSecret();
-  const token = jwt.sign({ data: validUser.dataValues },
-    secret, { issuer: 'delivery-app', subject: 'login' });
+  const token = jwt.sign({ data: validUser.dataValues }, secret.trim());
 
   return { result: { token } };
 };
@@ -43,6 +42,7 @@ const validateRegister = async (registerObj) => {
 };
 
 module.exports = {
+  isValidUser,
   validateLogin,
   validateRegister,
 };

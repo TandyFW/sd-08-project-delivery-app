@@ -19,12 +19,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TransitionAlerts({ message, open, testId, severity }) {
   const classes = useStyles();
-  // const [open, setOpen] = React.useState(true);
 
   return (
     <Collapse className={ classes.root } in={ open.value }>
       <Alert
-        // inputProps={ { 'data-testid': testId } }
         data-testid={ testId }
         severity={ severity }
         action={
