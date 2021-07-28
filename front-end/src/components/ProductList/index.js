@@ -15,7 +15,6 @@ function ProductList() {
 
     getProducts(token)
       .then(({ products }) => {
-        console.log(products);
         setProductList(products);
       })
       .catch((err) => {

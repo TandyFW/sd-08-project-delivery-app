@@ -8,12 +8,12 @@ import ProductList from '../../components/ProductList';
 const productsHeaderLinks = [
   {
     name: 'produtos',
-    link: '/products',
+    link: '/customer/products',
     testId: 'customer_products__element-navbar-link-products',
   },
   {
     name: 'Meus Pedidos',
-    link: '/sei-la',
+    link: '/customer/checkout',
     testId: 'customer_products__element-navbar-link-orders',
   },
 ];

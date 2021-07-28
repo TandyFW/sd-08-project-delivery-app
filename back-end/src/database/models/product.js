@@ -24,7 +24,8 @@ const Product = (sequelize, DataTypes) => {
   },
   {
     timestamps: false,
-    tableName: 'products'
+    tableName: 'products',
+    underscored: true,
   });
 
   product.associate = (models) => {
