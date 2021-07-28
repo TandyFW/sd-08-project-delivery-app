@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from './Context';
 
 function Provider({ children }) {
+  const [cart, setCart] = useState([]);
   const context = {
-
+    cart,
+    setCart,
   };
   return (
     <Context.Provider value={ context }>{children}</Context.Provider>

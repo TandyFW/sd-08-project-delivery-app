@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
 import NavBar from '../../Components/NavBar';
+// import Context from '../../../context/Context';
 import './styles.css';
 
 const Products = () => {
   const user = { name: 'Clênio', id: 1 }; // vem do estado global
   const [products, setProducts] = useState([]);
+
+  // const { cart, setCart } = useContext(Context);
 
   async function getData() {
     const myInit = {

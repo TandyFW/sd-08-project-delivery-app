@@ -4,6 +4,19 @@ import './styles.css';
 
 function NavBar(props) {
   const { userType, userName } = props;
+  let prefix = '';
+
+  if (userType === 'client') {
+    prefix = 'customer_products__';
+  }
+
+  if (userType === 'seller') {
+    prefix = 'seller_orders__';
+  }
+
+  if (userType === 'admin') {
+    prefix = 'admin_manage__';
+  }
 
   return (
     <header>
@@ -12,16 +25,16 @@ function NavBar(props) {
           <>
             <li>
               <a
-                href="/customer_products"
-                data-testid="navbar-customer-products"
+                href="/customer/products"
+                data-testid={ `${prefix}element-navbar-link-products` }
               >
                 Produtos
               </a>
             </li>
             <li>
               <a
-                href="/customer_requests"
-                data-testid="navbar-customer-requests"
+                href="/customer/requests"
+                data-testid={ `${prefix}element-navbar-link-orders` }
               >
                 Meus pedidos
               </a>
@@ -30,25 +43,36 @@ function NavBar(props) {
         )}
         { userType === 'seller' && (
           <li>
-            <a href="/seller_requests" data-testid="navbar-seller-requests">
+            <a
+              href="/seller/requests"
+              data-testid={ `${prefix}element-navbar-link-orders` }
+            >
               Pedidos
             </a>
           </li>
         )}
         { userType === 'admin' && (
           <li>
-            <button type="button" data-testid="navbar-admin-users-manage">
+            <a
+              href="/admin/manage"
+              data-testid={ `${prefix}element-navbar-link-manage` }
+            >
               Gerenciar usuários
-            </button>
+            </a>
           </li>
         )}
         <div className="flexRigth">
 
-          <li className="nav-name" data-testid="navbar-user_name">{userName}</li>
+          <li
+            className="nav-name"
+            data-testid={ `${prefix}element-navbar-user-full-name` }
+          >
+            {userName}
+          </li>
           <li>
             <a
               href="/login"
-              data-testid="navbar-logout"
+              data-testid={ `${prefix}element-navbar-link-logout` }
             >
               Sair
             </a>

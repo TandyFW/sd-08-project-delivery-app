@@ -21,7 +21,7 @@ function Routes() {
         {/* criar uma rota interna segura para quando o usuário fizer o login
         puxar a informação se é um cliente, vendedor ou admin. Encaminhar para
         a rota correta */}
-        <Route path="/customer_products" component={ CustomerRouts } />
+        <Route path="/customer" component={ CustomerRouts } />
       </Switch>
     </Router>
   );

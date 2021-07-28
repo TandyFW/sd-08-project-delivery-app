@@ -11,7 +11,7 @@ function Routes() {
     <Router>
       <Switch>
         {/* Rotas do cliente */}
-        <Route exact path="/customer_products" component={ CustomerProducts } />
+        <Route path="/customer/products" component={ CustomerProducts } />
       </Switch>
     </Router>
   );
