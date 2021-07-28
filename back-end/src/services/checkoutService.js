@@ -11,11 +11,9 @@ const transaction = async (Sale) => {
       status: 'Pendente',
     }, { transaction: t });
 
-    Sale.array.forEach((product) => {
-      product['sale_id'] = result.dataValues.id;
-    });
+    const novoArray = Sale.array.map((product) => ({ ...product, saleId: result.dataValues.id }));
   
-    await salesProducts.bulkCreate(Sale.array,
+    await salesProducts.bulkCreate(novoArray,
     { transaction: t });
   
     return result;
