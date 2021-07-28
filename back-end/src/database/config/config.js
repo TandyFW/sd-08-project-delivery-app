@@ -12,6 +12,7 @@ const options = {
   },
   define: {
     timestamps: false,
+    underscored: true
   },
   logging: false,
 };
