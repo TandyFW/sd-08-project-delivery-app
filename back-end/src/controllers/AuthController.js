@@ -8,9 +8,8 @@ module.exports = async (req, res, next) => {
     return res.status(403).json({ message: 'Token not found' });
   }
   try {
-    const secret = fs.readFileSync(`${__dirname}/../../jwt.evaluation.key`, 'utf-8');
+    const secret = fs.readFileSync(`${__dirname}/../../jwt.evaluation.key`, 'utf-8').trim();
     const decoded = jwt.verify(token, secret);
-    console.log('decoded: ', decoded);
     const user = await findByEmail(decoded.data.email);
     if (!user) {
       return res.status(403).json({ message: 'Expired or invalid token' });
