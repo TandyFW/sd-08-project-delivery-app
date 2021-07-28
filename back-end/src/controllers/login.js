@@ -41,7 +41,9 @@ const login = rescue(async (req, res) => {
 
   const token = getJwtToken({ id: user.id, email });
 
-  res.json({ token });
+  const { name, role } = user;
+
+  res.json({ name, email, role, token });
 });
 
 module.exports = login;
