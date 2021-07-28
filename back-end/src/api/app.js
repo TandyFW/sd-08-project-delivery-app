@@ -12,7 +12,7 @@ app.use('/images', express.static(path.join(__dirname, '../../', 'public')));
 app.get('/products', controller.getProductsController)
 app.post('/login', controller.loginController);
 app.post('/register', controller.registerController);
-app.post('/customer/orders/:id', controller.checkoutController);
+app.post('/sales', controller.checkoutController);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 
