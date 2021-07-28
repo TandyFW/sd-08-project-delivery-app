@@ -1,13 +1,17 @@
 import React from 'react';
-import Routes from './routes';
+import { ThemeProvider } from '@material-ui/core/styles';
+import Routes from './Routes';
 import ConxtextProvider from './context';
+import theme from './theme';
 import './App.css';
 
 function App() {
   return (
-    <ConxtextProvider>
-      <Routes />
-    </ConxtextProvider>
+    <ThemeProvider theme={ theme }>
+      <ConxtextProvider>
+        <Routes />
+      </ConxtextProvider>
+    </ThemeProvider>
   );
 }
 

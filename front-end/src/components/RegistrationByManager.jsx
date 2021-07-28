@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { isValidUserForRegistration } from '../utils';
-import { request } from '../utils/request';
+import { isValidUserForRegistration, lStorage, request } from '../utils';
 import TransitionAlerts from './TransitionAlerts';
+import { useGroupState } from '../hooks';
 
 const useStyles = makeStyles((theme) => ({
   selectEmpty: {
@@ -24,95 +23,120 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const TWO_AND_A_HALF_SECONDS = 2500;
+
 export default function RegistrationByManager() {
   const classes = useStyles();
 
-  const [role, setRole] = useState('Admin');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isDisabled, setDisable] = useState(true);
-  const [user, setUser] = useState({});
-  const [open, setOpen] = React.useState(true);
+  const { role, name, email, password, isDisabled, message, open } = useGroupState({
+    role: 'seller',
+    name: '',
+    email: '',
+    password: '',
+    isDisabled: true,
+    message: { text: '', severity: 'warning' },
+    open: false,
+  });
 
   useEffect(() => {
-    setDisable(!isValidUserForRegistration(name, email, password));
-  }, [name, email, password]);
+    isDisabled.set(!isValidUserForRegistration(name.value, email.value, password.value));
+  }, [name.value, email.value, password.value, isDisabled]);
+
+  useEffect(() => {
+    if (message.value.text) {
+      open.set(true);
+    }
+    setTimeout(() => {
+      open.set(false);
+    }, TWO_AND_A_HALF_SECONDS);
+  }, [message.value]);
 
   const handleChange = (callback, event) => {
     callback(event.target.value);
   };
 
+  const resetFields = () => {
+    name.set('');
+    email.set('');
+    password.set('');
+  };
+
   const handleClick = async (event) => {
     event.preventDefault();
-    const userObj = await request('admin', 'POST', {
-      name,
-      email,
-      password,
-      role });
-    setUser(userObj);
-    setOpen(true);
-  };
 
-  const handleAlert = (bool) => {
-    setOpen(bool);
-  };
+    const admin = lStorage().user.get();
+    const options = {
+      headers: {
+        Authorization: admin.token,
+      },
+      body: {
+        name: name.value,
+        email: email.value,
+        password: password.value,
+        role: role.value,
+      },
+      method: 'POST',
+    };
 
-  const renderErrorMessage = () => {
-    if ('message' in user) {
-      return (
-        <TransitionAlerts
-          message={ user.message }
-          handler={ handleAlert }
-          open={ open }
-        />
-      );
+    const userObj = await request('admin', options);
+    if (userObj.message) {
+      message.set({ text: userObj.message, severity: 'warning' });
+    } else {
+      resetFields();
+      message.set({ text: 'Usuário cadastrado com sucesso', severity: 'success' });
     }
   };
+
+  const renderErrorMessage = () => (
+    <TransitionAlerts
+      message={ message.value.text }
+      open={ open }
+      testId="admin_manage__element-invalid-register"
+      severity={ message.value.severity }
+    />
+  );
 
   return (
     <div>
       <form className={ classes.root }>
         <TextField
-          value={ name }
+          value={ name.value }
           inputProps={ { 'data-testid': 'admin_manage__input-name' } }
-          id="outlined-basic"
           label="Nome"
           variant="outlined"
-          onChange={ (event) => handleChange(setName, event) }
+          onChange={ (event) => handleChange(name.set, event) }
         />
         <TextField
-          value={ email }
+          value={ email.value }
           inputProps={ { 'data-testid': 'admin_manage__input-email' } }
-          id="outlined-basic"
           label="Email"
           variant="outlined"
-          onChange={ (event) => handleChange(setEmail, event) }
+          onChange={ (event) => handleChange(email.set, event) }
         />
         <TextField
-          value={ password }
+          type="password"
+          value={ password.value }
           inputProps={ { 'data-testid': 'admin_manage__input-password' } }
-          id="outlined-basic"
           label="Senha"
           variant="outlined"
-          onChange={ (event) => handleChange(setPassword, event) }
+          onChange={ (event) => handleChange(password.set, event) }
         />
         <Select
           inputProps={ { 'data-testid': 'admin_manage__select-role' } }
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={ role }
-          onChange={ (event) => handleChange(setRole, event) }
+          value={ role.value }
+          onChange={ (event) => handleChange(role.set, event) }
+          native
         >
-          <MenuItem value="Vendedor">Vendedor</MenuItem>
-          <MenuItem value="Cliente">Cliente</MenuItem>
-          <MenuItem value="Admin">Admin</MenuItem>
+          <option value="seller">Vendedor</option>
+          <option value="customer">Cliente</option>
         </Select>
         <Button
-          inputProps={ { 'data-testid': 'admin_manage__button-register' } }
+          data-testid="admin_manage__button-register"
           variant="contained"
           color="primary"
-          disabled={ isDisabled }
+          disabled={ isDisabled.value }
           onClick={ handleClick }
         >
           Cadastrar

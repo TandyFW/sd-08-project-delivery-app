@@ -1,9 +1,14 @@
-const {
-  isValidUserForRegistration } = require('./validations');
-const { request, requestSeller } = require('./request');
+import { isValidUserForRegistration, isValidForLogin } from './validations';
+import request from './request';
+import getPathByRole from './getPathByRole';
+import getUserObjByToken from './getUserObjByToken';
+import lStorage from './localStorage';
 
-module.exports = {
+export {
   isValidUserForRegistration,
+  isValidForLogin,
   request,
-  requestSeller,
+  getPathByRole,
+  getUserObjByToken,
+  lStorage,
 };

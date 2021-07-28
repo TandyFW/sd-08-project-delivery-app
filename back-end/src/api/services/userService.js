@@ -1,6 +1,8 @@
 const md5 = require('md5');
+const jwt = require('jsonwebtoken');
 const { Op } = require('sequelize');
 const { User } = require('../../database/models');
+const { getJwtSecret } = require('../utils');
 
 const isValidUser = async ({ name, email }) => {
   const user = await User.findOne({ where: {
@@ -8,15 +10,21 @@ const isValidUser = async ({ name, email }) => {
       { name },
       { email },
     ] } });
-    return user;
+  return user;
 };
 
-const validateLogin = async (loginObj) => {
-  // Se possível substituir pela função isvalidUser
-  const validUser = await User.findOne({ where: { email: loginObj.email } });
+const validateLogin = async ({ email, password }) => {
+  const validUser = await User.findOne({ where: { email } });
   if (!validUser) return { error: { code: 'notFound', message: 'Usuário não encontrado' } };
 
-  return { result: validUser };
+  if (validUser.dataValues.password !== md5(password)) {
+    return { error: { code: 'notFound', message: 'Senha inválida' } };
+  }
+
+  const secret = await getJwtSecret();
+  const token = jwt.sign({ data: validUser.dataValues }, secret.trim());
+
+  return { result: { token } };
 };
 
 const registerByAdmin = async ({ name, email, password, role }) => {
@@ -33,6 +41,7 @@ const validateRegister = async (registerObj) => {
 };
 
 module.exports = {
+  isValidUser,
   validateLogin,
   validateRegister,
 };

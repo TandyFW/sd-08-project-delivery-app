@@ -1,8 +1,9 @@
+// eslint-disable-next-line max-lines-per-function
 const Sale = (sequelize, DataTypes) => {
   const sale = sequelize.define('Sale', {
     userId: { type: DataTypes.INTEGER, foreignKey: true },
     sellerId: { type: DataTypes.INTEGER, foreignKey: true },
-    totalPrice: DataTypes.DECIMAL(10,2),
+    totalPrice: DataTypes.DECIMAL(10, 2),
     deliveryAddress: DataTypes.STRING,
     deliveryNumber: DataTypes.STRING,
     salesDate: DataTypes.DATE,
