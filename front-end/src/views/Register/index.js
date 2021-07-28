@@ -44,26 +44,29 @@ function Register() {
   return (
     <div className="main-wrapper">
       <h2>Cadastro</h2>
-      <div className="content">
-        <input
-          data-testid="common_register__input-name"
-          type="text"
-          placeholder="Seu Nome"
-          onChange={ (e) => setName(e.target.value) }
-        />
-        <input
-          data-testid="common_register__input-email"
-          type="email"
-          placeholder="seu-email@teste.com.br"
-          onChange={ (e) => setEmail(e.target.value) }
-        />
-        <input
-          data-testid="common_register__input-password"
-          type="password"
-          placeholder="******"
-          onChange={ (e) => setPassword(e.target.value) }
-        />
+      <div className="container">
+        <div className="form-control">
+          <input
+            data-testid="common_register__input-name"
+            type="text"
+            placeholder="Seu Nome"
+            onChange={ (e) => setName(e.target.value) }
+          />
+          <input
+            data-testid="common_register__input-email"
+            type="email"
+            placeholder="seu-email@teste.com.br"
+            onChange={ (e) => setEmail(e.target.value) }
+          />
+          <input
+            data-testid="common_register__input-password"
+            type="password"
+            placeholder="******"
+            onChange={ (e) => setPassword(e.target.value) }
+          />
+        </div>
         <button
+          className="btn"
           data-testid="common_register__button-register"
           type="submit"
           disabled={ checkInputs() }
