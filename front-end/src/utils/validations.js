@@ -14,6 +14,11 @@ const isValidUserForRegistration = (name, email, password) => (
   isValidName(name) && isValidEmail(email) && isValidPassword(password)
 );
 
-module.exports = {
+const isValidForLogin = (email, password) => (
+  isValidEmail(email) && isValidPassword(password)
+);
+
+export {
   isValidUserForRegistration,
+  isValidForLogin,
 };
