@@ -1,28 +1,37 @@
 const { sales, salesProducts } = require('../database/models');
 
-const creatCheckout = async (userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, quantity) => {
-  console.log(quantity);
-  try {
-    const result = await sequelize.transaction(async (t) => {
-      const result = await sales.create({
-        userId,
-        sellerId,
-        totalPrice,
-        deliveryAddress,
-        deliveryNumber,
-        status: "Pendente",
-      }, { transaction: t });
+const transaction = async (Sale) => {
+  const resultTransaction = await sales.sequelize.transaction(async (t) => {
+    const result = await sales.create({
+      userId: Sale.userId,
+      sellerId: Sale.sellerId,
+      totalPrice: Sale.totalPrice,
+      deliveryAddress: Sale.deliveryAddress,
+      deliveryNumber: Sale.deliveryNumber,
+      status: 'Pendente',
+    }, { transaction: t });
 
-      await salesProducts.bulkcreate(quantity,
-      { transaction: t });
-
-      return result;
+    Sale.array.forEach((product) => {
+      product['sale_id'] = result.dataValues.id;
     });
+  
+    await salesProducts.bulkCreate(Sale.array,
+    { transaction: t });
+  
+    return result;
+  });
+
+  return resultTransaction;
+}; 
+
+const creatCheckout = async (Sale) => {
+  try {
+    const result = await transaction(Sale);
 
     return {
       statusCode: 200,
       json: result,
-    }
+    };
   } catch (error) {
     console.log(error);
     return {

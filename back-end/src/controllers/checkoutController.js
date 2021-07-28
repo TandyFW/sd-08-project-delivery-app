@@ -1,9 +1,10 @@
 const checkoutService = require('../services/checkoutService');
 
 const checkout = async (req, res) => {
-  const { user_id, seller_id, total_price, delivery_address, delivery_number, array } = req.body;
+  const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, array } = req.body;
 
-  const { statusCode, json } = await checkoutService.creatCheckout(user_id, seller_id, total_price, delivery_address, delivery_number, array);
+  const { statusCode, json } = await checkoutService
+    .creatCheckout({ userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, array });
   res.status(statusCode).json(json);
 };
 

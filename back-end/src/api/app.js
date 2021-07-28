@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const controller = require('../controllers');
 const path = require('path');
+const controller = require('../controllers');
 
 const app = express();
 app.use(express.json());
@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(cors());
 app.use('/images', express.static(path.join(__dirname, '../../', 'public')));
 
-app.get('/products', controller.getProductsController)
+app.get('/products', controller.getProductsController);
 app.post('/login', controller.loginController);
 app.post('/register', controller.registerController);
 app.post('/sales', controller.checkoutController);
