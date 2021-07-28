@@ -22,11 +22,12 @@ export default function SignUpSide() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3001/register', {
+      const response = await axios.post('http://localhost:3001/register', {
         name,
         password,
         email,
       });
+      localStorage.setItem('user', JSON.stringify(response.data));
       history.push('/customer/products');
     } catch (err) {
       setLoginError(err);
