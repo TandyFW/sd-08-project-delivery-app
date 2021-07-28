@@ -5,12 +5,13 @@ const product = (sequelize, DataTypes) => {
     urlImage: DataTypes.STRING,
   }, { timestamps: false });
 
-  ProductTable.associate = (models) => {
+  /*ProductTable.associate = (models) => {
+  /* ProductTable.associate = (models) => {
     ProductTable.hasMany(models.SaleProduct,
     { foreignKey: 'productId', as: 'salesProducts' });
     ProductTable.hasMany(models.Sale,
       { foreignKey: 'saleId', as: 'sales' });
-};
+}; */
   return ProductTable;
 };
 

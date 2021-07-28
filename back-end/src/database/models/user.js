@@ -6,12 +6,12 @@ const user = (sequelize, DataTypes) => {
     role: DataTypes.STRING,
   }, { timestamps: false });
 
-  UserTable.associate = (models) => {
+ /* UserTable.associate = (models) => {
     UserTable.hasMany(models.Sale,
     { foreignKey: 'userId', as: 'sales' },
     { foreignKey: 'sellerId', as: 'sales' }
     );
-};
+}; */
   return UserTable;
 };
 
