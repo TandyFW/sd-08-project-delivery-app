@@ -49,6 +49,8 @@ class Login extends React.Component {
         history.push('/seller/orders');
       } else if (user.role === 'customer') {
         history.push('/customer/products');
+      } else if (user.role === 'administrator') {
+        history.push('/admin/manage');
       } else {
         history.push('/register');
       }

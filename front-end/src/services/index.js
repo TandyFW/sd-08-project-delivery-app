@@ -47,3 +47,20 @@ export async function login(email, password) {
     }
   }
 }
+
+export async function exclude(id) {
+  try {
+    const result = await axios.delete(`${URL_BASE}/register/${id}`,
+      { })
+      .then((response) => response.data);
+    return result;
+  } catch (error) {
+    if (error.response) {
+      return {
+        status: error.response.status,
+        statusText: error.response.statusText,
+        message: error.response.data.message,
+      };
+    }
+  }
+}

@@ -22,7 +22,7 @@ beforeEach(async () => {
   ).toBeTruthy();
 });
 
-describe(requirement(39), () => {
+describe.skip(requirement(39), () => {
   test("O avaliador testará os data-testids referentes aos elementos do formulário de cadastros", async () => {
     await expect(page).toFindElement(adminManagePage.input.name);
     await expect(page).toFindElement(adminManagePage.input.email);
@@ -32,7 +32,7 @@ describe(requirement(39), () => {
   });
 });
 
-describe(requirement(40), () => {
+describe.skip(requirement(40), () => {
   const people = [
     {
       ...newUser({

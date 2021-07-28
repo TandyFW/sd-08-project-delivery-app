@@ -1,5 +1,5 @@
 const registerSchema = require('../schemas/registerSchema');
-const { sale, salesProducts, product } = require('../database/models');
+const { sale, salesProducts, user } = require('../database/models');
 const clientError = require('../utils/clientError');
 
 const create = async (dataForCreate) => {
@@ -53,20 +53,22 @@ const deleteById = async (id) => {
 
 const getAllAll = async (id) => {
   const foundsale = await sale.findOne({
+    // where: { id },
+    // attributes: { exclude: ['seller_id', 'user_id'] }, // exclui o order
+    // include: [{
+    //   attributes: { exclude: [''] }, /* exclui o product */
+    //   model: product,
+    //   as: 'productId',
+    //   required: false,
+    //   through: { 
+    //     attributes: { exclude: ['sale_id', 'product_id'] }, // exclui o salesProducts
+    //   },
+    // }],
+ 
     where: { id },
-    attributes: { exclude: ['seller_id', 'user_id'] }, // exclui o order
-    include: [{
-      attributes: { exclude: [''] }, /* exclui o product */
-      model: product,
-      as: 'productId',
-      required: false,
-      through: { 
-        attributes: { exclude: ['sale_id', 'product_id'] }, // exclui o salesProducts
-      },
-    }],
-    // include: [{model: user, as: 'userId' }, { model: user, as: 'sellerId' }],
+    include: [{ model: user, as: 'userId' }, { model: user, as: 'sellerId' }],
   });
-
+  console.log(typeof foundsale.dataValues.totalPrice);
   return foundsale;
 };
 
