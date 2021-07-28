@@ -1,18 +1,18 @@
+const express = require('express');
 const userService = require('../services/userService');
+const { status } = require('../middlewares/status');
+const { validateEmailExist, validateNameExist } = require('../middlewares/userValidation');
 
-const httpStatusCodeSucess = 200;
-const httpStatusCodeNotFound = 404;
+const routes = express.Router();
 
-const login = async (req, res) => {
+routes.post('/', validateEmailExist, validateNameExist, async (req, res) => {
 try {
-const { email, password } = req.body;
-const loginUser = await userService.loginUser({ email, password });
-return res.status(httpStatusCodeSucess).json({ loginUser });
+const { name, email, password, role = 'customer' } = req.body;
+const newUser = await userService.registerUser({ name, email, password, role });
+return res.status(status.Created).json({ newUser });
 } catch (error) {
-return res.status(httpStatusCodeNotFound).json({ message: error.message });
+return res.status(status.Conflict).json({ message: error.message });
 }
-};
+});
 
-module.exports = {
-  login,
-};
+module.exports = routes;
