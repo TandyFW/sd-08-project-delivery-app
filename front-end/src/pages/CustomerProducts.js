@@ -32,12 +32,14 @@ const CustomerProducts = () => {
       { products
         .map((product) => <ProductCard key={ product.id } product={ product } />) }
       <button
-        data-testid="customer_products__checkout-bottom-value"
+        data-testid="customer_products__button-cart"
         type="button"
         disabled={ total === 0 || !total }
         onClick={ () => history.push('/customer/checkout') }
       >
-        { total.toFixed(2).replace('.', ',') }
+        <span data-testid="customer_products__checkout-bottom-value">
+          { total.toFixed(2).replace('.', ',') }
+        </span>
       </button>
     </>
   );

@@ -10,7 +10,6 @@ const CartContextProvider = ({ children }) => {
     const newTotal = cart
       .reduce((acc, curr) => (acc + parseFloat(curr.subTotal)), 0);
     setTotal(newTotal);
-    console.log('total: ', total);
   }, [cart]);
 
   const formatProduct = ({ id, name, quantity, unitPrice }) => ({
