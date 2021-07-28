@@ -42,33 +42,36 @@ function CheckoutTable() {
           {data.map((element, index) => (
             <tr key={ index }>
               <td
-                data-testid="customer_checkout__element-order-table-item-number-"
+                data-testid={ `customer_checkout__element-order-table-item-number-
+                ${index}` }
               >
                 {element.item}
               </td>
               <td
-                data-testid="customer_checkout__element-order-table-name-"
+                data-testid={ `customer_checkout__element-order-table-name-${index}` }
               >
                 {element.descricao}
               </td>
               <td
-                data-testid="customer_checkout__element-order-table-quantity-"
+                data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
               >
                 {element.quantidade}
               </td>
               <td
-                data-testid="customer_checkout__element-order-table-unit-price-"
+                data-testid={ `customer_checkout__element-order-table-unit-price-
+                ${index}` }
               >
                 {element.valor}
               </td>
               <td
-                data-testid="customer_checkout__element-order-table-sub-total-"
+                data-testid={ `customer_checkout__element-order-table-sub-total-
+                ${index}` }
               >
                 {element.subtotal}
               </td>
               <button
                 type="button"
-                data-testid="customer_checkout__element-order-table-remove-"
+                data-testid={ `customer_checkout__element-order-table-remove-${index}` }
               >
                 Remover
               </button>
