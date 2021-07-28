@@ -6,7 +6,7 @@ export const Menu = styled.div`
 `;
 
 export const MenuItem = styled.button`
-  cursor: pointer;
+  cursor: ${(props) => (props.show ? 'auto' : 'pointer')};
   padding: 10px;
   border: none;
   color: white;
