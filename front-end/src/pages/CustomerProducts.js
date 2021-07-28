@@ -12,7 +12,6 @@ const CustomerProducts = () => {
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem('user'));
-    console.log('userData', userData);
     if (!userData) return history.push('/login');
     setUser(userData);
     axios.get('http://localhost:3001/customer/products', {
