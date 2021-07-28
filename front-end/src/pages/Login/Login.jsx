@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';
 import delivery from '../../images/delivery.jpeg';
-import setUserInfo from '../../service/setLocalStorage';
+import { setUserInfo } from '../../service/setLocalStorage';
 
 export default function Login() {
   const history = useHistory();

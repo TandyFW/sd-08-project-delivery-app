@@ -1,11 +1,14 @@
 import { React, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Cards.css';
+import { useDispatch } from 'react-redux';
+import { setCarrinho } from '../../service/setLocalStorage';
+import { actionChangeTotalValue } from '../../redux/actions/index.action';
 
 export default function Cards({ product }) {
   const [quantity, setQuantity] = useState(0);
   const [disabled, setDisabled] = useState(true);
-
+  const dispatch = useDispatch();
   const addItem = () => {
     setQuantity(quantity + 1);
   };
@@ -14,15 +17,18 @@ export default function Cards({ product }) {
     setQuantity(quantity - 1);
   };
 
+  const { name, price, urlImage, id } = product;
+
+  // productInfos deve conter {id, name, price, quantity, urlImage}
   useEffect(() => {
-    if (quantity > 0) {
+    if (quantity >= 0) {
       setDisabled(false);
+      setCarrinho({ id, name, price, quantity, urlImage });
+      dispatch(actionChangeTotalValue());
     } else {
       setDisabled(true);
     }
-  }, [quantity]);
-
-  const { name, price, urlImage, id } = product;
+  }, [quantity, dispatch]);
 
   const changeQuantityByInput = ({ target }) => {
     const { value } = target;

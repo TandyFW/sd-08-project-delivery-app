@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './NavBar.css';
 import { useHistory } from 'react-router-dom';
-import getLocalStorage from '../../service/getLocalStorage';
+import { getUserInfo } from '../../service/getLocalStorage';
 
 export default function NavBar({ screen }) {
   const history = useHistory();
@@ -21,7 +21,7 @@ export default function NavBar({ screen }) {
         Meus Pedidos
       </li>
       <li data-testid="customer_products__element-navbar-user-full-name">
-        {getLocalStorage().name}
+        {getUserInfo().name}
       </li>
       <li data-testid="customer_products__element-navbar-link-logout">
         <button onClick={ logout } type="button">
