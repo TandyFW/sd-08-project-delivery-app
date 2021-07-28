@@ -22,8 +22,7 @@ const validateLogin = async ({ email, password }) => {
   }
 
   const secret = await getJwtSecret();
-  const token = jwt.sign({ data: validUser.dataValues },
-    secret, { issuer: 'delivery-app' });
+  const token = jwt.sign({ data: validUser.dataValues }, secret.trim());
 
   return { result: { token } };
 };
