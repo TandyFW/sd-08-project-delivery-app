@@ -57,13 +57,8 @@ export default function FormLogin() {
 
   return (
     <>
-<<<<<<< HEAD
-      <form action="" method="GET" className="form-login">
-        <label htmlFor="loginEmail" className="login-label">
-=======
       <form action="" method="POST" className="form-login">
-        <label htmlFor="login-email" className="login-label">
->>>>>>> 1dd720d5036b96b4b133ec5b311eaaa06f5a528b
+        <label htmlFor="loginEmail" className="login-label">
           Email:
           <input
             type="email"
@@ -93,13 +88,8 @@ export default function FormLogin() {
           type="button"
           className="btn-login"
           disabled={ !isValid }
-<<<<<<< HEAD
           onClick={ login }
           id="btnLogin"
-=======
-          onClick={ (e) => login(e) }
-          id="btn-login"
->>>>>>> 1dd720d5036b96b4b133ec5b311eaaa06f5a528b
           data-testid="common_login__button-login"
         >
           LOGIN

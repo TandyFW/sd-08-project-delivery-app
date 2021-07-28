@@ -1,6 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function FormCheckout() {
+  const [sellers, setSellers] = useState([]);
+
+  const getSellers = () => {
+    // falta implemetar a função de requisitar os vendedores
+
+    console.log('ok');
+    return setSellers([]);
+  };
+
+  useEffect(() => getSellers(), []);
+
   return (
     <div className="form-checkout-container">
       <h2 className="title-h2">
@@ -22,7 +33,7 @@ export default function FormCheckout() {
                 key={ seller.id }
               >
                 { seller.name }
-              </option>))};
+              </option>))}
           </select>
         </label>
         <label htmlFor="checkoutAddress" className="label-form-checkout">

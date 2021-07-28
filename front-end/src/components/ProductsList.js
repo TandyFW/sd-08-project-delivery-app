@@ -1,18 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react';
 import DeliveryAppContext from '../context/DeliveryAppContext';
-import { HEADING_LIST_CHECKOUT } from '../utils/Lists';
+import Table from './Table';
+import HEADING_LIST_CHECKOUT from '../utils/Lists';
 
-export default function ProductsList({ match }) {
+export default function ProductsList() {
   const { itemsList } = useContext(DeliveryAppContext);
   const [heading, setHeading] = useState([]);
   const [body, setBody] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [totalPrice, setTotalPrice] = useState(0.00)
+  const [totalPrice, setTotalPrice] = useState(0.00);
 
   const getItensList = () => setBody(itemsList);
 
   const getLocation = () => {
-    const currentLocation = match.path;
+    const currentLocation = window.location.pathname;
     switch (true) {
     case (currentLocation.includes('checkout')):
       return setHeading(HEADING_LIST_CHECKOUT);
@@ -37,16 +38,20 @@ export default function ProductsList({ match }) {
   useEffect(() => setLoadingMessage(), [body, heading]);
   useEffect(() => getLocation(), []);
 
-  if (isLoading) return <p>Carregando...</p>
+  console.log(isLoading);
+  // if (isLoading) return <p>Carregando...</p>;
   return (
     <div className="products-list-container">
-      <Table heading={heading} body={body} />
+      <h2 className="title-h2">
+        Finalizar Pedido
+      </h2>
+      <Table heading={ heading } body={ body } />
       <div className="total-container">
         <p
           className="total-price-order"
           data-testid="customer_checkout__element-order-total-price"
         >
-          { totalPrice }
+          { `Total: R$ ${totalPrice}` }
         </p>
       </div>
     </div>
