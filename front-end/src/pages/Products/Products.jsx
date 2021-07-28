@@ -5,6 +5,7 @@ import NavBar from '../../Components/NavBar/NavBar';
 import Cards from '../../Components/Cards/Cards';
 
 import { requestAllProducts } from '../../redux/actions/index.action';
+import './Products.css';
 
 export default function Products() {
   const dispatch = useDispatch();
@@ -34,12 +35,16 @@ export default function Products() {
           ))}
           <button
             type="button"
-            data-testid="customer_products__checkout-bottom-value"
+            data-testid="customer_products__button-cart"
             onClick={ redirectToCarrinho }
+            disabled={ totalValue === 0 }
+            className="button-cart"
           >
-            Ver Carrinho: R$
-            {' '}
-            {totalValue.toFixed(2).toString().replace('.', ',')}
+            <span data-testid="customer_products__checkout-bottom-value">
+              Ver Carrinho: R$
+              {' '}
+              {totalValue.toFixed(2).toString().replace('.', ',')}
+            </span>
           </button>
         </div>
       )}

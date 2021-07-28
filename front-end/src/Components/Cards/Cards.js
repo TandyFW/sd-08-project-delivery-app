@@ -14,7 +14,9 @@ export default function Cards({ product }) {
   };
 
   const removeItem = () => {
-    setQuantity(quantity - 1);
+    if (quantity > 0) {
+      setQuantity(quantity - 1);
+    }
   };
 
   const { name, price, urlImage, id } = product;
