@@ -1,48 +1,90 @@
+import { Grid } from '@material-ui/core';
 import React from 'react';
 import ProductCard from '../../components/cards/productCard';
-
 import NavBar from '../../components/NavBar';
 
-const headerButtons = [
-  {
-    label: 'PRODUTOS',
-    href: '/customer/products',
-  },
-  {
-    label: 'MEUS PEDIDOS',
-    href: 'customer/orders',
-  },
-];
-
-const products = [
-  {
-    name: 'Skol',
-    price: '7.50',
-    amount: '330ml',
-    imagePath: 'https://superprix.vteximg.com.br/arquivos/ids/180544-292-292/385b999ce16bad393a31dfee6fa12c4c_cerveja-skol-473ml--lata-_lett_1.jpg',
-  },
-  {
-    name: 'Antarctica',
-    price: '7.50',
-    amount: '500ml',
-    imagePath: 'https://superprix.vteximg.com.br/arquivos/ids/180713-292-292/5e5c08c4a8071d0d6983b4aba2ea8e8c_cerveja-antarctica-473ml--lata-_lett_1.jpg',
-  },
-  {
-    name: 'Heineken',
-    price: '7.50',
-    amount: '500ml',
-    imagePath: 'https://santaluzia.vteximg.com.br/arquivos/ids/963474-1000-1000/1156454.jpg',
-  },
+const products = [{
+  id: 1,
+  name: 'Skol Lata 250ml',
+  price: 2.20,
+  urlImage: 'http://localhost:3001/images/skol_lata_350ml.jpg',
+},
+{
+  id: 2,
+  name: 'Heineken 600ml',
+  price: 7.50,
+  urlImage: 'http://localhost:3001/images/heineken_600ml.jpg',
+},
+{
+  id: 3,
+  name: 'Antarctica Pilsen 300ml',
+  price: 2.49,
+  urlImage: 'http://localhost:3001/images/antarctica_pilsen_300ml.jpg',
+},
+{
+  id: 4,
+  name: 'Brahma 600ml',
+  price: 7.50,
+  urlImage: 'http://localhost:3001/images/brahma_600ml.jpg',
+},
+{
+  id: 5,
+  name: 'Skol 269ml',
+  price: 2.19,
+  urlImage: 'http://localhost:3001/images/skol_269ml.jpg',
+},
+{
+  id: 6,
+  name: 'Skol Beats Senses 313ml',
+  price: 4.49,
+  urlImage: 'http://localhost:3001/images/skol_beats_senses_313ml.jpg',
+},
+{
+  id: 7,
+  name: 'Becks 330ml',
+  price: 4.99,
+  urlImage: 'http://localhost:3001/images/becks_330ml.jpg',
+},
+{
+  id: 8,
+  name: 'Brahma Duplo Malte 350ml',
+  price: 2.79,
+  urlImage: 'http://localhost:3001/images/brahma_duplo_malte_350ml.jpg',
+},
+{
+  id: 9,
+  name: 'Becks 600ml',
+  price: 8.89,
+  urlImage: 'http://localhost:3001/images/becks_600ml.jpg',
+},
+{
+  id: 10,
+  name: 'Skol Beats Senses 269ml',
+  price: 3.57,
+  urlImage: 'http://localhost:3001/images/skol_beats_senses_269ml.jpg',
+},
+{
+  id: 11,
+  name: 'Stella Artois 275ml',
+  price: 3.49,
+  urlImage: 'http://localhost:3001/images/stella_artois_275ml.jpg',
+},
 ];
 
 function Products() {
   return (
     <>
-      <NavBar headerButtons={ headerButtons } />
+      <NavBar />
       <div><p>Products</p></div>
-      {products.map(({ name, price, amount, imagePath }) => (
-        <ProductCard key={ name + amount } />
-      ))}
+      <Grid
+        container
+        justify="center"
+        alignItems="center"
+      >
+        {products.map(({ id, name, price, urlImage }) => (
+          <ProductCard key={ id } name={ name } price={ price } urlImage={ urlImage } />
+        ))}
+      </Grid>
 
     </>
   );
