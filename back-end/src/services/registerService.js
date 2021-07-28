@@ -9,15 +9,19 @@ const getAll = async () => {
 };
 
 const create = async (dataForCreate) => {
-  const hashPassword = md5(dataForCreate.password);
   const { error } = registerSchema.create.validate(dataForCreate);
   if (error) return clientError.badRequest(error.details[0].message);
+
   const userList = await getAll();
-  let index = -1;
-  if (userList) index = userList.findIndex((item) => item.email === dataForCreate.email);
-  if (index >= 0) return clientError.conflict('User already registrad');
+  
+  const checkExist =  userList.some((user) => user.email === dataForCreate.email);
+  if (checkExist) return clientError.conflict('User already Registered');
+  
+  const hashPassword = md5(dataForCreate.password);
+
   const { dataValues: { password: _, ...result } } = await user
     .create({ ...dataForCreate, password: hashPassword });
+
   return result;
 };
 
