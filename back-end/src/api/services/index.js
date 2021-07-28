@@ -7,8 +7,8 @@ const createSaleProductOrder = require('./createSaleProductOrder');
 const getUsersByRole = require('./getUsersByRole');
 const getUserById = require('./getUserById');
 const getSaleById = require('./getSaleById');
-const getAllCustomerOrders = require('./getAllCustomerOrders');
-const getAllSellerOrders = require('./getAllSellerOrders');
+const getAllOrdersByUser = require('./getAllOrdersByUser');
+const getOrderById = require('./getOrderById');
 
 module.exports = {
   getUser,
@@ -20,6 +20,6 @@ module.exports = {
   getSaleById,
   getUsersByRole,
   getUserById,
-  getAllCustomerOrders,
-  getAllSellerOrders,
+  getAllOrdersByUser,
+  getOrderById,
 };

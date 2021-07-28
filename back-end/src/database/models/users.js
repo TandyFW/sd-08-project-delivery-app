@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
   },
   {
     timestamps: false,
-    });
+    tableName: 'users'
+  });
 
   user.associate = (models) => {
     user.hasOne(models.sale);

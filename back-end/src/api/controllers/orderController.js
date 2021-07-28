@@ -3,8 +3,8 @@ const {
   createSaleProductOrder,
   getSaleById,
   getUserById,
-  getAllCustomerOrders,
-  getAllSellerOrders,
+  getAllOrdersByUser,
+  getOrderById,
 } = require('../services');
 
 const createOrder = async (req, res) => {
@@ -22,19 +22,22 @@ const createOrder = async (req, res) => {
 
 const getAllOrders = async (req, res) => {
   const { id } = req.tokenData;
-  let result;
 
   const { role } = await getUserById(id);
 
-  if (role === 'customer') {
-    result = await getAllCustomerOrders(id);
-  }
-
-  if (role === 'seller') {
-    result = await getAllSellerOrders(id);
-  }
+  const result = await getAllOrdersByUser(id, role);
 
   return res.status(200).json({ sale: result });
 };
 
-module.exports = { createOrder, getAllOrders };
+const getOrder = async (req, res) => {
+  const { id } = req.tokenData;
+  const saleId = req.params.id;
+  const { role } = await getUserById(id);
+
+  const result = await getOrderById(id, role, saleId);
+
+  return res.status(200).json({ sale: result });
+};
+
+module.exports = { createOrder, getAllOrders, getOrder };

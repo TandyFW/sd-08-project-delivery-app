@@ -1,13 +1,13 @@
 module.exports = (sequelize, DataTypes) => {
   const salesProduct = sequelize.define('salesProduct', {
-    sale_id: {
+    saleId: {
       type: DataTypes.INTEGER,
       references: {
         model: 'sale',
         key: 'id'
       }
     },
-    product_id: {
+    productId: {
       type: DataTypes.INTEGER,
       references: {
         model: 'product',
@@ -19,10 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   {
     timestamps: false,
     underscored: true,
-    setterMethods: {
-      saleId: function (v) { this.setDataValue("sale_id", v); },
-      productId: function (v) { this.setDataValue("product_id", v); },
-    }
+    tableName: 'sales_products'
   });
 
   salesProduct.associate = (models) => {

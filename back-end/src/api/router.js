@@ -47,8 +47,12 @@ router.post('/customer/order',
   orderInfoHandler,
   orderController.createOrder);
 
-router.get('/customer/order',
+router.get('/order',
   tokenValidation,
   orderController.getAllOrders);
+
+router.get('/order/:id',
+  tokenValidation,
+  orderController.getOrder);
 
 module.exports = router;
