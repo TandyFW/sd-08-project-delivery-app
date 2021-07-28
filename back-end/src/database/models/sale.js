@@ -8,25 +8,17 @@ const sale = (sequelize, DataTypes) => {
   }, { timestamps : false });
 
   sale.associate = (models) => {
-    models.sale.belongsToMany(models.user, { 
-      as: "seller_id" ,
-      through: "users",
-      foreignKey: "seller_id",
+    sale.belongsTo(models.user, { 
+      as: "sellerId" ,
+      foreignKey: 'seller_id',
       }
       );
-    models.sale.belongsToMany(models.user, {
-      as: "user_id",
-      through: "users",
-      foreignKey: "seller_id",
+   sale.belongsTo(models.user, {
+      as: "userId",
+      foreignKey: 'user_id',
     });
   };
-
   return sale;
 };
 
 module.exports = sale;
-
-// as: 'users',
-// through: UserBook,
-// foreignKey: 'book_id',
-// otherKey: 'user_id', 

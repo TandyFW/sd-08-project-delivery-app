@@ -14,7 +14,7 @@
 }
 
 @mixin flex($flex, $flexDir, $justify, $align ) {
-  display: flex;
+  display: $flex;
   flex-direction: $flexDir;
   justify-content: $justify;
   align-items: $align;

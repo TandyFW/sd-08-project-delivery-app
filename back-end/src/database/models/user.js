@@ -8,7 +8,20 @@ const user = (sequelize, DataTypes) => {
     timestamps: false
   }
 );
-  return user;
+
+user.associate = (models) => {
+  user.hasMany(models.sale, { 
+    foreignKey: "seller_id" ,
+    as: 'sellerId',
+  }
+  );
+  user.hasMany(models.sale, {
+    foreignKey: "user_id",
+    as: 'userId',
+  });
+};
+
+return user;
 }
 
 module.exports = user;
