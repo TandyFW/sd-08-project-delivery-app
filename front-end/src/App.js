@@ -26,7 +26,7 @@ function App() {
         <Route exact path="/customer/orders/:id" component={ OrdersDetails } />
         <Route exact path="/customer/checkout" component={ Checkout } />
         <Route exact path="/seller/orders" component={ Orders } />
-        <Route exact path="/seller/orders/:id" component={ OrdersDetails } />
+        {/* <Route exact path="/seller/orders/:id" component={ OrdersDetails } /> */}
         <Route exact path="/admin/manage" component={ Admin } />
       </Switch>
     </GlobalProvider>
