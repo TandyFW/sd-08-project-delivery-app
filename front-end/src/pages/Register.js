@@ -22,7 +22,6 @@ function Register() {
   async function handleClick() {
     api.register(name, email, password)
       .then(() => {
-        console.log('entrei aqui');
         api.login(email, password)
           .then((result) => {
             setToken(result.token);
