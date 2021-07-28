@@ -19,7 +19,6 @@ const Provider = ({ children }) => {
         .productsFetch()
         .then((data) => data.data.response)
         .catch((err) => err.message);
-      console.log(responseProducts);
       setProducts(responseProducts.map((product) => ({ ...product, quantity: 0 })));
     };
     loadProducts();

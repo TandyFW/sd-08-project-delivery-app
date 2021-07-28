@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Context } from '../../Context';
 import ItemList from '../ItemList';
 
 import
@@ -9,13 +10,10 @@ import
   /* InvalidBox, */
 } from './Styled';
 
-const mockProducts = [
-  { id: 1, description: 'cerveja', qtde: 3, valorUnit: 3.50, total: 10.50 },
-  { id: 2, description: 'salgadinho', qtde: 2, valorUnit: 1.56, total: 1.56 },
-];
-
 export default function ProductsList() {
-  // const [totalValueCart, setTotalValueCart] = useState();
+  const { products, setProducts } = useContext(Context);
+  const selectedProducts = products.filter((product) => product.quantity > 0);
+  console.log(selectedProducts, setProducts);
 
   return (
     <Container>
