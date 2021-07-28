@@ -1,7 +1,24 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 import useLocalStorage from '../hooks/useLocalStorage';
 import * as api from '../services/api';
+
+import FormContainer from '../components/FormContainer';
+import Input from '../components/Input';
+import { ButtonPrimary, ButtonTertiary } from '../components/Button';
+
+const LoginContainer = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+`;
+
+const StyledFormContainer = styled(FormContainer)`
+  display: flex;
+  width: 500px;
+`;
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -29,43 +46,45 @@ function Login() {
   }
 
   return (
-    <fieldset>
-      <input
-        type="text"
-        data-testid="common_login__input-email"
-        placeholder="Email"
-        value={ email }
-        onChange={ ({ target }) => setEmail(target.value) }
-      />
+    <LoginContainer>
+      <StyledFormContainer>
+        <Input
+          type="text"
+          data-testid="common_login__input-email"
+          placeholder="Email"
+          value={ email }
+          onChange={ ({ target }) => setEmail(target.value) }
+        />
 
-      <input
-        type="password"
-        data-testid="common_login__input-password"
-        placeholder="Senha"
-        value={ password }
-        onChange={ ({ target }) => setPassword(target.value) }
-      />
+        <Input
+          type="password"
+          data-testid="common_login__input-password"
+          placeholder="Senha"
+          value={ password }
+          onChange={ ({ target }) => setPassword(target.value) }
+        />
 
-      <button
-        type="button"
-        data-testid="common_login__button-login"
-        disabled={ isDisabled() }
-        onClick={ handleClick }
-      >
-        LOGIN
-      </button>
+        <ButtonPrimary
+          type="button"
+          data-testid="common_login__button-login"
+          disabled={ isDisabled() }
+          onClick={ handleClick }
+        >
+          LOGIN
+        </ButtonPrimary>
 
-      <button
-        type="button"
-        data-testid="common_login__button-register"
-        onClick={ () => history.push('/register') }
-      >
-        Ainda não tenho conta
-      </button>
+        <ButtonTertiary
+          type="button"
+          data-testid="common_login__button-register"
+          onClick={ () => history.push('/register') }
+        >
+          Ainda não tenho conta
+        </ButtonTertiary>
 
-      { showWarning
-        && <p data-testid="common_login__element-invalid-email">Deu ruim!</p> }
-    </fieldset>
+        { showWarning
+          && <p data-testid="common_login__element-invalid-email">Deu ruim!</p> }
+      </StyledFormContainer>
+    </LoginContainer>
   );
 }
 
