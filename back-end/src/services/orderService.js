@@ -1,5 +1,5 @@
 const registerSchema = require('../schemas/registerSchema');
-const { sale, salesProducts, product , user} = require('../database/models');
+const { sale, salesProducts, user} = require('../database/models');
 const clientError = require('../utils/clientError');
 
 const create = async (dataForCreate) => {
@@ -66,7 +66,7 @@ const getAllAll = async (id) => {
     // }],
  
     where: { id },
-    include: [{model: user, as: 'userId' }, { model: user, as: 'sellerId' }],
+    include: [{ model: user, as: 'userId' }, { model: user, as: 'sellerId' }],
   });
   console.log(typeof foundsale.dataValues.totalPrice);
   return foundsale;

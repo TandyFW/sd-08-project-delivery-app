@@ -47,13 +47,15 @@ class Admin extends React.Component {
   async signIn({ target }) {
     console.log('name', target.parentNode.firstChild.childNodes[1].value);
     console.log('email', target.parentNode.firstChild.childNodes[3].value);
-    console.log('password', target.parentNode.firstChild.childNodes[6].value);
-    console.log('role', target.parentNode.firstChild.childNodes[8].value);
+    console.log('password', target.parentNode.firstChild.childNodes[5].value);
+    console.log('role', target.parentNode.firstChild.childNodes[7].value);
+    // console.log('password', target.parentNode.firstChild.childNodes[6].value);
+    // console.log('role', target.parentNode.firstChild.childNodes[8].value);
 
     const name = target.parentNode.firstChild.childNodes[1].value; // OKIZON
     const email = target.parentNode.firstChild.childNodes[3].value; // OKZION
-    const pass = target.parentNode.firstChild.childNodes[6].value; // OKIZON
-    const role = target.parentNode.firstChild.childNodes[8].value;
+    const pass = target.parentNode.firstChild.childNodes[5].value; // OKIZON
+    const role = target.parentNode.firstChild.childNodes[7].value;
     const user = await create(name, email, pass, role);
     console.log(user.newRegister);
     const spanMaxTime = 10000;
@@ -91,7 +93,6 @@ class Admin extends React.Component {
               onChange={ this.handleChange }
               data-testid="admin_manage__input-email"
             />
-            <span className="hidden-span" />
 
             <span>Senha</span>
             <input
@@ -124,6 +125,7 @@ class Admin extends React.Component {
           </button>
 
         </div>
+        <span className="hidden-span" />
         <UserTable />
       </div>
     );

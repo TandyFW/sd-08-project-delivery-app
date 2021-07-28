@@ -16,8 +16,14 @@ class UserTable extends React.Component {
     dispatchTable(users);
   }
 
+  refresh() {
+    // re-renders the component
+    this.setState({});
+  }
+
   async exclude(id) {
     const result = await exclude(id);
+    setState({});
     console.log(result);
   }
 
@@ -49,7 +55,10 @@ class UserTable extends React.Component {
                   <td key={ key }>{user[key]}</td>
                 ))}
                 <td>
-                  <button type="button" onClick={ () => exclude(user.id) }>
+                  <button
+                    type="button"
+                    onClick={ () => { exclude(user.id); this.refresh(); } }
+                  >
                     Excluir
                   </button>
                 </td>
