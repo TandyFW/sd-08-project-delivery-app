@@ -3,7 +3,10 @@ const registerSchema = require('../schemas/registerSchema');
 const { user } = require('../database/models');
 const clientError = require('../utils/clientError');
 
-const getAll = () => user.findAll();
+const getAll = async () => {
+  const founds = await user.findAll();
+  return founds.map(({dataValues: {password:_, ...others}}) => others )
+};
 
 const create = async (dataForCreate) => {
   const hashPassword = md5(dataForCreate.password);
