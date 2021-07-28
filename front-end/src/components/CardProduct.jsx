@@ -16,16 +16,16 @@ import colors from '../styles/colors';
 const CardProduct = ({ prefix, price, tumbnail, title, id }) => {
   const [quantity, setQuantity] = useState(0);
   const dispatch = useDispatch();
-  const addItem = (idProduct, priceProduct) => {
-    const data = { id: idProduct, price: priceProduct };
+  const addItem = (idProduct, priceProduct, titleProduct) => {
+    const data = { id: idProduct, price: priceProduct, title: titleProduct };
     setQuantity(+quantity + 1);
     dispatch({
       type: 'ADD_PRODUCT',
       payload: { data, qtd: quantity + 1 },
     });
   };
-  const decreaseItem = (idProduct, priceProduct) => {
-    const data = { id: idProduct, price: priceProduct };
+  const decreaseItem = (idProduct, priceProduct, titleProduct) => {
+    const data = { id: idProduct, price: priceProduct, title: titleProduct };
     if (quantity > 0) {
       setQuantity(quantity - 1);
       dispatch({
@@ -34,8 +34,8 @@ const CardProduct = ({ prefix, price, tumbnail, title, id }) => {
       });
     }
   };
-  const changeItem = (value, idProduct, priceProduct) => {
-    const data = { id: idProduct, price: priceProduct };
+  const changeItem = (value, idProduct, priceProduct, titleProduct) => {
+    const data = { id: idProduct, price: priceProduct, title: titleProduct };
     setQuantity(value);
     dispatch({
       type: 'ADD_PRODUCT',
@@ -59,7 +59,7 @@ const CardProduct = ({ prefix, price, tumbnail, title, id }) => {
         </ProductDescription>
         <QtdController>
           <QtdButton
-            onClick={ () => decreaseItem(id, price) }
+            onClick={ () => decreaseItem(id, price, title) }
             data-testid={ `${prefix}button-card-rm-item-${id}` }
             color={ colors.teal }
           >
@@ -68,11 +68,11 @@ const CardProduct = ({ prefix, price, tumbnail, title, id }) => {
           <QtdInput
             data-testid={ `${prefix}input-card-quantity-${id}` }
             type="text"
-            onChange={ ({ target }) => changeItem(target.value, id, price) }
+            onChange={ ({ target }) => changeItem(target.value, id, price, title) }
             value={ quantity }
           />
           <QtdButton
-            onClick={ () => addItem(id, price) }
+            onClick={ () => addItem(id, price, title) }
             data-testid={ `${prefix}button-card-add-item-${id}` }
             color={ colors.teal }
           >

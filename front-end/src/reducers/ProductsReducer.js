@@ -15,6 +15,12 @@ const ProductsReducer = (state = initialState, action) => {
     }
     return { ...state, products };
   }
+  case 'REMOVE_ITEM': {
+    const { id } = action.payload;
+    const index = products.findIndex((item) => item.id === id);
+    products.splice(index, 1);
+    return { ...state, products };
+  }
   default:
     return state;
   }
