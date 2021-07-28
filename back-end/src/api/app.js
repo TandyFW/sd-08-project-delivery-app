@@ -1,10 +1,9 @@
-require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const {
   sessionsRouter,
-  customerRouter,
+  customersRouter,
   registerRouter,
 } = require('../routes');
 
@@ -15,7 +14,7 @@ app.use(express.json());
 app.use(express.static(path.resolve(__dirname, 'public')));
 
 app.use('/login', sessionsRouter);
-app.use('/customer', customerRouter);
+app.use('/customer', customersRouter);
 app.use('/register', registerRouter);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
