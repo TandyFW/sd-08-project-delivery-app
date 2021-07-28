@@ -5,18 +5,7 @@ import Header from '../../components/Header';
 import DeliveryContext from '../../context/DeliveryContext';
 import ProductList from '../../components/ProductList';
 
-const productsHeaderLinks = [
-  {
-    name: 'produtos',
-    link: '/customer/products',
-    testId: 'customer_products__element-navbar-link-products',
-  },
-  {
-    name: 'Meus Pedidos',
-    link: '/customer/checkout',
-    testId: 'customer_products__element-navbar-link-orders',
-  },
-];
+import { clientHeaderLinks } from '../../services/HeaderButtons';
 
 const Products = ({ history }) => {
   const { cart } = useContext(DeliveryContext);
@@ -26,7 +15,7 @@ const Products = ({ history }) => {
 
   return (
     <>
-      <Header dinamicButtons={ productsHeaderLinks } />
+      <Header dinamicButtons={ clientHeaderLinks } />
       <ProductList />
       <Button
         variant="contained"
