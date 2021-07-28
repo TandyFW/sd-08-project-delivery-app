@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { AdminManage, Login, SalesBySeller } from './pages';
+import { AdminManage, Login, SalesBySeller, SaleDetail } from './pages';
 
 const Routes = () => (
   <Switch>
@@ -12,7 +12,8 @@ const Routes = () => (
       <Redirect to="/login" />
     </Route>
     <Route path="/admin/manage" component={ AdminManage } />
-    <Route path="/seller/sale" component={ SalesBySeller } />
+    <Route exact path="/seller/orders" component={ SalesBySeller } />
+    <Route path="/seller/orders/:id" component={ SaleDetail } />
 
   </Switch>
 );

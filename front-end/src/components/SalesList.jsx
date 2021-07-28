@@ -20,6 +20,7 @@ const SalesList = () => {
 
   const renderCards = () => {
     if (seller.sales) {
+      console.log(seller.sales);
       return seller.sales.map((sale) => (<SaleCard key={ sale.id } sale={ sale } />));
     }
   };

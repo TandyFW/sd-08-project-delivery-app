@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-max-depth */
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -16,20 +17,11 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
     maxWidth: 500,
   },
-  image: {
-    width: 128,
-    height: 128,
-  },
-  img: {
-    margin: 'auto',
-    display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%',
-  },
 }));
 
 export default function SaleCard({ sale }) {
   const classes = useStyles();
+  const history = useHistory();
 
   const {
     deliveryAddress,
@@ -49,29 +41,55 @@ export default function SaleCard({ sale }) {
     return `${day}/${month}/${year}`;
   };
 
+  const redirectToSaleDetail = (idParam) => {
+    history.push(`orders/${idParam}`);
+  };
+
   return (
     <div className={ classes.root }>
       <Paper className={ classes.paper }>
-        <Grid container spacing={ 2 }>
-          <Grid item>
+        <Grid container spacing={ 2 } onClick={ () => redirectToSaleDetail(id) }>
+          <Grid
+            item
+            inputProps={ { 'data-testid': `seller_orders__element-order-id-${id}` } }
+          >
             {`Pedido ${id}`}
           </Grid>
           <Grid item xs={ 12 } sm container>
             <Grid item xs container direction="column" spacing={ 2 }>
               <Grid item xs>
-                <Typography gutterBottom variant="subtitle1">
+                <Typography
+                  inputProps={ {
+                    'data-testid': `seller_orders__element-delivery-status-${id}` } }
+                  variant="subtitle1"
+                >
                   {status}
                 </Typography>
-                <Typography variant="body2" gutterBottom>
+                <Typography
+                  inputProps={ {
+                    'data-testid': `seller_orders__element-order-date-${id}` } }
+                  variant="body2"
+                >
                   {formatDate(salesDate)}
                 </Typography>
-                <Typography variant="body2" color="textSecondary">
+                <Typography
+                  inputProps={ {
+                    'data-testid': `seller_orders__element-card-address-${id}` } }
+                  variant="body2"
+                  color="textSecondary"
+                >
                   {`${deliveryAddress}, ${deliveryNumber}`}
                 </Typography>
               </Grid>
             </Grid>
             <Grid item>
-              <Typography variant="subtitle1">{`R$ ${totalPrice}`}</Typography>
+              <Typography
+                inputProps={ {
+                  'data-testid': `seller_orders__element-card-price-${id}` } }
+                variant="subtitle1"
+              >
+                {`R$ ${totalPrice}`}
+              </Typography>
             </Grid>
           </Grid>
         </Grid>
