@@ -16,6 +16,8 @@ const saveSale = async (sale) => {
 //         status,
 //      });
 
+    try
+    {
     const saleId = 1;
 
      const { id: productId, quantity } = sale.products[0];
@@ -24,12 +26,14 @@ const saveSale = async (sale) => {
         // await SaleProduct.create({
         //     saleId: 1,
         //     productId,
-        //     quantity,
-        //     ProductId: 1,
+        //     quantity,            
         // });
 
-        const find = await SaleProduct.findAll({});
+        const find = await SaleProduct.findAll({ logging: console.log  });
         console.log(find);
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 module.exports = {

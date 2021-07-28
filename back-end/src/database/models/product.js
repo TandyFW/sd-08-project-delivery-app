@@ -24,13 +24,13 @@ const Product = (sequelize, DataTypes) => {
   },
   {
     timestamps: false,
-    tableName: 'products'
+    tableName: 'products',
   });
 
-  product.associate = (models) => {
-    product.hasMany(models.SaleProduct,
-    { foreignKey: 'product_id', as: 'sale_product' });
-  };
+  // product.associate = (models) => {
+  //   product.hasMany(models.SaleProduct,
+  //   { foreignKey: 'productId2', as: 'saleProducts' });
+  // };
   
   return product;
 };
