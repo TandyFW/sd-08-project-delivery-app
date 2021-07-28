@@ -32,39 +32,37 @@ const NavBar = ({ screens, user }) => {
   };
 
   return (
-    <div>
-      <AppBar position="static">
-        <Toolbar>
-          { screens.map(({ name, testId }) => {
-            console.log(name);
-            return (
-              <Button
-                key={ name }
-                data-testid={ `customer_products__element-navbar-link-${testId}` }
-                className={ classes.menuButton }
-                color="inherit"
-              >
-                { name }
-              </Button>
-            );
-          }) }
-          <Typography
-            variant="h5"
-            className={ classes.title }
-            data-testid="customer_products__element-navbar-user-full-name"
-          >
-            {user}
-          </Typography>
-          <Button
-            color="inherit"
-            data-testid="customer_products__element-navbar-link-logout"
-            onClick={ logoutUser }
-          >
-            Sair
-          </Button>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar position="static">
+      <Toolbar>
+        { screens.map(({ name, testId }) => {
+          console.log(name);
+          return (
+            <Button
+              key={ name }
+              data-testid={ `customer_products__element-navbar-link-${testId}` }
+              className={ classes.menuButton }
+              color="inherit"
+            >
+              { name }
+            </Button>
+          );
+        }) }
+        <Typography
+          variant="h5"
+          className={ classes.title }
+          data-testid="customer_products__element-navbar-user-full-name"
+        >
+          {user}
+        </Typography>
+        <Button
+          color="inherit"
+          data-testid="customer_products__element-navbar-link-logout"
+          onClick={ logoutUser }
+        >
+          Sair
+        </Button>
+      </Toolbar>
+    </AppBar>
   );
 };
 

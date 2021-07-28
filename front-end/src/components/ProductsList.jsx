@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { request } from '../utils';
+import { request, lStorage } from '../utils';
 import ProductCard from './ProductCard';
 
 const useStyles = makeStyles({
@@ -19,7 +19,14 @@ const ProductsList = () => {
 
   useEffect(() => {
     const getProducts = async () => {
-      const result = await request('products', 'GET');
+      const { token } = lStorage().user.get();
+      const options = {
+        headers: {
+          Authorization: token,
+        },
+        method: 'GET',
+      };
+      const result = await request('products', options);
       setProducts(result);
     };
     if (products.length === 0) getProducts();

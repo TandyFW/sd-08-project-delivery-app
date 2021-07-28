@@ -4,7 +4,6 @@ import RegistrationByManager from './RegistrationByManager';
 import ProductsList from './ProductsList';
 import ProductCard from './ProductCard';
 import Register from './Register';
-import CustomerProducts from './CustomerProducts';
 import LoginForm from './LoginForm';
 
 export default {
@@ -14,6 +13,5 @@ export default {
   ProductsList,
   ProductCard,
   Register,
-  CustomerProducts,
   LoginForm,
 };

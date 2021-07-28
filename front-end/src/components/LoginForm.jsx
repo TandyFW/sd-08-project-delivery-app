@@ -50,8 +50,15 @@ const LoginForm = () => {
   };
 
   const hadleSubmit = async () => {
-    const { token, message } = await request('login', 'POST',
-      { email: email.value, password: password.value });
+    const options = {
+      body: {
+        email: email.value,
+        password: password.value,
+      },
+      method: 'POST',
+    };
+
+    const { token, message } = await request('login', options);
 
     if (message) openAlert.set(true);
     else {
@@ -72,6 +79,7 @@ const LoginForm = () => {
         <Paper component="form" elevation={ 8 } className={ classes.form }>
           <img src="images/delivery.svg" alt="logo" />
           <TextField
+            type="text"
             variant="outlined"
             label="Email"
             value={ email.value }

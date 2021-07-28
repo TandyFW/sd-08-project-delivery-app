@@ -3,9 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router-dom';
-import { isValidUserForRegistration, request } from '../utils';
-// import AlertTransitionSlide from './AlertTransitionSlide';
-// import ContextProvider from '../context';
+import { isValidUserForRegistration, request, getPathByRole, lStorage } from '../utils';
+import TransitionAlerts from './TransitionAlerts';
 
 const useStyles = makeStyles((theme) => ({
   selectEmpty: {
@@ -27,17 +26,20 @@ export default function Register() {
   const classes = useStyles();
   const history = useHistory();
 
-  // const [role, setRole] = useState('Admin');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisabled, setDisable] = useState(true);
-  const [user, setUser] = useState({});
-  // const [open, setOpen] = React.useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
     setDisable(!isValidUserForRegistration(name, email, password));
   }, [name, email, password]);
+
+  useEffect(() => {
+    if (errorMessage) setOpen(true);
+  }, [errorMessage]);
 
   const handleChange = (callback, event) => {
     callback(event.target.value);
@@ -45,30 +47,41 @@ export default function Register() {
 
   const handleClick = async (event) => {
     event.preventDefault();
-    const userObj = await request('register', 'POST', {
-      name,
-      email,
-      password,
-      role: 'customer',
-    });
-    // console.log('userObj', userObj);
-    setUser(userObj);
-    if (!userObj.message) {
-      history.push('/customer/products');
+    const options = {
+      body: {
+        name,
+        email,
+        password,
+        role: 'customer',
+      },
+      method: 'POST',
+    };
+    const { token, message } = await request('register', options);
+
+    if (!message) {
+      const user = {
+        name,
+        email,
+        role: 'customer',
+        token,
+      };
+      lStorage().user.set(user);
+      const homePage = getPathByRole(user.role);
+      history.push(homePage);
+    } else {
+      setErrorMessage(message);
+      setOpen(true);
     }
   };
 
-  const renderErrorMessage = () => {
-    if ('message' in user) {
-      return (
-        <h3
-          data-testid="common_register__element-invalid_register"
-        >
-          {user.message}
-        </h3>
-      );
-    }
-  };
+  const renderErrorMessage = () => (
+    <TransitionAlerts
+      message={ errorMessage }
+      open={ { value: open, set: setOpen } }
+      testId="common_register__element-invalid_register"
+      severity="warning"
+    />
+  );
 
   return (
     <>
@@ -77,7 +90,6 @@ export default function Register() {
         <TextField
           value={ name }
           inputProps={ { 'data-testid': 'common_register__input-name' } }
-          id="outlined-basic"
           label="Nome"
           variant="outlined"
           onChange={ (event) => handleChange(setName, event) }
@@ -85,15 +97,14 @@ export default function Register() {
         <TextField
           value={ email }
           inputProps={ { 'data-testid': 'common_register__input-email' } }
-          id="outlined-basic"
           label="Email"
           variant="outlined"
           onChange={ (event) => handleChange(setEmail, event) }
         />
         <TextField
+          type="password"
           value={ password }
           inputProps={ { 'data-testid': 'common_register__input-password' } }
-          id="outlined-basic"
           label="Senha"
           variant="outlined"
           onChange={ (event) => handleChange(setPassword, event) }
@@ -109,7 +120,6 @@ export default function Register() {
         </Button>
       </form>
       {renderErrorMessage()}
-      {/* <AlertTransitionSlide title="Imposível cadastrar" text="Usuário já existente" /> */}
     </>
   );
 }

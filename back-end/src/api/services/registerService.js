@@ -1,6 +1,8 @@
 const md5 = require('md5');
+const jwt = require('jsonwebtoken');
 const { Op } = require('sequelize');
 const { User } = require('../../database/models');
+const { getJwtSecret } = require('../utils');
 
 const isValidUser = async ({ name, email }) => {
   const user = await User.findOne({ where: {
@@ -12,7 +14,6 @@ const isValidUser = async ({ name, email }) => {
 };
 
 const validateLogin = async (loginObj) => {
-  // Se possível substituir pela função isvalidUser
   const validUser = await User.findOne({ where: { email: loginObj.email } });
   if (!validUser) return { error: { code: 'notFound', message: 'Usuário não encontrado' } };
 
@@ -22,13 +23,18 @@ const validateLogin = async (loginObj) => {
 const registerUser = async ({ name, email, password, role }) => {
   const hash = md5(password);
   const createdUser = await User.create({ name, email, password: hash, role });
-  return createdUser;
+
+  const secret = await getJwtSecret();
+  const token = jwt.sign({ data: createdUser.dataValues }, secret.trim());
+
+  createdUser.dataValues.token = token;
+  return createdUser.dataValues;
 };
 
 const validateRegister = async (registerObj) => {
   const user = await isValidUser(registerObj);
   if (user) return { error: { code: 'alreadyExists', message: 'Usuário já possui um cadastro' } };
-  const createdUser = await registerUser(registerObj); 
+  const createdUser = await registerUser(registerObj);
   return { result: createdUser };
 };
 
