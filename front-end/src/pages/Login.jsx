@@ -34,16 +34,17 @@ const Login = () => {
         url: 'http://localhost:3001/delivery/login',
         data: { email, password },
       });
-      // const userStorage = {
-      //   name: data.user.name,
-      //   email: data.user.email,
-      //   role: data.user.role,
-      //   token: data.token,
-      // };
-      // localStorage.setItem('user', JSON.stringify(userStorage));
-      if (data.role === 'customer') history.push('/customer/products');
-      if (data.role === 'seller') history.push('/customer/seller');
-      if (data.role === 'administrator') history.push('/customer/adm');
+      const userStorage = {
+        name: data.user.name,
+        email: data.user.email,
+        role: data.user.role,
+        token: data.token,
+      };
+      localStorage.setItem('user', JSON.stringify(userStorage));
+      localStorage.setItem('carrinho', JSON.stringify([]));
+      if (data.user.role === 'customer') history.push('/customer/products');
+      if (data.user.role === 'seller') history.push('/customer/seller');
+      if (data.user.role === 'administrator') history.push('/customer/adm');
 
       // console.log(data);
     } catch (err) {
