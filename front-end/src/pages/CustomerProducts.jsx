@@ -12,7 +12,6 @@ import colors from '../styles/colors';
 
 const getProducts = async () => {
   const result = await api.get('/delivery/products');
-  // console.log(result.data);
   return result.data;
 };
 
