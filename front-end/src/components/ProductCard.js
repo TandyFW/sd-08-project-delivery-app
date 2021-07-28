@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './ProductCard.css';
 
 const ProductCard = ({ product }) => {
-  const { id, name, price, url_image: urlImage } = product;
+  const { id, name, price, urlImage } = product;
+  const [quantity, setQuantity] = useState(0);
+
+  const increaseQuantity = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const decreaseQuantity = () => {
+    if (quantity === 0) return;
+    setQuantity(quantity - 1);
+  };
+
   return (
     <div className="card">
       <span
@@ -18,20 +29,24 @@ const ProductCard = ({ product }) => {
         alt="product"
       />
       <div>
-        <p data-testid={ `customer_products__element-card-title-${name}` }>{name}</p>
+        <p data-testid={ `customer_products__element-card-title-${id}` }>{name}</p>
         <button
+          onClick={ decreaseQuantity }
           data-testid={ `customer_products__button-card-rm-item-${id}` }
           type="button"
         >
           -
         </button>
-        <span
+        <input
+          type="number"
+          step={ 1 }
+          min={ 0 }
           className="quantity"
+          value={ quantity }
           data-testid={ `customer_products__input-card-quantity-${id}` }
-        >
-          0
-        </span>
+        />
         <button
+          onClick={ increaseQuantity }
           data-testid={ `customer_products__button-card-add-item-${id}` }
           type="button"
         >
@@ -47,7 +62,7 @@ ProductCard.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.string.isRequired,
-    url_image: PropTypes.string.isRequired,
+    urlImage: PropTypes.string.isRequired,
   }).isRequired,
 };
 

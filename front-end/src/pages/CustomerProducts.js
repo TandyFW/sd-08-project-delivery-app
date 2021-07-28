@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
+import CartContextProvider from '../components/CartContextProvider';
 
 const CustomerProducts = () => {
   const [user, setUser] = useState({});
@@ -19,16 +20,18 @@ const CustomerProducts = () => {
         authorization: userData.token,
       },
     })
-      .then((response) => setProducts(response.data))
+      .then((response) => {
+        setProducts(response.data);
+      })
       .catch((error) => console.error(error));
   }, [history]);
 
   return (
-    <>
+    <CartContextProvider>
       <Navbar name={ user.name } />
       { products
         .map((product) => <ProductCard key={ product.id } product={ product } />) }
-    </>
+    </CartContextProvider>
   );
 };
 
