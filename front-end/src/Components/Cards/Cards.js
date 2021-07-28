@@ -24,23 +24,28 @@ export default function Cards({ product }) {
 
   const { name, price, urlImage, id } = product;
 
+  const changeQuantityByInput = ({ target }) => {
+    const { value } = target;
+    setQuantity(Number(value));
+  };
+
+  const handleClickInputClearEntry = () => {
+    setQuantity('');
+  };
+
   return (
     <div className="container">
       <div className="Cards">
-        <h2
-          data-testid={ `customer_products__element-card-price-${id}` }
-        >
-          { price.toString().replace('.', ',') }
+        <h2 data-testid={ `customer_products__element-card-price-${id}` }>
+          {price.toString().replace('.', ',')}
         </h2>
         <img
           data-testid={ `customer_products__img-card-bg-image-${id}` }
           src={ urlImage }
           alt="Imagem"
         />
-        <h3
-          data-testid={ `customer_products__element-card-title-${id}` }
-        >
-          { name }
+        <h3 data-testid={ `customer_products__element-card-title-${id}` }>
+          {name}
         </h3>
         <div>
           <button
@@ -55,6 +60,8 @@ export default function Cards({ product }) {
             data-testid={ `customer_products__input-card-quantity-${id}` }
             type="text"
             value={ quantity }
+            onClick={ handleClickInputClearEntry }
+            onChange={ changeQuantityByInput }
           />
           <button
             data-testid={ `customer_products__button-card-add-item-${id}` }
@@ -70,10 +77,10 @@ export default function Cards({ product }) {
 }
 
 Cards.propTypes = {
-  product: PropTypes.objectOf({
-    id: PropTypes.string.isRequired,
+  product: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     urlImage: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
+    price: PropTypes.string.isRequired,
   }).isRequired,
 };
