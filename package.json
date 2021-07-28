@@ -55,7 +55,5 @@
     }
   },
   "dependencies": {
-    "md5": "^2.3.0",
-    "react-router-dom": "^5.2.0"
   }
 }
