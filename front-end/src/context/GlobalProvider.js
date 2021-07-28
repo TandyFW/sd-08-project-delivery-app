@@ -6,13 +6,16 @@ export const GlobalContext = createContext();
 
 export function GlobalProvider({ children }) {
   const [name, setName] = useState('SEM-NOME');
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const provide = {
     values: {
       name,
+      totalPrice,
     },
     functions: {
       setName,
+      setTotalPrice,
     },
   };
   return (

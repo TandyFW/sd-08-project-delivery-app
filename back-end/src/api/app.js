@@ -11,7 +11,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.resolve(__dirname, 'public')));
+app.use(express.static(path.resolve('public')));
 
 app.use('/login', sessionsRouter);
 app.use('/customer', customersRouter);

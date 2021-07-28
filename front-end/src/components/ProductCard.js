@@ -1,26 +1,57 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Card, InputGroup, Button, FormControl } from 'react-bootstrap';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import { GlobalContext } from '../context/GlobalProvider';
 
 export default function ProductCard(props) {
   const { product: { id, name, price, urlImage } } = props;
 
+  const {
+    values: { totalPrice },
+    functions: { setTotalPrice },
+  } = useContext(GlobalContext);
+
   const [num, setNum] = useState(0);
 
-  const increaseNum = () => {
-    setNum(num + 1);
+  const updateStorage = (value) => {
+    const storage = localStorage.getItem('carrinho');
+    const newStorage = { ...JSON.parse(storage), [id]: value };
+    localStorage.setItem('carrinho', JSON.stringify(newStorage));
   };
 
-  const decreaseNum = () => {
-    if (num <= 0) {
-      setNum(num - 1);
+  const quantity = ({ target }) => {
+    if (num >= 0) {
+      const sum = (target.value * price) - (num * price);
+      setNum(target.value);
+      setTotalPrice(totalPrice + sum);
+      updateStorage(target.value);
     }
   };
 
+  const increaseNum = () => {
+    setNum(num + 1);
+    setTotalPrice(totalPrice + Number(price));
+    updateStorage(num + 1);
+  };
+
+  const decreaseNum = () => {
+    if (num > 0) {
+      setNum(num - 1);
+      setTotalPrice(totalPrice - Number(price));
+      updateStorage(num - 1);
+    }
+  };
+
+  // ALTERAR DEPOIS
+  const obj = {
+    width: '14rem',
+    height: '4rem',
+  };
+
   return (
-    <Card style={ { width: '18rem' } }>
+    <Card style={ obj } className="m-2">
       <Card.Img
         variant="top"
         src={ urlImage }
@@ -50,6 +81,7 @@ export default function ProductCard(props) {
           <FormControl
             type="number"
             value={ num }
+            onChange={ quantity }
             data-testid={ `customer_products__input-card-quantity-${id}` }
           />
           <Button
