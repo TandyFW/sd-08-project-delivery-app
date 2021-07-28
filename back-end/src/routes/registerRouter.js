@@ -1,6 +1,5 @@
 const { Router } = require('express');
 const { celebrate, Joi, Segments } = require('celebrate');
-const auth = require('../api/middlewares/isAuthenticated');
 const registerController = require('../controllers/registerController');
 
 const registerRouter = Router();
