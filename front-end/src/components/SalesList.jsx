@@ -26,8 +26,8 @@ const SalesList = () => {
   };
 
   return (
-    <div>
+    <>
       {renderCards()}
-    </div>);
+    </>);
 };
 export default SalesList;

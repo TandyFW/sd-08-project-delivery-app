@@ -51,7 +51,7 @@ export default function SaleCard({ sale }) {
         <Grid container spacing={ 2 } onClick={ () => redirectToSaleDetail(id) }>
           <Grid
             item
-            inputProps={ { 'data-testid': `seller_orders__element-order-id-${id}` } }
+            data-testid={ `seller_orders__element-order-id-${id}` }
           >
             {`Pedido ${id}`}
           </Grid>
@@ -59,22 +59,19 @@ export default function SaleCard({ sale }) {
             <Grid item xs container direction="column" spacing={ 2 }>
               <Grid item xs>
                 <Typography
-                  inputProps={ {
-                    'data-testid': `seller_orders__element-delivery-status-${id}` } }
+                  data-testid={ `seller_orders__element-delivery-status-${id}` }
                   variant="subtitle1"
                 >
                   {status}
                 </Typography>
                 <Typography
-                  inputProps={ {
-                    'data-testid': `seller_orders__element-order-date-${id}` } }
+                  data-testid={ `seller_orders__element-order-date-${id}` }
                   variant="body2"
                 >
                   {formatDate(salesDate)}
                 </Typography>
                 <Typography
-                  inputProps={ {
-                    'data-testid': `seller_orders__element-card-address-${id}` } }
+                  data-testid={ `seller_orders__element-card-address-${id}` }
                   variant="body2"
                   color="textSecondary"
                 >
@@ -84,8 +81,7 @@ export default function SaleCard({ sale }) {
             </Grid>
             <Grid item>
               <Typography
-                inputProps={ {
-                  'data-testid': `seller_orders__element-card-price-${id}` } }
+                data-testid={ `seller_orders__element-card-price-${id}` }
                 variant="subtitle1"
               >
                 {`R$ ${totalPrice}`}
