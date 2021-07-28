@@ -19,5 +19,4 @@ const fetchUser = async (email, password) => {
     .catch((err) => err);
   return user;
 };
-
 export default fetchUser;

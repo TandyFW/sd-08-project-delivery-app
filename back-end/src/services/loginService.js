@@ -4,14 +4,10 @@ const path = require('path');
 const jwt = require('jsonwebtoken');
 const { users } = require('../database/models');
 
-const secret = fs.readFileSync(path.join(__dirname, '../../', 'jwt.evaluation.key'), 'utf-8',
-  (err, data) => {
-    if (err) throw err;
-    return data;
-});
+const secret = fs.readFileSync(path.resolve(__dirname, '..', '..', 'jwt.evaluation.key'), 'utf-8');
 
 const jwtConfig = {
-  expiresIn: '1h',
+  expiresIn: '1d',
   algorithm: 'HS256',
 };
 
@@ -28,8 +24,8 @@ const findUser = async (email, password) => {
         json: { validate: false },
       };
     }
-
-    return { statusCode: 200, json: { validate: true, token: JWT(result) } };
+    const newToken = JWT(result);
+    return { statusCode: 200, json: { validate: true, token: newToken } };
   } catch (err) {
     return {
       statusCode: 500,

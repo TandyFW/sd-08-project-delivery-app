@@ -8,6 +8,8 @@ app.use(express.json());
 
 app.use(cors());
 
+app.use(cors());
+
 app.post('/login', loginController);
 app.post('/register', registerController);
 

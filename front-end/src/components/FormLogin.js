@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import md5 from 'md5';
+import React, { useEffect, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import fetchUser from '../services/fetchUser';
 import emailVerify from '../utils/functions';
-
-const md5 = require('md5');
 
 export default function FormLogin() {
   const [isValid, setIsValid] = useState(false);
@@ -20,6 +19,7 @@ export default function FormLogin() {
     const password = passwordInput.value;
     const MIN_PASSWORRD_LENGTH = 6;
     setCurrentEmail(email);
+    console.log(md5(password));
     setEncryptPassword(md5(password));
     if (!emailVerify(email) || password.length < MIN_PASSWORRD_LENGTH) {
       setIsValid(false);
@@ -29,8 +29,16 @@ export default function FormLogin() {
     }
   };
 
-  const login = async () => {
+  const redirectToggle = () => {
+    if (URL.length) setRedirect(true);
+  };
+
+  useEffect(() => redirectToggle(), [URL]);
+
+  const login = async (e) => {
+    e.preventDefault();
     const user = await fetchUser(currentEmail, encryptPassword);
+
     if (user) {
       setShowMessage(false);
       switch (user) {
@@ -43,15 +51,19 @@ export default function FormLogin() {
       default:
         break;
       }
-      setRedirect(true);
     }
     setShowMessage(true);
   };
 
   return (
     <>
+<<<<<<< HEAD
       <form action="" method="GET" className="form-login">
         <label htmlFor="loginEmail" className="login-label">
+=======
+      <form action="" method="POST" className="form-login">
+        <label htmlFor="login-email" className="login-label">
+>>>>>>> 1dd720d5036b96b4b133ec5b311eaaa06f5a528b
           Email:
           <input
             type="email"
@@ -81,8 +93,13 @@ export default function FormLogin() {
           type="button"
           className="btn-login"
           disabled={ !isValid }
+<<<<<<< HEAD
           onClick={ login }
           id="btnLogin"
+=======
+          onClick={ (e) => login(e) }
+          id="btn-login"
+>>>>>>> 1dd720d5036b96b4b133ec5b311eaaa06f5a528b
           data-testid="common_login__button-login"
         >
           LOGIN
