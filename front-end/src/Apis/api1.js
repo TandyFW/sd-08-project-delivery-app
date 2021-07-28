@@ -6,6 +6,7 @@ const REGISTER = 'users/create';
 const SALES = 'sales';
 // const USERS = 'users';
 const SELLERS = 'users/sellers';
+const PRODUCTS = 'products';
 
 export default {
   loginFetch: async (email, password) => {
@@ -31,4 +32,10 @@ export default {
   getAllSellers: async () => axios
     .get(`${BASEURL}${SELLERS}`)
     .then((result) => result.data.response),
+
+  productsFetch: async () => {
+    const res = await axios
+      .get(`${BASEURL}${PRODUCTS}`);
+    return res;
+  },
 };

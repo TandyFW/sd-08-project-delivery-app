@@ -28,7 +28,6 @@ const Login = () => {
   const [pass, setPass] = useState('');
   const [valid, setValid] = useState(true);
   const [logged, setLogged] = useState(true);
-  console.log(valid);
 
   useEffect(() => {
     const PASSLENGHT = 6;
@@ -44,13 +43,15 @@ const Login = () => {
     const STATUSOK = 200;
     e.preventDefault();
     const result = await api.loginFetch(email, pass)
-      .then((data) => data)
+      .then((data) => {
+        localStorage.setItem('user', JSON.stringify(data.data));
+        return data;
+      })
       .catch((err) => err.message);
     console.log(result);
     if (result.status !== STATUSOK) {
       setLogged(false);
     } else {
-      console.log(result.data.role);
       setLogged(true);
       if (result.data.role === 'customer') {
         history.push('/customer/products');

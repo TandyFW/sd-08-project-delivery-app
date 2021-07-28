@@ -6,7 +6,7 @@ const createProduct = async (req, res) => {
   try {
     const { name, price, urlImage } = req.body;
     const product = await productsServices.createProduct(name, price, urlImage);
-    return res.status(200).json(product);
+    return res.status(200).json({ response: product });
   } catch (error) {
     if (error.message === 'Required fields.') {
       return res.status(400).json({ message: error.message });
@@ -18,7 +18,7 @@ const createProduct = async (req, res) => {
 const getAllProducts = async (req, res) => {
   try {
     const allProducts = await productsServices.getAllProducts();
-    return res.status(code.OK).json(allProducts);
+    return res.status(code.OK).json({ response: allProducts });
   } catch (error) {
     res.status(code.SERVER_ERROR).json({ message: error.message });
   }

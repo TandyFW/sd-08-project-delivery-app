@@ -3,7 +3,7 @@ import React from 'react';
 import Login from './Pages/Login';
 import CustomerOrders from './Pages/CustomerOrders';
 import CustomerCheckout from './Pages/CustomerCheckout';
-import CustomerProducts from './Pages/Products';
+import CustomerProducts from './Pages/CustomerProducts';
 import Register from './Pages/Register';
 
 export default () => (
