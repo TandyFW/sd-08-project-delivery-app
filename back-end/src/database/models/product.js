@@ -24,11 +24,12 @@ const Product = (sequelize, DataTypes) => {
   },
   {
     timestamps: false,
+    tableName: 'products'
   });
 
   product.associate = (models) => {
     product.hasMany(models.SaleProduct,
-    { foreignKey: 'productId', as: 'sale_product' });
+    { foreignKey: 'product_id', as: 'sale_product' });
   };
   
   return product;
