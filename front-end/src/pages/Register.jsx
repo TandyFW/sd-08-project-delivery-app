@@ -29,7 +29,7 @@ function Register() {
     else {
       setValidateBtn(true);
     }
-  }, [name, email, password]);
+  }, [name, email, password, checkValidation]);
 
   const register = async () => {
     try {
