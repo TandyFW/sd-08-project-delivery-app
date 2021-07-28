@@ -10,7 +10,6 @@ const isValidUser = async ({ name, email }) => {
       { name },
       { email },
     ] } });
-  console.log(user);
   return user;
 };
 

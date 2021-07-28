@@ -27,14 +27,14 @@ const registerUser = async ({ name, email, password, role }) => {
   const secret = await getJwtSecret();
   const token = jwt.sign({ data: createdUser.dataValues }, secret.trim());
 
-  createdUser.token = token;
-  return createdUser;
+  createdUser.dataValues.token = token;
+  return createdUser.dataValues;
 };
 
 const validateRegister = async (registerObj) => {
   const user = await isValidUser(registerObj);
   if (user) return { error: { code: 'alreadyExists', message: 'Usuário já possui um cadastro' } };
-  const createdUser = await registerUser(registerObj); 
+  const createdUser = await registerUser(registerObj);
   return { result: createdUser };
 };
 
