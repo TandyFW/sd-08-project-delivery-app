@@ -3,12 +3,13 @@ import React, { useState } from 'react';
 import DeliveryAppContext from './DeliveryAppContext';
 
 function DeliveryAppProvider({ children }) {
-  const [] = useState();
+  const [itemsList, setItemsList] = useState([]);
 
   return (
     <DeliveryAppContext.Provider value={
       {
-
+        itemsList,
+        setItemsList,
       }
   }
     >
