@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import md5 from 'md5';
+import React, { useEffect, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import fetchUser from '../services/fetchUser';
 import emailVerify from '../utils/functions';
-
-const md5 = require('md5');
 
 export default function FormLogin() {
   const [isValid, setIsValid] = useState(false);
@@ -20,6 +19,7 @@ export default function FormLogin() {
     const password = passwordInput.value;
     const MIN_PASSWORRD_LENGTH = 6;
     setCurrentEmail(email);
+    console.log(md5(password));
     setEncryptPassword(md5(password));
     if (!emailVerify(email) || password.length < MIN_PASSWORRD_LENGTH) {
       setIsValid(false);
@@ -29,8 +29,16 @@ export default function FormLogin() {
     }
   };
 
-  const login = async () => {
+  const redirectToggle = () => {
+    if (URL.length) setRedirect(true);
+  };
+
+  useEffect(() => redirectToggle(), [URL]);
+
+  const login = async (e) => {
+    e.preventDefault();
     const user = await fetchUser(currentEmail, encryptPassword);
+
     if (user) {
       setShowMessage(false);
       switch (user) {
@@ -43,14 +51,13 @@ export default function FormLogin() {
       default:
         break;
       }
-      setRedirect(true);
     }
     setShowMessage(true);
   };
 
   return (
     <>
-      <form action="" method="GET" className="form-login">
+      <form action="" method="POST" className="form-login">
         <label htmlFor="login-email" className="login-label">
           Email:
           <input
@@ -81,7 +88,7 @@ export default function FormLogin() {
           type="button"
           className="btn-login"
           disabled={ !isValid }
-          onClick={ login }
+          onClick={ (e) => login(e) }
           id="btn-login"
           data-testid="common_login__button-login"
         >
