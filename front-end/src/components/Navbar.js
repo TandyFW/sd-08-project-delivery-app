@@ -37,8 +37,10 @@ const ChildrenWrapper = styled.div`
 const Navbar = ({ className, children }) => (
   <StyledNavbar className={ className }>
     <ChildrenWrapper>{ children }</ChildrenWrapper>
-    <Username>Paulo Simões</Username>
-    <Exit>Sair</Exit>
+    <Username data-testid="customer_products__element-navbar-user-full-name">
+      Paulo Simões
+    </Username>
+    <Exit data-testid="customer_products__element-navbar-link-logout">Sair</Exit>
   </StyledNavbar>
 );
 
