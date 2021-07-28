@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
+// import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { isValidUserForRegistration } from '../utils';
-import { request } from '../utils/request';
+import { isValidUserForRegistration, request } from '../utils';
 import TransitionAlerts from './TransitionAlerts';
+import { useGroupState } from '../hooks';
 
 const useStyles = makeStyles((theme) => ({
   selectEmpty: {
@@ -27,17 +27,19 @@ const useStyles = makeStyles((theme) => ({
 export default function RegistrationByManager() {
   const classes = useStyles();
 
-  const [role, setRole] = useState('Admin');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isDisabled, setDisable] = useState(true);
-  const [user, setUser] = useState({});
-  const [open, setOpen] = React.useState(true);
+  const { role, name, email, password, isDisabled, user, open } = useGroupState({
+    role: 'seller',
+    name: '',
+    email: '',
+    password: '',
+    isDisabled: true,
+    user: {},
+    open: false,
+  });
 
   useEffect(() => {
-    setDisable(!isValidUserForRegistration(name, email, password));
-  }, [name, email, password]);
+    isDisabled.set(!isValidUserForRegistration(name.value, email.value, password.value));
+  }, [name.value, email.value, password.value, isDisabled]);
 
   const handleChange = (callback, event) => {
     callback(event.target.value);
@@ -50,12 +52,8 @@ export default function RegistrationByManager() {
       email,
       password,
       role });
-    setUser(userObj);
-    setOpen(true);
-  };
-
-  const handleAlert = (bool) => {
-    setOpen(bool);
+    user.set(userObj);
+    open.set(true);
   };
 
   const renderErrorMessage = () => {
@@ -63,9 +61,11 @@ export default function RegistrationByManager() {
       return (
         <TransitionAlerts
           message={ user.message }
-          handler={ handleAlert }
           open={ open }
+          testId="admin_manage__element-invalid-register"
+          severity="warning"
         />
+        // <h1 data-testid="admin_manage__element-invalid-register">{user.message}</h1>
       );
     }
   };
@@ -74,45 +74,42 @@ export default function RegistrationByManager() {
     <div>
       <form className={ classes.root }>
         <TextField
-          value={ name }
-          inputProps={ { 'data-testid': 'admin_manage__input-name' } }
-          id="outlined-basic"
+          value={ name.value }
+          data-testid="admin_manage__input-name"
           label="Nome"
           variant="outlined"
-          onChange={ (event) => handleChange(setName, event) }
+          onChange={ (event) => handleChange(name.set, event) }
         />
         <TextField
-          value={ email }
-          inputProps={ { 'data-testid': 'admin_manage__input-email' } }
-          id="outlined-basic"
+          value={ email.value }
+          data-testid="admin_manage__input-email"
           label="Email"
           variant="outlined"
-          onChange={ (event) => handleChange(setEmail, event) }
+          onChange={ (event) => handleChange(email.set, event) }
         />
         <TextField
-          value={ password }
-          inputProps={ { 'data-testid': 'admin_manage__input-password' } }
-          id="outlined-basic"
+          value={ password.value }
+          data-testid="admin_manage__input-password"
           label="Senha"
           variant="outlined"
-          onChange={ (event) => handleChange(setPassword, event) }
+          onChange={ (event) => handleChange(password.set, event) }
         />
         <Select
           inputProps={ { 'data-testid': 'admin_manage__select-role' } }
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={ role }
-          onChange={ (event) => handleChange(setRole, event) }
+          value={ role.value }
+          onChange={ (event) => handleChange(role.set, event) }
+          native
         >
-          <MenuItem value="Vendedor">Vendedor</MenuItem>
-          <MenuItem value="Cliente">Cliente</MenuItem>
-          <MenuItem value="Admin">Admin</MenuItem>
+          <option value="seller">Vendedor</option>
+          <option value="customer">Cliente</option>
         </Select>
         <Button
-          inputProps={ { 'data-testid': 'admin_manage__button-register' } }
+          data-testid="admin_manage__button-register"
           variant="contained"
           color="primary"
-          disabled={ isDisabled }
+          disabled={ isDisabled.value }
           onClick={ handleClick }
         >
           Cadastrar

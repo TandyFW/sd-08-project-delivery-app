@@ -8,6 +8,4 @@ const request = async (route, method, body) => {
   return userObj;
 };
 
-module.exports = {
-  request,
-};
+export default request;
