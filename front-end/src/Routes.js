@@ -11,14 +11,16 @@ function Routes() {
   return (
     <Switch>
       <Route path="/register" component={ Register } />
-      <CartContextProvider>
-        <Route path="/customer/products">
+      <Route path="/customer/products">
+        <CartContextProvider>
           <CustomerProducts />
-        </Route>
-        <Route path="/customer/checkout">
+        </CartContextProvider>
+      </Route>
+      <Route path="/customer/checkout">
+        <CartContextProvider>
           <CustomerCheckout />
-        </Route>
-      </CartContextProvider>
+        </CartContextProvider>
+      </Route>
       <Route path="/login">
         <Login />
       </Route>
