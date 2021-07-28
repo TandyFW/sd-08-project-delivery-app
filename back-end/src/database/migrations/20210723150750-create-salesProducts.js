@@ -2,7 +2,7 @@ module.exports = {
   // eslint-disable-next-line max-lines-per-function
   up: async (queryInterface, Sequelize) => 
     queryInterface.createTable('salesProducts', {
-      saleId: {
+      sale_id: {
         primaryKey: true,
         allowNull: false,
         type: Sequelize.INTEGER,
@@ -13,7 +13,7 @@ module.exports = {
           key: 'id',
         },
       },
-      productId: {
+      product_id: {
         primaryKey: true,
         allowNull: false,
         type: Sequelize.INTEGER,
