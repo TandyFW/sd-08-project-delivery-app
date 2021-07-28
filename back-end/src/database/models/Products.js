@@ -5,7 +5,7 @@ const Products = (sequelize, DataTypes) => {
       notNull: true,
     },
     price: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.DECIMAL,
       notNull: true,
     },
     urlImage: {
