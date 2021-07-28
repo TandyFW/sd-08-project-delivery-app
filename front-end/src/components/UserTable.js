@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getAllUsers, exclude } from '../services';
-import { productsAction } from '../redux/actions';
+import { userAction } from '../redux/actions';
 
 class UserTable extends React.Component {
   constructor() {
@@ -13,6 +13,7 @@ class UserTable extends React.Component {
   async componentDidMount() {
     const { dispatchTable } = this.props;
     const users = await getAllUsers();
+
     dispatchTable(users);
   }
 
@@ -31,26 +32,31 @@ class UserTable extends React.Component {
     // const { history } = this.props;
     // console.log(history);
     const { stateUsers } = this.props;
-    // console.log(stateUsers.registers);
-    const tableUser = stateUsers.registers || [{}];
-    const keyOfstatateUsers = Object.keys(tableUser[0]);
+    console.log(stateUsers);
+    // const tableUser = stateUsers.user || [{}];
+    // const keyOfstatateUsers = Object.keys(tableUser[0]);
     // keyOfstatateUsers.push('Excluir');
     return (
       <div className="cardlist-container">
         <table>
           <thead>
             <tr>
-              { keyOfstatateUsers
+              {/* { keyOfstatateUsers
             && keyOfstatateUsers.map((title) => (
               <th key={ title }>{title}</th>
-            ))}
+            ))} */}
               <th key="excluir">Excluir</th>
             </tr>
           </thead>
           <tbody>
 
             { tableUser && tableUser.map((user, index) => (
-              <tr id={ `${index}` } className="user" key={ user.id }>
+              <tr
+                id={ `${index}` }
+                className="user"
+                key={ user.id }
+                data-testid={ `admin_manage__element-user-table-item-number-${user.id}` }
+              >
                 { keyOfstatateUsers.map((key) => (
                   <td key={ key }>{user[key]}</td>
                 ))}
@@ -72,11 +78,11 @@ class UserTable extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchTable: (array) => dispatch(productsAction(array)),
+  dispatchTable: (array) => dispatch(userAction(array)),
 });
 
 const mapStateToProps = (state) => ({
-  stateUsers: state.products.products,
+  stateUsers: state.user.user,
 });
 
 UserTable.propTypes = {
