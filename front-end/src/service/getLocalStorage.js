@@ -5,5 +5,6 @@ export const getUserInfo = () => {
 
 export const getProductsCarrinho = () => {
   const products = localStorage.getItem('carrinho');
+  if (!products) return [];
   return JSON.parse(products);
 };
