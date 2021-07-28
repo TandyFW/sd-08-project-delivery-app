@@ -1,15 +1,16 @@
 const { sales } = require('../database/models');
 
-const checkoutService = async (user_id, seller_id, total_price, delivery_address, delivery_number) => {
+const creatCheckout = async (userId) => {
   try {
     const result = await sales.create({
-      user_id,
-      seller_id,
-      total_price, 
-      delivery_address,
-      delivery_number,
+      user_id: userId,
+      // sellerId,
+      // totalPrice,
+      // deliveryAddress,
+      // deliveryNumber,
+      // status: "Pendente",
     });
-
+    
     console.log(result);
 
     return {
@@ -17,6 +18,7 @@ const checkoutService = async (user_id, seller_id, total_price, delivery_address
       json: result,
     }
   } catch (error) {
+
     return {
       statusCode: 500,
       message: 'Erro in DB',
@@ -25,5 +27,5 @@ const checkoutService = async (user_id, seller_id, total_price, delivery_address
 };
 
 module.exports = {
-  checkoutService,
+  creatCheckout,
 };
