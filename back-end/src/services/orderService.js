@@ -56,8 +56,9 @@ const getAllAll = async (id) => {
     where: { id },
     attributes: { exclude: ['seller_id', 'user_id'] }, // exclui o order
     include: [{
-      attributes: { exclude: [''] }, // exclui o product
-      model: product, as: 'productId', 
+      attributes: { exclude: [''] }, /* exclui o product */
+      model: product,
+      as: 'productId',
       required: false,
       through: { 
         attributes: { exclude: ['sale_id', 'product_id'] }, // exclui o salesProducts
