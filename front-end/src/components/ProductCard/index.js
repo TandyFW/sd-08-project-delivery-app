@@ -44,11 +44,14 @@ export default function ProductCard(props) {
 
   return (
     <div>
-      <h2
-        data-testid={ `customer_products__element-card-price-${id}` }
-      >
-        {`R$ ${price}`}
-      </h2>
+      <div>
+        <span>R$ </span>
+        <span
+          data-testid={ `customer_products__element-card-price-${id}` }
+        >
+          {price.replace(/\./, ',')}
+        </span>
+      </div>
       <img
         alt="Movie Cover"
         data-testid={ `customer_products__img-card-bg-image-${id}` }
