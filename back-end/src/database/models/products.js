@@ -9,10 +9,6 @@ const product = (sequelize, DataTypes) => {
     underscored: true,
   });
 
-  // product.associate = (models) => {
-  //   models.products.hasMany(models.salesproducts)
-  // }
-
   return product;
 }
 
