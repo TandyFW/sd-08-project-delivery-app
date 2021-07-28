@@ -5,7 +5,7 @@ import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 
 export default function ProductCard(props) {
-  const { product: { id, name, price, url_image: image } } = props;
+  const { product: { id, name, price, urlImage } } = props;
 
   const [num, setNum] = useState(0);
 
@@ -23,19 +23,19 @@ export default function ProductCard(props) {
     <Card style={ { width: '18rem' } }>
       <Card.Img
         variant="top"
-        src={ image }
-        data-prodid={ `customer_products__img-card-bg-image-${id}` }
+        src={ urlImage }
+        data-testid={ `customer_products__img-card-bg-image-${id}` }
       />
       <Card.ImgOverlay>
         <Card.Title
-          data-prodid={ `customer_products__element-card-price-${id}` }
+          data-testid={ `customer_products__element-card-price-${id}` }
         >
           { price.toString().replace('.', ',') }
         </Card.Title>
       </Card.ImgOverlay>
       <Card.Body>
         <Card.Title
-          data-prodid={ `customer_products__element-card-title-${id}` }
+          data-testid={ `customer_products__element-card-title-${id}` }
         >
           { name }
         </Card.Title>
@@ -43,19 +43,19 @@ export default function ProductCard(props) {
           <Button
             variant="primary"
             onClick={ increaseNum }
-            data-prodid={ `customer_products__button-card-add-item-${id}` }
+            data-testid={ `customer_products__button-card-add-item-${id}` }
           >
             <AddIcon />
           </Button>
           <FormControl
             type="number"
             value={ num }
-            data-prodid={ `customer_products__input-card-quantity-${id}` }
+            data-testid={ `customer_products__input-card-quantity-${id}` }
           />
           <Button
             variant="primary"
             onClick={ decreaseNum }
-            data-prodid={ `customer_products__button-card-rm-item-${id}` }
+            data-testid={ `customer_products__button-card-rm-item-${id}` }
           >
             <RemoveIcon />
           </Button>
@@ -70,6 +70,6 @@ ProductCard.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
     price: PropTypes.number,
-    url_image: PropTypes.string,
+    urlImage: PropTypes.string,
   }).isRequired,
 };

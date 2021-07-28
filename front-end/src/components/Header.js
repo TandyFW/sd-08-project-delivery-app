@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Navbar, Container, Nav, Button } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 
 export default function Header() {
+  const [redirect, setRedirect] = useState(false);
+  if (redirect) return (<Redirect to="/login" />);
+
   const obj = localStorage.getItem('user');
-  const { name } = JSON.parse(obj);
+  const name = JSON.parse(obj).name || 'undefined';
 
   const logout = () => {
     localStorage.clear();
-    return <Redirect to="/login" />;
+    setRedirect(true);
   };
 
   return (

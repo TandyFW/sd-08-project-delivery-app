@@ -1,7 +1,9 @@
 const sessionsRouter = require('./sessionsRouter');
-const customer = require('./customer');
+const customerRouter = require('./customerRouter');
+const registerRouter = require('./registerRouter');
 
 module.exports = {
   sessionsRouter,
-  customer,
+  customerRouter,
+  registerRouter,
 };

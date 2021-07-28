@@ -1,38 +1,34 @@
 import React, { useEffect, useState } from 'react';
+import Container from 'react-bootstrap/Container';
+import axios from 'axios';
 import Header from '../components/Header';
-import useAxios from '../hooks/useAxios';
 import { API_PRODUCTS_URL } from '../service/backendApi';
 import ProductCard from '../components/ProductCard';
 
 function Products() {
-  const {
-    request,
-    response,
-    loading,
-  } = useAxios();
-
-  console.log(`${response} 11111111`);
-
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => async () => {
-    console.log(`${loading} 21`);
-    const options = {
+  useEffect(() => {
+    setLoading(true);
+    axios({
       method: 'get',
       url: API_PRODUCTS_URL,
-    };
-    await request(options);
-    console.log(`${response} 33333333`);
-    setProducts(response);
+    })
+      .then((result) => setProducts(result.data));
+    setLoading(false);
   }, []);
-  console.log(`${loading} 1`);
 
   return (
     <>
       <Header />
-      { loading
-        ? <div>Loading</div>
-        : products.map((item, index) => <ProductCard key={ index } product={ item } />) }
+      <Container fluid>
+        { loading
+          ? <div>Loading</div>
+          : products.map((item, index) => (
+            <ProductCard key={ index } product={ item } />
+          ))}
+      </Container>
     </>
   );
 }
