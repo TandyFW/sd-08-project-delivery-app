@@ -6,6 +6,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { lStorage } from '../utils';
 
 const NavBar = ({ screens, user }) => {
   const useStyles = makeStyles((theme) => ({
@@ -26,6 +27,7 @@ const NavBar = ({ screens, user }) => {
   const classes = useStyles();
 
   const logoutUser = () => {
+    lStorage().user.remove();
     history.push('/login');
   };
 

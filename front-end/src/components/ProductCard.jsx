@@ -68,7 +68,7 @@ function ProductCard({ product }) {
           className={ classes.price }
           color="textSecondary"
         >
-          { product.price }
+          { product.price.replace('.', ',') }
         </Typography>
         <img
           src={ product.urlImage }

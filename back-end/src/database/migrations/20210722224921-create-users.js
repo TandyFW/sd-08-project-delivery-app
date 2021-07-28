@@ -1,8 +1,7 @@
-'use strict';
-
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable('users', {
+  // eslint-disable-next-line max-lines-per-function
+  up: async (queryInterface, Sequelize) =>
+    queryInterface.createTable('users', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -27,10 +26,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-    });
-  },
+    }),
 
-  down: async (queryInterface, _Sequelize) => {
-    return queryInterface.dropTable('users');
-  }
+  down: async (queryInterface, _Sequelize) =>
+    queryInterface.dropTable('users'),
+
 };
