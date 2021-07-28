@@ -15,30 +15,34 @@ import colors from '../styles/colors';
 
 const CardProduct = ({ prefix, price, tumbnail, title, id }) => {
   const [quantity, setQuantity] = useState(0);
-  // const products = useSelector((state) => state.products.products);
   const dispatch = useDispatch();
-  const addItem = (idProduct) => {
-    const data = { id: idProduct };
-    const carrinho = JSON.parse(localStorage.getItem('carrinho'));
-    const items = carrinho ? carrinho.some((item) => item.id === idProduct) : true;
-    if (!items) {
-      const product = { id: idProduct, quantity: quantity + 1, price };
-      carrinho.push(product);
-      localStorage.setItem('carrinho', JSON.stringify(carrinho));
-    }
-    const product = { id: idProduct, quantity: quantity + 1, price };
-    localStorage.setItem('carrinho', JSON.stringify([product]));
-    setQuantity(quantity + 1);
+  const addItem = (idProduct, priceProduct) => {
+    const data = { id: idProduct, price: priceProduct };
+    setQuantity(+quantity + 1);
     dispatch({
       type: 'ADD_PRODUCT',
       payload: { data, qtd: quantity + 1 },
     });
   };
-  const decreaseItem = () => {
+  const decreaseItem = (idProduct, priceProduct) => {
+    const data = { id: idProduct, price: priceProduct };
     if (quantity > 0) {
       setQuantity(quantity - 1);
+      dispatch({
+        type: 'ADD_PRODUCT',
+        payload: { data, qtd: quantity - 1 },
+      });
     }
   };
+  const changeItem = (value, idProduct, priceProduct) => {
+    const data = { id: idProduct, price: priceProduct };
+    setQuantity(value);
+    dispatch({
+      type: 'ADD_PRODUCT',
+      payload: { data, qtd: value },
+    });
+  };
+
   return (
     <Card color={ colors.white }>
       <ProductPrice data-testid={ `${prefix}element-card-price-${id}` }>
@@ -55,7 +59,7 @@ const CardProduct = ({ prefix, price, tumbnail, title, id }) => {
         </ProductDescription>
         <QtdController>
           <QtdButton
-            onClick={ decreaseItem }
+            onClick={ () => decreaseItem(id, price) }
             data-testid={ `${prefix}button-card-rm-item-${id}` }
             color={ colors.teal }
           >
@@ -64,11 +68,11 @@ const CardProduct = ({ prefix, price, tumbnail, title, id }) => {
           <QtdInput
             data-testid={ `${prefix}input-card-quantity-${id}` }
             type="text"
-            onChange={ ({ target }) => setQuantity(target.value) }
+            onChange={ ({ target }) => changeItem(target.value, id, price) }
             value={ quantity }
           />
           <QtdButton
-            onClick={ () => addItem(id) }
+            onClick={ () => addItem(id, price) }
             data-testid={ `${prefix}button-card-add-item-${id}` }
             color={ colors.teal }
           >
@@ -86,6 +90,7 @@ CardProduct.propTypes = {
   tumbnail: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
+  // setTotal: PropTypes.func.isRequired,
 };
 
 export default CardProduct;
