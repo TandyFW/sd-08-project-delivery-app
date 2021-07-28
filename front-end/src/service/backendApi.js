@@ -6,7 +6,8 @@ export const API_LOGIN_URL = ({ email, password }) => ({
 
 // apenas para testes
 // necessario aplicar o token manualmente
-const token = localStorage.getItem('token') || '999';
+const token = JSON.parse(localStorage.getItem('users'))
+  .token || '999';
 
 export const API_CUSTUMER_ORDER_URL = {
   method: 'get',
