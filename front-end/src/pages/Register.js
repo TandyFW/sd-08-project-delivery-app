@@ -1,7 +1,23 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 import useLocalStorage from '../hooks/useLocalStorage';
 import * as api from '../services/api';
+
+import FormContainer from '../components/FormContainer';
+import Input from '../components/Input';
+import { ButtonPrimary } from '../components/Button';
+
+const RegisterContainer = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+`;
+
+const StyledFormContainer = styled(FormContainer)`
+  width: 500px;
+`;
 
 function Register() {
   const [email, setEmail] = useState('');
@@ -36,36 +52,38 @@ function Register() {
   }
 
   return (
-    <fieldset>
-      <input
-        type="text"
-        data-testid="common_register__input-name"
-        placeholder="Name"
-        onChange={ (e) => setName(e.target.value) }
-      />
-      <input
-        type="text"
-        data-testid="common_register__input-email"
-        placeholder="Email"
-        onChange={ (e) => setEmail(e.target.value) }
-      />
-      <input
-        type="password"
-        data-testid="common_register__input-password"
-        placeholder="Senha"
-        onChange={ (e) => setPassword(e.target.value) }
-      />
-      <button
-        type="button"
-        data-testid="common_register__button-register"
-        disabled={ isDisabled() }
-        onClick={ handleClick }
-      >
-        CADASTRAR
-      </button>
-      { showWarning
-        && <p data-testid="common_register__element-invalid_register">Deu ruim!</p> }
-    </fieldset>
+    <RegisterContainer>
+      <StyledFormContainer>
+        <Input
+          type="text"
+          data-testid="common_register__input-name"
+          placeholder="Name"
+          onChange={ (e) => setName(e.target.value) }
+        />
+        <Input
+          type="text"
+          data-testid="common_register__input-email"
+          placeholder="Email"
+          onChange={ (e) => setEmail(e.target.value) }
+        />
+        <Input
+          type="password"
+          data-testid="common_register__input-password"
+          placeholder="Senha"
+          onChange={ (e) => setPassword(e.target.value) }
+        />
+        <ButtonPrimary
+          type="button"
+          data-testid="common_register__button-register"
+          disabled={ isDisabled() }
+          onClick={ handleClick }
+        >
+          CADASTRAR
+        </ButtonPrimary>
+        { showWarning
+          && <p data-testid="common_register__element-invalid_register">Deu ruim!</p> }
+      </StyledFormContainer>
+    </RegisterContainer>
   );
 }
 
