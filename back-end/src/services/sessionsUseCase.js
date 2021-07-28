@@ -1,4 +1,3 @@
-const { Op } = require('sequelize');
 const {
   StatusCodes,
   getReasonPhrase,
@@ -18,17 +17,11 @@ exports.auth = async ({ email, password }) => {
   }
   if (md5(password) !== user.password) {
     throw new HandleError(
-      'Invalid fields email or password', 
-      StatusCodes.BAD_REQUEST,
+      'Invalid fields email or password', StatusCodes.BAD_REQUEST,
       getReasonPhrase(StatusCodes.BAD_REQUEST),
     );
   }
-  const { id, name, role } = user
+  const { id, name, role } = user;
   const token = await signToken({ user: { id, role } });
-  return {
-    name,
-    email,
-    role,
-    token
-  };
+  return { name, email, role, token };
 };
