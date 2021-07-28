@@ -26,9 +26,6 @@ FormContainer.propTypes = {
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]).isRequired,
-};
-
-FormContainer.propTypes = {
   className: PropTypes.string.isRequired,
 };
 
