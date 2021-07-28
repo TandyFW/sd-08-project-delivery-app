@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Context } from '../../Context';
-import StyledTotalPrice from './Styled';
+import PriceTag from './Styled';
 
 export default function TotalPrice() {
   const history = useHistory();
@@ -13,15 +13,15 @@ export default function TotalPrice() {
   }, 0);
 
   return (
-    <StyledTotalPrice
-      onClick={ () => {
-        history.push('/customer/checkout');
-      } }
+    <PriceTag
+      data-testid="customer_products__button-cart"
+      disabled={ !totalValue }
+      onClick={ () => { history.push('/customer/checkout'); } }
     >
       <span>Ver carrinho: R$ </span>
       <span data-testid="customer_products__checkout-bottom-value">
         {totalValue.toFixed(2).replace(/\./, ',')}
       </span>
-    </StyledTotalPrice>
+    </PriceTag>
   );
 }
