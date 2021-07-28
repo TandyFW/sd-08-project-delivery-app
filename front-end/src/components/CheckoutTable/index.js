@@ -1,32 +1,28 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './styles.css';
 
-const mockValue = {
-  stella: 3.5,
-  skol: 4.1,
-  torcida: 1.56,
-};
 const data = [
   {
     id: 1,
     descricao: 'Cerveja Stella 250ml',
     quantidade: 3,
-    valor: mockValue.stella,
+    valor: 3.5,
   },
   {
     id: 2,
     descricao: 'Cerveja Skol Latão 450ml',
     quantidade: 4,
-    valor: mockValue.skol,
+    valor: 4.1,
   },
   {
     id: 3,
-    descricao: 'Salgadinho Torcido Churrasco',
+    descricao: 'Salgadinho Torcida Churrasco',
     quantidade: 1,
-    valor: mockValue.torcida,
+    valor: 1.56,
   }];
 
 function CheckoutTable() {
+  const total = useRef();
   return (
     <div className="main-wrapper-table">
       <table className="checkout-table">
@@ -44,8 +40,9 @@ function CheckoutTable() {
           {data.map((element, index) => (
             <tr key={ index }>
               <td
-                data-testid={ `customer_checkout__element-order-table-item-number-
-                ${index}` }
+                data-testid={
+                  `customer_checkout__element-order-table-item-number-${index}`
+                }
               >
                 {element.id}
               </td>
@@ -60,16 +57,18 @@ function CheckoutTable() {
                 {element.quantidade}
               </td>
               <td
-                data-testid={ `customer_checkout__element-order-table-unit-price-
-                ${index}` }
+                data-testid={
+                  `customer_checkout__element-order-table-unit-price-${index}`
+                }
               >
                 {element.valor}
               </td>
               <td
-                data-testid={ `customer_checkout__element-order-table-sub-total-
-                ${index}` }
+                data-testid={
+                  `customer_checkout__element-order-table-sub-total-${index}`
+                }
               >
-                {element.valor * element.quantidade}
+                {Number(element.valor) * Number(element.quantidade)}
               </td>
               <button
                 type="button"
@@ -82,6 +81,7 @@ function CheckoutTable() {
         </tbody>
       </table>
       <h4
+        ref={ total }
         data-testid="customer_checkout__element-order-total-price"
       >
         {`Total Price: 
