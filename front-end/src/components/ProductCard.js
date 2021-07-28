@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
+import CartContext from './CartContext';
 import './ProductCard.css';
 
 const ProductCard = ({ product }) => {
   const { id, name, price, urlImage } = product;
   const [quantity, setQuantity] = useState(0);
+  const { addToCart, removeFromCart } = useContext(CartContext);
+
+  useEffect(() => {
+    if (quantity === 0) {
+      return removeFromCart(id);
+    }
+    addToCart({ id, name, unitPrice: price, quantity });
+  }, [quantity]);
 
   const increaseQuantity = () => {
-    setQuantity(quantity + 1);
+    let x = quantity;
+    x += 1;
+    setQuantity(x);
   };
 
   const decreaseQuantity = () => {
