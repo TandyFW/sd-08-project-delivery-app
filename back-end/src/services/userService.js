@@ -27,8 +27,8 @@ return userFields;
 };
 
 module.exports = {
-	registerUser,
-	findUserByEmail,
-	findUserByName,
-	loginUser,
+registerUser,
+findUserByEmail,
+findUserByName,
+loginUser,
 };
