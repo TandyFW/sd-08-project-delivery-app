@@ -15,6 +15,7 @@ export default function Cards({ product }) {
   };
 
   useEffect(() => {
+    console.log('Aqui');
     if (quantity > 0) {
       setDisabled(false);
     } else {
@@ -22,14 +23,23 @@ export default function Cards({ product }) {
     }
   }, [quantity]);
 
+  const handleChange = ({ target: { value } }) => {
+    const regex = new RegExp(/^[0-9]*?$/g);
+    if (regex.test(value)) {
+      console.log('Number', value);
+      setQuantity(Number(value));
+    }
+    if (value === '') {
+      setQuantity(0);
+    }
+  };
+
   const { name, price, urlImage, id } = product;
 
   return (
     <div className="container">
       <div className="Cards">
-        <h2
-          data-testid={ `customer_products__element-card-price-${id}` }
-        >
+        <h2 data-testid={ `customer_products__element-card-price-${id}` }>
           { price.toString().replace('.', ',') }
         </h2>
         <img
@@ -37,9 +47,7 @@ export default function Cards({ product }) {
           src={ urlImage }
           alt="Imagem"
         />
-        <h3
-          data-testid={ `customer_products__element-card-title-${id}` }
-        >
+        <h3 data-testid={ `customer_products__element-card-title-${id}` }>
           { name }
         </h3>
         <div>
@@ -54,6 +62,7 @@ export default function Cards({ product }) {
           <input
             data-testid={ `customer_products__input-card-quantity-${id}` }
             type="text"
+            onChange={ handleChange }
             value={ quantity }
           />
           <button

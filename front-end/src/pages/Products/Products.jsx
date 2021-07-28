@@ -12,7 +12,7 @@ export default function Products() {
 
   useEffect(() => {
     dispatch(requestAllProducts());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
