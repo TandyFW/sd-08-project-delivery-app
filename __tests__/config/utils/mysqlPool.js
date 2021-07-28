@@ -15,7 +15,7 @@ const connectionConfig = {
   database,
   timezone: "Z",
 };
-
+console.log({connectionConfig})
 const mysqlPool = () => mysql.createPool(connectionConfig);
 
 module.exports = {

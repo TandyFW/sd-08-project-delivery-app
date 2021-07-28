@@ -17,8 +17,18 @@ const findUserByName = async (name) => {
 	return userByName;
 };
 
+const loginUser = async ({ email, password }) => {
+  const userFields = await user.findOne({ where: { email, password: md5(password) } });
+
+if (!userFields) {
+  throw new Error('Usuário não encontrado!');
+}
+return userFields;
+};
+
 module.exports = {
 	registerUser,
 	findUserByEmail,
 	findUserByName,
+	loginUser,
 };
