@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Context } from '../../Context';
 
 import
 { Container,
@@ -12,6 +13,14 @@ import
 
 export default function Header() {
   const history = useHistory();
+  const { products, setProducts } = useContext(Context);
+
+  const logout = () => {
+    localStorage.removeItem('user');
+    const zeroQuantityProducts = products.map((product) => ({ ...product, quantity: 0 }));
+    setProducts(zeroQuantityProducts);
+    history.push('/login');
+  };
 
   return (
     <Container>
@@ -39,7 +48,7 @@ export default function Header() {
       <LogoutButton
         type="button"
         data-testid="customer_products__element-navbar-link-logout"
-        onClick={ () => history.push('/login') }
+        onClick={ logout }
       >
         Sair
       </LogoutButton>

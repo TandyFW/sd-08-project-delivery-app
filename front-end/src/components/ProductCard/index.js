@@ -1,24 +1,53 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Context } from '../../Context';
 
 export default function ProductCard(props) {
-  const { product } = props;
-  const { id, name, price, urlImage } = product;
+  const {
+    product: { id, name, price, urlImage },
+  } = props;
   const { products, setProducts } = useContext(Context);
+  const [productData, setProductData] = useState({
+    id,
+    name,
+    price,
+    quantity: 0,
+  });
+
+  useEffect(() => {
+    const updatedProducts = products
+      .map((product) => (product.id === id ? { ...product, ...productData } : product));
+    setProducts(updatedProducts);
+  }, [productData]);
 
   const incrementItem = () => {
-    setProducts([...products, product]);
+    setProductData({
+      ...productData,
+      quantity: productData.quantity + 1,
+    });
   };
 
-  /* const decrementItem = () => console.log('Oi'); */
+  const decrementItem = () => {
+    if (productData.quantity === 0) return;
+    setProductData({
+      ...productData,
+      quantity: productData.quantity - 1,
+    });
+  };
+
+  const handleQuantityChange = ({ target }) => {
+    setProductData({
+      ...productData,
+      quantity: target.value,
+    });
+  };
 
   return (
     <div>
       <h2
         data-testid={ `customer_products__element-card-price-${id}` }
       >
-        {`R$ ${price}` }
+        {`R$ ${price}`}
       </h2>
       <img
         alt="Movie Cover"
@@ -26,17 +55,21 @@ export default function ProductCard(props) {
         src={ urlImage }
       />
       <div>
-        <h4 data-testid={ `customer_products__element-card-title-${id}` }>{ name }</h4>
+        <h4 data-testid={ `customer_products__element-card-title-${id}` }>
+          {name}
+        </h4>
         <button
           data-testid={ `customer_products__button-card-rm-item-${id}` }
           type="button"
-          // onClick={ decrementItem }
+          onClick={ decrementItem }
         >
           -
         </button>
         <input
           data-testid={ `customer_products__input-card-quantity-${id}` }
           placeholder="0"
+          value={ productData.quantity }
+          onChange={ handleQuantityChange }
         />
         <button
           data-testid={ `customer_products__button-card-add-item-${id}` }
@@ -54,7 +87,7 @@ ProductCard.propTypes = {
   product: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
-    price: PropTypes.number,
+    price: PropTypes.string,
     urlImage: PropTypes.string,
   }).isRequired,
 };
