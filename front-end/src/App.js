@@ -4,12 +4,9 @@ import Adm from './pages/Adm';
 import ClientProducts from './pages/CustomerProducts';
 import Login from './pages/Login';
 import Register from './pages/Register';
-<<<<<<< HEAD
-=======
 import Seller from './pages/Seller';
 import Orders from './pages/Orders';
 import saleDetails from './pages/SaleDetails';
->>>>>>> 6c2f4bea47dd2cdf9c2f84a0d873bbb25c3b06d9
 import Checkout from './pages/Checkout';
 
 function App() {

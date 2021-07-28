@@ -1,42 +1,53 @@
 import React, { useReducer } from 'react';
-// import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
-
-const renderExpenseRow = (item, index) => {
-  const prefix = 'customer_checkout__';
-  return (
-    <tr key={ id }>
-      <td data-testid={ `${prefix}element-order-table-item-number-${index}` }>
-        { itemNumber }
-      </td>
-      <td data-testid={ `${prefix}element-order-table-name-${index}` }>
-        { name }
-      </td>
-      <td data-testid={ `${prefix}element-order-table-quantity-${index}` }>
-        { quantity }
-      </td>
-      <td data-testid={ `${prefix}element-order-table-unit-price-${index}` }>
-        { unitPrice }
-      </td>
-      <td data-testid={ `${prefix}element-order-table-sub-total-${index}` }>
-        { subTotal }
-      </td>
-      <td data-testid={ `${prefix}element-order-table-remove-${index}` }>
-        <button type="button">Remover</button>
-        <button
-          type="button"
-          data-testid="delete-btn"
-          onClick={ () => removeExpense(id) }
-        >
-          Excluir
-        </button>
-      </td>
-    </tr>
-  );
-};
+import { useDispatch } from 'react-redux';
 
 const Table = () => {
   const products = useReducer((state) => state.products);
+  const [btnRemove, setBtnRemove] = useState(true);
+  useEffect( () => {
+  }, [btnRemove]);
+
+  const renderExpenseRow = (item, index) => {
+    const prefix = 'customer_checkout__';
+    const { id, qtd, price } = item;
+    return (
+      <tr key={ id }>
+        <td data-testid={ `${prefix}element-order-table-item-number-${index}` }>
+          { index }
+        </td>
+        <td data-testid={ `${prefix}element-order-table-name-${index}` }>
+          { name }
+        </td>
+        <td data-testid={ `${prefix}element-order-table-quantity-${index}` }>
+          { qtd }
+        </td>
+        <td data-testid={ `${prefix}element-order-table-unit-price-${index}` }>
+          { price }
+        </td>
+        <td data-testid={ `${prefix}element-order-table-sub-total-${index}` }>
+          { Number(qtd) * Number(price) }
+        </td>
+        <td data-testid={ `${prefix}element-order-table-remove-${index}` }>
+          <button
+            type="button"
+            onClick={ () => removeItem(id) }
+          >
+            Excluir
+          </button>
+        </td>
+      </tr>
+    );
+  };
+
+  const removeItem = (id) => {
+    const dispatch = useDispatch();
+    dispatch({
+      type: 'REMOVE_ITEM',
+      payload: { id },
+    });
+    setBtnRemove(!btnRemove);
+  };
+
   return (
     <div>
       <table>
@@ -57,14 +68,5 @@ const Table = () => {
     </div>
   );
 };
-
-  // removeExpense: (id) => ({ type: Types.REMOVE_EXPENSE, payload: id }),
-  // fetchCurrencies: () => async (dispatch) => {
-  //   const currencies = await getCurrencies();
-  //   delete currencies.USDT;
-  //   const currenciesCodes = Object.values(currencies)
-  //     .map(({ code }) => code);
-  //   dispatch(Creators.saveCurrencies(currenciesCodes));
-  // },
 
 export default Table;
