@@ -22,6 +22,7 @@ const Products = ({ history }) => {
         color="primary"
         onClick={ () => history.push('/customer/checkout') }
         disabled={ cart.length === 0 }
+        data-testid="customer_products__button-cart"
       >
         Ver Carrinho
         <span
