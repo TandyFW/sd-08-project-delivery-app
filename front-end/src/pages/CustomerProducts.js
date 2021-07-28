@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
-import CartContextProvider from '../components/CartContextProvider';
+import CartContext from '../components/CartContext';
 
 const CustomerProducts = () => {
   const [user, setUser] = useState({});
   const [products, setProducts] = useState([]);
   const history = useHistory();
+  const { total } = useContext(CartContext);
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem('user'));
@@ -26,11 +27,18 @@ const CustomerProducts = () => {
   }, [history]);
 
   return (
-    <CartContextProvider>
+    <>
       <Navbar name={ user.name } />
       { products
         .map((product) => <ProductCard key={ product.id } product={ product } />) }
-    </CartContextProvider>
+      <button
+        type="button"
+        disabled={ total === 0 }
+        onClick={ () => history.push('/customer/checkout') }
+      >
+        { total.toFixed(2) }
+      </button>
+    </>
   );
 };
 

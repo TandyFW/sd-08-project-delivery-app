@@ -30,9 +30,13 @@ const Navbar = ({ name }) => {
           <li data-testid="customer_products__element-navbar-user-full-name">
             { name || ''}
           </li>
-          <li data-testid="customer_products__element-navbar-link-logout">
-            <button onClick={ logout } type="button">Sair</button>
-          </li>
+          <button
+            data-testid="customer_products__element-navbar-link-logout"
+            onClick={ logout }
+            type="button"
+          >
+            Sair
+          </button>
         </ul>
       </nav>
     </header>

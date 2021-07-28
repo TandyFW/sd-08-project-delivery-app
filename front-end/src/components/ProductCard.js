@@ -16,9 +16,7 @@ const ProductCard = ({ product }) => {
   }, [quantity]);
 
   const increaseQuantity = () => {
-    let x = quantity;
-    x += 1;
-    setQuantity(x);
+    setQuantity(quantity + 1);
   };
 
   const decreaseQuantity = () => {
@@ -32,7 +30,7 @@ const ProductCard = ({ product }) => {
         className="price"
         data-testid={ `customer_products__element-card-price-${id}` }
       >
-        {`R$ ${price}`}
+        {`${price.replace('.', ',')}`}
       </span>
       <img
         data-testid={ `customer_products__img-card-bg-image-${id}` }
@@ -53,6 +51,7 @@ const ProductCard = ({ product }) => {
           step={ 1 }
           min={ 0 }
           className="quantity"
+          onInput={ (e) => setQuantity(e.target.value) }
           value={ quantity }
           data-testid={ `customer_products__input-card-quantity-${id}` }
         />
