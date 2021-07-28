@@ -11,7 +11,7 @@ import DeliveryContext from '../../context/DeliveryContext';
 
 import { minProductVerify } from '../../services/validations';
 
-const ProductCard = ({ product: { id, name, image, price } }) => {
+const ProductCard = ({ product: { id, name, urlImage, price } }) => {
   const [count, setCount] = useState(0);
 
   const { cart, setCart } = useContext(DeliveryContext);
@@ -55,13 +55,17 @@ const ProductCard = ({ product: { id, name, image, price } }) => {
 
   return (
     <CardBody>
-      <span
-        data-testid={ `customer_products__element-card-price-${id}` }
-      >
-        { `R$ ${price}` }
-      </span>
+      <div>
+        R$
+        <span
+          data-testid={ `customer_products__element-card-price-${id}` }
+        >
+          {String(price).replace('.', ',')}
+        </span>
+
+      </div>
       <CardImg
-        src={ image }
+        src={ urlImage }
         alt={ name }
         data-testid={ `customer_products__img-card-bg-image-${id}` }
       />

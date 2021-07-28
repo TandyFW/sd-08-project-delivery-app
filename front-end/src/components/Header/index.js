@@ -5,6 +5,8 @@ import { useHistory, Link } from 'react-router-dom';
 
 import NavBar from './styled';
 
+import { logout } from '../../services/auth';
+
 const Header = ({ dinamicButtons = [] }) => {
   const history = useHistory();
 
@@ -21,11 +23,6 @@ const Header = ({ dinamicButtons = [] }) => {
   useEffect(() => {
     getUserInfo();
   }, []);
-
-  const logout = () => {
-    localStorage.removeItem('user');
-    history.push('/login');
-  };
 
   return (
     <NavBar>
@@ -49,7 +46,7 @@ const Header = ({ dinamicButtons = [] }) => {
         <button
           type="button"
           data-testid="customer_products__element-navbar-link-logout"
-          onClick={ logout }
+          onClick={ () => logout(history) }
         >
           SAIR
         </button>

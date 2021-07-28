@@ -2,7 +2,7 @@ const axios = require('axios');
 
 const endpoint = 'http://localhost:3001';
 
-const requestApi = async (route, method = 'GET', data, token) => {
+const requestApi = async (route, method = 'GET', data = {}, token = '') => {
   const options = {
     url: `${endpoint}${route}`,
     method,
@@ -40,5 +40,7 @@ export const registerRequest = (user, setUsrExists, history) => (
       return err.response;
     })
 );
+
+export const getProducts = (token) => requestApi('/product', 'GET', {}, token);
 
 export default requestApi;
