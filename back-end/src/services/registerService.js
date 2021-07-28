@@ -15,7 +15,7 @@ const create = async (dataForCreate) => {
   const userList = await getAll();
   
   const checkExist =  userList.some((user) => user.email === dataForCreate.email);
-  if (checkExist) return clientError.conflict('User already Registered');
+  if (checkExist) return clientError.conflict('User Already Registered');
   
   const hashPassword = md5(dataForCreate.password);
 

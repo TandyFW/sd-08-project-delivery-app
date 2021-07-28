@@ -18,11 +18,8 @@ registerRoute.delete('/:id', registerController.deleteByIdRegister);
 
 productsRoute.get('/', productsController.getAll);
 
-orderRoute.get('/all/:id', orderController.getAllAllorders); // usado nos testes 4 
-// orderRoute.get('/', orderController.getAllorders); // usadas nos testes 5 e 7
-// orderRoute.get('/:id', orderController.getByIdorder); // usada nos testes 6 e 8
-// orderRoute.put('/:id', orderController.updateByIdorder); // usada nos testes 9 e 10
-// orderRoute.delete('/:id', orderController.deleteByIdorder); // não é usada 
+orderRoute.post('/user', orderController.createOrder)
+orderRoute.get('/', orderController.getAllOrders); 
 
 module.exports = {
   loginRoute,
