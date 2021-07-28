@@ -47,4 +47,8 @@ router.post('/customer/order',
   orderInfoHandler,
   orderController.createOrder);
 
+router.get('/customer/order',
+  tokenValidation,
+  orderController.getAllOrders);
+
 module.exports = router;
