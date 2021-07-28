@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-// import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -24,16 +23,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const TWO_AND_A_HALF_SECONDS = 2500;
+
 export default function RegistrationByManager() {
   const classes = useStyles();
 
-  const { role, name, email, password, isDisabled, user, open } = useGroupState({
+  const { role, name, email, password, isDisabled, message, open } = useGroupState({
     role: 'seller',
     name: '',
     email: '',
     password: '',
     isDisabled: true,
-    user: {},
+    message: { text: '', severity: 'warning' },
     open: false,
   });
 
@@ -42,13 +43,22 @@ export default function RegistrationByManager() {
   }, [name.value, email.value, password.value, isDisabled]);
 
   useEffect(() => {
-    if (user.value.message) {
+    if (message.value.text) {
       open.set(true);
     }
-  }, [user.value]);
+    setTimeout(() => {
+      open.set(false);
+    }, TWO_AND_A_HALF_SECONDS);
+  }, [message.value]);
 
   const handleChange = (callback, event) => {
     callback(event.target.value);
+  };
+
+  const resetFields = () => {
+    name.set('');
+    email.set('');
+    password.set('');
   };
 
   const handleClick = async (event) => {
@@ -69,15 +79,20 @@ export default function RegistrationByManager() {
     };
 
     const userObj = await request('admin', options);
-    user.set(userObj);
+    if (userObj.message) {
+      message.set({ text: userObj.message, severity: 'warning' });
+    } else {
+      resetFields();
+      message.set({ text: 'Usuário cadastrado com sucesso', severity: 'success' });
+    }
   };
 
   const renderErrorMessage = () => (
     <TransitionAlerts
-      message={ user.value.message }
+      message={ message.value.text }
       open={ open }
       testId="admin_manage__element-invalid-register"
-      severity="warning"
+      severity={ message.value.severity }
     />
   );
 
@@ -99,6 +114,7 @@ export default function RegistrationByManager() {
           onChange={ (event) => handleChange(email.set, event) }
         />
         <TextField
+          type="password"
           value={ password.value }
           inputProps={ { 'data-testid': 'admin_manage__input-password' } }
           label="Senha"

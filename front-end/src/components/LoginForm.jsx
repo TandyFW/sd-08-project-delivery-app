@@ -79,6 +79,7 @@ const LoginForm = () => {
         <Paper component="form" elevation={ 8 } className={ classes.form }>
           <img src="images/delivery.svg" alt="logo" />
           <TextField
+            type="text"
             variant="outlined"
             label="Email"
             value={ email.value }

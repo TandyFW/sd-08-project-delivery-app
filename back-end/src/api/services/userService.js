@@ -23,7 +23,7 @@ const validateLogin = async ({ email, password }) => {
 
   const secret = await getJwtSecret();
   const token = jwt.sign({ data: validUser.dataValues },
-    secret, { issuer: 'delivery-app', subject: 'login' });
+    secret, { issuer: 'delivery-app' });
 
   return { result: { token } };
 };
@@ -37,11 +37,12 @@ const registerByAdmin = async ({ name, email, password, role }) => {
 const validateRegister = async (registerObj) => {
   const user = await isValidUser(registerObj);
   if (user) return { error: { code: 'alreadyExists', message: 'Usuário já possui um cadastro' } };
-  const createdUser = await registerByAdmin(registerObj); 
+  const createdUser = await registerByAdmin(registerObj);
   return { result: createdUser };
 };
 
 module.exports = {
+  isValidUser,
   validateLogin,
   validateRegister,
 };
