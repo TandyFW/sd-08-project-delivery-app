@@ -1,7 +1,8 @@
-import { PROD_LIST } from '../actions';
+import { PROD_LIST, CART } from '../actions';
 
 const INITIAL_STATE = {
   products: [{}],
+  cart: [],
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -9,6 +10,10 @@ export default function (state = INITIAL_STATE, action) {
   case PROD_LIST:
     return {
       ...state, products: action.array,
+    };
+  case CART:
+    return {
+      ...state, cart: action.array,
     };
   default:
     return state;
