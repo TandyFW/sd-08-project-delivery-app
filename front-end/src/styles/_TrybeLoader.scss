@@ -1,20 +1,17 @@
-.App {
+.loader {
   align-items: center;
-  background: #0fa36b;
   color: #464646;
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
-  height: 100vh;
   justify-content: center;
-  width: 100%;
 }
 
-.App > .logo {
+.loader > .logo {
   animation: shake 1.5s infinite ease;
-  color: aliceblue;
+  color: $lightBlack;
   font-family: Montserrat , sans-serif;
-  font-size: 3em;
+  font-size: 3.5em;
   font-weight: 900;
 }
 

@@ -1,8 +1,13 @@
+@import './utilities/variables';
+
+@import './utilities//mixins';
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+  background-color: $darkWhite;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -11,3 +16,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@import './home';
+
+@import './TrybeLoader.scss';
+
+@import './login.scss';
+
+@import './register.scss';
+
+@import './header.scss';
+
+@import './products.scss';

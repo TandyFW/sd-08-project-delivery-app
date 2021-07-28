@@ -1,0 +1,75 @@
+.products-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 80px auto 0 auto;
+  height: calc(100vh - 80px);
+  @include loading-div(420px, 500px, $trybeGreen);
+  .cardlist-container {
+    @include flex(flex, row, center, center);
+    flex-wrap: wrap;
+    width: 1600px;
+    height: 800px;
+    .product {
+      @include flex(flex, column, space-evenly, center);
+      width: 220px;
+      height: 300px;
+      text-align: center;
+      margin: 20px;
+      background-color: $white;
+      margin-bottom: 20px;
+      border: 1px solid rgba(0, 0, 0, 0.3);
+      border-radius: 13px;
+      transition: 0.2s;
+      &:hover {
+        box-shadow: 0 1px 7px 0 rgba(5, 3, 3, 0.2), 0 1px 2px 0 rgba(0, 0, 0, .1);
+        box-shadow: 0 1px 7px 0 rgba(5, 3, 3, 0.2), 0 1px 2px 0 rgba(0, 0, 0, .1);
+        box-shadow: 4px 5px 7px 0 rgba(5, 3, 3, 0.2), 0 1px 2px 0 rgba(0, 0, 0, .1);
+        border: 1px solid rgb(185, 185, 185);
+      }
+      img {
+        margin-top: 5px;
+        width: 220px;
+      }
+      h4 {
+        margin: 0;
+        font-weight: 500;
+      }
+      h3 {
+        margin: 0;
+        font-weight: 500;
+        font-size: 16px;
+      }
+      .quantity-div {
+        button {
+          border: none;
+          border-radius: 3.5px;
+          background-color: $white;
+          transition: 0.3s;
+          padding: 0;
+          i {
+            @include flex(flex, column, center, center);
+            font-size: 15px;
+            width: 30px;
+            height: 28px;
+            color: $lightBlack;
+          }
+          &:focus {
+            outline:none;
+          }
+          &:hover {
+            background: $trybeGreen;
+            i {
+              color: $white;
+            }
+          }
+        }
+        span {
+          margin: 0 12px;
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}

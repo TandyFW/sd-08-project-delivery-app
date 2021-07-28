@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS products (
   UNIQUE KEY `name` (name)
 );
 
-CREATE TABLE IF NOT EXISTS sales_products (
+CREATE TABLE IF NOT EXISTS salesProducts (
   sale_id INT NOT NULL,
   product_id INT NOT NULL,
   quantity INT NOT NULL,

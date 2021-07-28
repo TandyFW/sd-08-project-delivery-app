@@ -1,0 +1,85 @@
+FRONT
+[comum]
+/register
+/
+/login/ 
+[Usuario]
+/customer/ 
+/customer/products    => products / get
+/customer/checkout    => orders / post
+/customer/            => orders / get
+/customer/orders/:id
+[Vendedor ]
+/seller/ 
+/seller/orders      => orders / get
+/seller/orders/:id  => orders  / get || / put 
+[Administradora 39-44]
+/admin/           
+/admin/manage /     => login / get || delete
+
+
+BACK
+register / post 
+login / post {email, password, label(adm/vendedor/usuario)}
+login / get
+login / delete
+products / get 
+# products /:id get 
+orders / post
+orders / get
+orders /:id get
+orders /:id put
+
+BACK
+(02register.test)
+register / post 
+(01login.test)
+login / post {email, password, label(adm/vendedor/usuario)}
+(11admin_manage_users.test)
+login / get
+(11admin_manage_users.test)
+login / delete
+(03customer_products.test)
+products / get 
+# products /:id get 
+(04customer_products.test)
+orders / post
+(05customer_orders.test)
+(07seller_orders.test)
+orders / get
+(06customer_orders.test)
+(08seller_order_details.test)
+orders /:id get
+(09customer_seller_status_sync.test)
+(10customer_seller_socket_status_sync.test)
+orders /:id put
+
+
+
+
+
+
+front 
+Redux
+
+Freamworks
+yup/joy
+SASS
+bootstrap
+-not Boom
+
+bora voltar para o zoom.
+https://trybe.zoom.us/j/97367377919?pwd=Rm8yYWhXL29ESlJPSU02c3EvRnJTdz09
+
+
+Formato do localStorage do carrinho de compras :
+
+
+
+Quais as frameworks que vamos usar ?
+yup/joy
+SASS
+bootstrap
+- not Boom
+
+
