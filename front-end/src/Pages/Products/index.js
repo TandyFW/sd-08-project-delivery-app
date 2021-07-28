@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { Button } from '@material-ui/core';
 import Header from '../../components/Header';
-import ProductCard from '../../components/ProductCard';
 import DeliveryContext from '../../context/DeliveryContext';
+import ProductList from '../../components/ProductList';
 
 const productsHeaderLinks = [
   {
@@ -17,14 +17,6 @@ const productsHeaderLinks = [
   },
 ];
 
-const produtosFake = [{
-  id: 0,
-  name: 'skol',
-  image: `https://www.imigrantesbebidas.com.br
-/bebida/images/products/full/132_Cerveja_Skol_Pilsen_Lata_350ml.jpg`,
-  price: 4.39,
-}];
-
 const Products = () => {
   const { cart } = useContext(DeliveryContext);
 
@@ -34,9 +26,7 @@ const Products = () => {
   return (
     <>
       <Header dinamicButtons={ productsHeaderLinks } />
-      { produtosFake.map((product, index) => (
-        <ProductCard key={ index } product={ product } />
-      ))}
+      <ProductList />
       <Button
         variant="contained"
         color="primary"
