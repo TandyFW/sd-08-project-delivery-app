@@ -28,8 +28,8 @@ body {
   align-items: center;
   background: linear-gradient(rgba(255,255,255,.7), rgba(255,255,255,.7)), url('./images/background.jpg');
   color: var(--gray-900);
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+  /* flex-direction: column; */
   font-size: 1.5rem;
   height: 100vh;
   justify-content: center;

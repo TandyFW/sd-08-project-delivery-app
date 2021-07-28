@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const { User } = require('../database/models');
 
-const secret = fs.readFileSync('./jwt.evaluation.key', 'utf-8');
+const secret = fs.readFileSync('./jwt.evaluation.key', 'utf-8').trim();
 
 const generateJWTToken = (user) => {
   const jwtConfig = { expiresIn: '7d', algorithm: 'HS256' };

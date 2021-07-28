@@ -14,35 +14,29 @@ const Navbar = ({ name }) => {
     <header>
       <nav>
         <ul>
-          <Link to="/customer/products">
-            <li
+          <li>
+            <Link
               data-testid="customer_products__element-navbar-link-products"
+              to="/customer/products"
             >
               Produtos
-            </li>
-          </Link>
-          <Link to="/customer/orders">
-            <li
-              data-testid="customer_products__element-navbar-link-orders"
-            >
+            </Link>
+          </li>
+          <li data-testid="customer_products__element-navbar-link-orders">
+            <Link to="/customer/orders">
               Meus Pedidos
-            </li>
-          </Link>
-          <li
-            data-testid="customer_products__element-navbar-user-full-name"
-          >
+            </Link>
+          </li>
+          <li data-testid="customer_products__element-navbar-user-full-name">
             { name || ''}
           </li>
-          <li
+          <button
             data-testid="customer_products__element-navbar-link-logout"
+            onClick={ logout }
+            type="button"
           >
-            <button
-              onClick={ logout }
-              type="button"
-            >
-              Sair
-            </button>
-          </li>
+            Sair
+          </button>
         </ul>
       </nav>
     </header>
