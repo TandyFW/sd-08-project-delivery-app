@@ -19,7 +19,7 @@ function NavBar({ user, show }) {
     <Menu>
       <MenuItem
         color={ colors.mediumseagreen }
-        onClick={ () => goToRoute('/login') }
+        onClick={ () => goToRoute('/customer/products') }
         data-testid={ `${prefix}element-navbar-link-products` }
       >
         Produtos
