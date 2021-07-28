@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     alignItems: 'center',
   },
   title: {
-    fontSize: 14,
+    fontSize: 16,
     textAlign: 'center',
   },
   price: {
