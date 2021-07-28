@@ -7,9 +7,9 @@ const fs = require('fs');
 const UserService = require('../services/user');
 const md5 = require('../utils/md5');
 
-const secret = fs.readFileSync(
-  path.resolve(__dirname, '..', '..', 'jwt.evaluation.key'),
-);
+const SECRET_FILE_PATH = path.resolve(__dirname, '..', '..', 'jwt.evaluation.key');
+
+const secret = fs.readFileSync(SECRET_FILE_PATH, 'utf-8').trim();
 
 const loginSchema = joi.object({
   email: joi.string().required(),
@@ -17,11 +17,7 @@ const loginSchema = joi.object({
 });
 
 const getJwtToken = (payload) => {
-  const jwtConfig = {
-    expiresIn: '1d',
-  };
-
-  return jwt.sign(payload, secret, jwtConfig);
+  return jwt.sign(payload, secret, { expiresIn: '1d' });
 };
 
 const login = rescue(async (req, res) => {
