@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getAllUsers } from '../services';
+import { getAllUsers, exclude } from '../services';
 import { productsAction } from '../redux/actions';
 
 class UserTable extends React.Component {
@@ -16,30 +16,43 @@ class UserTable extends React.Component {
     dispatchTable(users);
   }
 
+  async exclude(id) {
+    const result = await exclude(id);
+    console.log(result);
+  }
+
   render() {
-    const { history } = this.props;
-    console.log(history);
+    // const { history } = this.props;
+    // console.log(history);
     const { stateUsers } = this.props;
-    const keyOfstatateUsers = Object.keys(stateUsers);
-    keyOfstatateUsers.push('Excluir');
+    // console.log(stateUsers.registers);
+    const tableUser = stateUsers.registers || [{}];
+    const keyOfstatateUsers = Object.keys(tableUser[0]);
+    // keyOfstatateUsers.push('Excluir');
     return (
       <div className="cardlist-container">
         <table>
           <thead>
-            <th>
+            <tr>
               { keyOfstatateUsers
             && keyOfstatateUsers.map((title) => (
-              <th key={ title }>title</th>
+              <th key={ title }>{title}</th>
             ))}
-            </th>
+              <th key="excluir">Excluir</th>
+            </tr>
           </thead>
           <tbody>
 
-            { stateUsers && stateUsers.map((user, index) => (
+            { tableUser && tableUser.map((user, index) => (
               <tr id={ `${index}` } className="user" key={ user.id }>
                 { keyOfstatateUsers.map((key) => (
-                  <th key={ key }>stateUsers[key]</th>
+                  <td key={ key }>{user[key]}</td>
                 ))}
+                <td>
+                  <button type="button" onClick={ () => exclude(user.id) }>
+                    Excluir
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -58,7 +71,7 @@ const mapStateToProps = (state) => ({
 });
 
 UserTable.propTypes = {
-  history: PropTypes.shape().isRequired,
+  // history: PropTypes.shape().isRequired,
   dispatchTable: PropTypes.func.isRequired,
   stateUsers: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
