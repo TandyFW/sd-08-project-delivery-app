@@ -1,27 +1,29 @@
 import React from 'react';
 import './styles.css';
 
+const mockValue = {
+  stella: 3.5,
+  skol: 4.1,
+  torcida: 1.56,
+};
 const data = [
   {
-    item: 'Teste',
-    descricao: 'teste',
-    quantidade: 'teste',
-    valor: 'teste',
-    subtotal: 'teste',
+    id: 1,
+    descricao: 'Cerveja Stella 250ml',
+    quantidade: 3,
+    valor: mockValue.stella,
   },
   {
-    item: 'Teste',
-    descricao: 'teste',
-    quantidade: 'teste',
-    valor: 'teste',
-    subtotal: 'teste',
+    id: 2,
+    descricao: 'Cerveja Skol Latão 450ml',
+    quantidade: 4,
+    valor: mockValue.skol,
   },
   {
-    item: 'Teste',
-    descricao: 'teste',
-    quantidade: 'teste',
-    valor: 'teste',
-    subtotal: 'teste',
+    id: 3,
+    descricao: 'Salgadinho Torcido Churrasco',
+    quantidade: 1,
+    valor: mockValue.torcida,
   }];
 
 function CheckoutTable() {
@@ -45,7 +47,7 @@ function CheckoutTable() {
                 data-testid={ `customer_checkout__element-order-table-item-number-
                 ${index}` }
               >
-                {element.item}
+                {element.id}
               </td>
               <td
                 data-testid={ `customer_checkout__element-order-table-name-${index}` }
@@ -67,7 +69,7 @@ function CheckoutTable() {
                 data-testid={ `customer_checkout__element-order-table-sub-total-
                 ${index}` }
               >
-                {element.subtotal}
+                {element.valor * element.quantidade}
               </td>
               <button
                 type="button"
@@ -82,7 +84,9 @@ function CheckoutTable() {
       <h4
         data-testid="customer_checkout__element-order-total-price"
       >
-        Total Price: $1000000
+        {`Total Price: 
+        ${data.reduce((acc, curr) => acc + (curr.quantidade * curr.valor), 0).toFixed(2)
+    }`}
       </h4>
     </div>
   );
