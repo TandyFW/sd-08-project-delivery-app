@@ -30,7 +30,7 @@ beforeEach(async () => {
   });
 });
 
-describe(requirement(11), () => {
+describe.only(requirement(11), () => {
   test("O avaliador testará a existência dos data-testids referentes ao navbar", async () => {
     await expect(page).toFindElement(
       customerProductsPage.element.navbar.links.products
@@ -47,7 +47,7 @@ describe(requirement(11), () => {
   });
 });
 
-describe(requirement(12), () => {
+describe.only(requirement(12), () => {
   const cardIds = products.state01.map((el) => el.id);
 
   test("O avaliador testará os data-testids referentes aos card de cada produto",
@@ -76,7 +76,7 @@ describe(requirement(12), () => {
   );
 });
 
-describe(requirement(13), () => {
+describe.only(requirement(13), () => {
   test("O avaliador testará se o local storage contém os dados da pessoa usuária", async () => {
     const { name, email } = user.customer();
 
@@ -107,12 +107,12 @@ describe(requirement(13), () => {
   })
 });
 
-describe(requirement(14), () => {
+describe.only(requirement(14), () => {
   const cards = products.state01;
 
   test("O avaliador testará se os dados de cada card condizem com os dados esperados",
     async () => {
-      for(const { id, name, price, urlImage } of cards){
+      for(const { id, name, price, url_image: urlImage } of cards){
         await expect(page).toGetTextFromElement(
           customerProductsPage.element.card.title + `[data-testid$='-${id}']`,
           name

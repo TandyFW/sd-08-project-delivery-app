@@ -5,12 +5,16 @@ const sale = (sequelize, DataTypes) => {
     deliveryNumber: DataTypes.STRING,
     saleDate: DataTypes.DATE,
     status: DataTypes.STRING,
-  }, { timestamps: false });
+  }, { 
+    timestamps: false,
+    // para indicar que as referências de campos e tabelas são em snake_case 
+    underscored: true
+  });
 
   SaleTable.associate = (models) => {
     SaleTable.belongsTo(models.user,
-  { onDelete: 'CASCADE', foreignKey: 'userId', as: 'user' },
-  { onDelete: 'CASCADE', foreignKey: 'sellerId', as: 'user' }
+  { onDelete: 'CASCADE', foreignKey: 'user_id', as: 'user' },
+  { onDelete: 'CASCADE', foreignKey: 'seller_id', as: 'user' }
   );
   };
   return SaleTable;

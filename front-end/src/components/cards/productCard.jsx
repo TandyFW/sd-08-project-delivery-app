@@ -56,7 +56,7 @@ function ProductCard(props) {
             className="classes.price"
             data-testid={ `customer_products__element-card-price-${id}` }
           >
-            { `R$${Number(price).toFixed(2)}` }
+            { price.replace('.', ',') }
           </Typography>
           <QuantitySelector setCount={ setCount } count={ count } id={ id } />
         </CardContent>
