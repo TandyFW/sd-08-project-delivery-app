@@ -1,28 +1,39 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import CartContext from './CartContext';
 
 function TableCheckout() {
   const { total, cart, removeFromCart } = useContext(CartContext);
+  const NUMBER_ONE = 1;
+  const [cartList, setCartList] = useState([]);
+
+  useEffect(() => {
+    const products = JSON.parse(localStorage.getItem('carrinho'));
+    setCartList(products);
+    console.log(products);
+  }, [cart]);
 
   return (
     <div>
     <table>
-    <tr>
-    <th>Item</th>
-    <th>Descrição</th>
-    <th>Quantidade</th>
-    <th>Valor Unitário</th>
-    <th>Sub-Total</th>
-    <th>Remover Item</th>
-    </tr> 
-    { cart.map((product, index) => {
+      <thead>
+        <tr>
+        <th>Item</th>
+        <th>Descrição</th>
+        <th>Quantidade</th>
+        <th>Valor Unitário</th>
+        <th>Sub-Total</th>
+        <th>Remover Item</th>
+        </tr>
+      </thead>
+    <tbody>
+    { cartList.map((product, index) => {
       const { productId ,name, quantity, unitPrice, subTotal } = product;
       return (
-        <tr>
+        <tr key={ productId } >
           <td
-            data-testid={`customer_checkout__element-order-table-item-number-${index}` }
+            data-testid={`customer_checkout__element-order-table-item-number-${ index }` }
           >
-            { index }
+            { index + NUMBER_ONE }
           </td>
           <td
             data-testid={ `customer_checkout__element-order-table-name-${ index }` }
@@ -37,26 +48,33 @@ function TableCheckout() {
           <td
             data-testid={`customer_checkout__element-order-table-unit-price-${ index }`}
           >
-            { unitPrice }
+            { Number(unitPrice).toFixed(2).replace('.', ',') }
           </td>
           <td
             data-testid={ `customer_checkout__element-order-table-sub-total-${ index }` }
           >
-            { subTotal }
+            { Number(subTotal).toFixed(2).replace('.', ',') }
           </td>
           <td
             data-testid={ `customer_checkout__element-order-table-remove-${ index }` }
           >
-            <button type="button" onClick={ () => removeFromCart(productId) }>Remover</button>
+            <button
+              data-testid={ `customer_checkout__element-order-table-remove-${ index + 1 }` }
+              type="button"
+              onClick={ () => removeFromCart(productId) }
+            >
+              Remover
+            </button>
           </td>
         </tr>
       )
     }) }
+    </tbody>
     </table>
     <p
       data-testid="customer_checkout__element-order-total-price"
     >
-      { `Total: R$ ${total}` }
+      { `Total: R$ ${Number(total).toFixed(2).replace('.', ',')}` }
     </p>
     </div>
   );

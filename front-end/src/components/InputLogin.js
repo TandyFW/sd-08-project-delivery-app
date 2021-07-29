@@ -48,7 +48,7 @@ export default function InputLogin() {
     if (emailRegex.test(email) && password.length >= NUMBER_SIX) {
       setDisabled(false);
     } else { setDisabled(true); }
-  }, [email, password, setDisabled]);
+  }, [email, password]);
 
   return (
     <div id="page-login">
