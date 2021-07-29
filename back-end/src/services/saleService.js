@@ -1,15 +1,13 @@
+const { conflict } = require('@hapi/boom');
 const { Sale, SaleProduct, sequelize } = require('../database/models');
 
-// eslint-disable-next-line max-lines-per-function
-const saveSale = async (sale) => {
+const createSale = async (sale, t) => {
     const { userId, sellerId, totalPrice,
-    deliveryAddress, deliveryNumber } = sale;
-    const saleDate = Date(Date.UTC());
-    const status = 'Pendente';
+        deliveryAddress, deliveryNumber } = sale;
 
-    const t = await sequelize.transaction();
+        const saleDate = Date(Date.UTC());
+        const status = 'Pendente';
 
-    try {
     const saleInsert = await Sale.create({ 
         userId,
         sellerId,
@@ -18,10 +16,16 @@ const saveSale = async (sale) => {
         deliveryNumber,
         saleDate,
         status,
-     });
+     }, { transaction: t });
 
     const saleId = saleInsert.dataValues.id;
+    return saleId;
+};
 
+const saveSale = async (sale) => {
+    const t = await sequelize.transaction();
+    try {
+    const saleId = await createSale(sale, t);
      sale.products.forEach(async ({ id: productId, quantity }) => {
            await SaleProduct.create({
                 saleId,
@@ -29,10 +33,11 @@ const saveSale = async (sale) => {
                 quantity,            
             });
         }, { transaction: t });
+
         await t.commit();
     } catch (err) {
-        console.log(err);
         await t.rollback();
+        throw conflict(err);
     }
 };
 
