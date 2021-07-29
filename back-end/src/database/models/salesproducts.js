@@ -6,6 +6,7 @@ const salesProduct = (sequelize, DataTypes) => {
   {
     timestamps: false,
     underscored: true,
+    tableName: 'salesProducts'
   });
 
   salesProduct.associate = (models) => {
