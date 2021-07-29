@@ -88,9 +88,15 @@ const registerUserByManager = async (userInfos) => {
 
 const getAllUsers = async (token) => {
   if (!isUserAdministrator(token)) return userErrors.userNotAuthorized;
-  const users = await User.findAll();
+  const users = await User.findAll({ where: { role: ['seller', 'customer'] } });
   if (!users) return userErrors.usersNotFound;
   return users;
+};
+
+const deleteUserByManager = async (token, id) => {
+  if (!isUserAdministrator(token)) return userErrors.userNotAuthorized;
+  await User.destroy({ where: { id } });
+  return { message: 'User Deleted' };
 };
 
 module.exports = {
@@ -98,4 +104,5 @@ module.exports = {
   registerClient,
   registerUserByManager,
   getAllUsers,
+  deleteUserByManager,
 };

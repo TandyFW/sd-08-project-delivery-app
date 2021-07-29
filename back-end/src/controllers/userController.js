@@ -43,9 +43,18 @@ const getAllUsers = rescue(async (req, res, next) => {
   return res.status(200).json(result);
 });
 
+const deleteUserByManager = rescue(async (req, res, next) => {
+  const { id } = req.params;
+  const token = req.headers.authorization;
+  const result = await userService.deleteUserByManager(token, id);
+  if (result.err) return next(result);
+  return res.status(200).json(result);
+});
+
 module.exports = {
   login,
   registerClient,
   registerUserByManager,
   getAllUsers,
+  deleteUserByManager,
 };
