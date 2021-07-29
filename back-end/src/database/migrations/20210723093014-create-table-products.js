@@ -20,6 +20,7 @@ module.exports = {
       urlImage: {
         type: Sequelize.STRING,
         allowNull: false,
+        field: 'url_image',
       },
       createdAt: {
         allowNull: false,
@@ -33,6 +34,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Products');
+    await queryInterface.dropTable('products');
   }
 };

@@ -12,7 +12,6 @@ import colors from '../styles/colors';
 
 const getProducts = async () => {
   const result = await api.get('/delivery/products');
-  // console.log(result.data);
   return result.data;
 };
 
@@ -33,6 +32,7 @@ function ClientProducts() {
 
   useEffect(() => {
     getProducts().then((response) => setProducts(response));
+    console.log(products);
     setLoading(false);
   }, []);
   return (
@@ -56,7 +56,7 @@ function ClientProducts() {
               key={ index }
               prefix={ prefix }
               price={ product.price }
-              tumbnail={ product.urlImage }
+              tumbnail={ product.url_image }
               title={ product.name }
               id={ product.id }
             />
