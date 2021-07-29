@@ -24,7 +24,8 @@ function ClientCheckout() {
 
   const fetchAPI = async () => {
     const { data } = await axios.get('http://localhost:3001/delivery/sellers');
-    const sellerAPI = data.reduce((acc, curr) => [...acc, curr.name], ['']);
+    const sellerAPI = data
+      .reduce((acc, curr) => [...acc, { name: curr.name, id: curr.id }], ['']);
     setSellers(sellerAPI);
   };
 
@@ -38,8 +39,7 @@ function ClientCheckout() {
         totalPrice: total,
         deliveryAddress: address,
         deliveryNumber: number,
-        status: 'Pendente',
-        seller: selectedSeller,
+        sellerId: selectedSeller,
       };
       console.log(dateStorage);
       const { data } = await axios({
@@ -52,8 +52,7 @@ function ClientCheckout() {
           totalPrice: total,
           deliveryAddress: address,
           deliveryNumber: number,
-          status: 'Pendente',
-          seller: selectedSeller,
+          sellerId: selectedSeller,
         },
       });
       history.push(`/customer/orders/${data.id}`);
@@ -73,6 +72,7 @@ function ClientCheckout() {
       <h3>Detalhes e endereço para Entrega</h3>
       <Select
         label="Vendedor"
+        name="SelectSeller"
         options={ sellers }
         onChange={ (e) => setSellectedSeller(e.target.value) }
         value={ selectedSeller }

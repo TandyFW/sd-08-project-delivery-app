@@ -5,7 +5,7 @@ const Select = ({ label,
   name,
   onChange,
   options,
-  values,
+  // values,
   datatestid,
 }) => (
   <label htmlFor={ name }>
@@ -18,7 +18,7 @@ const Select = ({ label,
     >
       {
         options.map((option, index) => (
-          <option key={ index } value={ values }>{ option }</option>
+          <option key={ index } value={ option.id }>{ option.name }</option>
         ))
       }
     </select>
@@ -26,9 +26,9 @@ const Select = ({ label,
 );
 Select.propTypes = {
   label: PropTypes.string.isRequired,
-  values: PropTypes.arrayOf(
-    PropTypes.string,
-  ).isRequired,
+  // values: PropTypes.arrayOf(
+  //   PropTypes.string,
+  // ).isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(
