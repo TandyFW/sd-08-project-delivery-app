@@ -3,19 +3,21 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Header, Loader, CustomerOrdersList } from '../components';
 
-class CustomerOrders extends React.Component {
-  // constructor() {
-  //   super();
-  //   this.state = { loading: true };
-  // }
+import '../styles/customerOrderList.css';
 
-  // async componentDidMount() {
-  //   // verificar se o usuario está autenticado
-  //   const Loading = 1500;
-  //   setTimeout(() => {
-  //     this.setState({ loading: false });
-  //   }, Loading);
-  // }
+class CustomerOrders extends React.Component {
+  constructor() {
+    super();
+    this.state = { loading: true };
+  }
+
+  async componentDidMount() {
+    // verificar se o usuario está autenticado
+    const Loading = 1500;
+    setTimeout(() => {
+      this.setState({ loading: false });
+    }, Loading);
+  }
 
   render() {
     const { history } = this.props;
