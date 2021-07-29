@@ -36,8 +36,6 @@ class CardList extends React.Component {
     const { dispatchCart, stateProducts } = this.props;
     // selects the product on DOM
     const productName = document.getElementById(`name-${id}`).innerText;
-    // const productName = target.parentNode.parentNode
-    //   .parentNode.childNodes[1].childNodes[0].innerText;
     const selectedProduct = stateProducts.filter((prod) => prod.name === productName);
     // checks if contains on redux
     const { stateCart } = this.props;
@@ -78,9 +76,8 @@ class CardList extends React.Component {
     const { dispatchCart, stateCart } = this.props;
     // selects the product on DOM
     const productName = document.getElementById(`name-${id}`).innerText;
-    // const productName = target.parentNode.parentNode
-    //   .parentNode.childNodes[1].childNodes[0].innerText;
     const selectedProduct = stateCart.filter((prod) => prod.name === productName);
+    console.log(selectedProduct);
     const localStoragePrice = localStorage.getItem('totalPrice');
     if (localStoragePrice > 0) {
       localStorage.setItem('totalPrice',

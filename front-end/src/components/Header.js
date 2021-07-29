@@ -51,7 +51,10 @@ class Header extends React.Component {
           </button>
           <button
             type="button"
-            onClick={ () => history.push('/') }
+            onClick={ () => {
+              localStorage.setItem('user', '');
+              history.push('/login');
+            } }
             data-testid="customer_products__element-navbar-link-logout"
           >
             Sair

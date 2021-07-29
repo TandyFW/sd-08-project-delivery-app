@@ -16,7 +16,6 @@ class Login extends React.Component {
   }
 
   componentWillUnmount() {
-    localStorage.setItem('user', '');
     document.querySelector('.hidden-span').style.display = 'none';
   }
 
