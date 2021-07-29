@@ -13,17 +13,17 @@ export default function Cards({ product }) {
     setQuantity(quantity + 1);
   };
 
+  const { name, price, url_image: urlImage, id } = product;
+
   const removeItem = () => {
+    if (quantity === 0) setCarrinho({ id, name, price, quantity, urlImage });
     if (quantity > 0) {
       setQuantity(quantity - 1);
     }
   };
-
-  const { name, price, url_image: urlImage, id } = product;
-
   // productInfos deve conter {id, name, price, quantity, urlImage}
   useEffect(() => {
-    if (quantity >= 0) {
+    if (quantity > 0) {
       setDisabled(false);
       setCarrinho({ id, name, price, quantity, urlImage });
       dispatch(actionChangeTotalValue());
@@ -34,7 +34,13 @@ export default function Cards({ product }) {
 
   const changeQuantityByInput = ({ target }) => {
     const { value } = target;
-    setQuantity(Number(value));
+    if (typeof Number(value) === 'number') {
+      if (Number(value) === 0) {
+        setCarrinho({ id, name, price, quantity, urlImage });
+      } else {
+        setQuantity(Number(value));
+      }
+    }
   };
 
   const handleClickInputClearEntry = () => {
