@@ -19,7 +19,10 @@ const findOrderCustomer = async ({ id }) => {
   return custumerSales.rows;
 };
 
-const getAllProducts = async () => await products.findAll();
+const getAllProducts = async () => {
+  const allProducts = await products.findAll();
+  return allProducts;
+};
 
 module.exports = {
   findOrderCustomer,
