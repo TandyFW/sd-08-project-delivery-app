@@ -5,12 +5,10 @@ const { User } = require('../database/models');
 const userErrors = require('../schema/userErrors');
 
 const generateToken = async (email, role) => {
-  // const SECRET = await fs.readFileSync('jwt.evaluation.key', {
-  //   encoding: 'utf8',
-  //   flag: 'r',
-  // });
-  const SERCRET = fs.readFileSync("jwt.evaluation.key", { encoding: "utf-8" })
-  .trim();
+  const SECRET = fs
+    .readFileSync('jwt.evaluation.key', { encoding: 'utf-8' })
+    .trim();
+
   const jwtConfig = {
     expiresIn: '7d',
     algorithm: 'HS256',
@@ -38,18 +36,75 @@ const login = async (email, password) => {
   return { userInfo };
 };
 
-const registerClient = async (name, email, password) => {
+const registerClient = async (name, email, password, role) => {
+  const roleToRegister = role || 'customer';
   const nameAlredyExists = await User.findOne({ where: { email } });
   const emailAlredyExists = await User.findOne({ where: { name } });
   console.log('name:', !(nameAlredyExists && emailAlredyExists));
   if (nameAlredyExists || emailAlredyExists) return userErrors.emailOrNameAlreadyExists;
   const passwordMd5 = md5(password);
-  await User.create({ name, email, password: passwordMd5, role: 'customer' });
-  const token = await generateToken(email, 'customer');
+  await User.create({
+    name,
+    email,
+    password: passwordMd5,
+    role: roleToRegister,
+  });
+  const token = await generateToken(email, roleToRegister);
   return token;
 };
+
+const isUserAdministrator = (token) => {
+  const JWT_SECRET = fs
+    .readFileSync('jwt.evaluation.key', { encoding: 'utf-8' })
+    .trim();
+  const decoded = jwt.verify(token, JWT_SECRET);
+  const {
+    data: { role },
+  } = decoded;
+  if (role !== 'administrator') return false;
+  return true;
+};
+
+const registerUserByManager = async (userInfos) => {
+  const { name, email, password, role, token } = userInfos;
+
+  if (!isUserAdministrator(token)) return userErrors.userNotAuthorized;
+
+  const responseRegisterUser = await registerClient(
+    name,
+    email,
+    password,
+    role,
+  );
+
+  if (responseRegisterUser.err) return responseRegisterUser;
+
+  return { message: 'User cadastrado com sucesso' };
+};
+
+const getAllUsers = async (token) => {
+  if (!isUserAdministrator(token)) return userErrors.userNotAuthorized;
+  const users = await User.findAll({ where: { role: ['seller', 'customer'] } });
+  if (!users) return userErrors.usersNotFound;
+  return users;
+};
+
+const deleteUserByManager = async (token, id) => {
+  if (!isUserAdministrator(token)) return userErrors.userNotAuthorized;
+  await User.destroy({ where: { id } });
+  return { message: 'User Deleted' };
+};
+
+const getAllSeller = async () => {
+  const result = await User.findAll({ where: { role: 'seller' } });
+  return { seller: result };
+}
 
 module.exports = {
   login,
   registerClient,
+  registerUserByManager,
+  getAllUsers,
+  deleteUserByManager,
+  getAllSeller,
 };
