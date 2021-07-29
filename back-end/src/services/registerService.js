@@ -6,7 +6,7 @@ const { users } = require('../database/models');
 
 const conflictUser = async (name, email) => {
   try {
-    const result = await users.findOne({ where: { [Op.or]: [{ name }, { email }] } });
+    const result = user.findOne({ where: { [Op.or]: [{ name }, { email }] } });
     return result;
   } catch (error) {
     return {
@@ -30,10 +30,11 @@ const registerUser = async (name, email, password) => {
     if (await conflictUser(name, email)) return { statusCode: 409, message: 'Conflict' };
     
     const result = await users.create({
+
       name,
       email,
       password,
-      role: 'customer',
+      role: 'user',
     });
     
     const newToken = JWT(result.dataValues);
