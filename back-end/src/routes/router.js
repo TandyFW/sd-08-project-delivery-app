@@ -7,6 +7,7 @@ const productsController = require('../controllers/productsController');
 
 route.post('/login', userController.login);
 route.post('/register/user', userController.registerClient);
+route.post('/register/admin', [auth, userController.registerUserByManager]);
 route.get('/products', [auth, productsController.getAllProducts]);
 
 module.exports = route;
