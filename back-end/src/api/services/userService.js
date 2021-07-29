@@ -2,8 +2,9 @@ const md5 = require('md5');
 const JWT = require('jsonwebtoken');
 const path = require('path');
 const jwtKey = require('fs')
-  .readFileSync(path.resolve(__dirname, '../../../jwt.evaluation.key'),
-    { encoding: 'utf-8' })
+  .readFileSync(path.resolve(__dirname, '../../../jwt.evaluation.key'), {
+    encoding: 'utf-8',
+  })
   .trim();
 const { user } = require('../../database/models');
 require('dotenv').config();
@@ -15,9 +16,13 @@ const JWTCONFIG = {
   algorithm: 'HS256',
 };
 
-const createUser = async ({ name, email, password }) => {
+const createUser = async ({ name, email, password, role }) => {
+  let roleUser = role;
+  if (roleUser === undefined) {
+    roleUser = 'customer';
+  }
   try {
-    const newUser = { name, email, password: md5(password), role: 'customer' };
+    const newUser = { name, email, password: md5(password), role: roleUser };
     const registredUser = await user.create(newUser);
     return registredUser;
   } catch (error) {
@@ -41,7 +46,8 @@ const userLogin = async (email, password) => {
   return findUser;
 };
 
-const generateToken = (userFields) => JWT.sign({ data: userFields }, jwtKey, JWTCONFIG);
+const generateToken = (userFields) =>
+  JWT.sign({ data: userFields }, jwtKey, JWTCONFIG);
 const verifyToken = (token) => {
   if (!token) {
     return { code: 401, message: 'invalid JWT' };

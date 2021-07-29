@@ -44,7 +44,7 @@ const Login = () => {
       localStorage.setItem('carrinho', JSON.stringify([]));
       if (data.user.role === 'customer') history.push('/customer/products');
       if (data.user.role === 'seller') history.push('/customer/seller');
-      if (data.user.role === 'administrator') history.push('/customer/adm');
+      if (data.user.role === 'administrator') history.push('/admin/manage');
 
       // console.log(data);
     } catch (err) {
