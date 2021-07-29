@@ -29,9 +29,11 @@ router.post('/register',
   registerController.userRegister);
 
 router.get('/customer/products',
+  tokenValidation,
   productsController.getAll);
 
 router.get('/customer/products/:id',
+  tokenValidation,
   productsController.getById);
 
 module.exports = router;
