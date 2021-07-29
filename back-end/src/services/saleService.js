@@ -1,13 +1,13 @@
-const { Sale, SalesProduct, User } = require('../database/models');
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
+const { Sale, SalesProduct, User } = require('../database/models');
 
 const status = {
   pendente: 'Pendente',
   preparando: 'Preparando',
   emTransito: 'Em Trânsito',
   entregue: 'Entregue',
-}
+};
 
 const idUser = async (token) => {
   const JWT_SECRET = fs
@@ -17,39 +17,37 @@ const idUser = async (token) => {
   const {
     data: { email },
   } = decoded;
-  const { id } = await User.findOne({ where: { email }});
+  const { id } = await User.findOne({ where: { email } });
   return id;
-}
+};
 
 const registerSaleProducts = async (products, saleId) => {
-  const productSale = products.map(({ id, quantity }) => ({ sale_id: saleId, product_id: id, quantity }));
-  const result = await SalesProduct.bulkCreate(productSale);
+  const productSale = products.map(({ id, quantity }) => ({
+    saleId,
+    id,
+    quantity,
+  }));
+  await SalesProduct.bulkCreate(productSale);
   return true;
-}
-
-const formatDate = () => {
-  const now = new Date();
-  const date = now.toLocaleDateString('pt-BR');
-  return date;
 };
 
 const registerSale = async (saleDetails, token) => {
-  const { products, seller_id, delivery_address, delivery_number, total_price } = saleDetails;
-  const id = await idUser(token);
+  const { products, sellerId, deliveryAddress, deliveryNumber, totalPrice } = saleDetails;
+  const userId = await idUser(token);
+  const saleDate = new Date();
   const resultSale = await Sale.create({
-    user_id: id,
-    seller_id,
-    total_price,
-    delivery_address,
-    delivery_number,
-    sales_date: new Date(),
+    userId,
+    sellerId,
+    totalPrice,
+    deliveryAddress,
+    deliveryNumber,
+    saleDate,
     status: status.pendente,
   });
-  console.log(resultSale);
   await registerSaleProducts(products, resultSale.id);
   return { id: resultSale.id };
-}
+};
 
 module.exports = {
   registerSale,
-}
+};

@@ -12,4 +12,4 @@ const registerSale = rescue(async (req, res, next) => {
 
 module.exports = {
   registerSale,
-}
+};
