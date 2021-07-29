@@ -16,6 +16,13 @@ const create = async (name, email, password) => {
   return { id, name, email, role, token };
 };
 
+const getUsers = async () => {
+  const users = await User.findAll();
+
+  return users.map(({ dataValues: { password, ...others } }) => others);
+};
+
 module.exports = {
   create,
+  getUsers,
 };

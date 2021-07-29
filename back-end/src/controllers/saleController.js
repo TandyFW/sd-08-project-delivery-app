@@ -5,7 +5,7 @@ const { OK } = require('../statusCode');
 const saveSale = rescue(async (req, res) => {
       await saleServices.saveSale(req.body);
 
-      res.status(OK).json({ message: 'Venda cadastrada!' });
+      res.status(OK).json({ message: 'Venda cadastrada com sucesso' });
 });
 
 module.exports = saveSale;
