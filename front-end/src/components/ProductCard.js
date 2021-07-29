@@ -45,15 +45,20 @@ export default function ProductCard(props) {
   };
 
   // ALTERAR DEPOIS
-  const obj = {
-    width: '18rem',
-    // height: '8rem',
+  const cardStyle = {
+    height: '5rem',
+    width: '10rem',
+  };
+
+  const imgStyle = {
+    height: '5px',
+    width: '5px',
   };
 
   return (
-    <Card style={ obj } className="m-2">
+    <Card style={ cardStyle } className="m-2">
       <Card.Img
-        style={ { height: '15rem' } }
+        style={ imgStyle }
         variant="top"
         src={ image }
         data-testid={ `customer_products__img-card-bg-image-${id}` }
