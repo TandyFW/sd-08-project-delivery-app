@@ -1,7 +1,13 @@
 import React from 'react';
 
 const orders = [
-  { teste: 'teste' }
+  {
+    orderId: 1,
+    status: 'pendente',
+    key1: 'teste',
+    key1: 'teste',
+    key1: 'teste',
+  }
 ]
 
 class CardList extends React.Component {
