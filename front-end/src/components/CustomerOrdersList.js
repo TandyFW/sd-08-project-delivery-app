@@ -8,29 +8,45 @@ const orders = [
   { order_id: 3, status: 'entregue', date: formatedDate, price: 25.30 },
 ];
 
-class CardList extends React.Component {
+const testId = 'customer_orders__';
+
+class CustomerOrdersList extends React.Component {
   render() {
     // const { history } = this.props;
     // console.log(history);
     // const { stateProducts } = this.props;
     // const { state } = this;
+
     return (
       <div className="cardlist-container">
         {
           orders.map((order, i) => (
-            <div key={ i } className="orderlist-container">
+            <div key={ i } className="customerOrderlist-container">
               <div>
                 <h4>Pedido</h4>
-                {order.order_id}
+                <span
+                  data-testid={ `${testId}-order-id-${order.order_id}` }
+                >
+                  {order.order_id}
+                </span>
               </div>
               <div
                 className={ order.status }
+                data-testid={ `${testId}-delivery-status-${order.order_id}` }
               >
                 { order.status }
               </div>
               <div>
-                <div>{ order.date }</div>
-                <div>{ `R$ ${order.price}` }</div>
+                <div
+                  data-testid={ `${testId}-order-date-${order.order_id}` }
+                >
+                  { order.date }
+                </div>
+                <div
+                  data-testid={ `${testId}-card-price-${order.order_id}` }
+                >
+                  { `R$ ${order.price}` }
+                </div>
               </div>
             </div>
           ))
@@ -40,5 +56,5 @@ class CardList extends React.Component {
   }
 }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(CardList);
-export default CardList;
+// export default connect(mapStateToProps, mapDispatchToProps)(CustomerOrdersList);
+export default CustomerOrdersList;
