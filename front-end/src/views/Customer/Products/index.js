@@ -1,14 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
 import NavBar from '../../Components/NavBar';
-// import Context from '../../../context/Context';
+import Cart from '../../Components/Cart';
+import CardProduct from '../../Components/CardProduct';
+import Context from '../../../context/Context';
 import './styles.css';
 
 const Products = () => {
-  const user = { name: 'Clênio', id: 1 }; // vem do estado global
   const [products, setProducts] = useState([]);
+  const { user } = useContext(Context);
 
-  // const { cart, setCart } = useContext(Context);
+  useEffect(() => {
+    localStorage.setItem('user', JSON.stringify({
+      token: user.token,
+      name: user.user.name,
+      email: user.user.email,
+      role: user.user.role,
+    }));
+  }, [user]);
 
   async function getData() {
     const myInit = {
@@ -20,7 +29,7 @@ const Products = () => {
     };
     await fetch('http://localhost:3001/customer/products', myInit)
       .then((response) => response.json())
-      .then((data) => console.log(data.products) || setProducts(data.products))
+      .then((data) => setProducts(data.products))
       .catch((err) => console.log(err));
   }
 
@@ -29,25 +38,13 @@ const Products = () => {
   }, []);
 
   return (
-    <div className="conteiner">
-      <NavBar userType="client" userName={ user.name } />
+    <div className="card_content">
+      <NavBar userType="client" userName={ user.user.name } />
       {products.length > 0 && (
         products.map((product) => (
-          <div key={ product.id }>
-            <div className="card">
-              <div>{product.price}</div>
-              <div className="card_img">
-                <img
-                  src={ product.url_image }
-                  alt="produto"
-                />
-              </div>
-              <div className="card_body">
-                <h6><b>{product.name}</b></h6>
-              </div>
-            </div>
-          </div>
+          <CardProduct key={ product.id } product={ product } />
         )))}
+      <Cart />
     </div>
   );
 };

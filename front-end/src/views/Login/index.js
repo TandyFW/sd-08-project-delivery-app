@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './styles.css';
 import Error from '../../components/error';
+import Context from '../../context/Context';
 
 function Login() {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [data, setData] = useState('');
+  const { setUser } = useContext(Context);
   const history = useHistory();
   function checkInputs() {
     const PASSWORD_MIN_LENGTH = 6;
@@ -27,7 +29,9 @@ function Login() {
     };
     const rawResponse = await fetch('http://localhost:3001/login', myInit);
     const content = await rawResponse.json();
-    return setData(content);
+    setUser(content);
+    setData(content);
+    return history.push('/customer/products');
   };
   return (
     <div className="main-wrapper">

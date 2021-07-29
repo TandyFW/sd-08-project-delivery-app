@@ -73,6 +73,7 @@ function NavBar(props) {
             <a
               href="/login"
               data-testid={ `${prefix}element-navbar-link-logout` }
+              onClick={ () => localStorage.clear() }
             >
               Sair
             </a>

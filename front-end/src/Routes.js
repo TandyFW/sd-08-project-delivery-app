@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,8 +9,10 @@ import Components from './views/Components';
 import Home from './views/Home';
 import Register from './views/Register';
 import CustomerRouts from './views/Customer/Routes';
+import Context from './context/Context';
 
 function Routes() {
+  const { user } = useContext(Context);
   return (
     <Router>
       <Switch>
@@ -18,10 +20,10 @@ function Routes() {
         <Route path="/login" component={ Login } />
         <Route path="/components" component={ Components } />
         <Route path="/register" component={ Register } />
-        {/* criar uma rota interna segura para quando o usuário fizer o login
-        puxar a informação se é um cliente, vendedor ou admin. Encaminhar para
-        a rota correta */}
-        <Route path="/customer" component={ CustomerRouts } />
+
+        { user && user.user.role === 'customer' && (
+          <Route path="/customer" component={ CustomerRouts } />
+        )}
       </Switch>
     </Router>
   );
