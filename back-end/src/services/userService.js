@@ -86,8 +86,16 @@ const registerUserByManager = async (userInfos) => {
   return { message: 'User cadastrado com sucesso' };
 };
 
+const getAllUsers = async (token) => {
+  if (!isUserAdministrator(token)) return userErrors.userNotAuthorized;
+  const users = await User.findAll();
+  if (!users) return userErrors.usersNotFound;
+  return users;
+};
+
 module.exports = {
   login,
   registerClient,
   registerUserByManager,
+  getAllUsers,
 };

@@ -36,8 +36,16 @@ const registerUserByManager = rescue(async (req, res, next) => {
   return res.status(201).json(result);
 });
 
+const getAllUsers = rescue(async (req, res, next) => {
+  const token = req.headers.authorization;
+  const result = await userService.getAllUsers(token);
+  if (result.err) return next(result);
+  return res.status(200).json(result);
+});
+
 module.exports = {
   login,
   registerClient,
   registerUserByManager,
+  getAllUsers,
 };
