@@ -42,6 +42,8 @@
         font-size: 16px;
       }
       .quantity-div {
+        display: flex;
+        align-items: center;
         button {
           border: none;
           border-radius: 3.5px;
@@ -69,6 +71,25 @@
           margin: 0 12px;
           font-size: 20px;
         }
+      }
+    }
+    .cart-container {
+      position: absolute;
+      right: 100px;
+      bottom: 100px;
+      button {
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        background-color: $trybeGreen;
+        border-radius: 5px;
+        color: $darkWhite;
+        padding: 10px 20px;
+        font-size: 20px;
+        opacity: 0.9;
+      }
+      &:hover {
+        box-shadow: 0 1px 7px 0 rgba(5, 3, 3, 0.2), 0 1px 2px 0 rgba(0, 0, 0, .1);
+        box-shadow: 0 1px 7px 0 rgba(5, 3, 3, 0.2), 0 1px 2px 0 rgba(0, 0, 0, .1);
+        box-shadow: 4px 5px 7px 0 rgba(5, 3, 3, 0.2), 0 1px 2px 0 rgba(0, 0, 0, .1);
       }
     }
   }

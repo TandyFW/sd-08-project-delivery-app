@@ -15,6 +15,7 @@ class Products extends React.Component {
     setTimeout(() => {
       this.setState({ loading: false });
     }, Loading);
+    if (!localStorage.totalPrice) localStorage.setItem('totalPrice', 0);
   }
 
   render() {

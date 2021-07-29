@@ -28,19 +28,32 @@ class Header extends React.Component {
           <button
             type="button"
             id="products"
+            data-testid="customer_products__element-navbar-link-products"
           >
             Produtos
           </button>
           <button
             type="button"
             id="orders"
+            data-testid="customer_products__element-navbar-link-orders"
           >
             Meus Pedidos
           </button>
         </div>
         <div className="right">
-          <button type="button">Nome</button>
-          <button type="button" onClick={ () => history.push('/') }>Sair</button>
+          <button
+            type="button"
+            data-testid="customer_products__element-navbar-user-full-name"
+          >
+            Nome
+          </button>
+          <button
+            type="button"
+            onClick={ () => history.push('/') }
+            data-testid="customer_products__element-navbar-link-logout"
+          >
+            Sair
+          </button>
         </div>
       </header>
     );

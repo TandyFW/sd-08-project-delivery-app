@@ -48,10 +48,22 @@ class CardList extends React.Component {
       this.setState({ [id]: 1 });
       localStorage.setItem('cart', JSON.stringify(stateCart));
       dispatchCart(stateCart);
+      // adding price into localStorage
+      const localStoragePrice = localStorage.getItem('totalPrice');
+      localStorage.setItem('totalPrice',
+        (Number(selectedProduct[0].price)
+        + Number(localStoragePrice)).toFixed(2));
     } else {
       // foreach to find the exact index of statecart, and add +1
       stateCart.forEach((element, index) => {
-        if (element.id === id) stateCart[index].quantity += 1;
+        if (element.id === id) {
+          stateCart[index].quantity += 1;
+          // adding price into localStorage
+          const localStoragePrice = localStorage.getItem('totalPrice');
+          localStorage.setItem('totalPrice',
+            (Number(stateCart[index].price)
+            + Number(localStoragePrice)).toFixed(2));
+        }
       });
       // just increase one on state && localstorage
       this.setState((prevState) => ({ [id]: prevState[id] + 1 }));
@@ -66,6 +78,12 @@ class CardList extends React.Component {
     const productName = target.parentNode.parentNode
       .parentNode.childNodes[1].childNodes[0].innerText;
     const selectedProduct = stateCart.filter((prod) => prod.name === productName);
+    const localStoragePrice = localStorage.getItem('totalPrice');
+    if (localStoragePrice > 0) {
+      localStorage.setItem('totalPrice',
+        (Number(localStoragePrice)
+        - Number(selectedProduct[0].price)).toFixed(2));
+    }
     // checks if exists on redux
     if (selectedProduct.length > 0) {
     // if so, its removed
@@ -75,6 +93,7 @@ class CardList extends React.Component {
         this.setState({ [id]: 0 });
         localStorage.setItem('cart', JSON.stringify(cartWithout));
         dispatchCart(cartWithout);
+        // decreasing localstorage price
       } else {
         // else decrease one
         selectedProduct[0].quantity -= 1;
@@ -98,6 +117,7 @@ class CardList extends React.Component {
               <img
                 src={ product.urlImage }
                 alt={ product.name }
+                data-testid={ `customer_products__img-card-bg-image-${index}` }
               />
               <div>
                 <h4>{product.name}</h4>
@@ -107,22 +127,37 @@ class CardList extends React.Component {
                   type="button"
                   id="minus"
                   onClick={ (event) => this.decreaseQuantity(event, product.id) }
+                  data-testid={ `customer_products__button-card-rm-item-${index}` }
                 >
                   <i className="fas fa-minus" />
                 </button>
-                <span>
+                <span
+                  data-testid={ `customer_products__input-card-quantity-${index}` }
+                >
                   { state[product.id] }
                 </span>
                 <button
                   type="button"
                   id="plus"
                   onClick={ (event) => this.addQuantity(event, product.id) }
+                  data-testid={ `customer_products__button-card-add-item-${index}` }
                 >
                   <i className="fas fa-plus" />
                 </button>
               </div>
             </div>
           ))}
+        <div className="cart-container">
+          <button
+            type="button"
+            data-testid="customer_products__button-cart"
+          >
+            Ver Carrinho: R$:
+            {
+              ` ${localStorage.getItem('totalPrice')}`
+            }
+          </button>
+        </div>
       </div>
     );
   }
