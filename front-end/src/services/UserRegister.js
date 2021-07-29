@@ -16,7 +16,6 @@ const UserRegister = async (name, email, password) => {
   } catch (error) {
     console.log(err);
   }
-
 };
 
 export default UserRegister;
