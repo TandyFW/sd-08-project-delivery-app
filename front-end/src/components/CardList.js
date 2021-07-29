@@ -12,18 +12,19 @@ class CardList extends React.Component {
   }
 
   async componentDidMount() {
-    const { dispatchProducts, dispatchCart } = this.props;
+    const { dispatchProducts, dispatchCart, stateUser } = this.props;
     const products = await getAllProducts();
-    const localstorage = JSON.parse(localStorage.getItem('cart'));
+    const LScart = JSON.parse(localStorage.getItem('cart'));
+    localStorage.setItem('user', JSON.stringify(stateUser));
     //
-    if (localstorage && localstorage.length > 0) {
-      localstorage.forEach((element) => {
+    if (LScart && LScart.length > 0) {
+      LScart.forEach((element) => {
         // pass the quantity from localstorage to 'this.state'
         const { state } = this;
         state[element.id] = element.quantity;
       });
       // pass all to redux to save the user changes
-      dispatchCart(localstorage);
+      dispatchCart(LScart);
     }
     products.forEach((product) => {
       product.quantity = 1;
@@ -31,11 +32,12 @@ class CardList extends React.Component {
     dispatchProducts(products);
   }
 
-  addQuantity({ target }, id) {
+  addQuantity(id) {
     const { dispatchCart, stateProducts } = this.props;
     // selects the product on DOM
-    const productName = target.parentNode.parentNode
-      .parentNode.childNodes[1].childNodes[0].innerText;
+    const productName = document.getElementById(`name-${id}`).innerText;
+    // const productName = target.parentNode.parentNode
+    //   .parentNode.childNodes[1].childNodes[0].innerText;
     const selectedProduct = stateProducts.filter((prod) => prod.name === productName);
     // checks if contains on redux
     const { stateCart } = this.props;
@@ -72,11 +74,12 @@ class CardList extends React.Component {
     }
   }
 
-  decreaseQuantity({ target }, id) {
+  decreaseQuantity(id) {
     const { dispatchCart, stateCart } = this.props;
     // selects the product on DOM
-    const productName = target.parentNode.parentNode
-      .parentNode.childNodes[1].childNodes[0].innerText;
+    const productName = document.getElementById(`name-${id}`).innerText;
+    // const productName = target.parentNode.parentNode
+    //   .parentNode.childNodes[1].childNodes[0].innerText;
     const selectedProduct = stateCart.filter((prod) => prod.name === productName);
     const localStoragePrice = localStorage.getItem('totalPrice');
     if (localStoragePrice > 0) {
@@ -114,33 +117,43 @@ class CardList extends React.Component {
         { stateProducts
           && stateProducts.map((product, index) => (
             <div className="product" key={ index }>
+              <span
+                className="price"
+                data-testid={ `customer_products__element-card-price-${product.id}` }
+              >
+                {`R$: ${product.price}`}
+              </span>
               <img
                 src={ product.urlImage }
                 alt={ product.name }
-                data-testid={ `customer_products__img-card-bg-image-${index}` }
+                data-testid={ `customer_products__img-card-bg-image-${product.id}` }
               />
               <div>
-                <h4>{product.name}</h4>
+                <h4
+                  data-testid={ `customer_products__element-card-title-${product.id}` }
+                  id={ `name-${product.id}` }
+                >
+                  {product.name}
+                </h4>
               </div>
               <div className="quantity-div">
                 <button
                   type="button"
                   id="minus"
-                  onClick={ (event) => this.decreaseQuantity(event, product.id) }
-                  data-testid={ `customer_products__button-card-rm-item-${index}` }
+                  onClick={ () => this.decreaseQuantity(product.id) }
+                  data-testid={ `customer_products__button-card-rm-item-${product.id}` }
                 >
                   <i className="fas fa-minus" />
                 </button>
-                <span
-                  data-testid={ `customer_products__input-card-quantity-${index}` }
-                >
-                  { state[product.id] }
-                </span>
+                <input
+                  data-testid={ `customer_products__input-card-quantity-${product.id}` }
+                  value={ state[product.id] }
+                />
                 <button
                   type="button"
                   id="plus"
-                  onClick={ (event) => this.addQuantity(event, product.id) }
-                  data-testid={ `customer_products__button-card-add-item-${index}` }
+                  onClick={ () => this.addQuantity(product.id) }
+                  data-testid={ `customer_products__button-card-add-item-${product.id}` }
                 >
                   <i className="fas fa-plus" />
                 </button>
@@ -171,6 +184,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   stateProducts: state.products.products,
   stateCart: state.products.cart,
+  stateUser: state.user.user,
 });
 
 CardList.propTypes = {
@@ -178,6 +192,7 @@ CardList.propTypes = {
   dispatchProducts: PropTypes.func.isRequired,
   dispatchCart: PropTypes.func.isRequired,
   stateProducts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  stateUser: PropTypes.arrayOf(PropTypes.object).isRequired,
   stateCart: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 

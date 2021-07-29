@@ -3,7 +3,7 @@ const product = (sequelize, DataTypes) => {
     "product",
     {
       name: DataTypes.STRING(100),
-      price: DataTypes.STRING(100),
+      price: DataTypes.DECIMAL(10, 2),
       urlImage: {
         type: DataTypes.STRING(255),
         field: "url_image",
