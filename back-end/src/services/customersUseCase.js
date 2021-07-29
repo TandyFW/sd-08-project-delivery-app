@@ -19,9 +19,7 @@ const findOrderCustomer = async ({ id }) => {
   return custumerSales.rows;
 };
 
-const getAllProducts = async () => {
-  return await products.findAll();
-}
+const getAllProducts = async () => await products.findAll();
 
 module.exports = {
   findOrderCustomer,
