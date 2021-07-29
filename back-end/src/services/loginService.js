@@ -19,8 +19,8 @@ const login = async (dataForLogin) => {
     return clientError.badRequest('Email or Password Invalid');
   }
   const { name, email, id, role } = dataLoginDB;
-   const token = await createToken({ name, email, id });
-   return { token, name, email, role };
+   const token = await createToken({ name, email, id, role });
+   return token;
 };
 
 module.exports = {
