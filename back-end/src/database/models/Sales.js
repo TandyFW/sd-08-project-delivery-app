@@ -1,7 +1,7 @@
 const Sales = (sequelize, DataTypes) => {
   const sales = sequelize.define('sales', {
     totalPrice: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(10, 2),
       notNull: true,
     },
     deliveryAddress: {
@@ -12,7 +12,7 @@ const Sales = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       notNull: true,
     },
-    saleDate: {
+    salesDate: {
       type: DataTypes.DATE,
       notNull: true,
       defaultValue: DataTypes.NOW,

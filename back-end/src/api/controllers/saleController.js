@@ -11,7 +11,8 @@ const createSales = async (req, res) => {
   const email = req.decoded;
   const { seller, ...data } = req.body;
   const User = await getUserByEmail(email);
-  const saleCreated = await create({ ...data, userId: User.id, status: 'Pendente' });
+  const sale = { ...data, userId: User.id, status: 'Pendente' };
+  const saleCreated = await create(sale);
   res.status(CREATED).json(saleCreated);
 };
 

@@ -16,6 +16,7 @@ function ClientCheckout() {
   const [selectedSeller, setSellectedSeller] = useState('');
   const currUser = JSON.parse(localStorage.getItem('user'));
   const history = useHistory();
+  const products = useSelector((state) => state.products.products);
   let total = useSelector((state) => state.products.products);
   total = total.reduce(
     (acc, item) => acc + Number(item.price) * Number(item.qtd),
@@ -35,11 +36,13 @@ function ClientCheckout() {
 
   const finishSale = async () => {
     try {
+      const fixedTotal = total.toFixed(2);
       const dateStorage = {
-        totalPrice: total,
+        totalPrice: fixedTotal,
         deliveryAddress: address,
         deliveryNumber: number,
         sellerId: selectedSeller,
+        products,
       };
       console.log(dateStorage);
       const { data } = await axios({
@@ -49,12 +52,14 @@ function ClientCheckout() {
           authorization: currUser.token,
         },
         data: {
-          totalPrice: total,
+          totalPrice: fixedTotal,
           deliveryAddress: address,
           deliveryNumber: number,
           sellerId: selectedSeller,
+          products,
         },
       });
+      console.log(data);
       history.push(`/customer/orders/${data.id}`);
     } catch (error) {
       console.log('falha ao chamar api');

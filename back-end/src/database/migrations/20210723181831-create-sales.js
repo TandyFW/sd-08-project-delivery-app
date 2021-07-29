@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       total_price: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.DECIMAL(10, 2),
         allowNull: false,
         field: 'totalPrice',
       },
@@ -27,7 +27,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-        field: 'saleDate',
+        field: 'salesDate',
       },
       status: {
         type: Sequelize.STRING,
