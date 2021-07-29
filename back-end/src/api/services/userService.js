@@ -1,25 +1,25 @@
-const md5 = require("md5");
-const JWT = require("jsonwebtoken");
-const path = require("path");
-const jwtKey = require("fs")
-  .readFileSync(path.resolve(__dirname, "../../../jwt.evaluation.key"), {
-    encoding: "utf-8",
+const md5 = require('md5');
+const JWT = require('jsonwebtoken');
+const path = require('path');
+const jwtKey = require('fs')
+  .readFileSync(path.resolve(__dirname, '../../../jwt.evaluation.key'), {
+    encoding: 'utf-8',
   })
   .trim();
-const { user } = require("../../database/models");
-require("dotenv").config();
+const { user } = require('../../database/models');
+require('dotenv').config();
 
 // const { SECRET } = process.env;
 
 const JWTCONFIG = {
-  expiresIn: "1d",
-  algorithm: "HS256",
+  expiresIn: '1d',
+  algorithm: 'HS256',
 };
 
 const createUser = async ({ name, email, password, role }) => {
   let roleUser = role;
   if (roleUser === undefined) {
-    roleUser = "customer";
+    roleUser = 'customer';
   }
   try {
     const newUser = { name, email, password: md5(password), role: roleUser };
@@ -41,8 +41,8 @@ const getUsers = async () => {
 
 const userLogin = async (email, password) => {
   const findUser = await user.findOne({ where: { email } });
-  if (findUser.password !== md5(password)) throw new Error("Not found");
-  if (!findUser) throw new Error("Not found");
+  if (findUser.password !== md5(password)) throw new Error('Not found');
+  if (!findUser) throw new Error('Not found');
   return findUser;
 };
 
@@ -50,18 +50,16 @@ const generateToken = (userFields) =>
   JWT.sign({ data: userFields }, jwtKey, JWTCONFIG);
 const verifyToken = (token) => {
   if (!token) {
-    return { code: 401, message: "invalid JWT" };
+    return { code: 401, message: 'invalid JWT' };
   }
   try {
     const decoded = JWT.verify(token, jwtKey);
     return decoded.data;
   } catch (err) {
-    return { code: 401, message: "invalid JWT" };
+    return { code: 401, message: 'invalid JWT' };
   }
 };
-const deleteUser = async (id) => {
-  return await user.destroy({ where: { id } });
-};
+const deleteUser = async (id) => user.destroy({ where: { id } });
 module.exports = {
   userLogin,
   createUser,

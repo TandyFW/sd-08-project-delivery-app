@@ -4,8 +4,8 @@ const {
   getUsers,
   generateToken,
   deleteUser,
-} = require("../services/userService");
-const { CREATED, BAD_REQUEST, OK } = require("../services/statusCode");
+} = require('../services/userService');
+const { CREATED, BAD_REQUEST, OK } = require('../services/statusCode');
 
 const validUser = async (req, res) => {
   try {
@@ -47,10 +47,10 @@ const removeUser = async (req, res) => {
   try {
     const { id } = req.params;
     const userRemoved = await deleteUser(id);
-    return res.status(200).json({ message: "Usuário excluído com sucesso!" });
+    return res.status(200).json({ message: 'Usuário excluído com sucesso!', userRemoved });
   } catch (e) {
     console.log(e.message);
-    res.status(500).json({ message: "Erro ao deletar usuário!" });
+    res.status(500).json({ message: 'Erro ao deletar usuário!' });
   }
 };
 
@@ -59,5 +59,5 @@ module.exports = {
   addUser,
   getAllUsers,
   addUserByAdmin,
-  removeUser
+  removeUser,
 };
