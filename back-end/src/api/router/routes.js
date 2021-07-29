@@ -13,6 +13,7 @@ router.post('/users', middlewares.findUserByNameOrEmail, userController.addUser)
 router.get('/users', userController.getAllUsers);
 router.post(
   '/users/admin',
+  auth.verifyToken,
   middlewares.verifyRoleAdmin,
   middlewares.findUserByNameOrEmail,
   userController.addUserByAdmin,

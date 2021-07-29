@@ -14,8 +14,9 @@ const findUserByNameOrEmail = async (req, res, next) => {
   next();
 };
 const verifyRoleAdmin = async (req, res, next) => {
-  const token = req.headers.authorization;
-  const userAdmin = verifyToken(token);
+  const userAdmin = req.decoded;
+  // const token = req.headers.authorization;
+  // const userAdmin = verifyToken(token);
   if (userAdmin.role !== 'administrator') {
     res
       .status(UNAUTHORIZED)
