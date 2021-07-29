@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import './styles.css';
 
 import Context from '../../../context/Context';
 
