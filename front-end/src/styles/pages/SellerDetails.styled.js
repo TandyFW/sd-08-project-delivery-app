@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-min-width: 900px;
+  min-width: 900px;
   h4 {
     text-align: center;
   }
@@ -57,11 +57,23 @@ export const OrderButton = styled.button`
   border-radius: 5px;
 `;
 export const ListHeader = styled.div`
+  &.user-list {
+    grid-template-columns: 1fr 4fr 5fr 3fr 2fr;
+  }
   span {
     text-align: center;
   }
   width: 90%;
   margin: 10px auto;
   display: grid;
-  grid-template-columns: 1fr 8fr 2fr 2fr 2fr; ;
+  grid-template-columns: 1fr 8fr 2fr 2fr 2fr;
+`;
+export const ErrorMessage = styled.div`
+  width: 90%;
+  margin: 10px auto;
+  padding: 10px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  background-color: red;
 `;

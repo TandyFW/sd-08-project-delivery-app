@@ -1,9 +1,13 @@
 const md5 = require('md5');
 const { user } = require('../../database/models');
 
-const createUser = async ({ name, email, password }) => {
+const createUser = async ({ name, email, password, role }) => {
+  let roleUser = role;
+  if (roleUser === undefined) {
+    roleUser = 'customer';
+  }
   try {
-    const newUser = { name, email, password: md5(password), role: 'customer' };
+    const newUser = { name, email, password: md5(password), role: roleUser };
     const registredUser = await user.create(newUser);
     return registredUser;
   } catch (error) {
@@ -27,24 +31,13 @@ const userLogin = async (email, password) => {
   return findUser;
 };
 
-// const generateToken = (userFields) => JWT.sign({ data: userFields }, jwtKey, JWTCONFIG);
-// const verifyToken = (token) => {
-//   if (!token) {
-//     return { code: 401, message: 'invalid JWT' };
-//   }
-//   try {
-//     const decoded = JWT.verify(token, jwtKey);
-//     return decoded.data;
-//   } catch (err) {
-//     return { code: 401, message: 'invalid JWT' };
-//   }
-// };
-
 const getSellers = async () => user.findAll({ where: { role: 'seller' } });
 
 const getUserByName = async (name) => user.findOne({ where: { name } });
 
 const getUserByEmail = async (email) => user.findOne({ where: { email } });
+
+const deleteUser = async (id) => user.destroy({ where: { id } });
 
 module.exports = {
   userLogin,
@@ -53,4 +46,5 @@ module.exports = {
   getUserByName,
   getSellers,
   getUserByEmail,
+  deleteUser,
 };

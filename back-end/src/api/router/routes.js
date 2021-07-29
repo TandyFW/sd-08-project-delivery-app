@@ -6,9 +6,18 @@ const middlewares = require('../middlewares/userValidations');
 const auth = require('../middlewares/auth');
 
 router.post('/login', auth.generateToken, userController.validUser);
+
+router.get('/sellers', userController.getAllSellers);
+
 router.post('/users', middlewares.findUserByNameOrEmail, userController.addUser);
 router.get('/users', userController.getAllUsers);
-router.get('/sellers', userController.getAllSellers);
+router.post(
+  '/users/admin',
+  middlewares.verifyRoleAdmin,
+  middlewares.findUserByNameOrEmail,
+  userController.addUserByAdmin,
+);
+router.delete('/users/:id', userController.removeUser);
 
 router.get('/products', productController.getAllProducts);
 
