@@ -2,8 +2,8 @@ const { users } = require('../database/models');
 
 const findSellers = async () => {
   try {
-    const result = users.findAll({ where: { role: 'seller' } });
-
+    const result = await users.findAll({ where: { role: 'seller' } });
+    
     if (!result) {
       return {
         statusCode: 404,
@@ -11,7 +11,7 @@ const findSellers = async () => {
       };
     }
 
-    return { statusCode: 200, json: { validate: true } };
+    return { statusCode: 200, json: result };
   } catch (err) {
     return {
       statusCode: 500,
