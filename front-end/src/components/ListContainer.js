@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import React from 'react';
 
 const StyledListContainer = styled.div`
   background-color: rgba(251, 255, 254, 1);
@@ -7,7 +8,7 @@ const StyledListContainer = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 300px;
-`
+`;
 
 const Body = styled.div`
   display: flex;
@@ -17,7 +18,7 @@ const Body = styled.div`
   > *:not( :last-child ) {
     margin-bottom: 10px;
   }
-`
+`;
 
 const ListContainer = ({ header, children }) => (
   <StyledListContainer>
@@ -27,5 +28,13 @@ const ListContainer = ({ header, children }) => (
     </Body>
   </StyledListContainer>
 );
+
+ListContainer.propTypes = {
+  header: PropTypes.node.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]).isRequired,
+};
 
 export default ListContainer;

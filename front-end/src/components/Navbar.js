@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Context from '../context/Context';
 
@@ -37,6 +38,13 @@ const ChildrenWrapper = styled.div`
 
 const Navbar = ({ className, children }) => {
   const { name } = useContext(Context);
+  const history = useHistory();
+
+  const handleExit = () => {
+    localStorage.clear();
+    history.push('/login');
+  };
+
   return (
     <StyledNavbar className={ className }>
       <ChildrenWrapper>{ children }</ChildrenWrapper>
@@ -44,7 +52,7 @@ const Navbar = ({ className, children }) => {
         { name }
       </Username>
       <Exit
-        onClick={ () => localStorage.clear() }
+        onClick={ handleExit }
         data-testid="customer_products__element-navbar-link-logout"
       >
         Sair

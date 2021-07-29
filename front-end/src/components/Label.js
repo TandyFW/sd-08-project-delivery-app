@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 
 const StyledLabel = styled.label`
   display: inline-flex;
@@ -9,15 +10,15 @@ const StyledLabel = styled.label`
   span {
     margin-bottom: 10px;
     ${(props) => {
-      if (props.centered) {
-        return css`
-          text-align: center;
-        `;
-      }
+    if (props.centered) {
       return css`
-          margin-left: 15px;
+        text-align: center;
       `;
-    }}
+    }
+    return css`
+        margin-left: 15px;
+    `;
+  }}
   }
 `;
 
@@ -27,5 +28,13 @@ const Label = ({ children, text, ...props }) => (
     { children }
   </StyledLabel>
 );
+
+Label.propTypes = {
+  text: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]).isRequired,
+};
 
 export default Label;

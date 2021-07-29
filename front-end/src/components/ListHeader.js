@@ -5,5 +5,6 @@ const ListHeader = styled.header`
 
   /* background-color: rgba(234, 241, 239, 1); */
   padding: 10px;
-`
+`;
+
 export default ListHeader;

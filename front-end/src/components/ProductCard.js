@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import React from 'react';
 import Label from './Label';
 import Counter from './Counter';
 
@@ -26,7 +27,7 @@ const PriceTag = styled.p`
   padding: 10px 20px;
   position: absolute;
   top: 10px;
-`
+`;
 
 const Body = styled.div`
   align-items: center;
@@ -47,6 +48,6 @@ const ProductCard = () => (
       </Label>
     </Body>
   </Wrapper>
-)
+);
 
 export default ProductCard;

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import useLocalStorage from '../hooks/useLocalStorage';
+import Context from '../context/Context';
 import * as api from '../services/api';
 
 import FormContainer from '../components/FormContainer';
@@ -20,11 +20,11 @@ const StyledFormContainer = styled(FormContainer)`
 `;
 
 function Register() {
-  const [email, setEmail] = useState('');
+  const [localName, setLocalName] = useState('');
+  const [localEmail, setLocalEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const setToken = useLocalStorage('token')[1];
   const [showWarning, setShowWarning] = useState(false);
+  const { setToken } = useContext(Context);
 
   const history = useHistory();
 
@@ -32,22 +32,21 @@ function Register() {
     const validEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
     const SEIS = 6;
     const DOZE = 12;
-    return !validEmail.test(email) || password.length < SEIS || name.length < DOZE;
+    return !validEmail.test(localEmail)
+      || password.length < SEIS
+      || localName.length < DOZE;
   };
 
   async function handleClick() {
-    api.register(name, email, password)
-      .then(() => {
-        api.login(email, password)
-          .then((result) => {
-            setToken(result.token);
-            history.push('/customer/products');
-          });
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowWarning(true);
-      });
+    try {
+      await api.register(localName, localEmail, password);
+      const { token } = await api.login(localEmail, password);
+      setToken(token);
+      history.push('/customer/products');
+    } catch (error) {
+      console.log(error);
+      setShowWarning(true);
+    }
   }
 
   return (
@@ -57,20 +56,26 @@ function Register() {
           type="text"
           data-testid="common_register__input-name"
           placeholder="Name"
-          onChange={ (e) => setName(e.target.value) }
+          value={ localName }
+          onChange={ ({ target }) => setLocalName(target.value) }
         />
+
         <Input
           type="text"
           data-testid="common_register__input-email"
           placeholder="Email"
-          onChange={ (e) => setEmail(e.target.value) }
+          value={ localEmail }
+          onChange={ ({ target }) => setLocalEmail(target.value) }
         />
+
         <Input
           type="password"
           data-testid="common_register__input-password"
           placeholder="Senha"
-          onChange={ (e) => setPassword(e.target.value) }
+          value={ password }
+          onChange={ ({ target }) => setPassword(target.value) }
         />
+
         <ButtonPrimary
           type="button"
           data-testid="common_register__button-register"
@@ -79,6 +84,7 @@ function Register() {
         >
           CADASTRAR
         </ButtonPrimary>
+
         { showWarning
           && <p data-testid="common_register__element-invalid_register">Deu ruim!</p> }
       </StyledFormContainer>

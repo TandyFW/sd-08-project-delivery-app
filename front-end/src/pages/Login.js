@@ -33,17 +33,17 @@ function Login() {
   };
 
   async function handleClick() {
-    api.login(localEmail, password)
-      .then(({ name, email, role, token }) => {
-        setName(name);
-        setEmail(email);
-        setRole(role);
-        setToken(token);
-        history.push('/customer/products');
-      })
-      .catch(() => {
-        setShowWarning(true);
-      });
+    try {
+      const { name, email, role, token } = await api.login(localEmail, password);
+      setName(name);
+      setEmail(email);
+      setRole(role);
+      setToken(token);
+      history.push('/customer/products');
+    } catch (error) {
+      console.log(error);
+      setShowWarning(true);
+    }
   }
 
   return (

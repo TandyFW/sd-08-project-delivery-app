@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Wrapper = styled.div`
   position: relative;
@@ -40,5 +41,9 @@ const Select = ({ options, ...props }) => (
     </StyledSelect>
   </Wrapper>
 );
+
+Select.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 export default Select;

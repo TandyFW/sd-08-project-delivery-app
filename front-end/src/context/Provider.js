@@ -1,13 +1,13 @@
 import React from 'react';
 import contextDelivery from './Context';
 import App from '../App';
-import useLocalStorage from '../hooks/useLocalStorage';
+import useUserLocalStorage from '../hooks/useUserLocalStorage';
 
 function DeliveryProvider() {
-  const [name, setName] = useLocalStorage('name');
-  const [email, setEmail] = useLocalStorage('email');
-  const [role, setRole] = useLocalStorage('role');
-  const [token, setToken] = useLocalStorage('token');
+  const [name, setName] = useUserLocalStorage('name');
+  const [email, setEmail] = useUserLocalStorage('email');
+  const [role, setRole] = useUserLocalStorage('role');
+  const [token, setToken] = useUserLocalStorage('token');
   const contextValue = {
     email,
     setEmail,
