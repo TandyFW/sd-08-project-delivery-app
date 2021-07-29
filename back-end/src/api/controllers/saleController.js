@@ -8,7 +8,7 @@ const getAllSales = async (req, res) => {
 };
 
 const createSales = async (req, res) => {
-  const email = req.decoded;
+  const { email } = req.decoded;
   const { seller, ...data } = req.body;
   const User = await getUserByEmail(email);
   const sale = { ...data, userId: User.id, status: 'Pendente' };
