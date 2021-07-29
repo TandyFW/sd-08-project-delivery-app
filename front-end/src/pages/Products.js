@@ -62,7 +62,7 @@ function Products() {
             Ver Carrinho: R$
             { ' ' }
             <span data-testid="customer_products__checkout-bottom-value">
-              { `${(Math.round(totalPrice * 100) / 100).toString().replace('.', ',')}` }
+              { `${totalPrice.toFixed(2).toString().replace('.', ',')}` }
             </span>
           </Button>
         </Row>
