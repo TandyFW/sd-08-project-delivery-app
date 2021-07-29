@@ -44,6 +44,7 @@ export default function FormRegister() {
     e.preventDefault();
     try {
       const newRegister = await UserRegister(currentName, currentEmail, encryptPassword);
+      console.log('entrei', newRegister);
       if (newRegister) {
         setShowMessage(false);
         setRedirect(true);
@@ -73,7 +74,7 @@ export default function FormRegister() {
           Email:
           <input
             type="email"
-            maxLength="30"
+            maxLength="50"
             placeholder="Digite aqui seu email"
             className="email-input"
             onKeyUp={ validation }
@@ -114,7 +115,7 @@ export default function FormRegister() {
           >
             Usuário não encontrado.
           </p>)}
-      {redirect && <Redirect to="/login" />}
+      {redirect && <Redirect to="/customer/products" />}
     </>
   );
 }
