@@ -6,6 +6,8 @@ const customersRouter = Router();
 
 customersRouter.get('/orders', 
 isAuthenticated(restrictionLevel(3)),
-  customersController.findAll);
+customersController.findAllOrders)
+
+customersRouter.get('/products', customersController.getAllProducts);
   
 module.exports = customersRouter;
