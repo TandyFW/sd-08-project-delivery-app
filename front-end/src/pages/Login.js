@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import * as api from '../services/api';
-import Context from '../context/Context';
+import DeliveryContext from '../context/DeliveryContext';
 import FormContainer from '../components/FormContainer';
 import Input from '../components/Input';
 import { ButtonPrimary, ButtonTertiary } from '../components/Button';
@@ -23,7 +23,8 @@ function Login() {
   const [localEmail, setLocalEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showWarning, setShowWarning] = useState(false);
-  const { setName, setEmail, setRole, setToken } = useContext(Context);
+  const { setName, setEmail, setRole, setToken } = useContext(DeliveryContext);
+
   const history = useHistory();
 
   const isDisabled = () => {
