@@ -1,9 +1,9 @@
 const { Op } = require('sequelize');
-const { users } = require('../database/models');
+const user = require('../database/models');
 
 const conflictUser = async (name, email) => {
   try {
-    const result = await users.findOne({ where: { [Op.or]: [{ name }, { email }] } });
+    const result = user.findOne({ where: { [Op.or]: [{ name }, { email }] } });
     return result;
   } catch (error) {
     return {
@@ -15,13 +15,13 @@ const conflictUser = async (name, email) => {
 
 const registerUser = async (name, email, password) => {
   try {
-    if (await conflictUser(name, email)) return { statusCode: 409, message: 'Conflict' };
+    if (conflictUser(name, email)) return { statusCode: 409, message: 'Conflict' };
 
-    await users.create({
+    await user.create({
       name,
       email,
       password,
-      role: 'customer',
+      role: 'user',
     });
 
     return {

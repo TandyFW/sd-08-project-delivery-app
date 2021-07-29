@@ -40,8 +40,7 @@ export default function FormRegister() {
     }
   };
 
-  const register = async (e) => {
-    e.preventDefault();
+  const register = async () => {
     try {
       const newRegister = await UserRegister(currentName, currentEmail, encryptPassword);
       if (newRegister) {
@@ -96,10 +95,10 @@ export default function FormRegister() {
           />
         </label>
         <button
-          type="button"
+          type="submit"
           className="btn-register"
           disabled={ !isValid }
-          onClick={ (e) => register(e) }
+          onClick={ register }
           id="btn-register"
           data-testid="common_register__button-register"
         >
