@@ -19,7 +19,6 @@ export default function FormLogin() {
     const password = passwordInput.value;
     const MIN_PASSWORRD_LENGTH = 6;
     setCurrentEmail(email);
-    console.log(md5(password));
     setEncryptPassword(md5(password));
     if (!emailVerify(email) || password.length < MIN_PASSWORRD_LENGTH) {
       setIsValid(false);
@@ -38,10 +37,9 @@ export default function FormLogin() {
   const login = async (e) => {
     e.preventDefault();
     const user = await fetchUser(currentEmail, encryptPassword);
-
     if (user) {
       setShowMessage(false);
-      switch (user) {
+      switch (user.user.role) {
       case 'customer':
         return setURL('/customer/products');
       case 'seller':
