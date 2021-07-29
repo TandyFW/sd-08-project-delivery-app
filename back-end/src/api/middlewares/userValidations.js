@@ -25,7 +25,14 @@ const verifyRoleAdmin = async (req, res, next) => {
   }
 };
 
+const validUserData = (req, res, next) => {
+  const { email, password } = req.body;
+  if (!email || !password) return res.status().json();
+  next();
+};
+
 module.exports = {
   findUserByNameOrEmail,
   verifyRoleAdmin,
+  validUserData,
 };

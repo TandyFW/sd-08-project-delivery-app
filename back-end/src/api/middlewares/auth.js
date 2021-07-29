@@ -4,7 +4,7 @@ const jwtKey = require('fs')
   .readFileSync(path.resolve(__dirname, '../../../jwt.evaluation.key'),
     { encoding: 'utf-8' })
   .trim();
-const { UNAUTHORIZED } = require('../services/statusCode');
+const { UNAUTHORIZED, NOT_FOUND } = require('../services/statusCode');
 const { userLogin } = require('../services/userService');
 
 const JWTCONFIG = {
@@ -12,17 +12,23 @@ const JWTCONFIG = {
   algorithm: 'HS256',
 };
 
-const generateToken = async (req, _res, next) => {
-  const { email, password } = req.body;
-  const user = await userLogin(email, password);
-  const userToken = {
-    email: user.email,
-    name: user.name,
-    role: user.role,
-  };
-  const token = JWT.sign({ data: userToken }, jwtKey, JWTCONFIG);
-  req.token = token;
-  next();
+const generateToken = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    const user = await userLogin(email, password);
+    const userToken = {
+      email: user.email,
+      name: user.name,
+      role: user.role,
+    };
+    const token = JWT.sign({ data: userToken }, jwtKey, JWTCONFIG);
+    req.token = token;
+    next();
+  } catch (error) {
+    return res.status(NOT_FOUND).json({
+      message: error.message,
+    });
+  }
 };
 
 const verifyToken = (req, res, next) => {

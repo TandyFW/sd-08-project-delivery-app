@@ -26,7 +26,7 @@ const getUsers = async () => {
 
 const userLogin = async (email, password) => {
   const findUser = await user.findOne({ where: { email } });
-  if (findUser.password !== md5(password)) throw new Error('Not found');
+  if (!findUser || findUser.password !== md5(password)) throw new Error('Not found');
   if (!findUser) throw new Error('Not found');
   return findUser;
 };

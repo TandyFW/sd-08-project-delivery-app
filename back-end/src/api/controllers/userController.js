@@ -4,7 +4,12 @@ const {
   getUsers,
   getSellers,
   deleteUser } = require('../services/userService');
-const { CREATED, BAD_REQUEST, OK, INTERNAL_SERVER_ERROR } = require('../services/statusCode');
+const {
+  CREATED,
+  BAD_REQUEST,
+  OK,
+  INTERNAL_SERVER_ERROR,
+  NOT_FOUND } = require('../services/statusCode');
 
 const validUser = async (req, res) => {
   try {
@@ -12,7 +17,7 @@ const validUser = async (req, res) => {
     const { name, role } = await userLogin(email, password);
     return res.status(OK).json({ name, email, role, token: req.token });
   } catch (e) {
-    return res.status(BAD_REQUEST).json({
+    return res.status(NOT_FOUND).json({
       message: e.message,
     });
   }
