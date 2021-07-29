@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { request, lStorage } from '../utils';
-import ProductCard from './ProductCard';
+import CartTable from './CartTable';
+import AddressForm from './AddressForm';
 
 const useStyles = makeStyles({
   root: {
@@ -34,12 +35,14 @@ const CheckoutList = () => {
 
   return (
     <div className={ classes.root }>
-      <h1>Fin</h1>
-      { products.map((product) => (
-        <ProductCard
-          key={ product.id }
-          product={ product }
-        />)) }
+      <h3>Finalizar Pedido</h3>
+
+      <CartTable />
+
+      <h3>Detalhes e Endereço para Entrega</h3>
+
+      <AddressForm />
+
     </div>
   );
 };

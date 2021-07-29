@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { request, lStorage } from '../utils';
 import ProductCard from './ProductCard';
@@ -12,7 +13,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ProductsList = () => {
+const ProductsList = ({ refreshCart }) => {
   const [products, setProducts] = useState([]);
 
   const classes = useStyles();
@@ -20,6 +21,7 @@ const ProductsList = () => {
   useEffect(() => {
     const getProducts = async () => {
       const { token } = lStorage().user.get();
+      console.log(token);
       const options = {
         headers: {
           Authorization: token,
@@ -27,6 +29,7 @@ const ProductsList = () => {
         method: 'GET',
       };
       const result = await request('products', options);
+      console.log(result);
       setProducts(result);
     };
     if (products.length === 0) getProducts();
@@ -38,9 +41,14 @@ const ProductsList = () => {
         <ProductCard
           key={ product.id }
           product={ product }
+          refreshCart={ refreshCart }
         />)) }
     </div>
   );
+};
+
+ProductsList.propTypes = {
+  refreshCart: PropTypes.func.isRequired,
 };
 
 export default ProductsList;

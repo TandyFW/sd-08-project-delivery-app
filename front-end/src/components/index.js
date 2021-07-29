@@ -6,6 +6,7 @@ import ProductCard from './ProductCard';
 import Register from './Register';
 import LoginForm from './LoginForm';
 import Checkout from './Checkout';
+import ProductsCart from './ProductsCart';
 
 export default {
   TopBar,
@@ -16,4 +17,5 @@ export default {
   Register,
   LoginForm,
   Checkout,
+  ProductsCart,
 };
