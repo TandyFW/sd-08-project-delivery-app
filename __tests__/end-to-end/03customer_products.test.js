@@ -112,7 +112,7 @@ describe(requirement(14), () => {
 
   test("O avaliador testará se os dados de cada card condizem com os dados esperados",
     async () => {
-      for(const { id, name, price, urlImage } of cards){
+      for(const { id, name, price, url_image: urlImage } of cards){
         await expect(page).toGetTextFromElement(
           customerProductsPage.element.card.title + `[data-testid$='-${id}']`,
           name
@@ -246,7 +246,7 @@ describe(requirement(15), () => {
   });
 });
 
-describe(requirement(16), () => {
+describe.only(requirement(16), () => {
   test("O avaliador testará a existência de um botão de carrinho com um valor total válido e que seja capaz de nos direcionar a tela de checkout", async () => {
     const itemList = action.customer.getRandomProducts();
     showCurrentCart(itemList, global.__TESTDESC__);

@@ -11,19 +11,16 @@ export function LoginProvider({ children }) {
     request,
     response,
     loading,
-    loginError,
+    error,
   } = useAxios();
 
   const handleLoginRequest = async ({ email, password }) => {
-    const options = {
-      method: 'post', url: API_LOGIN_URL, data: { email, password },
-    };
-    await request(options);
-    if (response) console.log('pag products');
+    await request(API_LOGIN_URL({ email, password }));
   };
 
   const history = useHistory();
   if (response) {
+    localStorage.setItem('user', JSON.stringify(response.data));
     history.push('/customer/products');
   }
 
@@ -31,7 +28,7 @@ export function LoginProvider({ children }) {
     values: {
       response,
       loading,
-      loginError,
+      error,
     },
     functions: {
       handleLoginRequest,

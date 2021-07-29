@@ -1,12 +1,10 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const md5 = require('md5');
 const fs = require('fs');
 
-const secret2 = fs
+const SECRET = fs
 .readFileSync(`${__dirname}/../jwt.evaluation.key`)
 .toString();
-const SECRET = md5(secret2);
 
 const signToken = (payload) => jwt.sign(payload, SECRET, {
   expiresIn: '1d',
@@ -17,4 +15,5 @@ module.exports = {
   signToken,
   verifyToken,
   decodeToken,
+  SECRET,
 };

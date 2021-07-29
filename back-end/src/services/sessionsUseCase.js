@@ -1,4 +1,3 @@
-const { Op } = require('sequelize');
 const {
   StatusCodes,
   getReasonPhrase,
@@ -9,9 +8,7 @@ const { signToken } = require('../../config/jwtConfig');
 const HandleError = require('../utils/handleError');
 
 exports.auth = async ({ email, password }) => {
-  const [user] = await users.findAll({
-    where: { email: { [Op.eq]: email } },
-  });
+  const user = await users.findOne({ where: { email } });
   if (!user) {
     throw new HandleError(
       'Not found', StatusCodes.NOT_FOUND,
@@ -20,11 +17,11 @@ exports.auth = async ({ email, password }) => {
   }
   if (md5(password) !== user.password) {
     throw new HandleError(
-      'Invalid fields email or password', 
-      StatusCodes.BAD_REQUEST,
+      'Invalid fields email or password', StatusCodes.BAD_REQUEST,
       getReasonPhrase(StatusCodes.BAD_REQUEST),
     );
   }
-  const token = await signToken({ user: { id: user.id, role: user.role } });
-  return { token };
+  const { id, name, role } = user;
+  const token = await signToken({ user: { id, role } });
+  return { name, email, role, token };
 };
