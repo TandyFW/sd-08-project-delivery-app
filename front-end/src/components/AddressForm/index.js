@@ -119,7 +119,7 @@ export default function AddressForm() {
         >
           FINALIZAR PEDIDO
         </FinalizeOrder>
-        { message ? <p>Compra realizada com sucesso!</p> : '' }
+        { message ? <h3>Compra realizada com sucesso!</h3> : '' }
       </Form>
     </Container>
   );
