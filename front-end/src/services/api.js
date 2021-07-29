@@ -32,8 +32,9 @@ export const loginRequest = (user, setUsrNotFound, history) => (
 export const registerRequest = (user, setUsrExists, history) => (
   requestApi('/user', 'POST', user)
     .then((response) => {
+      localStorage.setItem('user', JSON.stringify(response.user));
+
       history.push('/customer/products');
-      return response;
     })
     .catch((err) => {
       setUsrExists(true);
