@@ -23,7 +23,6 @@ const saveSale = async (sale) => {
     const saleId = saleInsert.dataValues.id;
 
      sale.products.forEach(async ({ id: productId, quantity }) => {
-        //  console.log(id, quantity);
            await SaleProduct.create({
                 saleId,
                 productId,
