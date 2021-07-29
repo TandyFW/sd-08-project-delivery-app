@@ -8,6 +8,7 @@ import Login from './views/Login/index';
 import Components from './views/Components';
 import Home from './views/Home';
 import Register from './views/Register';
+import CustomerCheckout from './views/CustomerCheckout';
 
 function Routes() {
   return (
@@ -17,6 +18,7 @@ function Routes() {
         <Route path="/login" component={ Login } />
         <Route path="/components" component={ Components } />
         <Route path="/register" component={ Register } />
+        <Route path="/customer/checkout" component={ CustomerCheckout } />
       </Switch>
     </Router>
   );
