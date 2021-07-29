@@ -43,15 +43,15 @@ function Products() {
   return (
     <>
       <Header />
-      <Container>
-        <Row className="p-4">
+      <Container fluid>
+        <Row className="justify-content-center p-4">
           { loading
             ? <div>Loading</div>
             : products.map((item, index) => (
               <ProductCard key={ index } product={ item } />
             ))}
         </Row>
-        <Row sm="auto" className="justify-content-end">
+        <Row sm="auto" className="justify-content-end p-4">
           <Button
             variant="success"
             className="rounded"

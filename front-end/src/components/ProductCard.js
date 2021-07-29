@@ -6,7 +6,7 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import { GlobalContext } from '../context/GlobalProvider';
 
 export default function ProductCard(props) {
-  const { product: { id, name, price, urlImage } } = props;
+  const { product: { id, name, price, url_image: image } } = props;
 
   const {
     values: { totalPrice },
@@ -46,15 +46,16 @@ export default function ProductCard(props) {
 
   // ALTERAR DEPOIS
   const obj = {
-    width: '14rem',
-    height: '4rem',
+    width: '18rem',
+    // height: '8rem',
   };
 
   return (
     <Card style={ obj } className="m-2">
       <Card.Img
+        style={ { height: '15rem' } }
         variant="top"
-        src={ urlImage }
+        src={ image }
         data-testid={ `customer_products__img-card-bg-image-${id}` }
       />
       <Card.ImgOverlay>
@@ -102,6 +103,6 @@ ProductCard.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
     price: PropTypes.number,
-    urlImage: PropTypes.string,
+    url_image: PropTypes.string,
   }).isRequired,
 };

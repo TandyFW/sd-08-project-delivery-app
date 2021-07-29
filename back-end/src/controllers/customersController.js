@@ -15,7 +15,7 @@ const getAllProducts = async (_req, res) => {
     const response = await customersUseCase.getAllProducts();
     res.status(200).json(response);
   } catch (error) {
-    return res.status(error.statusCode).json(error.responseError());
+    return res.status(500).json(error.message);
   }
 };
 
