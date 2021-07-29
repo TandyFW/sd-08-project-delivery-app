@@ -62,7 +62,7 @@ function Products() {
       >
         TOTAL: R$
         <span data-testid="customer_products__checkout-bottom-value">
-          { String(cartTotal).replace('.', ',') }
+          { cartTotal.toFixed(2).replace('.', ',') }
         </span>
       </TotalValue>
     </StyledProducts>
