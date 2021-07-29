@@ -12,4 +12,20 @@ export default () => ({
       localStorage.removeItem('user');
     },
   },
+  cart: {
+    get: () => {
+      const cartString = localStorage.getItem('cart');
+      return JSON.parse(cartString);
+    },
+    set: (item) => {
+      const cartString = localStorage.getItem('cart');
+      const cartJson = (!cartString) ? {} : JSON.parse(cartString);
+      cartJson[item.name] = { quantity: item.quantity, price: item.price };
+      const newCartString = JSON.stringify(cartJson);
+      localStorage.setItem('cart', newCartString);
+    },
+    remove: () => {
+      localStorage.removeItem('cart');
+    },
+  },
 });

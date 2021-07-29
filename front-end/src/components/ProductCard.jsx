@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
+import { lStorage } from '../utils';
 
 const useStyles = makeStyles({
   root: {
@@ -34,7 +35,7 @@ const useStyles = makeStyles({
   },
 });
 
-function ProductCard({ product }) {
+function ProductCard({ product, refreshCart }) {
   const classes = useStyles();
   const [quantity, setQuantity] = useState(0);
 
@@ -48,6 +49,12 @@ function ProductCard({ product }) {
 
   const handleChange = (event) => {
     const value = filterInput(event);
+    lStorage().cart.set({
+      name: product.name,
+      quantity: ((!value) ? 0 : value),
+      price: product.price,
+    });
+    refreshCart();
     if (!value) setQuantity(0);
     else setQuantity(value);
   };
@@ -82,7 +89,17 @@ function ProductCard({ product }) {
       <CardActions>
         <Button
           data-testid={ `customer_products__button-card-rm-item-${product.id}` }
-          onClick={ () => (quantity === 0 ? null : setQuantity(quantity - 1)) }
+          onClick={ () => {
+            if (quantity !== 0) {
+              lStorage().cart.set({
+                name: product.name,
+                quantity: quantity - 1,
+                price: product.price,
+              });
+              setQuantity(quantity - 1);
+              refreshCart();
+            }
+          } }
         >
           -
         </Button>
@@ -95,7 +112,15 @@ function ProductCard({ product }) {
         />
         <Button
           data-testid={ `customer_products__button-card-add-item-${product.id}` }
-          onClick={ () => setQuantity(quantity + 1) }
+          onClick={ () => {
+            lStorage().cart.set({
+              name: product.name,
+              quantity: quantity + 1,
+              price: product.price,
+            });
+            setQuantity(quantity + 1);
+            refreshCart();
+          } }
         >
           +
         </Button>
@@ -111,6 +136,7 @@ ProductCard.propTypes = {
     id: PropTypes.number,
     urlImage: PropTypes.string,
   }).isRequired,
+  refreshCart: PropTypes.func.isRequired,
 };
 
 export default ProductCard;
