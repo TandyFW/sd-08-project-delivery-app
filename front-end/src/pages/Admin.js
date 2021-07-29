@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import validator from 'email-validator';
 import { create } from '../services';
 import { UserTable } from '../components';
+import { userAction } from '../redux/actions';
 
 class Admin extends React.Component {
   constructor() {
@@ -70,6 +71,7 @@ class Admin extends React.Component {
       setTimeout(() => {
         document.querySelector('.hidden-span').style.display = 'none';
       }, spanMaxTime);
+      await userAction();
       return null;
     }
   }

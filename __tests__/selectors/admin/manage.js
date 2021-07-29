@@ -2,7 +2,7 @@ const prefix = "admin_manage__";
 module.exports = {
   element: {
     userTable: {
-      itemNumber: `[data-testid^='${prefix}element-user-table-item-number-']`,
+      itemNumber: `[data-testid^='${prefix}element-user-table-id-']`, // arquivo modificado pelo hugo
       name: `[data-testid^='${prefix}element-user-table-name-']`,
       email: `[data-testid^='${prefix}element-user-table-email-']`,
       role: `[data-testid^='${prefix}element-user-table-role-']`,

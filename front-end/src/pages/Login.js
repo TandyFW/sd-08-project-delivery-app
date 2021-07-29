@@ -14,8 +14,13 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentDidMount() {
+    localStorage.clear();
+    // document.querySelector('.hidden-span').style.display = 'none';
+  }
+
   componentWillUnmount() {
-    localStorage.setItem('token', '');
+    // localStorage.setItem('token', 'vazio');
     document.querySelector('.hidden-span').style.display = 'none';
   }
 
