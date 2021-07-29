@@ -122,7 +122,7 @@ class Admin extends React.Component {
             type="button"
             data-testid="admin_manage__button-register"
             disabled={ !email || !password || !name }
-            onClick={ (event) => { this.signIn(event); window.location.reload(); } }
+            onClick={ (event) => { this.signIn(event); } }
           >
             Cadastrar
           </button>
