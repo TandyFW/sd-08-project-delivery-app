@@ -55,4 +55,8 @@ router.get('/order/:id',
   tokenValidation,
   orderController.getOrder);
 
+router.put('/order/:id',
+  tokenValidation,
+  orderController.updateOrderStatus);
+
 module.exports = router;

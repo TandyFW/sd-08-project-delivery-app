@@ -5,6 +5,7 @@ const {
   getUserById,
   getAllOrdersByUser,
   getOrderById,
+  updateOrder,
 } = require('../services');
 
 const createOrder = async (req, res) => {
@@ -40,4 +41,13 @@ const getOrder = async (req, res) => {
   return res.status(200).json({ sale: result });
 };
 
-module.exports = { createOrder, getAllOrders, getOrder };
+const updateOrderStatus = async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.query;
+
+  const result = await updateOrder(id, status);
+
+  return res.status(200).json({ sale: result });
+};
+
+module.exports = { createOrder, getAllOrders, getOrder, updateOrderStatus };

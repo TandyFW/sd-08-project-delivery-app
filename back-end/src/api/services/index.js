@@ -9,6 +9,7 @@ const getUserById = require('./getUserById');
 const getSaleById = require('./getSaleById');
 const getAllOrdersByUser = require('./getAllOrdersByUser');
 const getOrderById = require('./getOrderById');
+const updateOrder = require('./updateOrder');
 
 module.exports = {
   getUser,
@@ -22,4 +23,5 @@ module.exports = {
   getUserById,
   getAllOrdersByUser,
   getOrderById,
+  updateOrder,
 };
