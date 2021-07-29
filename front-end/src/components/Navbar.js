@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Context from '../context/Context';
+import DeliveryContext from '../context/DeliveryContext';
 
 const StyledNavbar = styled.nav`
   background-color: ${({ theme }) => theme.colors.primary};
@@ -12,6 +12,7 @@ const StyledNavbar = styled.nav`
 const Username = styled.p`
   background-color: ${({ theme }) => theme.colors.tertiary};
   color: white;
+  font-size: 1.5rem;
   margin-left: auto;
   padding: 20px;
 `;
@@ -19,6 +20,8 @@ const Username = styled.p`
 const Exit = styled.p`
   background-color: ${({ theme }) => theme.colors.quaternary};
   color: white;
+  cursor: pointer;
+  font-size: 1.5rem;
   padding: 20px;
 `;
 
@@ -37,7 +40,7 @@ const ChildrenWrapper = styled.div`
 `;
 
 const Navbar = ({ className, children }) => {
-  const { name } = useContext(Context);
+  const { name } = useContext(DeliveryContext);
   const history = useHistory();
 
   const handleExit = () => {
@@ -61,12 +64,16 @@ const Navbar = ({ className, children }) => {
   );
 };
 
+Navbar.defaultProps = {
+  className: '',
+};
+
 Navbar.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]).isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
 };
 
 export default Navbar;

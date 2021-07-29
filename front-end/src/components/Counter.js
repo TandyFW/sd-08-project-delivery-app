@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
-import useCounter from '../hooks/useCounter';
+import PropTypes from 'prop-types';
+import CartContext from '../context/CartContext';
 
 const Wrapper = styled.div`
   align-items: center;
@@ -17,8 +18,9 @@ const Wrapper = styled.div`
   }
 `;
 
-const Action = styled.div`
+const Action = styled.button`
   background-color: ${({ theme }) => theme.colors.primary};
+  border: none;
   color: ${({ theme }) => theme.colors.lightText};
   cursor: pointer;
   font-size: 3rem;
@@ -50,16 +52,37 @@ const Count = styled.input.attrs(() => ({
   }
 `;
 
-const Counter = () => {
-  const [count, setCount, increment, decrement] = useCounter();
+const Counter = ({ id }) => {
+  const { setCartQuantity, incCartQuantity,
+    decCartQuantity, cart } = useContext(CartContext);
 
   return (
     <Wrapper>
-      <Action onClick={ decrement }>-</Action>
-      <Count value={ count } onChange={ ({ target }) => setCount(target.value) } />
-      <Action onClick={ increment }>+</Action>
+      <Action
+        onClick={ () => decCartQuantity(id) }
+        data-testid={ `customer_products__button-card-rm-item-${id}` }
+      >
+        -
+      </Action>
+
+      <Count
+        value={ cart[id] || 0 }
+        data-testid={ `customer_products__input-card-quantity-${id}` }
+        onChange={ ({ target }) => setCartQuantity(id, target.value) }
+      />
+
+      <Action
+        onClick={ () => incCartQuantity(id) }
+        data-testid={ `customer_products__button-card-add-item-${id}` }
+      >
+        +
+      </Action>
     </Wrapper>
   );
+};
+
+Counter.propTypes = {
+  id: PropTypes.number.isRequired,
 };
 
 export default Counter;

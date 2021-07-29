@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React from 'react';
+import PropTypes from 'prop-types';
 import Label from './Label';
 import Counter from './Counter';
 
@@ -10,12 +11,14 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 350px;
   position: relative;
 `;
 
 const Image = styled.img`
-  width: 100%;
+  height: 300px;
+  max-width: 300px;
+  object-fit: contain;
+  width: 300px;
 `;
 
 const PriceTag = styled.p`
@@ -38,16 +41,40 @@ const Body = styled.div`
   width: 100%;
 `;
 
-const ProductCard = () => (
-  <Wrapper>
-    <PriceTag>RS10</PriceTag>
-    <Image src="https://picsum.photos/200" />
-    <Body>
-      <Label text="Quantidade" centered>
-        <Counter />
-      </Label>
-    </Body>
-  </Wrapper>
-);
+const ProductCard = ({ product }) => {
+  const { id, name, price, urlImage } = product;
+  return (
+    <Wrapper>
+      <PriceTag>
+        R$
+        <span data-testid={ `customer_products__element-card-price-${id}` }>
+          { price.replace('.', ',') }
+        </span>
+      </PriceTag>
+      <Image
+        src={ urlImage }
+        data-testid={ `customer_products__img-card-bg-image-${id}` }
+      />
+      <Body>
+        <Label
+          text={ name }
+          data-testid={ `customer_products__element-card-title-${id}` }
+          centered
+        >
+          <Counter id={ id } />
+        </Label>
+      </Body>
+    </Wrapper>
+  );
+};
+
+ProductCard.propTypes = {
+  product: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    price: PropTypes.string,
+    urlImage: PropTypes.string,
+  }).isRequired,
+};
 
 export default ProductCard;

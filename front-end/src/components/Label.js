@@ -3,9 +3,11 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
 const StyledLabel = styled.label`
+  align-items: center;
   display: inline-flex;
   flex-direction: column;
   font-size: 1.5rem;
+  justify-content: center;
 
   span {
     margin-bottom: 10px;
