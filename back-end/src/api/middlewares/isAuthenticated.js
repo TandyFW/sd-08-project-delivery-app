@@ -9,10 +9,10 @@ const { SECRET } = require('../../../config/jwtConfig');
 const restrictionConfig = new Map([
   [1, 'admin'], 
   [2, 'seller'], 
-  [3, 'customer']
+  [3, 'customer'],
 ]);
 
-exports.restrictionLevel = (key) => ({ user: { role} }) => {
+exports.restrictionLevel = (key) => ({ user: { role } }) => {
   try {
     if (!role.includes(restrictionConfig.get(key))) {
       throw new HandleError(
@@ -28,7 +28,7 @@ exports.restrictionLevel = (key) => ({ user: { role} }) => {
       getReasonPhrase(StatusCodes.FORBIDDEN),
       );
   }
-}
+};
 
 exports.isAuthenticated = (callback) => (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -38,7 +38,7 @@ exports.isAuthenticated = (callback) => (req, res, next) => {
   }
   try {
     const user = verify(authHeader, SECRET);
-    callback(user)
+    callback(user);
     req.user = user;
     next();
   } catch (error) {
