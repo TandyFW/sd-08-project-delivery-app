@@ -1,13 +1,19 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  &.user-list {
+    padding: 10px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    margin: 10px auto;
+  }
   min-width: 900px;
   h4 {
     text-align: center;
   }
 `;
 export const NewUserContainer = styled.div`
-  justify-content: center;
+  /* justify-content: center; */
   width: 90%;
   height: auto;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);

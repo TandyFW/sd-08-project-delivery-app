@@ -1,25 +1,26 @@
-const router = require('express').Router();
-const userController = require('../controllers/userController');
-const productController = require('../controllers/productController');
-const saleController = require('../controllers/saleController');
-const middlewares = require('../middlewares/userValidations');
+const router = require("express").Router();
+const userController = require("../controllers/userController");
+const productController = require("../controllers/productController");
+const saleController = require("../controllers/saleController");
+const middlewares = require("../middlewares/userValidations");
 
-router.post('/login', userController.validUser);
+router.post("/login", userController.validUser);
 router.post(
-  '/users',
+  "/users",
   middlewares.findUserByNameOrEmail,
-  userController.addUser,
+  userController.addUser
 );
 router.post(
-  '/users/admin',
+  "/users/admin",
   middlewares.verifyRoleAdmin,
   middlewares.findUserByNameOrEmail,
-  userController.addUserByAdmin,
+  userController.addUserByAdmin
 );
-router.get('/users', userController.getAllUsers);
+router.get("/users", userController.getAllUsers);
+router.delete("/users/:id", userController.removeUser);
 
-router.get('/products', productController.getAllProducts);
+router.get("/products", productController.getAllProducts);
 
-router.get('/sales', saleController.getAllSales);
+router.get("/sales", saleController.getAllSales);
 
 module.exports = router;

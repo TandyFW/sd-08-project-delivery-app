@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import NavBar from '../components/NavBar';
+import UserList from '../components/UserList';
 import api from '../services/api';
 import registerValidation from '../services/registerValidation';
+import { ErrorMessage, ListHeader } from '../styles/pages/SellerDetails.styled';
 import colors from '../styles/colors';
 // import statusCode from '../services/statusCode';
 import {
@@ -13,6 +15,26 @@ import {
 } from '../styles/pages/AdminManager.styled';
 
 const prefix = 'admin_manage__';
+const getUsers = async () => {
+  const result = await api.get('/delivery/users');
+  return result.data;
+};
+const convertRole = (role) => {
+  let result = '';
+  switch (role) {
+  case 'seller':
+    result = 'Vendedor';
+    break;
+  case 'administrator':
+    result = 'Administrador';
+    break;
+  case 'customer':
+    result = 'Cliente';
+    break;
+  default:
+  }
+  return result;
+};
 
 const AdminManager = () => {
   const THREE_SECONDS = 3000;
@@ -23,17 +45,21 @@ const AdminManager = () => {
   const [role, setRole] = useState('seller');
   const [error, setError] = useState(true);
   const [OK, setOK] = useState(true);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    setLoading(true);
+    getUsers().then((response) => setUsers(response));
+    setLoading(false);
+  }, [OK]);
   const registerUser = () => {
     const newUser = { name: userName, email, password, role };
     api
       .post('/delivery/users/admin', newUser)
       .then((response) => {
         if (response) {
-          setOK(false);
-          setTimeout(() => {
-            setOK(true);
-          }, TWO_SECONDS);
+          setOK(!OK);
         }
       })
       .catch((errorMessage) => {
@@ -61,6 +87,12 @@ const AdminManager = () => {
       <NavBar show user="Nome do Patrão" />
       <Container>
         <h4>Cadastrar novo usuário</h4>
+        <ErrorMessage
+          hidden={ error }
+          data-testid={ `${prefix}element-invalid-register` }
+        >
+          Usuário já cadastrado
+        </ErrorMessage>
         <NewUserContainer>
           <Input
             onChange={ ({ target }) => setUserName(target.value) }
@@ -100,10 +132,29 @@ const AdminManager = () => {
             Cadastrar
           </ButtonRegister>
         </NewUserContainer>
-        <span hidden={ error } data-testid={ `${prefix}element-invalid-register` }>
-          Usuário já cadastrado
-        </span>
-        <span hidden={ OK }>Usuário Cadastrado com Sucesso!</span>
+        <h4>Lista de usuários</h4>
+        <Container className="user-list">
+          <ListHeader className="user-list">
+            <span>Item</span>
+            <span>Nome</span>
+            <span>E-mail</span>
+            <span>Tipo</span>
+            <span>Excluir</span>
+          </ListHeader>
+          {!loading
+            && users.map((user, index) => (
+              <UserList
+                key={ user.id }
+                id={ user.id }
+                index={ index + 1 }
+                name={ user.name }
+                email={ user.email }
+                userType={ convertRole(user.role) }
+                setOK={ setOK }
+                OK={ OK }
+              />
+            ))}
+        </Container>
       </Container>
     </>
   );
