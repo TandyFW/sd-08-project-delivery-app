@@ -72,7 +72,7 @@ input {
 .login-button:disabled {
   background-color: white;
   border: none;
-  color: black;
+  color: grey;
   cursor: not-allowed;
   transition: none;
 }
