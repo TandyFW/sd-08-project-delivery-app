@@ -24,22 +24,28 @@ export default function SaleCard({ sale }) {
   const history = useHistory();
 
   const {
-    deliveryAddress,
-    deliveryNumber,
+    // deliveryAddress,
+    // deliveryNumber,
+    // id,
+    // salesDate,
+    // status,
+    // totalPrice,
     id,
-    salesDate,
     status,
-    totalPrice,
+    sale_date: salesDate,
+    total_price: totalPrice,
+    delivery_address: deliveryAddress,
+    delivery_number: deliveryNumber,
   } = sale;
 
-  const formatDate = (date) => {
-    const timesTampDate = Date.parse(date);
-    const dateObj = new Date(timesTampDate);
-    const day = dateObj.getDate();
-    const month = dateObj.getMonth() + 1;
-    const year = dateObj.getFullYear();
-    return `${day}/${month}/${year}`;
-  };
+  // const formatDate = (date) => {
+  //   const timesTampDate = Date.parse(date);
+  //   const dateObj = new Date(timesTampDate);
+  //   const day = dateObj.getDate();
+  //   const month = dateObj.getMonth() + 1;
+  //   const year = dateObj.getFullYear();
+  //   return `${day}/${month}/${year}`;
+  // };
 
   const redirectToSaleDetail = (idParam) => {
     history.push(`orders/${idParam}`);
@@ -68,7 +74,7 @@ export default function SaleCard({ sale }) {
                   data-testid={ `seller_orders__element-order-date-${id}` }
                   variant="body2"
                 >
-                  {formatDate(salesDate)}
+                  {moment(salesDate).locale('pt-br').format('L')}
                 </Typography>
                 <Typography
                   data-testid={ `seller_orders__element-card-address-${id}` }
@@ -84,7 +90,7 @@ export default function SaleCard({ sale }) {
                 data-testid={ `seller_orders__element-card-price-${id}` }
                 variant="subtitle1"
               >
-                {`R$ ${totalPrice}`}
+                {`R$ ${totalPrice.replace(/\./, ',')}`}
               </Typography>
             </Grid>
           </Grid>
@@ -97,10 +103,10 @@ export default function SaleCard({ sale }) {
 SaleCard.propTypes = {
   sale: PropTypes.shape({
     id: PropTypes.number,
-    salesDate: PropTypes.string,
+    sale_date: PropTypes.string,
     status: PropTypes.string,
-    totalPrice: PropTypes.string,
-    deliveryAddress: PropTypes.string,
-    deliveryNumber: PropTypes.string,
+    total_price: PropTypes.string,
+    delivery_address: PropTypes.string,
+    delivery_number: PropTypes.string,
   }).isRequired,
 };

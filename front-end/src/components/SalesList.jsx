@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import SaleCard from './SaleCard';
-import { requestSeller } from '../utils';
+import { request } from '../utils';
 // import Components from '../components';
 
-const SalesList = () => {
-  // NOme a ser obtido do localStorage
-  const name = 'Vini Vasconcelos';
-
+const SalesList = ({ name, token }) => {
   const [seller, setSeller] = useState({});
 
   useEffect(() => {
     const getSales = async () => {
       const encodedName = encodeURI(name);
-      const sellerRequest = await requestSeller(`sale/${encodedName}`, 'Get');
+      const options = {
+        headers: {
+          Authorization: token,
+        },
+        method: 'GET',
+      };
+      const sellerRequest = await request(`sale/${encodedName}`, options);
       setSeller(sellerRequest);
     };
     getSales();
@@ -30,4 +34,10 @@ const SalesList = () => {
       {renderCards()}
     </>);
 };
+
+SalesList.propTypes = {
+  name: PropTypes.string.isRequired,
+  token: PropTypes.string.isRequired,
+};
+
 export default SalesList;

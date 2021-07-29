@@ -1,5 +1,5 @@
 import React from 'react';
-import Components from '../components';
+import { NavBar, ProductsList } from '../components';
 import { lStorage } from '../utils';
 
 const Products = () => {
@@ -9,8 +9,8 @@ const Products = () => {
   const userFullName = lStorage().user.get().name;
   return (
     <div>
-      <Components.NavBar screens={ screens } user={ userFullName } />
-      <Components.ProductsList />
+      <NavBar screens={ screens } user={ userFullName } />
+      <ProductsList />
     </div>
   );
 };
