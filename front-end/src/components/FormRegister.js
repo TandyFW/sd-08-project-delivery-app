@@ -2,6 +2,7 @@ import md5 from 'md5';
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import UserRegister from '../services/UserRegister';
+import emailVerify from '../utils/functions';
 
 export default function FormRegister() {
   const [isValid, setIsValid] = useState(false);
@@ -28,14 +29,14 @@ export default function FormRegister() {
       || password.length < MIN_PASSWORRD_LENGTH
       || name.length < MIN_NAME_LENGTH
     ) {
-      setIsValid(false);
+      return setIsValid(false);
     }
     if (
       emailVerify(email)
       && password.length >= MIN_PASSWORRD_LENGTH
       && name.length >= MIN_NAME_LENGTH
     ) {
-      setIsValid(true);
+      return setIsValid(true);
     }
   };
 
