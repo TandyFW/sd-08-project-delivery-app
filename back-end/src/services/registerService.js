@@ -1,8 +1,8 @@
 const { Op } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
-const { users } = require('../database/models');
 const jwt = require('jsonwebtoken');
+const { users } = require('../database/models');
 
 const conflictUser = async (name, email) => {
   try {
@@ -41,14 +41,10 @@ const registerUser = async (name, email, password) => {
 
     return {
       statusCode: 201,
-      json: { token: newToken, user }
+      json: { token: newToken, user },
     };
   } catch (error) {
-    console.log(error);
-    return {
-      statusCode: 500,
-      message: 'Error in DB1',
-    };
+    return { statusCode: 500, message: 'Error in DB1' };
   }
 };
 
