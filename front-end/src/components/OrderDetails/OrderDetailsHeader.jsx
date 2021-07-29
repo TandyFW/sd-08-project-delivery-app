@@ -1,27 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { useGroupState } from '../../hooks';
 import HeaderButton from './HeaderButton';
 import HeaderStatus from './HeaderStatus';
 import { PENDING, PREPARING, ON_THE_WAY, DELIVERED } from './consts';
+import { Context } from '../../context';
 
 const OrderDetailsHeader = ({ info }) => {
-  const { orderNumber, date, userType, seller, socket } = info;
+  const { orderNumber, date, userType, seller } = info;
+  const { socket } = useContext(Context);
   // falta implementar socket!!!
-  const { status } = useGroupState({ status: PENDING });
+
+  const [status, setStatus] = useState(PENDING);
+
+  useEffect(() => {
+    socket.on('updateOrder', ({ number, newStatus }) => {
+      if (number === orderNumber) {
+        setStatus(newStatus);
+      }
+    });
+  }, []);
 
   const getButtons = () => {
     if (userType === 'customer') {
       return (
-        <HeaderButton type={ DELIVERED } status={ status } />
+        <HeaderButton type={ DELIVERED } status={ status } orderNumber={ orderNumber } />
       );
     }
     return (
       <>
-        <HeaderButton type={ PREPARING } status={ status } />
-        <HeaderButton type={ ON_THE_WAY } status={ status } />
+        <HeaderButton type={ PREPARING } status={ status } orderNumber={ orderNumber } />
+        <HeaderButton type={ ON_THE_WAY } status={ status } orderNumber={ orderNumber } />
       </>
     );
   };
@@ -57,10 +67,6 @@ OrderDetailsHeader.propTypes = {
     date: PropTypes.string.isRequired,
     userType: PropTypes.string.isRequired,
     seller: PropTypes.string,
-    socket: PropTypes.shape({
-      on: PropTypes.func,
-      emit: PropTypes.func,
-    }).isRequired,
   }).isRequired,
 };
 

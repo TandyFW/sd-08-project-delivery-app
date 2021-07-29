@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/styles';
 import { lightGreen, teal, brown } from '@material-ui/core/colors';
 import { PENDING, PREPARING, ON_THE_WAY, DELIVERED } from './consts';
+import { Context } from '../../context';
 
 const useStyles = makeStyles((theme) => ({
   preparing: {
@@ -29,8 +30,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HeaderButton = ({ type, status }) => {
+const HeaderButton = ({ type, statusValue, orderNumber }) => {
   const classes = useStyles();
+  const { socket } = useContext(Context);
 
   const shouldDisable = () => {
     switch (type) {
@@ -58,8 +60,9 @@ const HeaderButton = ({ type, status }) => {
 
   const handleClick = () => {
     const flow = [PENDING, PREPARING, ON_THE_WAY, DELIVERED];
-    const prevIndex = flow.indexOf(status.value);
-    status.set(flow[prevIndex + 1]);
+    const prevIndex = flow.indexOf(statusValue);
+    const newStatus = flow[prevIndex + 1];
+    socket.emit('updateOrder', { number: orderNumber, newStatus });
   };
 
   return (
@@ -78,10 +81,8 @@ const HeaderButton = ({ type, status }) => {
 
 HeaderButton.propTypes = {
   type: PropTypes.string.isRequired,
-  status: PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    set: PropTypes.func.isRequired,
-  }).isRequired,
+  statusValue: PropTypes.string.isRequired,
+  orderNumber: PropTypes.number.isRequired,
 };
 
 export default HeaderButton;
