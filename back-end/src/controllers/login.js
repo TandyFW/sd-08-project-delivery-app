@@ -22,13 +22,11 @@ const getJwtToken = (payload) => {
 
 const login = rescue(async (req, res) => {
   const { error } = loginSchema.validate(req.body);
-
   if (error) throw error;
 
   const { email, password } = req.body;
 
   const user = await UserService.findByEmail(email);
-
   if (!user) throw boom.notFound('User not found');
 
   if (user.password !== md5(password)) {
