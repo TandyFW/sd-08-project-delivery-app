@@ -32,6 +32,7 @@ function ClientProducts() {
 
   useEffect(() => {
     getProducts().then((response) => setProducts(response));
+    console.log(products);
     setLoading(false);
   }, []);
   return (
@@ -55,7 +56,7 @@ function ClientProducts() {
               key={ index }
               prefix={ prefix }
               price={ product.price }
-              tumbnail={ product.urlImage }
+              tumbnail={ product.url_image }
               title={ product.name }
               id={ product.id }
             />
