@@ -6,7 +6,7 @@ const { users } = require('../database/models');
 
 const conflictUser = async (name, email) => {
   try {
-    const result = user.findOne({ where: { [Op.or]: [{ name }, { email }] } });
+    const result = users.findOne({ where: { [Op.or]: [{ name }, { email }] } });
     return result;
   } catch (error) {
     return {
