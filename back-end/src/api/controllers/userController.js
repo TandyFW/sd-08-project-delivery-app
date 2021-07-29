@@ -1,12 +1,16 @@
-const { userLogin, createUser, getUsers, generateToken } = require('../services/userService');
-const { CREATED, BAD_REQUEST, OK } = require('../services/statusCode');
+const {
+  userLogin,
+  createUser,
+  getUsers,
+  getSellers } = require('../services/userService');
+const { CREATED, BAD_REQUEST, OK, INTERNAL_SERVER_ERROR } = require('../services/statusCode');
 
 const validUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await userLogin(email, password);
-    const token = generateToken(user);
-    return res.status(200).json({ user, token });
+    const { name, role } = await userLogin(email, password);
+    console.log(req.body);
+    return res.status(200).json({ name, email, role, token: req.token });
   } catch (e) {
     return res.status(404).json({
       message: e.message,
@@ -25,8 +29,15 @@ const getAllUsers = async (_req, res) => {
   res.status(OK).json(users);
 };
 
+const getAllSellers = async (_req, res) => {
+  const sellers = await getSellers();
+  if (sellers) return res.status(OK).json(sellers);
+  return res.status(INTERNAL_SERVER_ERROR).json({ message: 'Error' });
+};
+
 module.exports = {
   validUser,
   addUser,
   getAllUsers,
+  getAllSellers,
 };

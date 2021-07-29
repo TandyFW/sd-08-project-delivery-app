@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Table = () => {
-  const products = useSelector((state) => state.products.products);
-  console.log(products);
   const [btnRemove, setBtnRemove] = useState(true);
-  useEffect(() => { }, [btnRemove]);
-
+  const products = useSelector((state) => state.products.products);
   const dispatch = useDispatch();
+  useEffect(() => {}, [btnRemove]);
 
   const removeItem = (id) => {
+    console.log('remove', id);
     dispatch({
       type: 'REMOVE_ITEM',
       payload: id,
@@ -40,7 +39,7 @@ const Table = () => {
         <td data-testid={ `${prefix}element-order-table-remove-${index}` }>
           <button
             type="button"
-            onClick={ () => removeItem(index) }
+            onClick={ () => removeItem(id) }
           >
             Excluir
           </button>

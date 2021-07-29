@@ -1,4 +1,5 @@
 const { getAll, create } = require('../services/saleService');
+const { getUserByName, getUserByEmail } =require('../services/userService');
 const { OK, CREATED } = require('../services/statusCode');
 
 const getAllSales = async (req, res) => {
@@ -7,7 +8,11 @@ const getAllSales = async (req, res) => {
 };
 
 const createSales = async (req, res) => {
-  const saleCreated = await create(req.body);
+  const email = req.decoded;
+  const { seller, ...data } = req.body;
+  const User = await getUserByEmail(email);
+  const Seller = await getUserByName(seller);
+  const saleCreated = await create({ ...data, userId: User.id, sellerId: Seller.id });
   res.status(CREATED).json(saleCreated);
 };
 

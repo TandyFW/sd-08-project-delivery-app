@@ -15,6 +15,7 @@ const Sales = (sequelize, DataTypes) => {
     saleDate: {
       type: DataTypes.DATE,
       notNull: true,
+      defaultValue: DataTypes.NOW,
     },
     status: {
       type: DataTypes.STRING,

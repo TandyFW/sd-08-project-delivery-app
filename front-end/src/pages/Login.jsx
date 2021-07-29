@@ -35,16 +35,16 @@ const Login = () => {
         data: { email, password },
       });
       const userStorage = {
-        name: data.user.name,
-        email: data.user.email,
-        role: data.user.role,
+        name: data.name,
+        email: data.email,
+        role: data.role,
         token: data.token,
       };
       localStorage.setItem('user', JSON.stringify(userStorage));
       localStorage.setItem('carrinho', JSON.stringify([]));
-      if (data.user.role === 'customer') history.push('/customer/products');
-      if (data.user.role === 'seller') history.push('/customer/seller');
-      if (data.user.role === 'administrator') history.push('/customer/adm');
+      if (data.role === 'customer') history.push('/customer/products');
+      if (data.role === 'seller') history.push('/customer/seller');
+      if (data.role === 'administrator') history.push('/customer/adm');
 
       // console.log(data);
     } catch (err) {

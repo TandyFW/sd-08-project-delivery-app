@@ -1,19 +1,5 @@
 const md5 = require('md5');
-const JWT = require('jsonwebtoken');
-const path = require('path');
-const jwtKey = require('fs')
-  .readFileSync(path.resolve(__dirname, '../../../jwt.evaluation.key'),
-    { encoding: 'utf-8' })
-  .trim();
 const { user } = require('../../database/models');
-require('dotenv').config();
-
-// const { SECRET } = process.env;
-
-const JWTCONFIG = {
-  expiresIn: '1d',
-  algorithm: 'HS256',
-};
 
 const createUser = async ({ name, email, password }) => {
   try {
@@ -41,22 +27,36 @@ const userLogin = async (email, password) => {
   return findUser;
 };
 
-const generateToken = (userFields) => JWT.sign({ data: userFields }, jwtKey, JWTCONFIG);
-const verifyToken = (token) => {
-  if (!token) {
-    return { code: 401, message: 'invalid JWT' };
-  }
-  try {
-    const decoded = JWT.verify(token, jwtKey);
-    return decoded.data;
-  } catch (err) {
-    return { code: 401, message: 'invalid JWT' };
-  }
+// const generateToken = (userFields) => JWT.sign({ data: userFields }, jwtKey, JWTCONFIG);
+// const verifyToken = (token) => {
+//   if (!token) {
+//     return { code: 401, message: 'invalid JWT' };
+//   }
+//   try {
+//     const decoded = JWT.verify(token, jwtKey);
+//     return decoded.data;
+//   } catch (err) {
+//     return { code: 401, message: 'invalid JWT' };
+//   }
+// };
+
+const getSellers = async () => {
+  return user.findAll({ where: { role: 'seller' } });
 };
+
+const getUserByName = async (name) => {
+  return user.findOne({ where: { name } });
+};
+
+const getUserByEmail = async (email) => {
+  return user.findOne({ where: { email } });
+}
+
 module.exports = {
   userLogin,
   createUser,
   getUsers,
-  generateToken,
-  verifyToken,
+  getUserByName,
+  getSellers,
+  getUserByEmail,
 };
