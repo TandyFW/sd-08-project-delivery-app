@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import SaleCard from './SaleCard';
+import OrderCard from './OrderCard';
 import { request } from '../utils';
 // import Components from '../components';
 
@@ -29,7 +29,7 @@ const OrdersList = ({ name, token, title }) => {
     if (user[orders]) {
       console.log(user[orders]);
       return user[orders].map((order) => (
-        <SaleCard
+        <OrderCard
           key={ order.id }
           order={ order }
           title={ title }

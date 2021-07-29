@@ -1,8 +1,7 @@
 import TopBar from './TopBar';
 import NavBar from './NavBar';
 import RegistrationByManager from './RegistrationByManager';
-import SalesList from './SalesList';
-import SaleCard from './SaleCard';
+import OrderCard from './OrderCard';
 import ProductsList from './ProductsList';
 import ProductCard from './ProductCard';
 import Register from './Register';
@@ -12,8 +11,7 @@ import OrdersList from './OrdersList';
 export {
   TopBar,
   RegistrationByManager,
-  SalesList,
-  SaleCard,
+  OrderCard,
   NavBar,
   ProductsList,
   ProductCard,

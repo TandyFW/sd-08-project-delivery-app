@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SaleCard({ order, title }) {
+export default function OrderCard({ order, title }) {
   const classes = useStyles();
   const history = useHistory();
 
@@ -106,7 +106,7 @@ export default function SaleCard({ order, title }) {
   );
 }
 
-SaleCard.propTypes = {
+OrderCard.propTypes = {
   title: PropTypes.string.isRequired,
   order: PropTypes.shape({
     // id: PropTypes.number,
