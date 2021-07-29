@@ -1,7 +1,11 @@
 import React from 'react';
+import TableCheckout from '../components/TableCheckout';
 
 export default function CustomerCheckout() {
   return (
-    <h1>Página de Checkout do Cliente</h1>
+    <div>
+      <h1>Finalizar Pedido</h1>
+      <TableCheckout />
+    </div>
   );
 }
