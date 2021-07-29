@@ -30,10 +30,10 @@ export default function DeliveryForm() {
     const products = getProductsCarrinho();
     const saleDetails = {
       products,
-      seller_id: seller,
-      delivery_address: addressUser,
-      delivery_number: numberAddress,
-      total_price: totalValue,
+      sellerId: seller,
+      deliveryAddress: addressUser,
+      deliveryNumber: numberAddress,
+      totalPrice: totalValue,
     };
     return saleDetails;
   };
