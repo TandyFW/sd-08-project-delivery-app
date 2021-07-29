@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { FormControl, Select, MenuItem, Button,
@@ -6,28 +6,50 @@ import { FormControl, Select, MenuItem, Button,
 
 import { CheckoutFormBody, Form } from './styled';
 
-import requestApi from '../../services/api';
+import requestApi, { postSale } from '../../services/api';
+import DeliveryContext from '../../context/DeliveryContext';
 
 function CheckoutForm() {
   const history = useHistory();
+
   const [sellers, setSellers] = useState([]);
   const [seller, setSeller] = useState('');
   const [address, setAddress] = useState('');
   const [addressNumber, setAddressNumber] = useState('');
 
+  const { cart } = useContext(DeliveryContext);
+
   useEffect(() => {
     const { token } = localStorage.getItem('user') || '';
 
-    requestApi('/users', 'GET', {}, token)
+    requestApi('/user', 'GET', {}, token)
       .then((response) => {
-        const bdSellers = response.user.filter(({ role }) => role === 'seller');
+        console.log(response);
+        const bdSellers = response.users.filter(({ role }) => role === 'seller');
         setSellers(bdSellers);
       }).catch((err) => {
-        console.warn(err.response);
+        console.warn(err);
         const UNAUTHORIZED = 401;
         if (err.response.status === UNAUTHORIZED) logout(history);
       });
   }, [history]);
+
+  const finishOrder = () => {
+    const userData = JSON.parse(localStorage.getItem('user'));
+    console.log('user data', userData);
+    const sellerData = JSON.parse(seller);
+    console.log('seller data', sellerData);
+
+    const addressData = {
+      deliveryAddress: address,
+      deliveryNumber: addressNumber,
+    };
+    postSale(sellerData, userData, addressData, cart)
+      .then(console.log)
+      .catch((err) => {
+        console.log(err, err.response);
+      });
+  };
 
   return (
     <CheckoutFormBody>
@@ -43,7 +65,13 @@ function CheckoutForm() {
             <MenuItem value="" disabled>
               P.Vendedora Responsável
             </MenuItem>
-            { sellers.map(({ name }, i) => <MenuItem key={ i }>{name}</MenuItem>)}
+            { sellers.map((thisSeller, i) => (
+              <MenuItem
+                key={ i }
+                value={ JSON.stringify(thisSeller) }
+              >
+                {thisSeller.name}
+              </MenuItem>))}
           </Select>
         </FormControl>
         <TextField
@@ -59,7 +87,11 @@ function CheckoutForm() {
           onChange={ ({ target: { value } }) => { setAddressNumber(value); } }
         />
       </Form>
-      <Button variant="contained" color="primary">
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={ finishOrder }
+      >
         Finalizar Pedido
       </Button>
     </CheckoutFormBody>
