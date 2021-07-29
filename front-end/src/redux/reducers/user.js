@@ -1,12 +1,12 @@
-import { USER } from '../actions';
+import { LOGIN } from '../actions';
 
 const INITIAL_STATE = {
-  user: [{}],
+  user: [],
 };
 
-export default function userReducer(state = INITIAL_STATE, action) {
+export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
-  case USER:
+  case LOGIN:
     return {
       ...state, user: action.array,
     };

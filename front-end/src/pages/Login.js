@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import validator from 'email-validator';
 import { login } from '../services';
+import { loginAction } from '../redux/actions';
 
 class Login extends React.Component {
   constructor() {
@@ -20,7 +21,6 @@ class Login extends React.Component {
   }
 
   componentWillUnmount() {
-    // localStorage.setItem('token', 'vazio');
     document.querySelector('.hidden-span').style.display = 'none';
   }
 
@@ -44,12 +44,13 @@ class Login extends React.Component {
   }
 
   async signIn({ target }) {
-    const { history } = this.props;
+    const { history, dispatchUser } = this.props;
     const email = target.parentNode.parentNode.firstChild.childNodes[1].value;
     const password = target.parentNode.parentNode.firstChild.childNodes[3].value;
     const user = await login(email, password);
     if (!user.status) {
-      localStorage.setItem('token', JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify(user));
+      dispatchUser(user);
       if (user.role === 'seller') {
         history.push('/seller/orders');
       } else if (user.role === 'customer') {
@@ -119,8 +120,13 @@ class Login extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  dispatchUser: (array) => dispatch(loginAction(array)),
+});
+
 Login.propTypes = {
   history: PropTypes.shape().isRequired,
+  dispatchUser: PropTypes.func.isRequired,
 };
 
-export default connect(null, null)(Login);
+export default connect(null, mapDispatchToProps)(Login);

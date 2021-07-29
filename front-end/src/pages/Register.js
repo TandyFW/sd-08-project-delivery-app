@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import validator from 'email-validator';
 import { Loader } from '../components';
-import { create } from '../services';
+import { create, login } from '../services';
+import { loginAction } from '../redux/actions';
 
 class Register extends React.Component {
   constructor() {
@@ -23,6 +24,10 @@ class Register extends React.Component {
     setTimeout(() => {
       this.setState({ loading: false });
     }, Loading);
+  }
+
+  componentWillUnmount() {
+    document.querySelector('.hidden-span').style.display = 'none';
   }
 
   handleChange({ target: { name, value } }) {
@@ -53,13 +58,13 @@ class Register extends React.Component {
   }
 
   async signIn({ target }) {
-    const { history } = this.props;
+    const { history, dispatchUser } = this.props;
+    console.log(history);
     const name = target.parentNode.firstChild.childNodes[1].value;
     const email = target.parentNode.firstChild.childNodes[2].childNodes[1].value;
     const pass = target.parentNode.firstChild.childNodes[4].value;
     const role = 'customer';
     const user = await create(name, email, pass, role);
-    console.log(user.newRegister);
     const spanMaxTime = 10000;
     if (user.statusText) {
       const hiddenSpan = document.querySelector('.hidden-span');
@@ -67,11 +72,16 @@ class Register extends React.Component {
       hiddenSpan.innerHTML = user.message;
       hiddenSpan.setAttribute('data-testid', 'common_register__element-invalid_register');
       setTimeout(() => {
-        document.querySelector('.hidden-span').style.display = 'none';
+        hiddenSpan.style.display = 'none';
       }, spanMaxTime);
       return null;
     }
-    history.push('./customer/products');
+    if (user) {
+      const loginUser = await login(email, pass);
+      localStorage.setItem('user', JSON.stringify(loginUser));
+      dispatchUser(loginUser);
+    }
+    history.push('/customer/products');
   }
 
   render() {
@@ -128,8 +138,13 @@ class Register extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  dispatchUser: (array) => dispatch(loginAction(array)),
+});
+
 Register.propTypes = {
   history: PropTypes.shape().isRequired,
+  dispatchUser: PropTypes.func.isRequired,
 };
 
-export default connect(null, null)(Register);
+export default connect(null, mapDispatchToProps)(Register);
