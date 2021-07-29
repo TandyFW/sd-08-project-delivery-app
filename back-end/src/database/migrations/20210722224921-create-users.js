@@ -1,5 +1,4 @@
 module.exports = {
-  // eslint-disable-next-line max-lines-per-function
   up: async (queryInterface, Sequelize) =>
     queryInterface.createTable('users', {
       id: {
