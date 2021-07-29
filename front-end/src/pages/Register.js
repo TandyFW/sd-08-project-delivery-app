@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import Context from '../context/Context';
+import DeliveryContext from '../context/DeliveryContext';
 import * as api from '../services/api';
 
 import FormContainer from '../components/FormContainer';
@@ -24,7 +24,8 @@ function Register() {
   const [localEmail, setLocalEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showWarning, setShowWarning] = useState(false);
-  const { setToken } = useContext(Context);
+  const { setName, setEmail,
+    setRole, setToken } = useContext(DeliveryContext);
 
   const history = useHistory();
 
@@ -40,7 +41,10 @@ function Register() {
   async function handleClick() {
     try {
       await api.register(localName, localEmail, password);
-      const { token } = await api.login(localEmail, password);
+      const { name, email, role, token } = await api.login(localEmail, password);
+      setName(name);
+      setEmail(email);
+      setRole(role);
       setToken(token);
       history.push('/customer/products');
     } catch (error) {
