@@ -52,9 +52,9 @@ function ClientCheckout() {
           authorization: currUser.token,
         },
         data: {
-          totalPrice: fixedTotal,
-          deliveryAddress: address,
-          deliveryNumber: number,
+          total_price: fixedTotal,
+          delivery_address: address,
+          delivery_number: number,
           sellerId: selectedSeller,
           products,
         },

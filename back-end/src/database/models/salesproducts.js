@@ -8,7 +8,11 @@ const SalesProducts = (sequelize, DataTypes) => {
         notNull: true,
       },
     },
-    { timestamps: false },
+    {
+      underscored: true,
+      tableName: 'salesProducts', 
+      timestamps: false,
+    },
   );
 
   salesProducts.associate = (models) => {
