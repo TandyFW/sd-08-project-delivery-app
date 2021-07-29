@@ -12,7 +12,7 @@ import CustomerRouts from './views/Customer/Routes';
 import Context from './context/Context';
 
 function Routes() {
-  const { user } = useContext(Context);
+  const { userData } = useContext(Context);
   return (
     <Router>
       <Switch>
@@ -21,7 +21,7 @@ function Routes() {
         <Route path="/components" component={ Components } />
         <Route path="/register" component={ Register } />
 
-        { user && user.user.role === 'customer' && (
+        { userData && userData.user && userData.user.role === 'customer' && (
           <Route path="/customer" component={ CustomerRouts } />
         )}
       </Switch>

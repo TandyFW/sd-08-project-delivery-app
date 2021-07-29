@@ -6,7 +6,7 @@ import Context from '../../../context/Context';
 const CardProduct = ({ product }) => {
   const [quantity, setQuantity] = useState(0);
   const { cart, setCart } = useContext(Context);
-  const { id, name, price, url_image: urlImage } = product;
+  const { id, name, price, urlImage } = product;
 
   useEffect(() => {
     const isInCart = cart.filter((item) => item.id === id);
@@ -38,22 +38,23 @@ const CardProduct = ({ product }) => {
 
   return (
     <div className="card">
-      <div data-testid={ `customer_products__element-card-price-${id}` }>{price}</div>
+      <div data-testid={ `customer_products__element-card-price-${id}` }>
+        {price.replace('.', ',')}
+      </div>
       <div
         className="card_img"
-        data-testid={ `customer_products__img-card-bg-image-${id}` }
       >
         <img
+          data-testid={ `customer_products__img-card-bg-image-${id}` }
           src={ urlImage }
           alt="produto"
         />
       </div>
-      <div className="card_body">
-        <h6>
-          <b data-testid={ `customer_products__element-card-title-${id}` }>
-            {name}
-          </b>
-        </h6>
+      <div
+        className="card_body"
+        data-testid={ `customer_products__element-card-title-${id}` }
+      >
+        {name}
       </div>
       <div className="card_foot">
         <button

@@ -6,7 +6,7 @@ function NavBar(props) {
   const { userType, userName } = props;
   let prefix = '';
 
-  if (userType === 'client') {
+  if (userType === 'customer') {
     prefix = 'customer_products__';
   }
 
@@ -21,7 +21,7 @@ function NavBar(props) {
   return (
     <header>
       <ul>
-        { userType === 'client' && (
+        { userType === 'customer' && (
           <>
             <li>
               <a

@@ -8,16 +8,16 @@ import './styles.css';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
-  const { user } = useContext(Context);
+  const { userData } = useContext(Context);
 
   useEffect(() => {
     localStorage.setItem('user', JSON.stringify({
-      token: user.token,
-      name: user.user.name,
-      email: user.user.email,
-      role: user.user.role,
+      token: userData.token,
+      name: userData.user.name,
+      email: userData.user.email,
+      role: userData.user.role,
     }));
-  }, [user]);
+  }, [userData]);
 
   async function getData() {
     const myInit = {
@@ -25,10 +25,11 @@ const Products = () => {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
+        Authorization: userData.token,
       },
     };
     await fetch('http://localhost:3001/customer/products', myInit)
-      .then((response) => response.json())
+      .then((response) => console.log(response) || response.json())
       .then((data) => setProducts(data.products))
       .catch((err) => console.log(err));
   }
@@ -39,8 +40,8 @@ const Products = () => {
 
   return (
     <div className="card_content">
-      <NavBar userType="client" userName={ user.user.name } />
-      {products.length > 0 && (
+      <NavBar userType="customer" userName={ userData.user.name } />
+      {products && products.length > 0 && (
         products.map((product) => (
           <CardProduct key={ product.id } product={ product } />
         )))}
