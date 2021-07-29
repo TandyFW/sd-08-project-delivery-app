@@ -77,7 +77,7 @@ const LoginForm = () => {
     <>
       <Grid className={ classes.root } item xs={ 11 } sm={ 8 } md={ 6 } lg={ 4 }>
         <Paper component="form" elevation={ 8 } className={ classes.form }>
-          <img src="images/undraw_On_the_way_re_swjt" alt="logo" />
+          <img src="images/undraw_On_the_way_re_swjt.svg" alt="logo" />
           <TextField
             type="text"
             variant="outlined"
