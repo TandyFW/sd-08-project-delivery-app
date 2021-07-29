@@ -14,6 +14,12 @@ export function LoginProvider({ children }) {
     error,
   } = useAxios();
 
+  const roleConfig = {
+    customer: '/customer/products',
+    seller: '/seller/orders',
+    administrator: '/admin/manage',
+  };
+
   const handleLoginRequest = async ({ email, password }) => {
     await request(API_LOGIN_URL({ email, password }));
   };
@@ -21,7 +27,7 @@ export function LoginProvider({ children }) {
   const history = useHistory();
   if (response) {
     localStorage.setItem('user', JSON.stringify(response.data));
-    history.push('/customer/products');
+    history.push(roleConfig[response.data.role]);
   }
 
   const provide = {
