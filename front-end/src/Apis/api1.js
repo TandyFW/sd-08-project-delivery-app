@@ -38,4 +38,14 @@ export default {
       .get(`${BASEURL}${PRODUCTS}`);
     return res;
   },
+
+  registerSale: async (sale, token) => {
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    };
+    const res = await axios
+      .post(`${BASEURL}${SALES}`, sale, { headers });
+    return res;
+  },
 };

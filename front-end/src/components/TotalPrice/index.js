@@ -4,6 +4,7 @@ import { Context } from '../../Context';
 import PriceTag from './Styled';
 
 export default function TotalPrice() {
+  const { setTotalPrice } = useContext(Context);
   const history = useHistory();
   const { products } = useContext(Context);
   const totalValue = products.reduce((total, product) => {
@@ -11,6 +12,7 @@ export default function TotalPrice() {
     total += productPrice * product.quantity;
     return total;
   }, 0);
+  setTotalPrice(totalValue);
 
   return (
     <PriceTag

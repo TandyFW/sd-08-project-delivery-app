@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { saveState } from '../../services/localStorage';
 
 import {
   Container,
@@ -48,7 +47,6 @@ const Login = () => {
         return data;
       })
       .catch((err) => err.message);
-    console.log(result);
     if (result.status !== STATUSOK) {
       setLogged(false);
     } else {
@@ -57,8 +55,6 @@ const Login = () => {
         history.push('/customer/products');
       }
     }
-    const userName = result.data.name;
-    saveState('user', { userName });
   };
 
   return (

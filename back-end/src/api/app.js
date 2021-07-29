@@ -17,21 +17,17 @@ const io = require('socket.io')(http, {
 require('../sockets/socket')(io);
 const Users = require('../database/routes/users');
 const Sales = require('../database/routes/sales');
-
-app.use(express.json());
+const productsRouter = require('../database/routes/products');
+const errorMiddleware = require('../database/middlewares/errorMiddleware');
 
 // app.get('/coffee', (_req, res) => res.status(418).end());
-const errorMiddleware = require('../database/middlewares/errorMiddleware');
-const productsRouter = require('../database/routes/products');
 
-app.use(express.static(path.join(__dirname, '../../../public')));
+app.use(express.static(path.resolve(`${__dirname}../../../public`)));
 app.use(express.json());
 app.use('/products', productsRouter);
 app.use('/users', Users);
 app.use('/sales', Sales);
 app.use(errorMiddleware);
-
-/* app.get('/coffee', (_req, res) => res.status(418).end()); */
 
 const PORT = process.env.SOCKET_PORT || 3002;
 http.listen(PORT, () => console.log(`Socket na porta ${PORT}`));

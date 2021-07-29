@@ -7,6 +7,7 @@ export const Context = createContext();
 
 const Provider = ({ children }) => {
   const [products, setProducts] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
   const client = io('http://localhost:3002');
 
   useEffect(() => {
@@ -27,6 +28,8 @@ const Provider = ({ children }) => {
   const obj = {
     products,
     setProducts,
+    totalPrice,
+    setTotalPrice,
   };
   return <Context.Provider value={ obj }>{children}</Context.Provider>;
 };
