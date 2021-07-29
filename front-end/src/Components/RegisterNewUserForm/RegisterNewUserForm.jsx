@@ -1,14 +1,15 @@
-import axios from 'axios';
-import { React, useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import './Register.css';
-import { setUserInfo } from '../../service/setLocalStorage';
+import axios from 'axios';
+import './RegisterNewUserForm.css';
+import { getUserInfo } from '../../service/getLocalStorage';
 
-export default function Register() {
+export default function RegisterNewUserForm() {
   const history = useHistory();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('seller');
   const [statusNewUser, setStatusNewUser] = useState('');
   const [showMessageRegister, setShowMessageRegister] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
@@ -25,22 +26,32 @@ export default function Register() {
     setPassword(target.value);
   };
 
+  const handleRole = ({ target }) => {
+    setRole(target.value);
+  };
+
   const saveNewUser = async () => {
     try {
       const result = await axios({
         method: 'post',
-        url: 'http://localhost:3001/register/user',
+        url: 'http://localhost:3001/register/admin',
         data: {
           email,
           password,
           name,
+          role,
+        },
+        headers: {
+          authorization: getUserInfo().token,
         },
       });
       console.log(result);
-      const { data } = result;
-      setUserInfo({ name, email, role: 'costumer', token: data });
-      history.push('customer/products');
+      setName('');
+      setEmail('');
+      setPassword('');
+      history.push('/admin/manage');
     } catch (e) {
+      console.log(e);
       const {
         response: { status },
       } = e;
@@ -72,15 +83,14 @@ export default function Register() {
   }, [name.length, email, password.length]);
 
   return (
-    <div className="register">
-      <h1 className="title">Cadastro</h1>
-      <form className="register-form">
+    <div className="container">
+      <form className="register-new-user-form">
         <label htmlFor="nome">
           Nome
           <input
             type="text"
-            data-testid="common_register__input-name"
-            placeholder="Seu nome"
+            name="nome"
+            data-testid="admin_manage__input-name"
             onChange={ handleName }
             value={ name }
           />
@@ -89,8 +99,8 @@ export default function Register() {
           Email
           <input
             type="email"
-            data-testid="common_register__input-email"
-            placeholder="seu-email@site.com.br"
+            name="email"
+            data-testid="admin_manage__input-email"
             onChange={ handleEmail }
             value={ email }
           />
@@ -99,25 +109,39 @@ export default function Register() {
           Senha
           <input
             type="password"
-            data-testid="common_register__input-password"
-            placeholder="**********"
+            name="password"
+            data-testid="admin_manage__input-password"
             onChange={ handlePassword }
             value={ password }
           />
         </label>
+        <label htmlFor="type">
+          Tipo
+          <select
+            name="type"
+            className="register-new-user-select"
+            data-testid="admin_manage__select-role"
+            onChange={ handleRole }
+            value={ role }
+          >
+            <option value="seller">Vendedor</option>
+            <option value="admin">Administrador</option>
+            <option value="customer">Cliente</option>
+          </select>
+        </label>
         <button
           type="button"
-          className="register-button"
-          data-testid="common_register__button-register"
-          disabled={ isDisabled }
+          className="register-new-user-button"
+          data-testid="admin_manage__button-register"
           onClick={ saveNewUser }
+          disabled={ isDisabled }
         >
           Cadastrar
         </button>
       </form>
       {showMessageRegister ? (
-        <p data-testid="common_register__element-invalid_register">
-          Usuário não encontrado ou senha inválida
+        <p data-testid="admin_manage__element-invalid-register">
+          Usuário já cadastrado
         </p>
       ) : (
         ''
