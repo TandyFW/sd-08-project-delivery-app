@@ -6,7 +6,6 @@ const {
   deleteUser } = require('../services/userService');
 const { CREATED, BAD_REQUEST, OK, INTERNAL_SERVER_ERROR } = require('../services/statusCode');
 
-
 const validUser = async (req, res) => {
   try {
     const { email, password } = req.body;

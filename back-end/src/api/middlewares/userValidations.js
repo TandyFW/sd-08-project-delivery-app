@@ -1,7 +1,6 @@
 const { Op } = require('sequelize');
 const { user } = require('../../database/models');
 const { CONFLICT, UNAUTHORIZED } = require('../services/statusCode');
-const { verifyToken } = require('../middlewares/auth');
 
 const findUserByNameOrEmail = async (req, res, next) => {
   const { email, name } = req.body;
