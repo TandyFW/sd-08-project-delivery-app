@@ -8,7 +8,7 @@ export default function SignInSide() {
   const { functions: {
     handleLoginRequest,
   }, values: {
-    loginError,
+    error: err,
     loading,
   } } = useContext(LoginContext);
   const [email, setEmail] = useState('');
@@ -84,10 +84,10 @@ export default function SignInSide() {
         </Button>
       </div>
       <span
-        className={ loginError ? 'visible' : 'invisible' }
+        className={ err ? 'visible' : 'invisible' }
         data-testid="common_login__element-invalid-email"
       >
-        { loginError }
+        { err }
       </span>
     </Form>
   );

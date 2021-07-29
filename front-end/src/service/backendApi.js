@@ -1,3 +1,5 @@
+export const API_PRODUCTS_URL = 'http://127.0.0.1:3001/customer/products';
+
 export const API_LOGIN_URL = ({ email, password }) => ({
   method: 'post',
   url: 'http://127.0.0.1:3001/login',
