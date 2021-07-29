@@ -18,6 +18,7 @@ import
 } from './Styled';
 
 export default function AddressForm() {
+  const { products } = useContext(Context);
   const [sellers, setSellers] = useState([]);
   const [selectedSeller, setSelectedSeller] = useState({});
   const [message, setMessage] = useState(false);
@@ -46,7 +47,8 @@ export default function AddressForm() {
       deliveryNumber: address.number,
       totalPrice,
       sellerId: parseInt(selectedSeller, 10),
-      status: 'pendente',
+      status: 'Pendente',
+      products: products.filter((product) => product.quantity > 0),
     };
     const apiResponse = await api.registerSale(sale, token);
     setMessage(true);

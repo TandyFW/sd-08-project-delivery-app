@@ -2,7 +2,6 @@ const productsServices = require('../services/products');
 const { code } = require('../helpers/messages');
 
 const createProduct = async (req, res) => {
-  console.log(req.body)
   try {
     const { name, price, urlImage } = req.body;
     const product = await productsServices.createProduct(name, price, urlImage);
