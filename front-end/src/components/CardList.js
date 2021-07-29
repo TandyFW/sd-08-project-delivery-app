@@ -105,8 +105,6 @@ class CardList extends React.Component {
   }
 
   render() {
-    // const { history } = this.props;
-    // console.log(history);
     const { stateProducts } = this.props;
     const { state } = this;
     return (
@@ -185,7 +183,6 @@ const mapStateToProps = (state) => ({
 });
 
 CardList.propTypes = {
-  // history: PropTypes.shape().isRequired,
   dispatchProducts: PropTypes.func.isRequired,
   dispatchCart: PropTypes.func.isRequired,
   stateProducts: PropTypes.arrayOf(PropTypes.object).isRequired,
