@@ -1,13 +1,4 @@
-<<<<<<< HEAD
-const { sales } = require('../database/models');
-=======
-const {
-  StatusCodes,
-  getReasonPhrase,
-} = require('http-status-codes');
 const { sales, products } = require('../database/models');
-const HandleError = require('../utils/handleError');
->>>>>>> main-group-10
 
 const findOrderCustomer = async ({ id }) => {
   const custumerSales = await sales.findAndCountAll({

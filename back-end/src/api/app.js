@@ -5,6 +5,7 @@ const {
   sessionsRouter,
   customersRouter,
   registerRouter,
+  sellersRouter,
 } = require('../routes');
 
 const app = express();
