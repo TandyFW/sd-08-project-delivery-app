@@ -5,10 +5,12 @@ const { User } = require('../database/models');
 const userErrors = require('../schema/userErrors');
 
 const generateToken = async (email, role) => {
-  const SECRET = await fs.readFileSync('jwt.evaluation.key', {
-    encoding: 'utf8',
-    flag: 'r',
-  });
+  // const SECRET = await fs.readFileSync('jwt.evaluation.key', {
+  //   encoding: 'utf8',
+  //   flag: 'r',
+  // });
+  const SERCRET = fs.readFileSync("jwt.evaluation.key", { encoding: "utf-8" })
+  .trim();
   const jwtConfig = {
     expiresIn: '7d',
     algorithm: 'HS256',
