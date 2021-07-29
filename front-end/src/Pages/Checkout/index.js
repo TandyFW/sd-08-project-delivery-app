@@ -1,4 +1,5 @@
 import React from 'react';
+import CheckoutForm from '../../components/CheckoutForm';
 import Header from '../../components/Header';
 import OrderDetails from '../../components/OrderDetails';
 
@@ -9,6 +10,7 @@ function Checkout() {
     <div>
       <Header dinamicButtons={ clientHeaderLinks } />
       <OrderDetails />
+      <CheckoutForm />
     </div>
   );
 }
