@@ -40,7 +40,7 @@ const getAllOrdersByUserId = async (id) => {
   return foundSales;
 };
 
-getAllOrdersByUserId('1').then((data) => console.log(data));
+// getAllOrdersByUserId('1').then((data) => console.log(data));
 
 // getById('1').then(console.log);
 
