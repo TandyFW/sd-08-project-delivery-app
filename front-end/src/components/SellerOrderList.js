@@ -39,7 +39,7 @@ class SellerOrderList extends React.Component {
       <div className="div-order-list">
         {
           orders.map((order, i) => (
-            <div key={ i } className="orderlist-container">
+            <div key={ i } className="sellerOrderlist-container">
               <div>
                 <h4>Pedido</h4>
                 <span
