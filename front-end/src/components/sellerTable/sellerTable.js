@@ -33,7 +33,6 @@ function SellerTable() {
             <th>Quantidade</th>
             <th>Valor Unitário</th>
             <th>Sub-total</th>
-            <th>Remover Item</th>
           </tr>
         </thead>
         <tbody>
@@ -70,12 +69,6 @@ function SellerTable() {
               >
                 {Number(element.valor) * Number(element.quantidade)}
               </td>
-              <button
-                type="button"
-                data-testid={ `customer_checkout__element-order-table-remove-${index}` }
-              >
-                Remover
-              </button>
             </tr>
           ))}
         </tbody>

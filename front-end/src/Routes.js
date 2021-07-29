@@ -19,6 +19,7 @@ function Routes() {
         <Route path="/components" component={ Components } />
         <Route path="/register" component={ Register } />
         <Route path="/customer/checkout" component={ CustomerCheckout } />
+        <Route path="/seller/orders" component={ CustomerCheckout } />
       </Switch>
     </Router>
   );

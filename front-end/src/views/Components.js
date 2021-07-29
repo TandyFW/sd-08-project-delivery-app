@@ -1,12 +1,12 @@
 import React from 'react';
-import OrderDetailsCard from '../components/orderDetailsCrad/orderDetailsCard';
-import SellerTable from '../components/sellerTable/sellerTable';
+import DetailsContainer from '../components/OrderDetailContainer';
+import OrderDetailsCard from '../components/OrderDetailsCard/orderDetailsCard';
 
 function Components() {
   return (
     <div>
       <OrderDetailsCard />
-      <SellerTable />
+      <DetailsContainer />
     </div>
   );
 }

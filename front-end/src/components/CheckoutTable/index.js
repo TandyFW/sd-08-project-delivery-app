@@ -70,12 +70,16 @@ function CheckoutTable() {
               >
                 {Number(element.valor) * Number(element.quantidade)}
               </td>
-              <button
-                type="button"
-                data-testid={ `customer_checkout__element-order-table-remove-${index}` }
-              >
-                Remover
-              </button>
+              <td>
+                <button
+                  type="button"
+                  data-testid={
+                    `customer_checkout__element-order-table-remove-${index}`
+                  }
+                >
+                  Remover
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -84,7 +88,7 @@ function CheckoutTable() {
         ref={ total }
         data-testid="customer_checkout__element-order-total-price"
       >
-        {`Total Price: 
+        {`Total Price:
         ${data.reduce((acc, curr) => acc + (curr.quantidade * curr.valor), 0).toFixed(2)
     }`}
       </h4>

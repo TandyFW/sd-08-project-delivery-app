@@ -22,9 +22,22 @@ function Login() {
   }
 
   useEffect(() => {
+    console.log(userData);
     if (userData.token) {
-      history.push('/customer/products');
+      const { role } = userData.user;
+
+      switch (role) {
+      case 'seller':
+        history.push('/seller/orders');
+        break;
+      case 'customer':
+        history.push('/customer/products');
+        break;
+      default:
+        console.log('rota default');
+      }
     }
+
     refEmail.current.innerHTML = refEmail.current.innerText
       .split('')
       .map((letter, index) => `<span style="transition-delay:${index * FIFTY}ms">
@@ -50,6 +63,7 @@ function Login() {
     const content = await rawResponse.json();
     return setUserData(content);
   };
+
   return (
     <div className="main-wrapper">
       <div className="container">
