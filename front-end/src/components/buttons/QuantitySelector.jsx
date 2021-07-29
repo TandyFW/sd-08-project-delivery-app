@@ -9,9 +9,9 @@ function QuantitySelector(props) {
       <ButtonGroup
         variant="contained"
         color="primary"
-        data-testid={ `customer_products__button-card-rm-item-${id}` }
       >
         <Button
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
           onClick={ () => {
             if (count > 0) {
               setCount(count - 1);
@@ -21,13 +21,11 @@ function QuantitySelector(props) {
           -
 
         </Button>
-        <Button
-          disabled
+        <input
           data-testid={ `customer_products__input-card-quantity-${id}` }
-        >
-          { count }
-
-        </Button>
+          value={ count }
+          max-width="3"
+        />
         <Button
           data-testid={ `customer_products__button-card-add-item-${id}` }
           onClick={ () => { setCount(count + 1); } }

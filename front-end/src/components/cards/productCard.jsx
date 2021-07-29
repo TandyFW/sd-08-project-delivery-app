@@ -36,7 +36,7 @@ function ProductCard(props) {
   const classes = useStyles();
   return (
     <Grid item xs={ 6 } sm={ 4 } md={ 3 } lg={ 2 } className={ classes.cards }>
-      <Card>
+      <Card data-testid={ `customer_products__element-card-title-${id}` }>
         <CardMedia
           component="img"
           alt={ name }
@@ -56,9 +56,9 @@ function ProductCard(props) {
             className="classes.price"
             data-testid={ `customer_products__element-card-price-${id}` }
           >
-            { `R$${(price).toFixed(2)}` }
+            { `R$${Number(price).toFixed(2)}` }
           </Typography>
-          <QuantitySelector setCount={ setCount } count={ count } />
+          <QuantitySelector setCount={ setCount } count={ count } id={ id } />
         </CardContent>
       </Card>
 

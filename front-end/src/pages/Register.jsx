@@ -35,7 +35,7 @@ function Register() {
     try {
       await axios({
         method: 'POST',
-        url: 'http://localhost:3001/',
+        url: 'http://localhost:3001/register',
         headers: { 'Content-Type': 'application/json' },
         data: { name, email, password },
       });

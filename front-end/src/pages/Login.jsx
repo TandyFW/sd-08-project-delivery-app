@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import Context from '../context/Context';
 
+const setLocalStorage = async (userInfos) => {
+  await localStorage.setItem('user', JSON.stringify(userInfos));
+};
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,16 +20,20 @@ function Login() {
     }
     return true;
   }
+  const { username } = useContext(Context);
 
   const login = async () => {
     try {
-      await axios({
+      const loggedUser = await axios({
         method: 'POST',
         url: 'http://localhost:3001/login',
         headers: { 'Content-Type': 'application/json' },
         data: { email, password },
       });
-      history.push('/customer/products');
+      const { redirectPath, ...userInfos } = loggedUser.data;
+      await setLocalStorage(userInfos);
+      username.set(userInfos.name);
+      history.push(redirectPath);
     } catch (error) {
       setVisible('visible');
     }

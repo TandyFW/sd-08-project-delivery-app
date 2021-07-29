@@ -1,17 +1,28 @@
-const express = require('express');
 const userService = require('../services/userService');
 const { status } = require('../middlewares/status');
+const { createToken } = require('../auth/jwt');
 
-const routes = express.Router();
+const rolePath = {
+  customer: '/customer/products',
+  administrator: '/admin/manage',
+  seller: '/seller/orders'
+};
 
-routes.post('/', async (req, res) => {
+const login = async (req, res) => {
 try {
 const { email, password } = req.body;
 const loginUser = await userService.loginUser({ email, password });
-return res.status(status.OK).json({ loginUser });
+// console.log(loginUser.toJSON());
+const { id, password: pass, ...infos } = loginUser.toJSON();
+const token = createToken(infos);
+console.log('Test', rolePath[infos.role]);
+const redirectPath = rolePath[infos.role]
+return res.status(status.OK).json( {...infos, token, redirectPath } );
 } catch (error) {
 return res.status(status.NotFound).json({ message: error.message });
 }
-});
+};
 
-module.exports = routes;
+module.exports = {
+  login
+};
