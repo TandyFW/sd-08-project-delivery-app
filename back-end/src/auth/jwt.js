@@ -1,17 +1,17 @@
 const jwt = require('jsonwebtoken');
 const path = require('path');
 
-const secret = require("fs")
-.readFileSync(path.join(__dirname, '..', '..', 'jwt.evaluation.key'), { encoding: "utf-8" })
+const secret = require('fs')
+.readFileSync(path.join(__dirname, '..', '..', 'jwt.evaluation.key'), { encoding: 'utf-8' })
 .trim();
 
 const jwtConfig = {
   expiresIn: '60min',
-  algorithm: 'HS256'
+  algorithm: 'HS256',
 };
 
 const createToken = (data) => {
-  const token = jwt.sign({data}, secret, jwtConfig);
+  const token = jwt.sign({ data }, secret, jwtConfig);
   return token;
 };
 
