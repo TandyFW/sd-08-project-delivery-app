@@ -8,7 +8,6 @@ const router = express.Router();
 router.post('/', rescue(productsControllers.createProduct));
 router.get('/', rescue(productsControllers.getAllProducts));
 router.get('/:id', rescue(productsControllers.getProductById));
-router.put('/:id', rescue(productsControllers.updateProduct));
 router.delete('/:id', rescue(productsControllers.deleteProduct));
 
 module.exports = router;

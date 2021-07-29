@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import api from '../../Apis/api1';
+import { Context } from '../../Context';
 
 import
 { Container,
@@ -14,17 +17,22 @@ import
   /* InvalidBox, */
 } from './Styled';
 
-const mockSellers = [
-  { id: 1, name: 'Fulana de tal' },
-  { id: 2, name: 'O Silva' },
-];
-
 export default function AddressForm() {
+  const { products } = useContext(Context);
+  const [sellers, setSellers] = useState([]);
+  const [selectedSeller, setSelectedSeller] = useState({});
   const [message, setMessage] = useState(false);
   const [address, setAddress] = useState({
     street: '',
     number: '',
   });
+  const { totalPrice } = useContext(Context);
+  const history = useHistory();
+  const { token } = JSON.parse(localStorage.getItem('user'));
+
+  useEffect(() => api.getAllSellers().then((response) => {
+    setSellers([{ id: 0, name: 'Vendedor(a)' }, ...response]);
+  }), []);
 
   const handleAddress = ({ target: { name, value } }) => {
     setAddress({
@@ -34,7 +42,21 @@ export default function AddressForm() {
   };
 
   const handleClick = async () => {
+    const sale = {
+      deliveryAddress: address.street,
+      deliveryNumber: address.number,
+      totalPrice,
+      sellerId: parseInt(selectedSeller, 10),
+      status: 'Pendente',
+      products: products.filter((product) => product.quantity > 0),
+    };
+    const apiResponse = await api.registerSale(sale, token);
     setMessage(true);
+    history.push(`/customer/orders/${apiResponse.data.response.id}`);
+  };
+
+  const handleSellerChange = ({ target }) => {
+    setSelectedSeller(target.value);
   };
 
   return (
@@ -44,10 +66,22 @@ export default function AddressForm() {
         <ContainerDiv>
           <Paragraph>P. Vendedora Responsável</Paragraph>
           <ContainerLabel htmlFor="sellers">
-            <ContainerSelect id="sellers" name="sellers">
-              { mockSellers.length > 0 ? mockSellers.map((seller) => (
-                <option key={ seller.id }>{ seller.name }</option>
-              )) : '' }
+            <ContainerSelect
+              id="sellers"
+              name="sellers"
+              data-testid="customer_checkout__select-seller"
+              onChange={ handleSellerChange }
+            >
+              { sellers.map((seller, index) => (
+                <option
+                  key={ index }
+                  value={ seller.id }
+                  selected={ !index }
+                  disabled={ !index }
+                >
+                  { seller.name }
+                </option>
+              )) }
             </ContainerSelect>
           </ContainerLabel>
         </ContainerDiv>
@@ -85,7 +119,7 @@ export default function AddressForm() {
         >
           FINALIZAR PEDIDO
         </FinalizeOrder>
-        { message ? <p>Compra realizada com sucesso!</p> : '' }
+        { message ? <h3>Compra realizada com sucesso!</h3> : '' }
       </Form>
     </Container>
   );

@@ -27,7 +27,10 @@ const Register = () => {
   const submitHandler = async (e) => {
     const CREATED = 201;
     e.preventDefault();
-    const result = await api.registerFetch(name, email, pass).then((data) => data)
+    const result = await api.registerFetch(name, email, pass).then((data) => {
+      localStorage.setItem('user', JSON.stringify(data.data));
+      return data;
+    })
       .catch((err) => err.message);
     if (result.status !== CREATED) {
       setLogged(false);
@@ -38,8 +41,6 @@ const Register = () => {
       }
     }
   };
-
-  // validations
 
   useEffect(() => {
     const PASSLENGHT = 6;

@@ -17,6 +17,7 @@ module.exports = {
   development: {
     ...options,
     database: `${options.database}-dev`,
+    // database: `${options.database}-test`,
   },
   test: {
     ...options,
