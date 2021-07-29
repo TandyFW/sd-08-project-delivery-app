@@ -16,7 +16,8 @@ const orders = [
     address: 'Rua 2' },
   { order_id: 3, status: 'entregue', date: formatedDate, price: 25.30, address: 'Rua 3' },
 ];
-// console.log(orders);
+
+const testId = 'seller_orders__element';
 
 class OrderList extends React.Component {
   constructor() {
@@ -41,21 +42,39 @@ class OrderList extends React.Component {
             <div key={ i } className="orderlist-container">
               <div>
                 <h4>Pedido</h4>
-                {order.order_id}
+                <span
+                  data-testid={ `${testId}-order-id-${order.order_id}` }
+                >
+                  {order.order_id}
+                </span>
               </div>
               <div>
                 <div className="status-container">
-                  <div
+                  <span
                     className={ order.status }
+                    data-testid={ `${testId}-delivery-status-${order.order_id}` }
                   >
                     { order.status }
-                  </div>
+                  </span>
                   <div>
-                    <div>{ order.date }</div>
-                    <div>{ `R$ ${order.price}` }</div>
+                    <span
+                      data-testid={ `${testId}-order-date-${order.order_id}` }
+                    >
+                      { order.date }
+                    </span>
+                    <span
+                      data-testid={ `${testId}-card-price-${order.order_id}` }
+                    >
+                      { `R$ ${order.price}` }
+                    </span>
                   </div>
                 </div>
-                <div className="address-div">{ order.address }</div>
+                <span
+                  className="address-div"
+                  data-testid={ `${testId}-card-address-${order.order_id}` }
+                >
+                  { order.address }
+                </span>
               </div>
             </div>
           ))
