@@ -6,7 +6,7 @@ const route = express.Router();
 
 route.get('/sale/:encodedName', transactionController.requestTransactions('sales'));
 
-route.get('/pucharse/:encodedName', transactionController.requestTransactions('purchases'));
+route.get('/purchase/:encodedName', transactionController.requestTransactions('purchases'));
 
 // route.get('/sale', saleController.requestAllSales);
 

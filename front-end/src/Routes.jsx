@@ -3,10 +3,10 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import {
   AdminManage,
   Login,
-  SalesBySeller,
   SaleDetail,
   Register,
-  Products } from './pages';
+  Products,
+  Orders } from './pages';
 
 const Routes = () => (
   <Switch>
@@ -15,7 +15,18 @@ const Routes = () => (
       <Redirect to="/login" />
     </Route>
     <Route path="/admin/manage" component={ AdminManage } />
-    <Route exact path="/seller/orders" component={ SalesBySeller } />
+    {/* <Route exact path="/seller/orders" component={ SalesBySeller } /> */}
+
+    <Route exact path="/seller/orders">
+      <Orders title="seller" />
+    </Route>
+
+    {/* <Route exact path="/customer/orders" component={ SalesBySeller } /> */}
+
+    <Route exact path="/customer/orders">
+      <Orders title="customer" />
+    </Route>
+
     <Route path="/seller/orders/:id" component={ SaleDetail } />
     <Route path="/register" component={ Register } />
     <Route path="/customer/products" component={ Products } />

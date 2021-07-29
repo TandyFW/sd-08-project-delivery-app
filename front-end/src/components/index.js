@@ -7,6 +7,7 @@ import ProductsList from './ProductsList';
 import ProductCard from './ProductCard';
 import Register from './Register';
 import LoginForm from './LoginForm';
+import OrdersList from './OrdersList';
 
 export {
   TopBar,
@@ -18,4 +19,5 @@ export {
   ProductCard,
   Register,
   LoginForm,
+  OrdersList,
 };

@@ -4,6 +4,7 @@ import SalesBySeller from './SalesBySeller';
 import SaleDetail from './SaleDetail';
 import Products from './Products';
 import Register from './Register';
+import Orders from './Orders';
 
 export {
   Login,
@@ -12,4 +13,5 @@ export {
   SaleDetail,
   Products,
   Register,
+  Orders,
 };
