@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -21,7 +22,7 @@ function ProductList() {
         const UNAUTHORIZED = 401;
         if (err.response.status === UNAUTHORIZED) logout(history);
       });
-  }, [history]);
+  }, []);
 
   return (
     <div>

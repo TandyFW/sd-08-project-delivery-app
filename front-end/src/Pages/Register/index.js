@@ -23,8 +23,7 @@ const Register = ({ history }) => {
   };
 
   const register = async () => {
-    const data = await registerRequest({ name, password, email }, setUsrExists, history);
-    localStorage.setItem('user', JSON.stringify(data));
+    await registerRequest({ name, password, email }, setUsrExists, history);
   };
 
   console.log(!emailVerify(email), !passwordVerify(password), !nameVerify(name));
