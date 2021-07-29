@@ -1,38 +1,39 @@
-const { Sale, SaleProduct } = require('../database/models');
+const { Sale, SaleProduct, sequelize } = require('../database/models');
 
+// eslint-disable-next-line max-lines-per-function
 const saveSale = async (sale) => {
-    // const { userId, sellerId, totalPrice,
-    // deliveryAddress, deliveryNumber } = sale;
-    // const saleDate = Date.now();
-    // const status = 'Pendente';
+    const { userId, sellerId, totalPrice,
+    deliveryAddress, deliveryNumber } = sale;
+    const saleDate = Date(Date.UTC());
+    const status = 'Pendente';
 
-//   const sales = await Sale.create({ 
-//         userId,
-//         sellerId,
-//         totalPrice,
-//         deliveryAddress, 
-//         deliveryNumber,
-//         saleDate,
-//         status,
-//      });
+    const t = await sequelize.transaction();
 
-    try
-    {
-    const saleId = 1;
+    try {
+    const saleInsert = await Sale.create({ 
+        userId,
+        sellerId,
+        totalPrice,
+        deliveryAddress, 
+        deliveryNumber,
+        saleDate,
+        status,
+     });
 
-     const { id: productId, quantity } = sale.products[0];
-     console.log(productId, quantity);
+    const saleId = saleInsert.dataValues.id;
 
-        // await SaleProduct.create({
-        //     saleId: 1,
-        //     productId,
-        //     quantity,            
-        // });
-
-        const find = await SaleProduct.findAll({ logging: console.log  });
-        console.log(find);
+     sale.products.forEach(async ({ id: productId, quantity }) => {
+        //  console.log(id, quantity);
+           await SaleProduct.create({
+                saleId,
+                productId,
+                quantity,            
+            });
+        }, { transaction: t });
+        await t.commit();
     } catch (err) {
         console.log(err);
+        await t.rollback();
     }
 };
 
