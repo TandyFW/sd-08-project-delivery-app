@@ -10,7 +10,6 @@ import { Context } from '../../context';
 const OrderDetailsHeader = ({ info }) => {
   const { orderNumber, date, userType, seller } = info;
   const { socket } = useContext(Context);
-  // falta implementar socket!!!
 
   const [status, setStatus] = useState(PENDING);
 

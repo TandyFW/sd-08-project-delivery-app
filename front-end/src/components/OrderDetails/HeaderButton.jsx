@@ -30,18 +30,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HeaderButton = ({ type, statusValue, orderNumber }) => {
+const HeaderButton = ({ type, status, orderNumber }) => {
   const classes = useStyles();
   const { socket } = useContext(Context);
 
   const shouldDisable = () => {
     switch (type) {
     case PREPARING:
-      return status.value !== PENDING;
+      return status !== PENDING;
     case ON_THE_WAY:
-      return status.value !== PREPARING;
+      return status !== PREPARING;
     case DELIVERED:
-      return status.value !== ON_THE_WAY;
+      return status !== ON_THE_WAY;
     default: return true;
     }
   };
@@ -60,7 +60,7 @@ const HeaderButton = ({ type, statusValue, orderNumber }) => {
 
   const handleClick = () => {
     const flow = [PENDING, PREPARING, ON_THE_WAY, DELIVERED];
-    const prevIndex = flow.indexOf(statusValue);
+    const prevIndex = flow.indexOf(status);
     const newStatus = flow[prevIndex + 1];
     socket.emit('updateOrder', { number: orderNumber, newStatus });
   };
@@ -81,7 +81,7 @@ const HeaderButton = ({ type, statusValue, orderNumber }) => {
 
 HeaderButton.propTypes = {
   type: PropTypes.string.isRequired,
-  statusValue: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
   orderNumber: PropTypes.number.isRequired,
 };
 

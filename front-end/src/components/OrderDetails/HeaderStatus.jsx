@@ -36,11 +36,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HeaderStatus = ({ statusValue }) => {
+const HeaderStatus = ({ status }) => {
   const classes = useStyles();
 
   const getDisplayText = () => {
-    switch (statusValue) {
+    switch (status) {
     case PENDING:
       return 'PENDENTE';
     case PREPARING:
@@ -56,7 +56,7 @@ const HeaderStatus = ({ statusValue }) => {
   return (
     <Button
       component="section"
-      className={ classes[statusValue] }
+      className={ classes[status] }
       type="button"
       variant="outlined"
       data-testid=""
@@ -68,7 +68,7 @@ const HeaderStatus = ({ statusValue }) => {
 };
 
 HeaderStatus.propTypes = {
-  statusValue: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
 };
 
 export default HeaderStatus;
