@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Header, Loader, OrderList } from '../components';
+import { Header, Loader, SellerOrderList } from '../components';
 
-class Orders extends React.Component {
+class SellerOrders extends React.Component {
   constructor() {
     super();
     this.state = { loading: true };
@@ -30,16 +30,15 @@ class Orders extends React.Component {
             </div>
           )
           : (
-            <OrderList history={ history } />
+            <SellerOrderList history={ history } />
           )}
       </div>
     );
   }
 }
 
-Orders.propTypes = {
+SellerOrders.propTypes = {
   history: PropTypes.shape().isRequired,
 };
 
-export default connect(null, null)(Orders);
-// export default Orders;
+export default connect(null, null)(SellerOrders);

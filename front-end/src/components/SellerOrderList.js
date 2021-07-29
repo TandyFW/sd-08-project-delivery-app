@@ -19,7 +19,7 @@ const orders = [
 
 const testId = 'seller_orders__element';
 
-class sellerOrderList extends React.Component {
+class SellerOrderList extends React.Component {
   constructor() {
     super();
     this.state = {};
@@ -92,10 +92,10 @@ class sellerOrderList extends React.Component {
 //   stateProducts: state.products.products,
 // });
 
-// sellerOrderList.propTypes = {
+// SellerOrderList.propTypes = {
 //   // dispatchCards: PropTypes.func.isRequired,
 //   // stateProducts: PropTypes.arrayOf(PropTypes.object).isRequired,
 // };
 
-// export default connect(mapStateToProps, mapDispatchToProps)(sellerOrderList);
-export default sellerOrderList;
+// export default connect(mapStateToProps, mapDispatchToProps)(SellerOrderList);
+export default SellerOrderList;
