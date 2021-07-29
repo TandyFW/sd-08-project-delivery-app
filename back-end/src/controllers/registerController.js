@@ -5,7 +5,7 @@ const register = async (req, res) => {
 
   const { statusCode, message } = await registerService.registerUser(name, email, password);
 
-  res.status(statusCode).json(message);
+  res.status(statusCode).json({ message });
 };
 
 module.exports = register;
