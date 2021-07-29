@@ -14,6 +14,7 @@ const Routes = () => (
     <Route path="/admin/manage" component={ Pages.AdminManage } />
     <Route path="/register" component={ Pages.Register } />
     <Route path="/customer/products" component={ Pages.Products } />
+    <Route path="/customer/checkout" />
   </Switch>
 );
 

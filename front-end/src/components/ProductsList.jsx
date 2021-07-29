@@ -21,6 +21,7 @@ const ProductsList = ({ refreshCart }) => {
   useEffect(() => {
     const getProducts = async () => {
       const { token } = lStorage().user.get();
+      console.log(token);
       const options = {
         headers: {
           Authorization: token,
@@ -28,6 +29,7 @@ const ProductsList = ({ refreshCart }) => {
         method: 'GET',
       };
       const result = await request('products', options);
+      console.log(result);
       setProducts(result);
     };
     if (products.length === 0) getProducts();
