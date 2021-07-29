@@ -36,3 +36,14 @@ export const login = async (email, password) => {
     })
     .then((data) => data);
 };
+
+export const getProducts = async () => (
+  fetch(`${URL_BASE}/products`)
+    .then((response) => {
+      if (response.status !== STATUS_CODES.OK) {
+        throw new Error('Cant fetch products');
+      }
+      return response.json();
+    })
+    .then((data) => data)
+);

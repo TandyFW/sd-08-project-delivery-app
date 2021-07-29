@@ -43,15 +43,15 @@ const createSale = async (saleData) => {
       deliveryNumber,
       status: 'Pendente' 
     });
-    for(let i =0; i<cart.length; i+=1) {
-      const saleProd = SalesProducts.create({
-        saleId: 1,
-        productId: cart[i].id,
-        quantity: cart[i].quantity
-      })
-      array.push(saleProd);
-    }
-    return { newSale, array };
+    // for(let i =0; i<cart.length; i+=1) {
+    //   const saleProd = SalesProducts.create({
+    //     saleId: newSale.id,
+    //     productId: cart[i].id,
+    //     quantity: cart[i].quantity
+    //   })
+    //   array.push(saleProd);
+    // }
+    return newSale;
   } catch(err) {
     console.log(err);
   }

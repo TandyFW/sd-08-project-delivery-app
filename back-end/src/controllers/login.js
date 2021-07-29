@@ -7,32 +7,26 @@ const fs = require('fs');
 const UserService = require('../services/user');
 const md5 = require('../utils/md5');
 
-const secret = fs.readFileSync(
-  path.resolve(__dirname, '..', '..', 'jwt.evaluation.key'),
-);
+const SECRET_FILE_PATH = path.resolve(__dirname, '..', '..', 'jwt.evaluation.key');
+
+const secret = fs.readFileSync(SECRET_FILE_PATH, 'utf-8').trim();
 
 const loginSchema = joi.object({
   email: joi.string().required(),
   password: joi.string().required(),
 });
 
-const getJwtToken = (payload) => {
-  const jwtConfig = {
-    expiresIn: '1d',
-  };
-
-  return jwt.sign(payload, secret, jwtConfig);
-};
+const getJwtToken = (payload) => (
+  jwt.sign(payload, secret, { expiresIn: '1d' })
+);
 
 const login = rescue(async (req, res) => {
   const { error } = loginSchema.validate(req.body);
-
   if (error) throw error;
 
   const { email, password } = req.body;
 
   const user = await UserService.findByEmail(email);
-
   if (!user) throw boom.notFound('User not found');
 
   if (user.password !== md5(password)) {
