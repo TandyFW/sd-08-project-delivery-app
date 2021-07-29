@@ -15,10 +15,9 @@ const missingJWT = {
 };
 
 const auth = rescue(async (req, res, next) => {
-  const JWT_SECRET = await fs.readFileSync('jwt.evaluation.key', {
-    encoding: 'utf8',
-    flag: 'r',
-  });
+  const JWT_SECRET = fs
+  .readFileSync('jwt.evaluation.key', { encoding: 'utf-8' })
+  .trim();
   const token = req.headers.authorization;
   if (!token) return next({ err: missingJWT });
   try {
