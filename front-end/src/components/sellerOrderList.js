@@ -3,14 +3,18 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 // import { getAllProducts } from '../services';
 // import { productsAction } from '../redux/actions';
-import '../styles/orderList.css';
+import '../styles/sellerOrderList.css';
 
 const data = new Date();
 const formatedDate = `${data.getDate()}/${data.getMonth()}/${data.getFullYear()}`;
 const orders = [
-  { order_id: 1, status: 'pendente', date: formatedDate, price: 24.65 },
-  { order_id: 2, status: 'preparando', date: formatedDate, price: 88.98 },
-  { order_id: 3, status: 'entregue', date: formatedDate, price: 25.30 },
+  { order_id: 1, status: 'pendente', date: formatedDate, price: 24.65, address: 'Rua 1' },
+  { order_id: 2,
+    status: 'preparando',
+    date: formatedDate,
+    price: 88.98,
+    address: 'Rua 2' },
+  { order_id: 3, status: 'entregue', date: formatedDate, price: 25.30, address: 'Rua 3' },
 ];
 // console.log(orders);
 
@@ -39,14 +43,19 @@ class OrderList extends React.Component {
                 <h4>Pedido</h4>
                 {order.order_id}
               </div>
-              <div
-                className={ order.status }
-              >
-                { order.status }
-              </div>
               <div>
-                <div>{ order.date }</div>
-                <div>{ `R$ ${order.price}` }</div>
+                <div className="status-container">
+                  <div
+                    className={ order.status }
+                  >
+                    { order.status }
+                  </div>
+                  <div>
+                    <div>{ order.date }</div>
+                    <div>{ `R$ ${order.price}` }</div>
+                  </div>
+                </div>
+                <div className="address-div">{ order.address }</div>
               </div>
             </div>
           ))
