@@ -21,6 +21,7 @@ module.exports = {
         type: Sequelize.STRING(200),
         allowNull: false,
         defaultValue: '',
+        field: 'url_image',
       },
       /* createdAt: {
         allowNull: false,
