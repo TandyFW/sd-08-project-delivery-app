@@ -1,4 +1,5 @@
 module.exports = {
+  // eslint-disable-next-line max-lines-per-function
   up: async (queryInterface, Sequelize) =>
     queryInterface.createTable('sales', {
       id: {
@@ -7,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      user_id: {
+      userId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
@@ -17,7 +18,7 @@ module.exports = {
           key: 'id',
         },
       },
-      seller_id: {
+      sellerId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
@@ -27,19 +28,19 @@ module.exports = {
           key: 'id',
         },
       },
-      total_price: {
+      totalPrice: {
         allowNull: false,
         type: Sequelize.DECIMAL(10, 2),
       },
-      delivery_address: {
+      deliveryAddress: {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      delivery_number: {
+      deliveryNumber: {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      sales_date: {
+      salesDate: {
         allowNull: false,
         type: Sequelize.DATE,
       },
