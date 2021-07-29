@@ -45,7 +45,9 @@ function CheckoutForm() {
       deliveryNumber: addressNumber,
     };
     postSale(sellerData, userData, addressData, cart)
-      .then(console.log)
+      .then(({ saleId }) => {
+        history.push(`/customer/orders/${saleId}`);
+      })
       .catch((err) => {
         console.log(err, err.response);
       });

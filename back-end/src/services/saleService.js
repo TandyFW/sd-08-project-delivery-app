@@ -1,4 +1,4 @@
-const { conflict } = require('@hapi/boom');
+const { badRequest } = require('@hapi/boom');
 const { Sale, SaleProduct, sequelize } = require('../database/models');
 
 const createSale = async (sale, t) => {
@@ -35,9 +35,10 @@ const saveSale = async (sale) => {
         }, { transaction: t });
 
         await t.commit();
+        return saleId;
     } catch (err) {
         await t.rollback();
-        throw conflict(err);
+        throw badRequest(err);
     }
 };
 
