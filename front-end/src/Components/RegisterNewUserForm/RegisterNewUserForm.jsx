@@ -141,7 +141,7 @@ export default function RegisterNewUserForm() {
       </form>
       {showMessageRegister ? (
         <p data-testid="admin_manage__element-invalid-register">
-          Usuário não encontrado ou senha inválida
+          Usuário já cadastrado
         </p>
       ) : (
         ''
