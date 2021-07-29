@@ -12,20 +12,20 @@ module.exports = {
       userId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        field: 'user_id',
         references: {
           model: 'users',
           key: 'id'
-        }
+        },
+        field: 'user_id'
       },
       sellerId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        field: 'seller_id',
         references: {
           model: 'users',
           key: 'id'
-        }
+        },
+        field: 'seller_id'
       },
       totalPrice: {
         allowNull: false,
@@ -49,7 +49,7 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        field: 'sale_date'
+        field: 'created_at'
       }
     });
   },

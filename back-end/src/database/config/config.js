@@ -11,8 +11,8 @@ const options = {
     timezone: 'Z',
   },
   define: {
-    underscored: true,
     timestamps: false,
+    underscored: true
   },
   logging: false,
 };
