@@ -1,11 +1,11 @@
 const { Router } = require('express');
 const sellersController = require('../controllers/sellersController');
-const auth = require('../api/middlewares/isAuthenticated');
+const { isAuthenticated, restrictionLevel } = require('../api/middlewares/isAuthenticated');
 
 const sellersRouter = Router();
 
 sellersRouter.get('/orders', 
-  auth,
+  isAuthenticated(restrictionLevel(2)),
   sellersController.findAll);
   
 module.exports = sellersRouter;
