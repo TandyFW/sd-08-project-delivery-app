@@ -40,17 +40,11 @@ const userLogin = async (email, password) => {
 //   }
 // };
 
-const getSellers = async () => {
-  return user.findAll({ where: { role: 'seller' } });
-};
+const getSellers = async () => user.findAll({ where: { role: 'seller' } });
 
-const getUserByName = async (name) => {
-  return user.findOne({ where: { name } });
-};
+const getUserByName = async (name) => user.findOne({ where: { name } });
 
-const getUserByEmail = async (email) => {
-  return user.findOne({ where: { email } });
-}
+const getUserByEmail = async (email) => user.findOne({ where: { email } });
 
 module.exports = {
   userLogin,

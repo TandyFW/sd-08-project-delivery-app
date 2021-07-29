@@ -4,6 +4,7 @@ const jwtKey = require('fs')
   .readFileSync(path.resolve(__dirname, '../../../jwt.evaluation.key'),
     { encoding: 'utf-8' })
   .trim();
+const { UNAUTHORIZED } = require('../services/statusCode');
 
 const JWTCONFIG = {
   expiresIn: '1d',
@@ -18,7 +19,7 @@ const generateToken = (req, _res, next) => {
 };
 
 const verifyToken = (req, res, next) => {
-  const token =  req.headers.authorization;
+  const token = req.headers.authorization;
   if (!token) {
     return res.status(UNAUTHORIZED).json({ message: 'invalid JWT' });
   }

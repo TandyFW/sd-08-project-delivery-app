@@ -16,7 +16,6 @@ const create = async (sale) => {
   } catch (error) {
     return error.message;
   }
-  
 };
 
 module.exports = {

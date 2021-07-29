@@ -1,5 +1,5 @@
 const { getAll, create } = require('../services/saleService');
-const { getUserByName, getUserByEmail } =require('../services/userService');
+const { getUserByName, getUserByEmail } = require('../services/userService');
 const { OK, CREATED } = require('../services/statusCode');
 
 const getAllSales = async (req, res) => {
