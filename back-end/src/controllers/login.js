@@ -16,9 +16,9 @@ const loginSchema = joi.object({
   password: joi.string().required(),
 });
 
-const getJwtToken = (payload) => {
-  return jwt.sign(payload, secret, { expiresIn: '1d' });
-};
+const getJwtToken = (payload) => (
+  jwt.sign(payload, secret, { expiresIn: '1d' })
+);
 
 const login = rescue(async (req, res) => {
   const { error } = loginSchema.validate(req.body);
