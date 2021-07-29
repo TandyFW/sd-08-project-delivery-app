@@ -11,8 +11,6 @@ app.use(bodyParser.json());
 
 app.use('/images', express.static(path.join(__dirname, '../../public/images')));
 
-app.use('/images', express.static(path.join(__dirname, '../../public/images')));
-
 app.use(require('./router'));
 
 // app.get('/coffee', (_req, res) => res.status(418).end());
