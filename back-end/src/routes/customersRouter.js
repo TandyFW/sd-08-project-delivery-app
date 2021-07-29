@@ -6,6 +6,8 @@ const customersRouter = Router();
 
 customersRouter.get('/orders', 
   auth,
-  customersController.findAll);
+  customersController.findAllOrders);
+
+customersRouter.get('/products', customersController.getAllProducts);
   
 module.exports = customersRouter;

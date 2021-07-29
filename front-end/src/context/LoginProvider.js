@@ -11,7 +11,7 @@ export function LoginProvider({ children }) {
     request,
     response,
     loading,
-    loginError,
+    error,
   } = useAxios();
 
   const handleLoginRequest = async ({ email, password }) => {
@@ -28,7 +28,7 @@ export function LoginProvider({ children }) {
     values: {
       response,
       loading,
-      loginError,
+      error,
     },
     functions: {
       handleLoginRequest,

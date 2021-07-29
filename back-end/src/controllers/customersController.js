@@ -1,6 +1,6 @@
 const customersUseCase = require('../services/customersUseCase');
 
-exports.findAll = async (req, res) => {
+const findAllOrders = async (req, res) => {
   const { user: { id } } = req.user;
     try {
       const customers = await customersUseCase.findOrderCustomer({ id });
@@ -8,4 +8,18 @@ exports.findAll = async (req, res) => {
     } catch (error) {
       return res.status(error.statusCode).json(error.responseError());
     }
+};
+
+const getAllProducts = async (_req, res) => {
+  try {
+    const response = await customersUseCase.getAllProducts();
+    res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
+};
+
+module.exports = {
+  findAllOrders,
+  getAllProducts,
 };
