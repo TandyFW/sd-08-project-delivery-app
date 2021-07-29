@@ -15,3 +15,17 @@ export const MenuItem = styled.button`
   font-size: 0.8rem;
   background-color: ${(props) => props.color};
 `;
+export const CartButton = styled.button`
+  span {
+    margin-right: 5px;
+  }
+  margin: 10px;
+  min-width: 200px;
+  padding: 10px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  font-size: 0.8rem;
+  background-color: ${(props) => props.color};
+  cursor: pointer;
+`;

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { MenuItem, Menu } from '../styles/components/NavBar.styled';
 import colors from '../styles/colors';
 
-function NavBar({ user }) {
+function NavBar({ user, show }) {
   const prefix = 'customer_products__';
   const history = useHistory();
   const goToRoute = (route) => {
@@ -19,17 +19,19 @@ function NavBar({ user }) {
     <Menu>
       <MenuItem
         color={ colors.mediumseagreen }
-        onClick={ () => goToRoute('/login') }
+        onClick={ () => goToRoute('/customer/products') }
         data-testid={ `${prefix}element-navbar-link-products` }
       >
         Produtos
       </MenuItem>
       <MenuItem
+        show={ show }
+        disabled={ show }
         color={ colors.teal }
         onClick={ () => goToRoute('/login') }
         data-testid={ `${prefix}element-navbar-link-orders` }
       >
-        Meus Pedidos
+        {!show && 'Meus Pedidos'}
       </MenuItem>
       <MenuItem
         color={ colors.indigo }
@@ -50,6 +52,7 @@ function NavBar({ user }) {
 }
 NavBar.propTypes = {
   user: PropTypes.string.isRequired,
+  show: PropTypes.bool.isRequired,
 };
 
 export default NavBar;
