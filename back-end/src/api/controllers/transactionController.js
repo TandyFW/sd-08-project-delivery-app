@@ -1,21 +1,21 @@
 const tcw = require('../utils').tryCatchWrapper;
-const { saleService } = require('../services');
+const { transactionService } = require('../services');
 
-const requestSales = tcw(async (req, res, next) => {
+const requestTransactions = (transactionSide) => tcw(async (req, res, next) => {
   const { encodedName } = req.params;
   const name = decodeURI(encodedName);
-  const { result, error } = await saleService.findSales(name);
+  const { result, error } = await transactionService.findTransactions(name, transactionSide);
   if (error) return next(error);
   res.status(200).json(result);
 });
 
 const requestAllSales = tcw(async (req, res, next) => {
-  const { result, error } = await saleService.findAllSales();
+  const { result, error } = await transactionService.findAllSales();
   if (error) return next(error);
   res.status(200).json(result);
 });
 
 module.exports = {
-  requestSales,
+  requestTransactions,
   requestAllSales,
 };

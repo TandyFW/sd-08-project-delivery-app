@@ -4,7 +4,7 @@ const { loginRoute,
   registerByAdminRoute,
   productRoute,
   registerRoute,
-  saleRoute } = require('./routes');
+  transactionRoute } = require('./routes');
 const { errorHandler } = require('./middlewares');
 
 const app = express();
@@ -16,7 +16,7 @@ app.use('/images', express.static('public'));
 
 app.use(loginRoute);
 app.use(registerByAdminRoute);
-app.use(saleRoute);
+app.use(transactionRoute);
 app.use(productRoute);
 app.use(registerRoute);
 app.get('/coffee', (_req, res) => res.status(418).end());

@@ -1,15 +1,17 @@
 const { Sale, User } = require('../../database/models');
 
-const findSales = async (name) => {
-  const sales = await User.findOne({
-    include: 'sales',
+const findTransactions = async (name, transactionSide) => {
+  const userWithTransactions = await User.findOne({
+    include: transactionSide,
     where: {
       name,
     },
   });
-  if (!sales) return { error: { code: 'notFound', message: 'Não existe lista de vendas' } };
+  if (!userWithTransactions) {
+    return { error: { code: 'notFound', message: 'Não existe lista de vendas' } }; 
+  }
 
-  return { result: sales };
+  return { result: userWithTransactions };
 };
 
 const findAllSales = async () => {
@@ -20,6 +22,6 @@ const findAllSales = async () => {
 };
 
 module.exports = {
-  findSales,
+  findTransactions,
   findAllSales,
 };
