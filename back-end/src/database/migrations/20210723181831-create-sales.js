@@ -1,32 +1,32 @@
-'use strict';
+"use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('sales', {
+    await queryInterface.createTable("sales", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
-      total_price: {
+      totalPrice: {
         type: Sequelize.DECIMAL,
         allowNull: false,
-        field: 'totalPrice',
+        field: "total_price",
       },
-      delivery_address: {
+      deliveryAddress: {
         type: Sequelize.STRING,
         allowNull: false,
-        field: 'deliveryAddress',
+        field: "delivery_address",
       },
-      delivery_number: {
+      deliveryNumber: {
         type: Sequelize.STRING,
         allowNull: false,
-        field: 'deliveryNumber',
+        field: "delivery_number",
       },
-      sale_date: {
+      saleDate: {
         allowNull: false,
         type: Sequelize.DATE,
-        field: 'saleDate',
+        field: "sale_date",
       },
       status: {
         type: Sequelize.STRING,
@@ -35,26 +35,28 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+        field: "user_id",
         references: {
-          model: 'users',
-          key: 'id',
+          model: "users",
+          key: "id",
         },
       },
       sellerId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+        field: "seller_id",
         references: {
-          model: 'users',
-          key: 'id',
+          model: "users",
+          key: "id",
         },
       },
     });
   },
   down: async (queryInterface, _Sequelize) => {
-    await queryInterface.dropTable('sales');
-  }
+    await queryInterface.dropTable("sales");
+  },
 };

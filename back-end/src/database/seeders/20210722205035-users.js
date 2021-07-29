@@ -10,8 +10,8 @@ module.exports = {
         password: "a4c86edecc5aee06eff8fdeda69e0d04",
         role: "administrator",
         // usamos a função CURRENT_TIMESTAMP do SQL para salvar a data e hora atual nos campos `createdAt` e `updatedAt`
-        createdAt: Sequelize.literal('CURRENT_TIMESTAMP'),
-        updatedAt: Sequelize.literal('CURRENT_TIMESTAMP'),
+        created_at: Sequelize.literal('CURRENT_TIMESTAMP'),
+        updated_at: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
       {
         email: "fulana@deliveryapp.com",
@@ -19,8 +19,8 @@ module.exports = {
         name: "Fulana Pereira",
         password: "3c28d2b0881bf46457a853e0b07531c6",
         role: "seller",
-        createdAt: Sequelize.literal('CURRENT_TIMESTAMP'),
-        updatedAt: Sequelize.literal('CURRENT_TIMESTAMP'),
+        created_at: Sequelize.literal('CURRENT_TIMESTAMP'),
+        updated_at: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
       {
         email: "zebirita@email.com",
@@ -28,8 +28,8 @@ module.exports = {
         name: "Cliente Zé Birita",
         password: "1c37466c159755ce1fa181bd247cb925",
         role: "customer",
-        createdAt: Sequelize.literal('CURRENT_TIMESTAMP'),
-        updatedAt: Sequelize.literal('CURRENT_TIMESTAMP'),
+        created_at: Sequelize.literal('CURRENT_TIMESTAMP'),
+        updated_at: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
     ], {}),
 
