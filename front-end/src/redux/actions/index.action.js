@@ -1,10 +1,14 @@
 import axios from 'axios';
-import getLocalStorage from '../../service/getLocalStorage';
+import {
+  getUserInfo,
+  getProductsCarrinho,
+} from '../../service/getLocalStorage';
 
 export const STORE_EMAIL = 'STORE_EMAIL';
 export const REQUEST_ALL_PRODUCTS = 'REQUEST_ALL_PRODUCTS';
 export const ISLOADING = 'ISLOADING';
 export const SAVE_PRODUCTS = 'SAVE_PRODUCTS';
+export const CHANGE_TOTAL_VALUE = 'CHANGE_TOTAL_VALUE';
 
 export const storeEmail = (email) => ({
   type: STORE_EMAIL,
@@ -32,7 +36,7 @@ export const requestAllProducts = () => async (dispatch) => {
       method: 'get',
       url: 'http://localhost:3001/products',
       headers: {
-        authorization: getLocalStorage().token,
+        authorization: getUserInfo().token,
       },
     });
     console.log('response', response.data);
@@ -42,4 +46,16 @@ export const requestAllProducts = () => async (dispatch) => {
     console.log(e);
     dispatch(actionIsLoading(false));
   }
+};
+
+export const actionChangeTotalValue = () => {
+  const products = getProductsCarrinho();
+  if (products.length === 0) {
+    return { type: CHANGE_TOTAL_VALUE, payload: { totalValue: 0 } };
+  }
+  const totalValue = products.reduce(
+    (acc, product) => acc + Number(product.price) * product.quantity,
+    0,
+  );
+  return { type: CHANGE_TOTAL_VALUE, payload: { totalValue } };
 };
