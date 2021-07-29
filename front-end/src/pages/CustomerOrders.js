@@ -4,47 +4,12 @@ import Navbar from '../components/Navbar';
 
 const MOCK_ORDERS = [
   {
-    productId: 3,
-    name: 'Antarctica Pilsen 300ml',
-    quantity: 4,
-    status: 'pendente',
+    id: 1,
+    user_id: 03,
+    seller_id: 02,
+    delivery_address: 'pendente',
     unityPrice: '2,49',
     subTotal: '9,96',
-  },
-  {
-    productId: 5,
-    name: 'Skol 269ml',
-    quantity: 3,
-    unityPrice: '2,19',
-    subTotal: '6,57',
-  },
-  {
-    productId: 7,
-    name: 'Becks 330ml',
-    quantity: 10,
-    unityPrice: '4,99',
-    subTotal: '4,99',
-  },
-  {
-    productId: 9,
-    name: 'Becks 600ml',
-    quantity: 4,
-    unityPrice: '8,89',
-    subTotal: '35,56',
-  },
-  {
-    productId: 10,
-    name: 'Skol Beats Senses 269ml',
-    quantity: 1,
-    unityPrice: '3,57',
-    subTotal: '3,57',
-  },
-  {
-    productId: 11,
-    name: 'Stella Artois 275ml',
-    quantity: 4,
-    unityPrice: '3,49',
-    subTotal: '13,96',
   },
 ];
 
