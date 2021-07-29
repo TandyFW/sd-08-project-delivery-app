@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { request, lStorage } from '../utils';
 import ProductCard from './ProductCard';
@@ -12,7 +13,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ProductsList = () => {
+const ProductsList = ({ refreshCart }) => {
   const [products, setProducts] = useState([]);
 
   const classes = useStyles();
@@ -38,9 +39,14 @@ const ProductsList = () => {
         <ProductCard
           key={ product.id }
           product={ product }
+          refreshCart={ refreshCart }
         />)) }
     </div>
   );
+};
+
+ProductsList.propTypes = {
+  refreshCart: PropTypes.func.isRequired,
 };
 
 export default ProductsList;

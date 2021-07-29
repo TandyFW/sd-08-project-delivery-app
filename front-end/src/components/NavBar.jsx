@@ -28,6 +28,7 @@ const NavBar = ({ screens, user }) => {
 
   const logoutUser = () => {
     lStorage().user.remove();
+    lStorage().cart.remove();
     history.push('/login');
   };
 
