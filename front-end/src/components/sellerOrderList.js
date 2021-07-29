@@ -19,7 +19,7 @@ const orders = [
 
 const testId = 'seller_orders__element';
 
-class OrderList extends React.Component {
+class sellerOrderList extends React.Component {
   constructor() {
     super();
     this.state = {};
@@ -50,18 +50,18 @@ class OrderList extends React.Component {
               </div>
               <div>
                 <div className="status-container">
-                  <span
+                  <div
                     className={ order.status }
                     data-testid={ `${testId}-delivery-status-${order.order_id}` }
                   >
                     { order.status }
-                  </span>
+                  </div>
                   <div>
-                    <span
+                    <div
                       data-testid={ `${testId}-order-date-${order.order_id}` }
                     >
                       { order.date }
-                    </span>
+                    </div>
                     <span
                       data-testid={ `${testId}-card-price-${order.order_id}` }
                     >
@@ -92,10 +92,10 @@ class OrderList extends React.Component {
 //   stateProducts: state.products.products,
 // });
 
-// OrderList.propTypes = {
+// sellerOrderList.propTypes = {
 //   // dispatchCards: PropTypes.func.isRequired,
 //   // stateProducts: PropTypes.arrayOf(PropTypes.object).isRequired,
 // };
 
-// export default connect(mapStateToProps, mapDispatchToProps)(OrderList);
-export default OrderList;
+// export default connect(mapStateToProps, mapDispatchToProps)(sellerOrderList);
+export default sellerOrderList;
