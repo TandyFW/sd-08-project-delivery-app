@@ -71,8 +71,6 @@ export default function Register() {
     }
   }, [name.length, email, password.length]);
 
-  console.log(isDisabled);
-
   return (
     <div className="register">
       <h1 className="title">Cadastro</h1>
