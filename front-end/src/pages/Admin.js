@@ -12,6 +12,7 @@ class Admin extends React.Component {
       email: false,
       password: false,
       name: false,
+      xablau: {},
     };
     this.handleChange = this.handleChange.bind(this);
     this.signIn = this.signIn.bind(this);
@@ -45,20 +46,22 @@ class Admin extends React.Component {
   }
 
   async signIn({ target }) {
-    console.log('name', target.parentNode.firstChild.childNodes[1].value);
-    console.log('email', target.parentNode.firstChild.childNodes[3].value);
-    console.log('password', target.parentNode.firstChild.childNodes[5].value);
-    console.log('role', target.parentNode.firstChild.childNodes[7].value);
-    // console.log('password', target.parentNode.firstChild.childNodes[6].value);
-    // console.log('role', target.parentNode.firstChild.childNodes[8].value);
+    // console.log('name', target.parentNode.firstChild.childNodes[1].value);
+    // console.log('email', target.parentNode.firstChild.childNodes[3].value);
+    // console.log('password', target.parentNode.firstChild.childNodes[5].value);
+    // console.log('role', target.parentNode.firstChild.childNodes[7].value);
+    // // console.log('password', target.parentNode.firstChild.childNodes[6].value);
+    // // console.log('role', target.parentNode.firstChild.childNodes[8].value);
 
-    const name = target.parentNode.firstChild.childNodes[1].value; // OKIZON
-    const email = target.parentNode.firstChild.childNodes[3].value; // OKZION
-    const pass = target.parentNode.firstChild.childNodes[5].value; // OKIZON
+    const name = target.parentNode.firstChild.childNodes[1].value;
+    const email = target.parentNode.firstChild.childNodes[3].value;
+    const pass = target.parentNode.firstChild.childNodes[5].value;
     const role = target.parentNode.firstChild.childNodes[7].value;
     const user = await create(name, email, pass, role);
+    const xablau = user.newRegister;
     console.log(user.newRegister);
     const spanMaxTime = 10000;
+    this.setState({ xablau });
     if (user.statusText) {
       const hiddenSpan = document.querySelector('.hidden-span');
       hiddenSpan.style.display = 'inline-block';
@@ -74,7 +77,7 @@ class Admin extends React.Component {
   render() {
     // const { history } = this.props;
     // const { loading } = this.state;
-    const { email, password, name } = this.state;
+    const { email, password, name, xablau } = this.state;
     return (
       <div className="ADM-Page">
         <div className="register-form">
@@ -119,14 +122,14 @@ class Admin extends React.Component {
             type="button"
             data-testid="admin_manage__button-register"
             disabled={ !email || !password || !name }
-            onClick={ (event) => this.signIn(event) }
+            onClick={ (event) => { this.signIn(event); window.location.reload(); } }
           >
             Cadastrar
           </button>
 
         </div>
         <span className="hidden-span" />
-        <UserTable />
+        <UserTable register={ xablau } />
       </div>
     );
   }

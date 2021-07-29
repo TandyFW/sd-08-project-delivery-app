@@ -4,25 +4,28 @@ import PropTypes from 'prop-types';
 import { getAllUsers, exclude } from '../services';
 import { userAction } from '../redux/actions';
 
-function funcaoBLa(users) {
-  // const { stateUsers } = this.props;
-  this.setState(users);
-}
 class UserTable extends React.Component {
   constructor() {
     super();
     this.state = {
       users: [{}],
     };
+    this.funcaoBLa = this.funcaoBLa.bind(this);
+    this.exclude = this.exclude.bind(this);
   }
 
   async componentDidMount() {
     const { dispatchTable } = this.props;
     const users = await getAllUsers() || [{}];
-    funcaoBLa(users.registers);
+    this.funcaoBLa(users.registers);
     dispatchTable(users);
   }
 
+  funcaoBLa(users) {
+    // const { stateUsers } = this.props;
+    console.log(users);
+    this.setState({ users });
+  }
   // refresh() {
   //   // re-renders the component
   //   this.setState({});
@@ -30,17 +33,19 @@ class UserTable extends React.Component {
 
   async exclude(id) {
     const { users } = this.state;
+    console.log('entrou bosta');
     const result = await exclude(id);
-    const results = users.filter((item) => item.id !== id);
-    setState({ user: results });
     console.log(result);
+    const results = users.filter((item) => item.id !== id);
+    console.log(results);
+    this.setState({ users: results });
   }
 
   render() {
     // const {users!
-    // const { history } = this.props;
     // console.log(history);
     // const { stateUsers } = this.props;
+    // const { xablau } = this.props;
     const { users } = this.state;
     // console.log(stateUsers.registers);
     // const tableUser = stateUsers.registers || [{}];
@@ -74,7 +79,7 @@ class UserTable extends React.Component {
                 <td>
                   <button
                     type="button"
-                    onClick={ () => { exclude(user.id); this.refresh(); } }
+                    onClick={ () => this.exclude(user.id) }
                   >
                     Excluir
                   </button>
@@ -99,6 +104,7 @@ const mapStateToProps = (state) => ({
 UserTable.propTypes = {
   // history: PropTypes.shape().isRequired,
   dispatchTable: PropTypes.func.isRequired,
+  // xablau: PropTypes.shape().isRequired,
   // stateUsers: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
