@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import fetchSellers from '../services/fetchSellers';
 
 export default function FormCheckout() {
   const [sellers, setSellers] = useState([]);
 
-  const getSellers = () => {
-    // falta implemetar a função de requisitar os vendedores
-
+  const getSellers = async () => {
     console.log('ok');
-    return setSellers([]);
+    const data = await fetchSellers();
+
+    console.log(data);
+    return setSellers(data);
   };
 
   useEffect(() => getSellers(), []);
