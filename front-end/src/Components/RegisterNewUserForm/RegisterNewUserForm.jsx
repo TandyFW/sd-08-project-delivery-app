@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 import './RegisterNewUserForm.css';
+import { getUserInfo } from '../../service/getLocalStorage';
 
 export default function RegisterNewUserForm() {
   const history = useHistory();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('seller');
   const [statusNewUser, setStatusNewUser] = useState('');
   const [showMessageRegister, setShowMessageRegister] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
@@ -23,6 +26,10 @@ export default function RegisterNewUserForm() {
     setPassword(target.value);
   };
 
+  const handleRole = ({ target }) => {
+    setRole(target.value);
+  };
+
   const saveNewUser = async () => {
     try {
       const result = await axios({
@@ -34,12 +41,17 @@ export default function RegisterNewUserForm() {
           name,
           role,
         },
+        headers: {
+          authorization: getUserInfo().token,
+        },
       });
       console.log(result);
-      const { data } = result;
-      setUserInfo({ name, email, role, token: data });
-      history.push('/register/admin');
+      setName('');
+      setEmail('');
+      setPassword('');
+      history.push('/admin/manage');
     } catch (e) {
+      console.log(e);
       const {
         response: { status },
       } = e;
@@ -109,6 +121,8 @@ export default function RegisterNewUserForm() {
             name="type"
             className="register-new-user-select"
             data-testid="admin_manage__select-role"
+            onChange={ handleRole }
+            value={ role }
           >
             <option value="seller">Vendedor</option>
             <option value="admin">Administrador</option>
@@ -116,7 +130,7 @@ export default function RegisterNewUserForm() {
           </select>
         </label>
         <button
-          type="submit"
+          type="button"
           className="register-new-user-button"
           data-testid="admin_manage__button-register"
           onClick={ saveNewUser }

@@ -5,8 +5,8 @@ const prefix = 'admin_manage__element-user-table';
 export default function UserList() {
   const index = 'teste';
   return (
-    <div>
-      <table>
+    <table>
+      <thead>
         <tr>
           <th>Item</th>
           <th>Nome</th>
@@ -14,7 +14,9 @@ export default function UserList() {
           <th>Tipo</th>
           <th>Excluir</th>
         </tr>
-        {}
+      </thead>
+      {}
+      <tbody>
         <tr>
           <td data-testid={ `${prefix}-item-number-${index}` }>1</td>
           <td data-testid={ `${prefix}-item-name-${index}` }>João</td>
@@ -24,7 +26,7 @@ export default function UserList() {
             <button type="submit">Excluir</button>
           </td>
         </tr>
-      </table>
-    </div>
+      </tbody>
+    </table>
   );
 }
