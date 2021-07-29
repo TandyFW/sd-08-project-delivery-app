@@ -42,6 +42,8 @@ class UserTable extends React.Component {
   }
 
   render() {
+    const item = 'admin_manage__element-user-table-item-';
+    const remove = 'admin_manage__element-user-table-item-remove-';
     // const {users!
     // console.log(history);
     // const { stateUsers } = this.props;
@@ -74,10 +76,16 @@ class UserTable extends React.Component {
                 data-testid={ `admin_manage__element-user-table-item-number-${user.id}` }
               >
                 { keyOfstatateUsers.map((key) => (
-                  <td key={ key }>{user[key]}</td>
+                  <td
+                    key={ key }
+                    data-testid={ `${item}${key}-${user.id}` }
+                  >
+                    {user[key]}
+                  </td>
                 ))}
                 <td>
                   <button
+                    data-testid={ `${remove}${user.id}` }
                     type="button"
                     onClick={ () => this.exclude(user.id) }
                   >

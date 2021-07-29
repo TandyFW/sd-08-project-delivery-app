@@ -4,7 +4,6 @@ const registerController = require('../controllers/registerController');
 const productsController = require('../controllers/productsController');
 const orderController = require('../controllers/orderController');
 
-
 const loginRoute = express.Router();
 const registerRoute = express.Router();
 const productsRoute = express.Router();
@@ -22,7 +21,7 @@ productsRoute.get('/', productsController.getAll);
 
 orderRoute.get('/all/:id', orderController.getAllAllorders); // usado nos testes 4 // cosumidor quanto vendedor
 orderRoute.get('/', orderController.getAllorders); // usadas nos testes 5 e 7 // consumidor e vendedor
-orderRoute.post('/')                      // consumidor 
+// orderRoute.post('/')                      // consumidor 
 orderRoute.get('/:id', orderController.getByIdorder); // usada nos testes 6 e 8 // fazer um para cada 
 orderRoute.put('/:id', orderController.updateByIdorder); // usada nos testes 9 e 10  SÒ SELLER // fazer um para cada 
 // orderRoute.delete('/:id', orderController.deleteByIdorder); // não é usada  NÂO È FEITO NÂO È PRA EXISTIR 
