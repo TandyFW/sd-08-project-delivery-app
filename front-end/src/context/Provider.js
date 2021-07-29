@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import Context from './Context';
 
 function Provider({ children }) {
-  const [user, setUser] = useState(undefined);
+  const [userData, setUserData] = useState([]);
   const [cart, setCart] = useState([]);
   const context = {
-    user,
-    setUser,
+    userData,
+    setUserData,
     cart,
     setCart,
   };

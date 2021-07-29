@@ -2,14 +2,17 @@ module.exports = (sequelize, DataTypes) => {
   const product = sequelize.define('product', {
     name: DataTypes.STRING,
     price: DataTypes.DECIMAL,
-    url_image: DataTypes.STRING
+    urlImage: DataTypes.STRING
   },
   {
     timestamps: false,
+    underscored: true,
+    tableName: 'products'
     });
 
   product.associate = (models) => {
-    product.hasOne(models.sales_product);
+    product.belongsToMany(models.sale, { through: models.salesProduct });
+    product.hasMany(models.salesProduct);
   };
 
   return product;
