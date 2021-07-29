@@ -2,7 +2,7 @@ import axios from 'axios';
 import { React, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './Register.css';
-import setUserInfo from '../../service/setLocalStorage';
+import { setUserInfo } from '../../service/setLocalStorage';
 
 export default function Register() {
   const history = useHistory();
