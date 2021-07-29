@@ -30,8 +30,7 @@ export default function AddressForm() {
   const { token } = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => api.getAllSellers().then((response) => {
-    setSellers(response);
-    if (response.length === 1) setSelectedSeller(response[0]);
+    setSellers([{ id: 0, name: 'Vendedor(a)' }, ...response]);
   }), []);
 
   const handleAddress = ({ target: { name, value } }) => {
@@ -46,7 +45,7 @@ export default function AddressForm() {
       deliveryAddress: address.street,
       deliveryNumber: address.number,
       totalPrice,
-      sellerId: selectedSeller.id,
+      sellerId: parseInt(selectedSeller, 10),
       status: 'pendente',
     };
     const apiResponse = await api.registerSale(sale, token);
@@ -71,9 +70,16 @@ export default function AddressForm() {
               data-testid="customer_checkout__select-seller"
               onChange={ handleSellerChange }
             >
-              { sellers ? sellers.map((seller) => (
-                <option key={ seller.id }>{ seller.name }</option>
-              )) : '' }
+              { sellers.map((seller, index) => (
+                <option
+                  key={ index }
+                  value={ seller.id }
+                  selected={ !index }
+                  disabled={ !index }
+                >
+                  { seller.name }
+                </option>
+              )) }
             </ContainerSelect>
           </ContainerLabel>
         </ContainerDiv>
