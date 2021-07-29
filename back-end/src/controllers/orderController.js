@@ -1,42 +1,30 @@
-const rescue = require("express-rescue");
-const orderServices = require("../services/orderService");
-const success = require("../utils/success");
+const rescue = require('express-rescue');
+const orderServices = require('../services/orderService');
+const success = require('../utils/success');
 
 const createOrder = rescue(async (req, res, _next) => {
   const {
-    user_id,
-    seller_id,
-    totalPrice,
-    deliveryAddress,
-    deliveryNumber,
-    salesDate,
-    status,
-  } = req.body;
-  const result = await orderServices.create({
-    user_id,
-    seller_id,
-    totalPrice,
-    deliveryAddress,
-    deliveryNumber,
-    salesDate,
-    status,
-  });
+    userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, salesDate, status } = req.body;
+
+  const result = await orderServices.createOrder({
+    userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, salesDate, status });
+
   res.status(success.Created).json({ newOrder: result });
 });
 
+const getAllOrdersByUserId = rescue(async (req, res, next) => {
+  const { id } = req.dataUser;
+  const result = await orderServices.getAllOrdersByUserId(id);
+  if (result.error) return next(result);
+  res.status(success.OK).json({ orders: result });
+});
+
 const getAllOrders = rescue(async (_req, res, next) => {
-  const result = await orderServices.getAll();
+  const result = await orderServices.getAllOrders();
   if (result.error) return next(result);
 
   res.status(success.OK).json({ orders: result });
 });
-
-// const getAllAllorders = rescue(async (req, res, next) => {
-//   const { id } = req.params;
-//   const result = await orderServices.getAllAll(id);
-//   if (result.error) return next(result);
-//   res.status(success.OK).json({ orders: result });
-// });
 
 // const getByIdorder = rescue(async (req, res, next) => {
 //   const { id } = req.params;
@@ -62,5 +50,6 @@ const getAllOrders = rescue(async (_req, res, next) => {
 
 module.exports = {
   createOrder,
-  getAllOrders
+  getAllOrders,
+  getAllOrdersByUserId,
 };

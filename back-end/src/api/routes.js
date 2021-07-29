@@ -18,7 +18,7 @@ registerRoute.delete('/:id', registerController.deleteByIdRegister);
 
 productsRoute.get('/', productsController.getAll);
 
-orderRoute.post('/user', orderController.createOrder)
+orderRoute.post('/user', orderController.createOrder);
 orderRoute.get('/', orderController.getAllOrders); 
 
 module.exports = {

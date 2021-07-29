@@ -8,8 +8,6 @@ module.exports = {
     },
     ])
   },
-
-  
   down: async (queryInterface,_Sequelize) => {
     return queryInterface.bulkDelete('salesProducts', null, {});
   }

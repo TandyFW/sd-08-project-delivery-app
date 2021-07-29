@@ -11,4 +11,5 @@ const verifyAuth = rescue(async (req, _res, next) => {
 
   next();
 });
+
 module.exports = verifyAuth;

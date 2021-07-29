@@ -5,7 +5,7 @@ const clientError = require('../utils/clientError');
 
 const getAll = async () => {
   const founds = await user.findAll();
-  return founds.map(({dataValues: {password:_, ...others}}) => others )
+  return founds.map(({ dataValues: { password: _, ...others } }) => others);
 };
 
 const create = async (dataForCreate) => {
@@ -14,7 +14,7 @@ const create = async (dataForCreate) => {
 
   const userList = await getAll();
   
-  const checkExist =  userList.some((user) => user.email === dataForCreate.email);
+  const checkExist = userList.some((userRegister) => userRegister.email === dataForCreate.email);
   if (checkExist) return clientError.conflict('User Already Registered');
   
   const hashPassword = md5(dataForCreate.password);
