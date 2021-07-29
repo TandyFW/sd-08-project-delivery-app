@@ -115,9 +115,9 @@ class Admin extends React.Component {
               onChange={ this.handleChange }
               data-testid="admin_manage__select-role"
             >
-              <option value="admininstrador">Admininstrador</option>
+              <option value="admininstrador">Administrador</option>
               <option value="seller">Vendedor</option>
-              <option value="customer">Usuario</option>
+              <option value="customer">Usuário</option>
             </select>
           </div>
           <button

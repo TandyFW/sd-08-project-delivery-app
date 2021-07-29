@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { exclude } from '../services';
-import { userAction } from '../redux/actions';
+import { userActionThunk } from '../redux/actions';
 
 class UserTable extends React.Component {
   constructor() {
@@ -10,7 +10,7 @@ class UserTable extends React.Component {
     this.state = {
       users: [{}],
     };
-    // this.funcaoBLa = this.funcaoBLa.bind(this);
+
     this.exclude = this.exclude.bind(this);
   }
 
@@ -109,7 +109,7 @@ class UserTable extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchTable: () => dispatch(userAction()),
+  dispatchTable: () => dispatch(userActionThunk()),
 });
 
 const mapStateToProps = (state) => ({
