@@ -21,7 +21,7 @@ const registerUser = async (name, email, password) => {
       name,
       email,
       password,
-      role: 'user',
+      role: 'customer',
     });
 
     return {
