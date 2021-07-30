@@ -1,0 +1,30 @@
+.customerOrdersDetailsList-div {
+  border: solid black 1px;
+  border-radius: 15px;
+  padding: 15px;
+  width: 80%;
+}
+
+.customerOrdersDetailsList-table {
+  background-color: gray;
+  text-align: center;
+  width: 100%;
+}
+
+h2 {
+  background-color: rgb(140, 248, 140);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.product-table {
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
