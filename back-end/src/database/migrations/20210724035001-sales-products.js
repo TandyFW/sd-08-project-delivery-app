@@ -24,6 +24,7 @@ module.exports = {
         field: 'product_id'
       },
       quantity: {
+        allowNull: false,
         type: Sequelize.INTEGER,
       }
     })
