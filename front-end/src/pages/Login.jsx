@@ -37,7 +37,7 @@ const Login = () => {
     default:
       break;
     }
-  }, []);
+  }, [history]);
 
   const onClick = () => history.push('/register');
 
@@ -57,7 +57,7 @@ const Login = () => {
       localStorage.setItem('user', JSON.stringify(userStorage));
       localStorage.setItem('carrinho', JSON.stringify([]));
       if (data.role === 'customer') history.push('/customer/products');
-      if (data.role === 'seller') history.push('/customer/seller');
+      if (data.role === 'seller') history.push('/seller/orders');
       if (data.role === 'administrator') history.push('/admin/manage');
     } catch (err) {
       setVisible('visible');
