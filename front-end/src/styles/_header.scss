@@ -1,5 +1,6 @@
 .globalheader-container {
   position: fixed;
+  z-index: 999999;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -8,7 +9,8 @@
   height: 55px;
   top: 0;
   .left {
-    button {
+    button  {
+      position: relative;
       background: $trybeGreen;
       height: 55px;
     }
@@ -16,6 +18,7 @@
   .right {
     button {
       background: $trybeGreen;
+      height: 55px;
     }
   }
   button {
@@ -25,5 +28,13 @@
     padding: 0 55px;
     outline: none;
     border: none;
+    &:hover {
+      transition: 0.3s;
+      background-color: $enabledGreen;
+      // @if (background-color: $trybeGreen) {
+      
+      // }
+      box-shadow: inset 0 -17px 0px -14px #FFFFFF;
+    }
   }
 }

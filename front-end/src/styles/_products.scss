@@ -3,8 +3,8 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin: 80px auto 0 auto;
-  height: calc(100vh - 80px);
+  margin: 5% auto 0 auto;
+  height: calc(100vh - 5%);
   @include loading-div(420px, 500px, $trybeGreen);
   .cardlist-container {
     @include flex(flex, row, center, center);
@@ -12,7 +12,19 @@
     width: 1600px;
     height: 800px;
     .product {
+      position: relative;
       @include flex(flex, column, space-evenly, center);
+      .price {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        border-radius: 4px;
+        padding: 5px;
+        background-color: $trybeGreen;
+        color: $darkWhite;
+        opacity: 0.8;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+      }
       width: 220px;
       height: 300px;
       text-align: center;
@@ -30,7 +42,8 @@
       }
       img {
         margin-top: 5px;
-        width: 220px;
+        width: 100%;
+        border-radius: 13px;
       }
       h4 {
         margin: 0;
@@ -42,6 +55,8 @@
         font-size: 16px;
       }
       .quantity-div {
+        display: flex;
+        align-items: center;
         button {
           border: none;
           border-radius: 3.5px;
@@ -65,9 +80,66 @@
             }
           }
         }
-        span {
+        input {
+          width: 27px;
+          text-align: center;
           margin: 0 12px;
           font-size: 20px;
+        }
+        // remove spin arrow input
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+        input[type=number] {
+          -moz-appearance: textfield;
+        }
+        //
+      }
+    }
+    .cart-container {
+      position: fixed;
+      right: 10%;
+      bottom: 10%;
+      button {
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        background-color: $trybeGreen;
+        border-radius: 5px;
+        color: $darkWhite;
+        padding: 10px 20px;
+        font-size: 20px;
+        opacity: 0.9;
+        &:disabled{
+          background-color: $disabledGreen;
+          box-shadow: 0 0px 0px;
+        }
+        &:hover {
+          box-shadow: 4px 5px 7px 0 rgba(5, 3, 3, 0.2), 0 1px 2px 0 rgba(0, 0, 0, .1);
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-height: 800px) { //chegando em width 1400
+  .products-container {
+    .cardlist-container {
+      .product {
+        width: 200px;
+        height: 280px
+      }
+    }
+  }
+}
+
+@media only screen and (max-height: 650px) { //chegando em width 1400
+  .products-container {
+    .cardlist-container {
+      .product {
+        width: 150px;
+        img {
+          background-size: contain;
         }
       }
     }
