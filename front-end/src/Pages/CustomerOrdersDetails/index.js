@@ -36,13 +36,33 @@ const CustomerOrdersDetails = ({ match }) => {
     <div>
       <Header />
       <h3>Detalhes do Pedido</h3>
-      <div>
-        <span>{sale.id.toString().padStart(TARGET_LENGTH, '0')}</span>
-        <span>{seller.name}</span>
-        <span>{formatDate(sale.sale_date)}</span>
-        <span>{sale.status}</span>
-        <button type="button">Marcar como entregue</button>
-      </div>
+      <span
+        data-testid="customer_order_details__element-order-details-label-order-id"
+      >
+        {sale.id.toString().padStart(TARGET_LENGTH, '0')}
+      </span>
+      <span
+        data-testid="customer_order_details__element-order-details-label-seller-name"
+      >
+        {seller.name}
+      </span>
+      <span
+        data-testid="customer_order_details__element-order-details-label-order-date"
+      >
+        {formatDate(sale.sale_date)}
+      </span>
+      <span
+        data-testid="customer_order_details__element-order-details-label-delivery-status"
+      >
+        {sale.status}
+      </span>
+      <button
+        type="button"
+        disabled={ sale.status !== 'Em Trânsito' }
+        data-testid="customer_order_details__button-delivery-check"
+      >
+        Marcar como entregue
+      </button>
       <div>
         {sale.products.length > 0 ? (
           sale.products.map((item, index) => (
