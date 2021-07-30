@@ -26,7 +26,7 @@ export default function NewUserForm() {
   const [pass, setPass] = useState('');
   const [name, setName] = useState('');
   const [valid, setValid] = useState(true);
-  const [logged, setLogged] = useState(true);
+  // const [logged, setLogged] = useState(true);
 
   const submitHandler = async (e) => {
     const CREATED = 201;
@@ -37,12 +37,12 @@ export default function NewUserForm() {
     })
       .catch((err) => err.message);
     if (result.status !== CREATED) {
-      setLogged(false);
+      setValid(false);
     } else {
-      setLogged(true);
-      // if (result.data.role === 'customer') {
-      //   history.push('/customer/products');
-      // }
+      setValid(true);
+      if (result.data.role === 'customer') {
+        console.log(result.data);
+      }
     }
   };
 
@@ -107,7 +107,6 @@ export default function NewUserForm() {
               id="type"
               name="type"
               data-testid="admin_manage__select-role"
-            //   onChange={ handleSellerChange }
             >
               { typeUser.map((type, index) => (
                 <option
@@ -124,13 +123,14 @@ export default function NewUserForm() {
             data-testid="admin_manage__button-register"
             type="submit"
             disabled={ valid }
+            onClick={ () => console.log('cadastrar') }
           >
             CADASTRAR
           </FinalizeRegister>
         </ContainerDiv>
+        {/* { logged === false
+        && <p>Dados inválidos</p> } */}
       </Form>
-      { logged === false
-        && <p>Dados inválidos</p> }
     </Container>
   );
 }
