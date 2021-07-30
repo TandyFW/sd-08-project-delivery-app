@@ -34,7 +34,7 @@ export default function Header() {
               key={ idx }
               href={ contents.link }
               data-testid={ `${role}_${route}__element-navbar-link-${
-                contents.link.split('/')[1]
+                contents.link.split('/')[2]
               }` }
             >
               { contents.name }
