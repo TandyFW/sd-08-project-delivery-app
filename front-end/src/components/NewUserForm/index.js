@@ -1,8 +1,6 @@
-import React from 'react';
-// import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import { useHistory } from 'react-router-dom';
-// import api from '../../Apis/api1';
-// import { Context } from '../../Context';
+import api from '../../Apis/api1';
 
 import {
   Container,
@@ -19,53 +17,49 @@ import {
   /* InvalidBox, */
 } from './Styled';
 
-const typeUser = ['P.Vendedora', 'Cliente'];
+const typeUser = ['Cliente', 'P.Vendedora'];
 
 export default function NewUserForm() {
-  //   const { products } = useContext(Context);
-  //   const [sellers, setSellers] = useState([]);
-  //   const [selectedSeller, setSelectedSeller] = useState({});
-  //   const [message, setMessage] = useState(false);
-  //   const [address, setAddress] = useState({
-  //     street: '',
-  //     number: '',
-  //   });
-  //   const { totalPrice } = useContext(Context);
-  //   const history = useHistory();
-  //   const { token } = JSON.parse(localStorage.getItem('user'));
+  // const history = useHistory();
 
-  //   useEffect(() => api.getAllSellers().then((response) => {
-  //     setSellers([{ id: 0, name: 'Vendedor(a)' }, ...response]);
-  //   }), []);
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
+  const [name, setName] = useState('');
+  const [valid, setValid] = useState(true);
+  const [logged, setLogged] = useState(true);
 
-  //   const handleAddress = ({ target: { name, value } }) => {
-  //     setAddress({
-  //       ...address,
-  //       [name]: value,
-  //     });
-  //   };
+  const submitHandler = async (e) => {
+    const CREATED = 201;
+    e.preventDefault();
+    const result = await api.registerFetch(name, email, pass).then((data) => {
+      localStorage.setItem('newUser', JSON.stringify(data.data));
+      return data;
+    })
+      .catch((err) => err.message);
+    if (result.status !== CREATED) {
+      setLogged(false);
+    } else {
+      setLogged(true);
+      // if (result.data.role === 'customer') {
+      //   history.push('/customer/products');
+      // }
+    }
+  };
 
-  //   const handleClick = async () => {
-  //     const sale = {
-  //       deliveryAddress: address.street,
-  //       deliveryNumber: address.number,
-  //       totalPrice,
-  //       sellerId: parseInt(selectedSeller, 10),
-  //       status: 'Pendente',
-  //       products: products.filter((product) => product.quantity > 0),
-  //     };
-  //     const apiResponse = await api.registerSale(sale, token);
-  //     setMessage(true);
-  //     history.push(`/customer/orders/${apiResponse.data.response.id}`);
-  //   };
-
-  //   const handleSellerChange = ({ target }) => {
-  //     setSelectedSeller(target.value);
-  //   };
+  useEffect(() => {
+    const PASSLENGHT = 6;
+    const NAMELENGTH = 12;
+    const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (regex.test(email) && pass.length >= PASSLENGHT && name.length >= NAMELENGTH) {
+      setValid(false);
+    } else {
+      setValid(true);
+    }
+  }, [email, name.length, pass]);
 
   return (
     <Container>
-      <Form>
+      <Form onSubmit={ submitHandler }>
         <Title>Cadastrar novo usuário</Title>
         <ContainerDiv>
           <Paragraph>Nome</Paragraph>
@@ -76,8 +70,7 @@ export default function NewUserForm() {
               id="name"
               name="name"
               placeholder="Nome e sobrenome"
-            //   value={ address.street }
-            //   onChange={ handleAddress }
+              onChange={ ({ target }) => setName(target.value) }
             />
           </ContainerLabel>
         </ContainerDiv>
@@ -90,8 +83,7 @@ export default function NewUserForm() {
               id="email"
               name="email"
               placeholder="seu-email@site.com.br"
-            //   value={ address.street }
-            //   onChange={ handleAddress }
+              onChange={ ({ target }) => setEmail(target.value) }
             />
           </ContainerLabel>
         </ContainerDiv>
@@ -104,8 +96,7 @@ export default function NewUserForm() {
               id="password"
               name="password"
               placeholder="******"
-            //   value={ address.number }
-            //   onChange={ handleAddress }
+              onChange={ ({ target }) => setPass(target.value) }
             />
           </ContainerLabel>
         </ContainerDiv>
@@ -131,15 +122,15 @@ export default function NewUserForm() {
         <ContainerDiv>
           <FinalizeRegister
             data-testid="admin_manage__button-register"
-            type="button"
-            //   disabled={ address.street === '' || address.number === '' }
-            //   onClick={ handleClick }
+            type="submit"
+            disabled={ valid }
           >
             CADASTRAR
           </FinalizeRegister>
-          {/* {message ? <h3>Compra realizada com sucesso!</h3> : ''} */}
         </ContainerDiv>
       </Form>
+      { logged === false
+        && <p>Dados inválidos</p> }
     </Container>
   );
 }
