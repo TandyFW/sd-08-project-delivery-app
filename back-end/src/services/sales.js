@@ -22,10 +22,10 @@ const cart = [
 const teste = {
   userId: 1,
   sellerId: 2,
-  totalPrice: 10.00,
+  totalPrice: 10,
   deliveryAddress: 'Rua X',
   deliveryNumber: '99',
-  status: 'Pendente'
+  status: 'Pendente',
 }
 
 const insertSalesProducts = async (instance) => {
@@ -36,17 +36,36 @@ const insertSalesProducts = async (instance) => {
   });
 }
 
+const calculate = async (data) => {
+  let count = 0;
+
+  for(let i = 0; i < data.length; i+=1) {
+    const item = await findById(data[i].id);
+    count += item.price * data[i].quantity;
+  }
+  return count; 
+}
+
 
 const createSale = async (saleData) => {
   const { error } = SaleSchema.validate(saleData);
   if (error) throw error;
   
-  const { email, sellerId, totalPrice, deliveryAddress, deliveryNumber } = saleData;
+  const { email, sellerId, cart, deliveryAddress, deliveryNumber } = saleData;
   const { id } = await findByEmail(email);
+  
+  const value = await calculate(cart);
 
   try{
-    const newSale = await Sale.create(teste);
-    insertSalesProducts(newSale);
+    const newSale = await Sale.create({
+      userId: id,
+      sellerId,
+      totalPrice: value,
+      deliveryAddress,
+      deliveryNumber,
+      status: 'Pendente',
+    });
+    //insertSalesProducts(newSale);
     return newSale;
   } catch(err) {
     console.log(err);
