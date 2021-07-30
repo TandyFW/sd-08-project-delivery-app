@@ -22,8 +22,20 @@ function Login() {
   }
 
   useEffect(() => {
+    console.log(userData);
     if (userData.token) {
-      history.push('/customer/products');
+      const { user: { role } } = userData;
+
+      switch (role) {
+      case 'customer':
+        history.push('/customer/products');
+        break;
+      case 'seller':
+        history.push('/seller/orders');
+        break;
+      default:
+        break;
+      }
     }
     refEmail.current.innerHTML = refEmail.current.innerText
       .split('')
