@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const LogoContent = styled.aside`align-items: center;
-  background: rgb(0, 128, 55);
+  background: #008037;
   display: flex;
   height: 100%;
   justify-content: center;
