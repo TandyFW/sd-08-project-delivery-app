@@ -13,12 +13,12 @@ const defineBgColor = (status) => {
   return '#00CC9B';
 };
 
-const OrderCardStatus = ({ id, status }) => {
+const OrderCardStatus = ({ id, status, prefix }) => {
   const color = defineBgColor(status);
 
   return (
     <OrderStatus
-      data-testid={ `customer_orders__element-delivery-status-${id}` }
+      data-testid={ `${prefix}delivery-status-${id}` }
       bgColor={ color }
     >
       {status}
@@ -31,4 +31,5 @@ export default OrderCardStatus;
 OrderCardStatus.propTypes = {
   id: PropTypes.number.isRequired,
   status: PropTypes.string.isRequired,
+  prefix: PropTypes.string.isRequired,
 };

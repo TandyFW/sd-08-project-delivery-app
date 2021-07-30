@@ -43,7 +43,11 @@ export default function OrderCard({ orderData, isSeller }) {
       </OrderIdContainer>
       <OrderGeneral>
         <OrderData>
-          <OrderCardStatus status={ orderData.status } id={ orderData.id } />
+          <OrderCardStatus
+            status={ orderData.status }
+            id={ orderData.id }
+            prefix={ prefix }
+          />
           <OrderDetails>
             <OrderDetailsInfo
               data-testid={ `${prefix}order-date-${orderData.id}` }
