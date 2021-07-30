@@ -19,12 +19,19 @@ const renderAddress = (id, address, number) => (
   </OrderAddress>
 );
 
+const formatDate = (date) => {
+  const [month, day, year] = new Date(date).toLocaleDateString().split('/');
+  return `${day.padStart(2, '0')}/${month.padStart(2, '0')}/${year}`;
+};
+
 export default function OrderCard({ orderData, isSeller }) {
   const history = useHistory();
   const TARGET_LENGTH = 4;
 
   return (
-    <OrderContainer onClick={ () => history.push(`/customer/orders/${orderData.id}`) }>
+    <OrderContainer
+      onClick={ () => history.push(`/customer/orders/${orderData.id}`) }
+    >
       <OrderIdContainer>
         <p>Pedido</p>
         <OrderId
@@ -35,21 +42,17 @@ export default function OrderCard({ orderData, isSeller }) {
       </OrderIdContainer>
       <OrderGeneral>
         <OrderData>
-          <OrderCardStatus
-            data-testid={ `customer_orders__element-delivery-status-${orderData.id}` }
-            status={ orderData.status }
-            id={ orderData.id }
-          />
+          <OrderCardStatus status={ orderData.status } id={ orderData.id } />
           <OrderDetails>
             <OrderDetailsInfo
               data-testid={ `customer_orders__element-order-date-${orderData.id}` }
             >
-              {orderData.sale_date}
+              {formatDate(orderData.sale_date)}
             </OrderDetailsInfo>
             <OrderDetailsInfo
               data-testid={ `customer_orders__element-card-price-${orderData.id}` }
             >
-              {`R$${orderData.total_price.toFixed(2)}`}
+              {orderData.total_price.replace(/\./, ',')}
             </OrderDetailsInfo>
           </OrderDetails>
         </OrderData>

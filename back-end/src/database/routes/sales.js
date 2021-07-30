@@ -3,7 +3,7 @@ const { getAllSales, addNewSale } = require('../controllers/sales');
 const validateJWT = require('../middlewares/validateJWT');
 const Sales = express.Router();
 
-Sales.get('/', getAllSales);
+Sales.get('/', validateJWT, getAllSales);
 Sales.post('/', validateJWT, addNewSale);
 
 module.exports = Sales;

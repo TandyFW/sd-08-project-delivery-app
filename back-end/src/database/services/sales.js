@@ -34,7 +34,6 @@ const addNewSale = async (body, user) => {
     return response;
   } catch (err) {
     await t.rollback();
-    console.log(err)
     return { error: 'Internal error' };
   }
 };
