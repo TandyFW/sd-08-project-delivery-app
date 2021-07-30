@@ -59,7 +59,6 @@ function TableCheckout() {
             data-testid={ `customer_checkout__element-order-table-remove-${ index }` }
           >
             <button
-              data-testid={ `customer_checkout__element-order-table-remove-${ index + 1 }` }
               type="button"
               onClick={ () => removeFromCart(productId) }
             >
