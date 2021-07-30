@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import { Button, Tab, Tabs, Toolbar, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { useLocation } from 'react-router';
 import { useHistory } from 'react-router-dom';
-import Context from '../../context/Context';
+
 import navButtonsData from './navBarButtonsData';
 
 const useStyles = makeStyles((theme) => (
@@ -24,14 +24,27 @@ function NavBar() {
   const currentPathName = location.pathname;
   const headerButtons = navButtonsData[currentPathName];
   const classes = useStyles();
-  const { username } = useContext(Context);
+
+  const pageRole = location.pathname.split('/')[1];
+  // const localStorageName = async () => {
+  //   const user = await localStorage.getItem('user');
+  //   return user ? JSON.parse(user).name : '';
+  // };
+  // const [user, setUser] = useState('');
+  console.log(pageRole);
 
   const clearLocalStorage = async () => {
     await localStorage.removeItem('user');
     history.push('/login');
   };
+
+  // useEffect(() => {
+  //   setUser(JSON.parse(localStorage.getItem('user') || ''));
+  // }, []);
+
   return (
     <div>
+      {/* {(pageRole !== userRole()) && <Redirect to="/login" />} */}
       <AppBar position="static">
         <Toolbar>
           <Tabs
@@ -54,7 +67,10 @@ function NavBar() {
             align="right"
             data-testid="customer_products__element-navbar-user-full-name"
           >
-            {username.value || 'Anonymous'}
+            {
+              localStorage.getItem('user')
+              && JSON.parse(localStorage.getItem('user')).name
+            }
           </Typography>
           <Button
             size="large"
