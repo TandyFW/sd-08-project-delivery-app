@@ -22,6 +22,7 @@ router.delete('/users/:id', userController.removeUser);
 
 router.get('/products', productController.getAllProducts);
 
+router.get('/sellersales', auth.verifyToken, saleController.findSalesById);
 router.get('/sales', saleController.getAllSales);
 router.post('/sales', auth.verifyToken, saleController.createSales);
 
