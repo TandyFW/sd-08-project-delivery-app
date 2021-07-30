@@ -14,6 +14,7 @@ class CheckoutCart extends React.Component {
   render() {
     const { stateCart } = this.props;
     console.log(stateCart);
+    const LSprice = localStorage.getItem('totalPrice');
     return (
       <div className="checkout-cart-container">
         <ul>
@@ -47,14 +48,14 @@ class CheckoutCart extends React.Component {
                   `customer_checkout__element-order-table-unit-price-${index}`
                 }
               >
-                { elem.price }
+                { elem.price.toString().replace('.', ',') }
               </td>
               <td
                 data-testid={
                   `customer_checkout__element-order-table-sub-total-${index}`
                 }
               >
-                { elem.price * elem.quantity }
+                { (elem.price * elem.quantity).toFixed(2).replace('.', ',') }
               </td>
               <td>
                 <button
@@ -70,8 +71,9 @@ class CheckoutCart extends React.Component {
           ))}
         </ul>
         <div className="checkout-totalprice">
+          Total:
           <span data-testid="customer_checkout__element-order-total-price">
-            Total:
+            { LSprice.replace('.', ',')}
           </span>
         </div>
       </div>
