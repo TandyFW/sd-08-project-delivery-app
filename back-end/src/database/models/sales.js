@@ -24,7 +24,7 @@ const Sales = (sequelize, DataTypes) => {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  delivery_number : {
+  delivery_number: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
@@ -32,7 +32,7 @@ const Sales = (sequelize, DataTypes) => {
     type: DataTypes.STRING,
     allowNull: false,
   }
-}, { tableName: 'sales'});
+}, { tableName: 'sales' });
 
 Sales.associate = (models) => {
   Sales.belongsTo(models.User, { foreignKey: 'user_id', foreignKey: 'seller_id', as: 'user' });

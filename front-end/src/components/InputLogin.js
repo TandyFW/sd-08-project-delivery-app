@@ -22,7 +22,6 @@ export default function InputLogin() {
       .then((data) => data)
       .catch((err) => console.log(err));
 
-    console.log(user);
     if (user === undefined) {
       return setRedirected(true);
     }
