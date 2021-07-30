@@ -60,7 +60,7 @@ const CardProduct = ({ product }) => {
         <button
           type="button"
           onClick={ () => dec() }
-          data-testid={ `customer_products__button-card-add-item-${id}` }
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
         >
           -
         </button>
@@ -78,7 +78,7 @@ const CardProduct = ({ product }) => {
         <button
           type="button"
           onClick={ () => inc() }
-          data-testid={ `customer_products__button-card-rm-item-${id}` }
+          data-testid={ `customer_products__button-card-add-item-${id}` }
         >
           +
         </button>

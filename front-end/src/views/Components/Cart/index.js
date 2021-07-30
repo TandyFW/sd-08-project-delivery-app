@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import Context from '../../../context/Context';
 
 const Cart = () => {
   const [total, setTotal] = useState(0);
   const { cart } = useContext(Context);
+  const history = useHistory();
 
   useEffect(() => {
     if (cart.length > 0) {
@@ -17,15 +19,19 @@ const Cart = () => {
   }, [cart]);
 
   return (
-    <div data-testid="customer_products__checkout-bottom-value">
-      <a
-        href="/customer/checkout"
-        data-testid="customer_products__button-cart"
+    <button
+      type="button"
+      onClick={ () => history.push('/customer/checkout') }
+      data-testid="customer_products__button-cart"
+      disabled={ total === 0 }
+    >
+      Ver carrinho:
+      <span
+        data-testid="customer_products__checkout-bottom-value"
       >
-        Ver carrinho:
-        { total }
-      </a>
-    </div>
+        { String(total.toFixed(2)).replace('.', ',') }
+      </span>
+    </button>
   );
 };
 
