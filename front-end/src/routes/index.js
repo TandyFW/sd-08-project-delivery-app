@@ -1,6 +1,16 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Home, Login, Register, Products, Admin, Checkout, SellerOrders, CustomerOrders, CustomerOrdersDetails } from '../pages';
+import {
+  Home,
+  Login,
+  Register,
+  Products,
+  Admin,
+  Checkout,
+  SellerOrders,
+  CustomerOrders,
+  CustomerOrdersDetails,
+} from '../pages';
 
 function Routes() {
   return (
@@ -12,8 +22,8 @@ function Routes() {
       <Route exact path="/admin/manage" component={ Admin } />
       <Route exact path="/customer/checkout" component={ Checkout } />
       <Route exact path="/seller/orders" component={ SellerOrders } />
-        <Route exact path="/customer/orders" component={ CustomerOrders } />
-        <Route exact path="/customer/orders/:id" component={ CustomerOrdersDetails } />
+      <Route exact path="/customer/orders" component={ CustomerOrders } />
+      <Route exact path="/customer/orders/:id" component={ CustomerOrdersDetails } />
 
     </Switch>
   );
