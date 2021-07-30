@@ -18,9 +18,9 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  // async componentDidMount() {
-  //   localStorage.clear();
-  // }
+  async componentDidMount() {
+    localStorage.clear();
+  }
 
   componentWillUnmount() {
     document.querySelector('.hidden-span').style.display = 'none';
@@ -60,7 +60,7 @@ class Login extends React.Component {
         history.push('/seller/orders');
       } else if (infoLoginAccess.role === 'customer') {
         history.push('/customer/products');
-      } else if (infoLoginAccess.role === 'administrador') {
+      } else if (infoLoginAccess.role === 'administrator') {
         history.push('/admin/manage');
       } else {
         history.push('/register');

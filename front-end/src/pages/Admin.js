@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import validator from 'email-validator';
 import { createUser } from '../services';
 import { UserTable } from '../components';
+import { getAllUsersApi } from '../redux/actions';
 
 const MAX_TIME_SPAM_TEN_SECONDS = 10000;
 const MIN_LENGTH_NAME = 13;
@@ -62,9 +63,13 @@ class Admin extends React.Component {
       setTimeout(() => {
         document.querySelector('.hidden-span').style.display = 'none';
       }, MAX_TIME_SPAM_TEN_SECONDS);
-      await userAction();
+      await getAllUsersApi();
       return null;
     }
+    name.innerHTML = '';
+    email.innerHTML = '';
+    pass.innerHTML = '';
+    role.innerHTML = '';
   }
 
   render() {
@@ -132,4 +137,8 @@ class Admin extends React.Component {
   }
 }
 
-export default connect(null, null)(Admin);
+const mapDispatchToProps = (dispatch) => ({
+  setAllUserStore: () => dispatch(getAllUsersApi()),
+});
+
+export default connect(null, mapDispatchToProps)(Admin);
