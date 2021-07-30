@@ -14,7 +14,7 @@ import {
 } from './Styled';
 
 const renderAddress = (id, address, number) => (
-  <OrderAddress data-testid={ `customer_orders__element-card-address-${id}` }>
+  <OrderAddress data-testid={ `seller_orders__element-card-address-${id}` }>
     {`${address}, ${number}`}
   </OrderAddress>
 );
@@ -27,6 +27,7 @@ const formatDate = (date) => {
 export default function OrderCard({ orderData, isSeller }) {
   const history = useHistory();
   const TARGET_LENGTH = 4;
+  const prefix = isSeller ? 'seller_orders__element-' : 'customer_orders__element-';
 
   return (
     <OrderContainer
@@ -35,22 +36,26 @@ export default function OrderCard({ orderData, isSeller }) {
       <OrderIdContainer>
         <p>Pedido</p>
         <OrderId
-          data-testid={ `customer_orders__element-order-id-${orderData.id}` }
+          data-testid={ `${prefix}order-id-${orderData.id}` }
         >
           {orderData.id.toString().padStart(TARGET_LENGTH, '0')}
         </OrderId>
       </OrderIdContainer>
       <OrderGeneral>
         <OrderData>
-          <OrderCardStatus status={ orderData.status } id={ orderData.id } />
+          <OrderCardStatus
+            status={ orderData.status }
+            id={ orderData.id }
+            prefix={ prefix }
+          />
           <OrderDetails>
             <OrderDetailsInfo
-              data-testid={ `customer_orders__element-order-date-${orderData.id}` }
+              data-testid={ `${prefix}order-date-${orderData.id}` }
             >
               {formatDate(orderData.sale_date)}
             </OrderDetailsInfo>
             <OrderDetailsInfo
-              data-testid={ `customer_orders__element-card-price-${orderData.id}` }
+              data-testid={ `${prefix}card-price-${orderData.id}` }
             >
               {orderData.total_price.replace(/\./, ',')}
             </OrderDetailsInfo>
