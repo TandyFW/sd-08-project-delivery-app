@@ -28,7 +28,7 @@ class CardList extends React.Component {
       dispatchCart(LScart);
     }
     products.forEach((product) => {
-      product.quantity = 1;
+      product.quantity = 0;
     });
     dispatchProducts(products);
   }
@@ -67,7 +67,9 @@ class CardList extends React.Component {
     const { stateCart } = this.props;
     const contains = stateCart
       .filter((prod) => prod.name === selectedProduct[0].name);
+    // if selected not in redux
     if (contains.length < 1) {
+      selectedProduct[0].quantity = 1;
       // send to redux && local storage
       stateCart.push(selectedProduct[0]);
       stateCart.sort((a, b) => a.id - b.id);
@@ -98,31 +100,34 @@ class CardList extends React.Component {
     }
   }
 
-  decreaseQuantity(id) {
-    const { dispatchCart, stateProducts, stateCart } = this.props;
-    // selects the product on DOM
-    const productName = document.getElementById(`name-${id}`).innerText;
-    const selectedProduct = stateProducts.filter((prod) => prod.name === productName);
-    const localStoragePrice = localStorage.getItem('totalPrice');
-    if (selectedProduct[0].quantity < 2) {
-      const cartWithout = stateCart
-        .filter((prod) => prod.name !== selectedProduct[0].name);
-      this.setState({ [id]: 0 });
-      localStorage.setItem('cart', JSON.stringify(cartWithout));
-      if (localStoragePrice > 0) {
-        localStorage.setItem('totalPrice', (Number(localStoragePrice)
-        - Number(selectedProduct[0].price)).toFixed(2));
-      }
-      dispatchCart(cartWithout);
-      // decreasing localstorage price
-    } else {
-      // else decrease one
-      selectedProduct[0].quantity -= 1;
+  async decreaseQuantity(id) {
+    const { stateCart, dispatchCart } = this.props;
+    // selects product in the redux cart
+    const selected = stateCart.filter((prod) => prod.id === id)[0];
+    if (selected) {
+      // decrease price on LocalStorage
+      const LSprice = Number(localStorage.getItem('totalPrice'));
+      const formattedPrice = Number((LSprice - selected.price).toFixed(2));
+      localStorage.setItem('totalPrice', JSON.stringify(formattedPrice));
+    }
+    // if in redux cart
+    if (selected && selected.quantity > 1) {
+      // decrease local and global
       this.setState((prevState) => ({ [id]: prevState[id] - 1 }));
+      stateCart.forEach((prod) => {
+        if (selected.id === prod.id) prod.quantity -= 1;
+      });
+      // send to redux && localStorage
       localStorage.setItem('cart', JSON.stringify(stateCart));
-      localStorage.setItem('totalPrice', (Number(localStoragePrice)
-      - Number(selectedProduct[0].price)).toFixed(2));
       dispatchCart(stateCart);
+      // not in redux's cart
+    } else {
+      // remove from local & redux
+      this.setState({ [id]: 0 });
+      const newCart = stateCart.filter((prod) => prod.id !== selected.id);
+      // send to Redux && localStorage
+      localStorage.setItem('cart', JSON.stringify(newCart));
+      dispatchCart(newCart);
     }
   }
 
