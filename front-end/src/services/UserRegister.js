@@ -8,9 +8,9 @@ const UserRegister = async (name, email, password) => {
       password,
     });
 
-    const { data: { json } } = createUser;
-    console.log(json);
-    if (json) return (true, json);
+    const { data: { message, json } } = createUser;
+
+    if (message === 'Created') return (true, json);
 
     return false;
   } catch (error) {
