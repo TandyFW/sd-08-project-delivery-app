@@ -5,6 +5,7 @@ const {
   sessionsRouter,
   customersRouter,
   registerRouter,
+  sellersRouter,
 } = require('../routes');
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(express.static(path.resolve('public')));
 
 app.use('/login', sessionsRouter);
+app.use('/seller', sellersRouter);
 app.use('/customer', customersRouter);
 app.use('/register', registerRouter);
 
