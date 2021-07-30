@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
 export const CheckoutFormBody = styled.div`align-items: flex-start;
+  border: 1px solid grey;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   margin: 0 35px;
+  padding: 20px;
 
 
   .MuiFormControl-root {
@@ -24,8 +26,11 @@ export const CheckoutFormBody = styled.div`align-items: flex-start;
   }
 
   .MuiButtonBase-root {
+    align-self: center;
     background: ${({ theme }) => theme.colors.primary};
-    width: 100%;
+    margin: 5px 0;
+    min-width: 180px;
+    width: 35%;
   }
 
   .MuiButtonBase-root:hover {
@@ -35,7 +40,6 @@ export const CheckoutFormBody = styled.div`align-items: flex-start;
 `;
 
 export const Form = styled.div`align-items: flex-end;
-  background: gainsboro;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;

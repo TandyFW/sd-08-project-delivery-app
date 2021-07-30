@@ -36,7 +36,7 @@ const useStyles = makeStyles(
   },
 );
 
-export default function OrderTable({ products, remove }) {
+export default function OrderTable({ products, testIds, remove }) {
   const classes = useStyles();
 
   return (
@@ -55,18 +55,43 @@ export default function OrderTable({ products, remove }) {
         <TableBody>
           {products.map(({ price, name, count }, index) => (
             <StyledTableRow key={ index }>
-              <StyledTableCell component="th" scope="row">
+              <StyledTableCell
+                component="th"
+                scope="row"
+                data-testid={ `${testIds.item}${index}` }
+              >
                 {index + 1}
               </StyledTableCell>
-              <StyledTableCell align="right">{name}</StyledTableCell>
-              <StyledTableCell align="right">{count}</StyledTableCell>
-              <StyledTableCell align="right">{`R$ ${price}`}</StyledTableCell>
-              <StyledTableCell align="right">
+              <StyledTableCell
+                align="right"
+                data-testid={ `${testIds.name}${index}` }
+              >
+                {name}
+              </StyledTableCell>
+              <StyledTableCell
+                align="right"
+                data-testid={ `${testIds.quantity}${index}` }
+              >
+                {count}
+              </StyledTableCell>
+              <StyledTableCell
+                align="right"
+                data-testid={ `${testIds.price}${index}` }
+              >
+                {`R$ ${price}`}
+              </StyledTableCell>
+              <StyledTableCell
+                align="right"
+                data-testid={ `${testIds.subTotal}${index}` }
+              >
                 {`R$ ${(count * price).toFixed(2)}`}
               </StyledTableCell>
               {remove && (
                 <StyledTableCell align="right">
-                  <button type="button">
+                  <button
+                    data-testid={ `${testIds.remove}${index}` }
+                    type="button"
+                  >
                     Remover
                   </button>
                 </StyledTableCell>)}
@@ -81,6 +106,7 @@ export default function OrderTable({ products, remove }) {
 OrderTable.propTypes = {
   products: PropTypes.arrayOf(PropTypes.any).isRequired,
   remove: PropTypes.bool,
+  testIds: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 OrderTable.defaultProps = {

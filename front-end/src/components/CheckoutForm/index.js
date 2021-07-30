@@ -62,7 +62,10 @@ function CheckoutForm() {
             value={ seller }
             onChange={ ({ target: { value } }) => { setSeller(value); } }
             displayEmpty
-            inputProps={ { 'aria-label': 'Without label' } }
+            inputProps={
+              { 'aria-label': 'Without label',
+                'data-testid': 'customer_checkout__select-seller' }
+            }
           >
             <MenuItem value="" disabled>
               P.Vendedora Responsável
@@ -81,18 +84,27 @@ function CheckoutForm() {
           label="Endereço"
           value={ address }
           onChange={ ({ target: { value } }) => { setAddress(value); } }
+          inputProps={
+            { 'data-testid': 'customer_checkout__input-address' }
+          }
         />
         <TextField
           id="standard-basic"
           label="Número"
           value={ addressNumber }
           onChange={ ({ target: { value } }) => { setAddressNumber(value); } }
+          type="number"
+          min="0"
+          inputProps={
+            { 'data-testid': 'customer_checkout__input-addressNumber' }
+          }
         />
       </Form>
       <Button
         variant="contained"
         color="primary"
         onClick={ finishOrder }
+        data-testid="customer_checkout__button-submit-order"
       >
         Finalizar Pedido
       </Button>
