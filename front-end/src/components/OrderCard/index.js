@@ -72,7 +72,7 @@ OrderCard.propTypes = {
     id: PropTypes.number,
     user_id: PropTypes.number,
     seller_id: PropTypes.number,
-    total_price: PropTypes.number,
+    total_price: PropTypes.string,
     delivery_address: PropTypes.string,
     delivery_number: PropTypes.string,
     sale_date: PropTypes.string,

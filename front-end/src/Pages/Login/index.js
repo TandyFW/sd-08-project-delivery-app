@@ -96,7 +96,6 @@ const Login = () => {
             />
             <SubmitButton
               type="submit"
-              onClick={ () => console.log('Clicou') }
               disabled={ valid }
               data-testid="common_login__button-login"
 
