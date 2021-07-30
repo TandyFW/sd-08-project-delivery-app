@@ -3,17 +3,25 @@ import { useHistory } from 'react-router-dom';
 
 import './styles.css';
 
-const data = {
-  id: 1,
-  order: '0001',
-  status: 'PENDENTE',
-  date: '08/08/21',
-  value: '23,80',
-  address: 'Rua Sessenta e Dois, Bairro Maranguepe II, 533',
-};
+// const data = {
+//   id: 1,
+//   order: '0001',
+//   status: 'PENDENTE',
+//   date: '08/08/21',
+//   value: '23,80',
+//   address: 'Rua Sessenta e Dois, Bairro Maranguepe II, 533',
+// };
 
-function OrderDetailsCard() {
-  const { id, order, status, date, value, address } = data;
+function OrderDetailsCard(order) {
+  console.log(order);
+  const { order: {
+    id,
+    status,
+    saleDate,
+    deliveryAddress,
+    deliveryNumber,
+    totalPrice } } = order;
+
   const history = useHistory();
 
   function handleClick() {
@@ -32,20 +40,20 @@ function OrderDetailsCard() {
     >
       <div className="order-number">
         <span>Pedido</span>
-        <span>{order}</span>
+        <span>{deliveryNumber}</span>
       </div>
       <div className="">
         <div className="order-status-date">
           <div className="order-status">{status}</div>
           <div className="status-date-value">
-            <span>{date}</span>
+            <span>{saleDate}</span>
             <span>
               R$
-              {value}
+              {totalPrice}
             </span>
           </div>
         </div>
-        <div>{address}</div>
+        <div>{deliveryAddress}</div>
       </div>
     </div>
   );

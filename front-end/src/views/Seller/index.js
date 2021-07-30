@@ -1,5 +1,6 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Context from '../../context/Context';
+import OrderDetailsCard from '../Components/OrderDetailCard';
 
 function SellerOrders() {
   const { userData } = useContext(Context);
@@ -30,11 +31,13 @@ function SellerOrders() {
         .catch((err) => console.log(err));
     }
     getData();
-  }, []);
+  }, [userData.token]);
 
   return (
-    <h1>Seller</h1>
-		{orders.map((order) => <p>order.status</p>)}
+    <div>
+      <h1>Seller</h1>
+      { orders.map((order) => <OrderDetailsCard key={ order.id } order={ order } />)}
+    </div>
   );
 }
 
