@@ -40,10 +40,10 @@ export default function FormRegister() {
     }
   };
 
-  const register = async () => {
+  const register = async (e) => {
+    e.preventDefault();
     try {
       const newRegister = await UserRegister(currentName, currentEmail, encryptPassword);
-      console.log('entrei', newRegister);
       if (newRegister) {
         setShowMessage(false);
         setRedirect(true);
@@ -99,7 +99,7 @@ export default function FormRegister() {
           type="submit"
           className="btn-register"
           disabled={ !isValid }
-          onClick={ register }
+          onClick={ (e) => register(e) }
           id="btn-register"
           data-testid="common_register__button-register"
         >
@@ -112,7 +112,7 @@ export default function FormRegister() {
             className="error-message"
             data-testid="common_register__element-invalid_register"
           >
-            Usuário não encontrado.
+            Usuário já cadastrado.
           </p>)}
       {redirect && <Redirect to="/customer/products" />}
     </>
