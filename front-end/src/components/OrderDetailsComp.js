@@ -87,7 +87,7 @@ export default function OrderDetailsComp() {
             type="submit"
             variant="success"
             size="sm"
-            data-testid={ `${prefix}button-delivery-check` }
+            data-testid={ `${prefix[roleUser]}button-preparing-check` }
             onClick={ () => requestStatus('Preparando') }
             disabled={ disableButtonPrepar(status) }
           >
@@ -97,7 +97,7 @@ export default function OrderDetailsComp() {
             type="submit"
             variant="success"
             size="sm"
-            data-testid={ `${prefix}button-delivery-check` }
+            data-testid={ `${prefix[roleUser]}button-dispatch-check` }
             onClick={ () => requestStatus('Em Trânsito') }
             disabled={ disableButtonDelivery(status) }
           >
@@ -111,7 +111,7 @@ export default function OrderDetailsComp() {
         type="submit"
         variant="success"
         size="sm"
-        data-testid={ `${prefix}button-delivery-check` }
+        data-testid={ `${prefix[roleUser]}button-delivery-check` }
         onClick={ () => requestStatus('Entregue') }
         disabled={ disableButton(status) }
       >

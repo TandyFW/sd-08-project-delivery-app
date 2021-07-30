@@ -5,10 +5,8 @@ const orderNumber = (id) => {
 };
 
 const disableButton = (status) => {
-  if (status === 'Entregue') {
-    return true;
-  }
-  return false;
+  if (status === 'Em Trânsito') return false;
+  return true;
 };
 
 const disableButtonPrepar = (status) => {
