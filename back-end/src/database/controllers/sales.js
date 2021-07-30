@@ -14,7 +14,13 @@ const addNewSale = async (req, res) => {
   return res.status(201).json({ response });
 };
 
+const getSaleById = async (req, res) => {
+  const response = await SalesServices.getSaleById(req.params.id);
+  return res.status(200).json({ response });
+};
+
 module.exports = {
   getAllSales,
   addNewSale,
+  getSaleById,
 };

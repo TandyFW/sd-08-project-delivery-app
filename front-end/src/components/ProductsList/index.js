@@ -27,6 +27,7 @@ export default function ProductsList() {
               quantity={ item.quantity }
               unitaryValue={ item.price }
               index={ index }
+              dataTestId="customer_checkout"
             />
           ))
         ) : (

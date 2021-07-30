@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const config = require('../config/config');
-const { sale, salesProduct } = require('../models');
+const { sale, salesProduct, product } = require('../models');
 
 const sequelize = new Sequelize(config.development);
 
@@ -38,7 +38,16 @@ const addNewSale = async (body, user) => {
   }
 };
 
+const getSaleById = async (id) => {
+  const response = await sale.findOne({
+    where: { id },
+    include: [{ model: product, as: 'products', through: { attributes: ['quantity'] } }],
+  });
+  return response;
+};
+
 module.exports = {
   getAllSales,
   addNewSale,
+  getSaleById,
 };

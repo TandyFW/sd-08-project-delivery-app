@@ -9,35 +9,33 @@ import Register from './Pages/Register';
 
 export default () => (
   <Switch>
-    <Route path="/" exact>
+    <Route exact path="/">
       <Redirect to="/login" />
     </Route>
-    <Route path="/login" exact>
+    <Route exact path="/login">
       <Login />
     </Route>
-    <Route path="/register" exact>
+    <Route exact path="/register">
       <Register />
     </Route>
-    <Route path="/customer/products" exact>
+    <Route exact path="/customer/products">
       <CustomerProducts />
     </Route>
-    <Route path="/customer/checkout" exact>
+    <Route exact path="/customer/checkout">
       <CustomerCheckout />
     </Route>
-    <Route path="/customer/orders" exact>
+    <Route exact path="/customer/orders">
       <CustomerOrders />
     </Route>
-    <Route path="/customer/orders/:id" exact>
-      <CustomerOrdersDetails />
-    </Route>
+    <Route exact path="/customer/orders/:id" component={ CustomerOrdersDetails } />
     {/*
-    <Route path="/seller/orders" exact>
+    <Route exact path="/seller/orders" >
       <SellerOrders />
     </Route> */}
-    {/*  <Route path="/seller/orders/:id" exact>
+    {/*  <exact Route path="/seller/orders/:id" >
       <SellerOrdersDetails />
     </Route> */}
-    {/*   <Route path="/admin/manage" exact>
+    {/*   <exact Route path="/admin/manage" >
       <Admin />
     </Route> */}
   </Switch>
