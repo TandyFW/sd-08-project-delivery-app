@@ -20,7 +20,6 @@ function Routes() {
         <Route path="/login" component={ Login } />
         <Route path="/components" component={ Components } />
         <Route path="/register" component={ Register } />
-
         { userData && userData.user && userData.user.role === 'customer' && (
           <Route path="/customer" component={ CustomerRouts } />
         )}
