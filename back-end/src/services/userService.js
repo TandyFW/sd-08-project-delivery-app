@@ -98,7 +98,7 @@ const deleteUserByManager = async (token, id) => {
 const getAllSeller = async () => {
   const result = await User.findAll({ where: { role: 'seller' } });
   return { seller: result };
-}
+};
 
 module.exports = {
   login,
