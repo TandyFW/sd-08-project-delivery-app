@@ -66,10 +66,9 @@ class Register extends React.Component {
     const pass = target.parentNode.firstChild.childNodes[4].value;
     const role = 'customer';
     const user = await createUser(name, email, pass, role);
-
+    console.log(user);
     if (user.statusText) {
       const hiddenSpan = document.querySelector('.hidden-span');
-
       hiddenSpan.style.display = 'inline-block';
       hiddenSpan.innerHTML = user.message;
       hiddenSpan.setAttribute(
@@ -85,7 +84,7 @@ class Register extends React.Component {
 
     if (user) {
       const infoLoginAccess = await login(email, pass);
-
+      console.log(infoLoginAccess);
       localStorage.setItem('user', JSON.stringify(infoLoginAccess));
       setDataLoginStore(infoLoginAccess);
     }

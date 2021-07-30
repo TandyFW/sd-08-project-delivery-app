@@ -15,13 +15,21 @@ export async function getAllUsers() {
 }
 
 export async function getAllProducts() {
-  const products = await axios.get(`${URL_BASE}/products`)
+  const accessToken = JSON.parse(localStorage.getItem('user'));
+  const products = await axios.get(`${URL_BASE}/products`,
+    { headers: {
+      Authorization: `${accessToken.token}`,
+    } })
     .then((response) => response.data);
   return products;
 }
 
 export async function getByRole(role) {
-  const users = await axios.get(`${URL_BASE}/register/role/${role}`)
+  const accessToken = JSON.parse(localStorage.getItem('user'));
+  const users = await axios.get(`${URL_BASE}/register/role/${role}`,
+    { headers: {
+      Authorization: `${accessToken.token}`,
+    } })
     .then((response) => response.data.registers);
   return users;
 }

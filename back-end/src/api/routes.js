@@ -11,8 +11,8 @@ const productsRoute = express.Router();
 const orderRoute = express.Router();
 
 loginRoute.post('/', loginController.login);
-registerRoute.use(verifyAuth);
 registerRoute.post('/', registerController.createRegister);
+registerRoute.use(verifyAuth);
 registerRoute.get('/', registerController.getAllRegisters);
 registerRoute.get('/role/:role', registerController.getByRole);
 registerRoute.get('/:id', registerController.getByIdRegister);
