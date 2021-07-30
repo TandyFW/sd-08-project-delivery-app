@@ -3,18 +3,25 @@ const registerSchema = require('../schemas/registerSchema');
 const { user } = require('../database/models');
 const clientError = require('../utils/clientError');
 
-const getAll = () => user.findAll();
+const getAll = async () => {
+  const founds = await user.findAll();
+  return founds.map(({ dataValues: { password: _, ...others } }) => others);
+};
 
 const create = async (dataForCreate) => {
-  const hashPassword = md5(dataForCreate.password);
   const { error } = registerSchema.create.validate(dataForCreate);
   if (error) return clientError.badRequest(error.details[0].message);
+
   const userList = await getAll();
-  let index = -1;
-  if (userList) index = userList.findIndex((item) => item.email === dataForCreate.email);
-  if (index >= 0) return clientError.conflict('User already registrad');
+  
+  const checkExist = userList.some((userRegister) => userRegister.email === dataForCreate.email);
+  if (checkExist) return clientError.conflict('User Already Registered');
+  
+  const hashPassword = md5(dataForCreate.password);
+
   const { dataValues: { password: _, ...result } } = await user
     .create({ ...dataForCreate, password: hashPassword });
+
   return result;
 };
 

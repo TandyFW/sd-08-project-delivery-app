@@ -3,8 +3,17 @@ import axios from 'axios';
 const URL_BASE = 'http://localhost:3001';
 
 export async function getAllUsers() {
-  const users = await axios.get(`${URL_BASE}/register`)
-    .then((response) => response.data);
+  const accessToken = JSON.parse(localStorage.getItem('token'));
+  // console.log(accessToken.token);
+  const users = await axios.get(`${URL_BASE}/register`, {
+    headers: {
+      Authorization: `${accessToken.token}`,
+    },
+  })
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error(error);
+    });
   return users;
 }
 
@@ -49,9 +58,12 @@ export async function login(email, password) {
 }
 
 export async function exclude(id) {
+  const accessToken = JSON.parse(localStorage.getItem('token'));
   try {
     const result = await axios.delete(`${URL_BASE}/register/${id}`,
-      { })
+      { headers: {
+        Authorization: `${accessToken.token}`,
+      } })
       .then((response) => response.data);
     return result;
   } catch (error) {

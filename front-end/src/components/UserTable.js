@@ -1,69 +1,98 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getAllUsers, exclude } from '../services';
-import { loginAction, userAction } from '../redux/actions';
+import { exclude } from '../services';
+import { userActionThunk } from '../redux/actions';
 
 class UserTable extends React.Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      users: [{}],
+    };
+
+    this.exclude = this.exclude.bind(this);
   }
 
   async componentDidMount() {
     const { dispatchTable } = this.props;
-    const users = await getAllUsers();
-
-    dispatchTable(users);
+    // await userAction();
+    await dispatchTable();
   }
 
-  refresh() {
-    // re-renders the component
-    this.setState({});
-  }
+  // refresh() {
+  //   // re-renders the component
+  //   this.setState({});
+  // }
 
   async exclude(id) {
-    const result = await exclude(id);
-    setState({});
-    console.log(result);
+    const { users } = this.state;
+    const excludeResult = await exclude(id);
+    console.log(excludeResult);
+    if (!excludeResult.status) {
+      const results = users.filter((item) => item.id !== id);
+      this.setState({ users: results });
+    } else {
+      const spanMaxTime = 5000;
+      const hiddenSpan = document.querySelector('.hidden-span');
+      hiddenSpan.style.display = 'inline-block';
+      hiddenSpan.setAttribute('data-testid', 'common_login__element-invalid-email');
+      hiddenSpan.innerHTML = excludeResult.statusText;
+      setTimeout(() => {
+        hiddenSpan.style.display = 'none';
+      }, spanMaxTime);
+      return null;
+    }
   }
 
   render() {
-    // const { history } = this.props;
-    // console.log(history);
-    const { stateUsers } = this.props;
-    console.log(stateUsers.registers);
-    // const tableUser = stateUsers.user || [{}];
-    // const keyOfstatateUsers = Object.keys(tableUser[0]);
-    // keyOfstatateUsers.push('Excluir');
+    const { users } = this.state;
+    const keyOfstatateUsers = Object.keys(users[0]);
     return (
       <div className="cardlist-container">
         <table>
           <thead>
             <tr>
-              {/* { keyOfstatateUsers
+              { keyOfstatateUsers
             && keyOfstatateUsers.map((title) => (
-              <th key={ title }>{title}</th>
-            ))} */}
-              <th key="excluir">Excluir</th>
+              <th
+                data-testid={ `admin_manage__element-user-table-${title}` }
+                key={ `title-${title}` }
+              >
+                {title}
+              </th>
+            ))}
+
+              <th key="title-excluir">Excluir</th>
             </tr>
           </thead>
           {/* <tbody>
 
-            { tableUser && tableUser.map((user, index) => (
+            { users && users.map((user, index) => (
               <tr
                 id={ `${index}` }
                 className="user"
-                key={ user.id }
-                data-testid={ `admin_manage__element-user-table-item-number-${user.id}` }
+                key={ `line-${user.id}` }
+                // data-testid={ `admin_manage__element-user-table-id-${user.id}` }
               >
-                { keyOfstatateUsers.map((key) => (
-                  <td key={ key }>{user[key]}</td>
-                ))}
+                { keyOfstatateUsers.map((key) => {
+                  if (user.role !== 'administrator') {
+                    return (
+                      <td
+                        key={ `${key}-${user.id}` }
+                        data-testid={ `${item}${key}-${user.id}` }
+                      >
+                        {user[key]}
+                      </td>
+                    );
+                  } return null;
+                })}
                 <td>
                   <button
+                    key={ `button-${user.id}` }
+                    data-testid={ `${remove}${user.id}` }
                     type="button"
-                    onClick={ () => { exclude(user.id); this.refresh(); } }
+                    onClick={ () => this.exclude(user.id) }
                   >
                     Excluir
                   </button>
@@ -78,7 +107,7 @@ class UserTable extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchTable: (array) => dispatch(loginAction(array)),
+  dispatchTable: () => dispatch(userActionThunk()),
 });
 
 const mapStateToProps = (state) => ({
@@ -88,7 +117,8 @@ const mapStateToProps = (state) => ({
 UserTable.propTypes = {
   // history: PropTypes.shape().isRequired,
   dispatchTable: PropTypes.func.isRequired,
-  stateUsers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // xablau: PropTypes.shape().isRequired,
+  // stateUsers: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserTable);
