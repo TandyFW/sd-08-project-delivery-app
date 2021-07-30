@@ -13,7 +13,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'users',
+          model: 'users', //aqui
           key: 'id',
         },
         onUpdate: 'CASCADE',
@@ -23,7 +23,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'users',
+          model: 'users', //aqui
           key: 'id',
         },
         onUpdate: 'CASCADE',
@@ -31,7 +31,7 @@ module.exports = {
       },
       total_price: {
         allowNull: false,
-        type: Sequelize.DECIMAL(9,2)
+        type: Sequelize.DECIMAL(9, 2)
       },
       delivery_address: {
         allowNull: false,
