@@ -54,6 +54,9 @@ const Login = () => {
       if (result.data.role === 'customer') {
         history.push('/customer/products');
       }
+      if (result.data.role !== 'customer') {
+        history.push('/admin/manage');
+      }
     }
   };
 
