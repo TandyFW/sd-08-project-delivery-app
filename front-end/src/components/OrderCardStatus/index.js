@@ -18,10 +18,10 @@ const OrderCardStatus = ({ id, status }) => {
 
   return (
     <OrderStatus
-      data-testid={ `seller_orders__element-delivery-status-${id}` }
+      data-testid={ `customer_orders__element-delivery-status-${id}` }
       bgColor={ color }
     >
-      {status.toUpperCase()}
+      {status}
     </OrderStatus>
   );
 };

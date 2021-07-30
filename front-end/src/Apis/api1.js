@@ -6,6 +6,7 @@ const REGISTER = 'users/create';
 const SALES = 'sales';
 // const USERS = 'users';
 const SELLERS = 'users/sellers';
+const PRODUCTS = 'products';
 
 export default {
   loginFetch: async (email, password) => {
@@ -20,15 +21,33 @@ export default {
     return res;
   },
 
-  getAllSales: async () => axios
-    .get(`${BASEURL}${SALES}`)
-    .then((result) => result.data.response),
-
+  getAllSales: async (token) => {
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    };
+    return axios
+      .get(`${BASEURL}${SALES}`, { headers })
+      .then((result) => result.data.response);
+  },
   // getAllUsers: async () => axios
   //   .get(`${BASEURL}${USERS}`)
   //   .then((result) => result.data.response),
 
   getAllSellers: async () => axios
-    .get(`${BASEURL}${SELLERS}`)
-    .then((result) => result.data.response),
+    .get(`${BASEURL}${SELLERS}`).then((result) => result.data.response),
+
+  productsFetch: async () => {
+    const res = await axios.get(`${BASEURL}${PRODUCTS}`);
+    return res;
+  },
+
+  registerSale: async (sale, token) => {
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    };
+    const res = await axios.post(`${BASEURL}${SALES}`, sale, { headers });
+    return res;
+  },
 };

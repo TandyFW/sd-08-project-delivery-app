@@ -5,18 +5,21 @@ import OrderCardContainer from './Styled';
 
 const CustomerOrders = () => {
   const [orders, setOrders] = useState([]);
+  const { token } = JSON.parse(localStorage.getItem('user'));
 
-  useEffect(() => api.getAllSales().then((response) => setOrders(response)), []);
+  useEffect(
+    () => api.getAllSales(token).then((response) => {
+      setOrders(response);
+    }),
+    [token],
+  );
 
   return (
     <main>
       <Header />
       <OrderCardContainer>
         {!!orders.length
-          && orders.map((order) => (<OrderCard
-            key={ order.id }
-            orderData={ order }
-          />))}
+          && orders.map((order) => <OrderCard key={ order.id } orderData={ order } />)}
       </OrderCardContainer>
     </main>
   );

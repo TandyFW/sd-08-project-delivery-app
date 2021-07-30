@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { saveState } from '../../services/localStorage';
 
 import {
   Container,
@@ -16,19 +15,24 @@ import {
   RegisterButton,
   LoginLabel,
   PassLabel,
-  /*  InvalidBox, */
 } from './Styled';
-/* import { Context } from '../../Context'; */
 import api from '../../Apis/api1';
 
+const redirectLoggedUser = (user, history) => {
+  if (user.role === 'customer') return history.push('/customer/products');
+  if (user.role === 'seller') return history.push('/seller/orders');
+  if (user.role === 'administrator') return history.push('/admin/manage');
+};
+
 const Login = () => {
-  /* const { text, setText } = useContext(Context); */
   const history = useHistory();
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (user) redirectLoggedUser(user, history);
+
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const [valid, setValid] = useState(true);
   const [logged, setLogged] = useState(true);
-  console.log(valid);
 
   useEffect(() => {
     const PASSLENGHT = 6;
@@ -44,20 +48,19 @@ const Login = () => {
     const STATUSOK = 200;
     e.preventDefault();
     const result = await api.loginFetch(email, pass)
-      .then((data) => data)
+      .then((data) => {
+        localStorage.setItem('user', JSON.stringify(data.data));
+        return data;
+      })
       .catch((err) => err.message);
-    console.log(result);
     if (result.status !== STATUSOK) {
       setLogged(false);
     } else {
-      console.log(result.data.role);
       setLogged(true);
       if (result.data.role === 'customer') {
         history.push('/customer/products');
       }
     }
-    const userName = result.data.name;
-    saveState('user', { userName });
   };
 
   return (
