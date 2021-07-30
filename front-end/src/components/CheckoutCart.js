@@ -8,19 +8,85 @@ class CheckoutCart extends React.Component {
     this.state = {};
   }
 
+  componentDidMount() {
+  }
+
   render() {
-    const { history } = this.props;
-    console.log(history);
+    const { stateCart } = this.props;
+    console.log(stateCart);
     return (
       <div className="checkout-cart-container">
-        <p>Your Code Here</p>
+        <ul>
+          <td>Item</td>
+          <td>Descrição</td>
+          <td>Quantidade</td>
+          <td>Valor Unitário</td>
+          <td>Sub-total</td>
+          <td>Remover Item</td>
+          {(stateCart && stateCart.length > 0) && stateCart.map((elem, index) => (
+            <tr key={ index }>
+              <td
+                data-testid={
+                  `customer_checkout__element-order-table-item-number-${index}`
+                }
+              >
+                {index + 1}
+              </td>
+              <td
+                data-testid={ `customer_checkout__element-order-table-name-${index}` }
+              >
+                { elem.name }
+              </td>
+              <td
+                data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
+              >
+                { elem.quantity }
+              </td>
+              <td
+                data-testid={
+                  `customer_checkout__element-order-table-unit-price-${index}`
+                }
+              >
+                { elem.price }
+              </td>
+              <td
+                data-testid={
+                  `customer_checkout__element-order-table-sub-total-${index}`
+                }
+              >
+                { elem.price * elem.quantity }
+              </td>
+              <td>
+                <button
+                  type="button"
+                  data-testid={
+                    `customer_checkout__element-order-table-remove-${index}`
+                  }
+                >
+                  Remove
+                </button>
+              </td>
+            </tr>
+          ))}
+        </ul>
+        <div className="checkout-totalprice">
+          <span data-testid="customer_checkout__element-order-total-price">
+            Total:
+          </span>
+        </div>
       </div>
     );
   }
 }
 
+const mapStateToProps = (state) => ({
+  stateCart: state.products.cart,
+});
+
 CheckoutCart.propTypes = {
-  history: PropTypes.shape().isRequired,
+  // history: PropTypes.shape().isRequired,
+  // stateUser: PropTypes.arrayOf(PropTypes.object).isRequired,
+  stateCart: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default connect(null, null)(CheckoutCart);
+export default connect(mapStateToProps, null)(CheckoutCart);
