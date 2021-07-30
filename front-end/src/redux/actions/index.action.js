@@ -11,6 +11,7 @@ export const SAVE_PRODUCTS = 'SAVE_PRODUCTS';
 export const CHANGE_TOTAL_VALUE = 'CHANGE_TOTAL_VALUE';
 export const SAVE_USERS = 'SAVE_USERS';
 export const SAVE_ORDERS = 'SAVE_ORDERS';
+export const REQUEST_ORDERS_SELLER = 'REQUEST_ORDERS_SELLER';
 
 export const storeEmail = (email) => ({
   type: STORE_EMAIL,
@@ -40,6 +41,13 @@ export const saveUsers = (users) => ({
 
 export const saveOrders = (orders) => ({
   type: SAVE_ORDERS,
+  payload: {
+    orders,
+  },
+});
+
+export const saverOrdersSeller = (orders) => ({
+  type: REQUEST_ORDERS_SELLER,
   payload: {
     orders,
   },
@@ -107,6 +115,25 @@ export const requestAllOrders = () => async (dispatch) => {
     });
     console.log('response', response.data);
     dispatch(saveOrders(response.data));
+    dispatch(actionIsLoading(false));
+  } catch (e) {
+    console.log(e);
+    dispatch(actionIsLoading(false));
+  }
+};
+
+export const requestAllOrdersSeller = () => async (dispatch) => {
+  dispatch(actionIsLoading(true));
+  try {
+    const response = await axios({
+      method: 'get',
+      url: 'http://localhost:3001/seller/orders',
+      headers: {
+        authorization: getUserInfo().token,
+      },
+    });
+    console.log('response', response.data);
+    dispatch(saverOrdersSeller(response.data));
     dispatch(actionIsLoading(false));
   } catch (e) {
     console.log(e);

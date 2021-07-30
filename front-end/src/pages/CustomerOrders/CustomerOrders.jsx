@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import NavBar from '../../Components/NavBar/NavBar';
 import OrderCard from '../../Components/OrderCard/OrderCard';
@@ -28,6 +28,8 @@ export default function CustomerOrders() {
               key={ index }
               order={ order }
               prefix="customer_orders"
+              address=""
+              idPedido={ index + 1 }
             />
           ))}
         </div>

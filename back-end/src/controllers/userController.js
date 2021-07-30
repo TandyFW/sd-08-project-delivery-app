@@ -3,7 +3,7 @@ const userService = require('../services/userService');
 
 const PATHS = {
   administrator: 'admin/manage',
-  seller: '',
+  seller: 'seller/orders',
   customer: 'customer/products',
 };
 

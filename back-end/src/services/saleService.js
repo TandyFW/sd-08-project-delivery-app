@@ -57,6 +57,7 @@ const mountObj = async (saleDetails, token) => {
   obj.status = status.pendente;
   return obj;
 };
+
 const registerSale = async (saleDetails, token) => {
   const { products } = saleDetails;
   const obj = await mountObj(saleDetails, token);
@@ -64,6 +65,29 @@ const registerSale = async (saleDetails, token) => {
   await registerSaleProducts(products, resultSale.id);
   return { id: resultSale.id };
 };
+
+const getAllOrdersByClient = async (token) => {
+  const id = await idUser(token);
+  const userId = 'user_id';
+  const obj = { };
+  obj[userId] = id;
+  const resultSale = await Sale.findAll({ where: obj });
+  if (!resultSale) return [];
+  return resultSale;
+};
+
+const getAllOrdersBySeller = async (token) => {
+  const id = await idUser(token);
+  const sellerId = 'seller_id';
+  const obj = { };
+  obj[sellerId] = id;
+  const resultSale = await Sale.findAll({ where: obj });
+  if (!resultSale) return [];
+  return resultSale;
+};
+
 module.exports = {
   registerSale,
+  getAllOrdersByClient,
+  getAllOrdersBySeller,
 };
