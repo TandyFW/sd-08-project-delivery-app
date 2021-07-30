@@ -1,5 +1,6 @@
 const boom = require('@hapi/boom');
-const { Sale, User, Product } = require('../database/models');
+const { Sale, User, Product, SalesProducts } = require('../database/models');
+const { strict } = require('../schemas/sale');
 const SaleSchema = require('../schemas/sale');
 
 const getAllSales = async () => Sale.findAll();
@@ -28,11 +29,18 @@ const teste = {
   status: 'Pendente',
 }
 
-const insertSalesProducts = async (instance) => {
-  cart.forEach(async (element) => {
-    const prod = await findById(element.id);
-    console.log(element.quantity);
-    await instance.addProduct(prod, { through: { quantity: 1 }});
+const insertSalesProducts = async (id, data) => {
+  // cart.forEach(async (element) => {
+  //   const prod = await findById(element.id);
+  //   console.log(element.quantity);
+  //   await instance.addProduct(prod, { through: { quantity: 1 }});
+  // });
+  data.forEach(async (element) => {
+    await SalesProducts.create({
+      saleId: id,
+      productId: element.id,
+      quantity: element.quantity,
+    });
   });
 }
 
@@ -65,11 +73,26 @@ const createSale = async (saleData) => {
       deliveryNumber,
       status: 'Pendente',
     });
-    //insertSalesProducts(newSale);
+    insertSalesProducts(newSale.id, cart);
+
     return newSale;
   } catch(err) {
     console.log(err);
   }
 };
 
-module.exports = { getAllSales, createSale };
+const updateSale = async ({ id, status }) => {
+  
+  console.log(id, status);
+  try{
+    await Sale.update({ status }, {
+      where: { id }
+    })
+    const response = await Sale.findOne({ where: { id }});
+    return response;
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+module.exports = { getAllSales, createSale, updateSale };
