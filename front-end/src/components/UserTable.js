@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getAllUsers, exclude } from '../services';
-import { userAction } from '../redux/actions';
+import { loginAction, userAction } from '../redux/actions';
 
 class UserTable extends React.Component {
   constructor() {
@@ -78,7 +78,7 @@ class UserTable extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchTable: (array) => dispatch(userAction(array)),
+  dispatchTable: (array) => dispatch(loginAction(array)),
 });
 
 const mapStateToProps = (state) => ({
