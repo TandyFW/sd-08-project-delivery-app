@@ -7,6 +7,7 @@ import Checkout from './pages/Checkout/Checkout';
 import Management from './pages/Management/Management';
 import CustomerOrders from './pages/CustomerOrders/CustomerOrders';
 import SellerOrders from './pages/SellerOrders/SellerOrders';
+import OrderDetails from './pages/OrderDetails/OrderDetails';
 
 export default function Routes() {
   return (
@@ -19,6 +20,7 @@ export default function Routes() {
       <Route exact path="/login" component={ Login } />
       <Route exact path="/customer/checkout" component={ Checkout } />
       <Route exact path="/admin/manage" component={ Management } />
+      <Route exact path="/customer/orders/:id" component={ OrderDetails } />
       <Route exact path="/customer/orders" component={ CustomerOrders } />
       <Route exact path="/seller/orders" component={ SellerOrders } />
     </Switch>
