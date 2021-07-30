@@ -40,6 +40,7 @@ const Products = () => {
 
   return (
     <div className="card_content">
+      
       <NavBar userType="customer" userName={ userData.user.name } />
       {products && products.length > 0 && (
         products.map((product) => (
