@@ -1,7 +1,15 @@
 import React from 'react';
 import './styles/main.scss';
 import { Route, Switch } from 'react-router-dom';
-import { Home, Login, Register, Products, SellerOrders } from './pages';
+
+import {
+  Home,
+  Login,
+  Register,
+  Products,
+  SellerOrders,
+  CustomerOrders,
+} from './pages';
 
 function App() {
   return (
@@ -12,6 +20,7 @@ function App() {
         <Route exact path="/register" component={ Register } />
         <Route exact path="/customer/products" component={ Products } />
         <Route exact path="/seller/orders" component={ SellerOrders } />
+        <Route exact path="/customer/orders" component={ CustomerOrders } />
       </Switch>
     </div>
   );

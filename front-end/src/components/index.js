@@ -3,3 +3,4 @@ export { default as Header } from './Header';
 export { default as CardList } from './CardList';
 export { default as UserTable } from './UserTable';
 export { default as SellerOrderList } from './SellerOrderList';
+export { default as CustomerOrdersList } from './CustomerOrdersList';
