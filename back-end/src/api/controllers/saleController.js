@@ -3,8 +3,9 @@ const tcw = require('../utils').tryCatchWrapper;
 
 const createNewSale = tcw(async (req, res, _next) => {
   const { body, user } = req;
-  body.userId = user.dataValues.id;
-  const { result } = await saleService.newSale(body);
+  console.log('entrou no controller');
+  const sale = { ...body, userId: user.dataValues.id };
+  const { result } = await saleService.newSale(sale);
   res.status(201).json(result);
 });
 

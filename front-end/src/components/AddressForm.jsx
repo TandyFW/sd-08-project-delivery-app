@@ -51,15 +51,13 @@ export default function AddressForm() {
         method: 'GET',
       };
       const result = await request('users', options);
-      console.log(result);
+      console.log(result[0].name);
       setSellers(result);
+      sellerName.set(result[0].name);
+      setSellerId(result[0].id);
     };
     if (sellers.length === 0) getSellers();
   }, [sellers]);
-
-  // useEffect(() => {
-  //   isDisabled.set(!isValidUserForRegistration(name.value, email.value, password.value));
-  // }, [name.value, email.value, password.value, isDisabled]);
 
   useEffect(() => {
     if (sellerName.value && address.value && number.value) {
@@ -80,11 +78,6 @@ export default function AddressForm() {
     callback(event.target.value);
   };
 
-  const getSellerId = () => {
-    const selectedSeller = sellers.filter((seller) => seller.name === sellerName.value);
-    return selectedSeller[0].id;
-  };
-
   const getTotalPrice = () => {
     const totalPriceString = document.querySelector('#sale-total-price').innerText;
     const totalPrice = parseFloat(parseFloat(totalPriceString.split(' ')[1]
@@ -101,14 +94,13 @@ export default function AddressForm() {
         Authorization: token,
       },
       body: {
-        sellerId: getSellerId(),
+        sellerId: 2,
         totalPrice: getTotalPrice(),
         deliveryAddress: address.value,
         deliveryNumber: number.value,
       },
       method: 'POST',
     };
-
     const userObj = await request('sales', options);
     console.log(userObj);
     if (userObj.message) {
@@ -138,7 +130,6 @@ export default function AddressForm() {
           onChange={ (event) => handleChange(sellerName.set, event) }
           native
         >
-          <option hidden>Selecione vendedor</option>
           { sellers.map((seller, index) => (
             <option key={ index } value={ seller.name }>{seller.name}</option>
           )) }
@@ -161,7 +152,7 @@ export default function AddressForm() {
           data-testid="customer_checkout__button-submit-order"
           variant="contained"
           color="primary"
-          disabled={ isDisabled.value }
+          disabled={ false }
           onClick={ handleClick }
         >
           FINALIZAR PEDIDO
