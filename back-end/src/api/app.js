@@ -5,6 +5,7 @@ const {
   sessionsRouter,
   customersRouter,
   registerRouter,
+  sellersRouter,
 } = require('../routes');
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(express.static(path.resolve('public')));
 app.use('/login', sessionsRouter);
 app.use('/customer', customersRouter);
 app.use('/register', registerRouter);
+app.use('/seller', sellersRouter);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 
