@@ -1,7 +1,7 @@
 const { sale, product, salesProduct } = require('../../database/models');
 
 module.exports = async (id) => {
-  const result = await sale.findOne({
+  const [result] = await sale.findOne({
     where: { id },
     include: {
         model: salesProduct,
