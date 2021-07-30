@@ -7,17 +7,24 @@
 
 .customerOrdersDetailsList-table {
   background-color: gray;
+  border-radius: 15px;
+  padding: 15px;
   text-align: center;
   width: 100%;
 }
 
 h2 {
   background-color: rgb(140, 248, 140);
+  border-radius: 15px;
   display: flex;
   justify-content: flex-end;
+  padding: 15px;
 }
 
 .product-table {
+  background-color: rgb(221, 220, 220);
+  border-radius: 15px;
+  margin-top: 10px;
   width: 100%;
 }
 
