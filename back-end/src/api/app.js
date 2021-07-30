@@ -1,23 +1,22 @@
-require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const { Sales, Products } = require('../database/models');
-const sessionsRouter = require('../routes/sessionsRouter');
-const customerRouter = require('../routes/customerRouter');
+const path = require('path');
+const {
+  sessionsRouter,
+  customersRouter,
+  registerRouter,
+} = require('../routes');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use('/login', sessionsRouter);
-app.use('/customer', customerRouter);
-app.get('/coffee', (_req, res) => res.status(418).end());
+app.use(express.static(path.resolve('public')));
 
-app.get('/test', async (req, res) => {
-  const resposta = await Products.findOne({ include: [
-    { model: Sales, as: 'sales' },
-  ] });
-  res.status(200).json({ resposta });
-});
+app.use('/login', sessionsRouter);
+app.use('/customer', customersRouter);
+app.use('/register', registerRouter);
+
+app.get('/coffee', (_req, res) => res.status(418).end());
 
 module.exports = app;

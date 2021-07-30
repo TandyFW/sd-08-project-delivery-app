@@ -4,7 +4,7 @@ import React from 'react';
 const useAxios = () => {
   const [response, setResponse] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
-  const [loginError, setLoginError] = React.useState(null);
+  const [error, setError] = React.useState(null);
 
   const request = React.useCallback(async ({ method, url, ...rest }) => {
     const options = {
@@ -12,13 +12,13 @@ const useAxios = () => {
     };
     setLoading(true);
     setResponse(null);
-    setLoginError(null);
+    setError(null);
     try {
       const result = await axios(options);
       setResponse(result);
       setLoading(false);
     } catch (err) {
-      setLoginError(err.request.response);
+      setError(err.request.response);
       setLoading(false);
     }
   }, []);
@@ -26,7 +26,7 @@ const useAxios = () => {
     request,
     response,
     loading,
-    loginError,
+    error,
   };
 };
 
