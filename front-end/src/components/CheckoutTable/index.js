@@ -2,7 +2,12 @@ import React, { useRef } from 'react';
 import './styles.css';
 import PropTypes from 'prop-types';
 
-function CheckoutTable({ cart }) {
+function CheckoutTable({ cart, setCart }) {
+  console.log(cart);
+  function handleRemove({ target }) {
+    const data = cart.filter((element) => element.id !== Number(target.value));
+    setCart(data);
+  }
   const total = useRef();
   return (
     <div className="main-wrapper-table">
@@ -25,7 +30,7 @@ function CheckoutTable({ cart }) {
                   `customer_checkout__element-order-table-item-number-${index}`
                 }
               >
-                {element.id}
+                {index + 1}
               </td>
               <td
                 data-testid={ `customer_checkout__element-order-table-name-${index}` }
@@ -42,16 +47,19 @@ function CheckoutTable({ cart }) {
                   `customer_checkout__element-order-table-unit-price-${index}`
                 }
               >
-                {element.price}
+                {String(element.price.toFixed(2)).replace('.', ',')}
               </td>
               <td
                 data-testid={
                   `customer_checkout__element-order-table-sub-total-${index}`
                 }
               >
-                {Number(element.price) * Number(element.quantity)}
+                {String((Number(element.price) * Number(element.quantity)).toFixed(2))
+                  .replace('.', ',')}
               </td>
               <button
+                value={ element.id }
+                onClick={ handleRemove }
                 type="button"
                 data-testid={ `customer_checkout__element-order-table-remove-${index}` }
               >
@@ -66,7 +74,9 @@ function CheckoutTable({ cart }) {
         data-testid="customer_checkout__element-order-total-price"
       >
         {`Total Price: 
-        ${cart.reduce((acc, curr) => acc + (curr.quantity * curr.price), 0).toFixed(2)
+        ${String((cart.reduce((acc, curr) => acc + (curr.quantity * curr.price), 0)
+      .toFixed(2)))
+      .replace('.', ',')
     }`}
       </h4>
     </div>
@@ -75,6 +85,7 @@ function CheckoutTable({ cart }) {
 
 CheckoutTable.propTypes = {
   cart: PropTypes.arrayOf(Object).isRequired,
+  setCart: PropTypes.func.isRequired,
 };
 
 export default CheckoutTable;

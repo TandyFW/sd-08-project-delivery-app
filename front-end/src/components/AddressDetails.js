@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import Context from '../context/Context';
 
 const dataSellers = [
@@ -23,6 +24,7 @@ function AddressDetails({ cart }) {
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
   const [sellers] = useState(dataSellers);
+  const history = useHistory();
   const totalPrice = cart.reduce((acc, curr) => acc + (curr.quantity * curr.price), 0)
     .toFixed(2);
   async function handleSubmit() {
@@ -42,9 +44,8 @@ function AddressDetails({ cart }) {
       }),
     };
     const rawResponse = await fetch('http://localhost:3001/customer/order', myInit);
-    console.log(myInit);
     const content = await rawResponse.json();
-    console.log(content);
+    history.push(`/customer/orders/${content.sale.id}`);
   }
 
   return (

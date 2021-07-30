@@ -5,12 +5,12 @@ import Context from '../../context/Context';
 import './styles.css';
 
 function CustomerCheckout() {
-  const { cart } = useContext(Context);
+  const { cart, setCart } = useContext(Context);
   return (
     <div className="main-wrapper-checkout">
       <div>
         <h3>Finalizar Pedido</h3>
-        <CheckoutTable cart={ cart } />
+        <CheckoutTable cart={ cart } setCart={ setCart } />
       </div>
       <div>
         <h3>Detalhes e Endereço para Entrega</h3>
