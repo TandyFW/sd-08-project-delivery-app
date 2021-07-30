@@ -8,9 +8,10 @@ const Products = (sequelize, DataTypes) => {
       type: DataTypes.DECIMAL,
       notNull: true,
     },
-    urlImage: {
+    url_image: {
       type: DataTypes.STRING,
       notNull: true,
+      field: 'url_image',
     },
   });
 
