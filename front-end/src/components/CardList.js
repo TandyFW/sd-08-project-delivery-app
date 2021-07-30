@@ -9,6 +9,7 @@ class CardList extends React.Component {
     super();
     this.state = {
       1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0 };
+    this.handleChange = this.handleChange.bind(this);
   }
 
   async componentDidMount() {
@@ -30,6 +31,31 @@ class CardList extends React.Component {
       product.quantity = 1;
     });
     dispatchProducts(products);
+  }
+
+  handleChange(id, { target }) {
+    const { stateCart, stateProducts, dispatchCart } = this.props;
+    this.setState({ [id]: Number(target.value) });
+    const productName = document.getElementById(`name-${id}`).innerText;
+    const selectedProduct = stateProducts.filter((prod) => prod.name === productName);
+    selectedProduct[0].quantity = Number(target.value);
+    const contains = stateCart.filter((prod) => prod.name === selectedProduct[0].name);
+    if (contains.length < 1) {
+      stateCart.push(selectedProduct[0]);
+      dispatchCart(stateCart);
+    } else {
+      stateCart.forEach((element, index) => {
+        if (element.id === id) {
+          stateCart[index].quantity = Number(target.value);
+        }
+      });
+      dispatchCart(stateCart);
+    }
+    let totalPrice = 0;
+    stateCart.forEach((element) => {
+      totalPrice += Number((element.price * element.quantity).toFixed(2));
+    });
+    localStorage.setItem('totalPrice', totalPrice);
   }
 
   addQuantity(id) {
@@ -73,42 +99,36 @@ class CardList extends React.Component {
   }
 
   decreaseQuantity(id) {
-    const { dispatchCart, stateCart } = this.props;
+    const { dispatchCart, stateProducts, stateCart } = this.props;
     // selects the product on DOM
     const productName = document.getElementById(`name-${id}`).innerText;
-    const selectedProduct = stateCart.filter((prod) => prod.name === productName);
-    console.log(selectedProduct);
+    const selectedProduct = stateProducts.filter((prod) => prod.name === productName);
     const localStoragePrice = localStorage.getItem('totalPrice');
-    if (localStoragePrice > 0) {
-      localStorage.setItem('totalPrice',
-        (Number(localStoragePrice)
+    if (selectedProduct[0].quantity < 2) {
+      const cartWithout = stateCart
+        .filter((prod) => prod.name !== selectedProduct[0].name);
+      this.setState({ [id]: 0 });
+      localStorage.setItem('cart', JSON.stringify(cartWithout));
+      if (localStoragePrice > 0) {
+        localStorage.setItem('totalPrice', (Number(localStoragePrice)
         - Number(selectedProduct[0].price)).toFixed(2));
-    }
-    // checks if exists on redux
-    if (selectedProduct.length > 0) {
-    // if so, its removed
-      if (selectedProduct[0].quantity < 2) {
-        const cartWithout = stateCart
-          .filter((prod) => prod.name !== selectedProduct[0].name);
-        this.setState({ [id]: 0 });
-        localStorage.setItem('cart', JSON.stringify(cartWithout));
-        dispatchCart(cartWithout);
-        // decreasing localstorage price
-      } else {
-        // else decrease one
-        selectedProduct[0].quantity -= 1;
-        this.setState((prevState) => ({ [id]: prevState[id] - 1 }));
-        localStorage.setItem('cart', JSON.stringify(stateCart));
-        dispatchCart(stateCart);
       }
+      dispatchCart(cartWithout);
+      // decreasing localstorage price
+    } else {
+      // else decrease one
+      selectedProduct[0].quantity -= 1;
+      this.setState((prevState) => ({ [id]: prevState[id] - 1 }));
+      localStorage.setItem('cart', JSON.stringify(stateCart));
+      localStorage.setItem('totalPrice', (Number(localStoragePrice)
+      - Number(selectedProduct[0].price)).toFixed(2));
+      dispatchCart(stateCart);
     }
   }
 
   render() {
-    // const { history } = this.props;
-    // console.log(history);
-    const { stateProducts } = this.props;
     const { state } = this;
+    const { stateProducts, history } = this.props;
     return (
       <div className="cardlist-container">
         { stateProducts
@@ -118,21 +138,19 @@ class CardList extends React.Component {
                 className="price"
                 data-testid={ `customer_products__element-card-price-${product.id}` }
               >
-                {`R$: ${product.price}`}
+                {`R$: ${product.price}`.replace('.', ',')}
               </span>
               <img
                 src={ product.urlImage }
                 alt={ product.name }
                 data-testid={ `customer_products__img-card-bg-image-${product.id}` }
               />
-              <div>
-                <h4
-                  data-testid={ `customer_products__element-card-title-${product.id}` }
-                  id={ `name-${product.id}` }
-                >
-                  {product.name}
-                </h4>
-              </div>
+              <span
+                data-testid={ `customer_products__element-card-title-${product.id}` }
+                id={ `name-${product.id}` }
+              >
+                {product.name}
+              </span>
               <div className="quantity-div">
                 <button
                   type="button"
@@ -143,8 +161,10 @@ class CardList extends React.Component {
                   <i className="fas fa-minus" />
                 </button>
                 <input
+                  type="number"
                   data-testid={ `customer_products__input-card-quantity-${product.id}` }
                   value={ state[product.id] }
+                  onChange={ (event) => this.handleChange(product.id, event) }
                 />
                 <button
                   type="button"
@@ -161,11 +181,14 @@ class CardList extends React.Component {
           <button
             type="button"
             data-testid="customer_products__button-cart"
+            onClick={ () => history.push('/checkout') }
           >
             Ver Carrinho: R$:
-            {
-              ` ${localStorage.getItem('totalPrice')}`
-            }
+            <span data-testid="customer_products__checkout-bottom-value">
+              {
+                ` ${localStorage.getItem('totalPrice').replace('.', ',')}`
+              }
+            </span>
           </button>
         </div>
       </div>
@@ -185,7 +208,7 @@ const mapStateToProps = (state) => ({
 });
 
 CardList.propTypes = {
-  // history: PropTypes.shape().isRequired,
+  history: PropTypes.shape().isRequired,
   dispatchProducts: PropTypes.func.isRequired,
   dispatchCart: PropTypes.func.isRequired,
   stateProducts: PropTypes.arrayOf(PropTypes.object).isRequired,

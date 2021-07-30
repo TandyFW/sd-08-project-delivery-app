@@ -86,6 +86,16 @@
           margin: 0 12px;
           font-size: 20px;
         }
+        // remove spin arrow input
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+        input[type=number] {
+          -moz-appearance: textfield;
+        }
+        //
       }
     }
     .cart-container {
@@ -100,11 +110,13 @@
         padding: 10px 20px;
         font-size: 20px;
         opacity: 0.9;
-      }
-      &:hover {
-        box-shadow: 0 1px 7px 0 rgba(5, 3, 3, 0.2), 0 1px 2px 0 rgba(0, 0, 0, .1);
-        box-shadow: 0 1px 7px 0 rgba(5, 3, 3, 0.2), 0 1px 2px 0 rgba(0, 0, 0, .1);
-        box-shadow: 4px 5px 7px 0 rgba(5, 3, 3, 0.2), 0 1px 2px 0 rgba(0, 0, 0, .1);
+        &:disabled{
+          background-color: $disabledGreen;
+          box-shadow: 0 0px 0px;
+        }
+        &:hover {
+          box-shadow: 4px 5px 7px 0 rgba(5, 3, 3, 0.2), 0 1px 2px 0 rgba(0, 0, 0, .1);
+        }
       }
     }
   }

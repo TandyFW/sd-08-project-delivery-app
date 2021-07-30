@@ -77,7 +77,7 @@ describe(requirement(12), () => {
   );
 });
 
-describe.only(requirement(13), () => {
+describe(requirement(13), () => {
   test("O avaliador testará se o local storage contém os dados da pessoa usuária", async () => {
     const { name, email } = user.customer();
     console.log(localStorage(page))
@@ -240,7 +240,7 @@ describe(requirement(15), () => {
     );
   });
 
-  test("O avaliador testará o fluxo completo de adição de itens, validando o valor total de produtos", async () => {
+  test.only("O avaliador testará o fluxo completo de adição de itens, validando o valor total de produtos", async () => {
     expect(
       await action.customer.validateProductsTotalPrice(page, itemList)
     ).toBeTruthy();
