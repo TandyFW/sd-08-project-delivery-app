@@ -8,6 +8,14 @@ const login = tcw(async (req, res, next) => {
   res.status(200).json(result);
 });
 
+const getUserById = tcw(async (req, res, next) => {
+  const { id } = req.params;
+  const { result, error } = await userService.getUserById(id);
+  if (error) return next(error);
+  res.status(200).json(result);
+});
+
 module.exports = {
+  getUserById,
   login,
 };

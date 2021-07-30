@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/styles';
 import { lightGreen, teal, brown } from '@material-ui/core/colors';
-import { PENDING, PREPARING, ON_THE_WAY, DELIVERED } from './consts';
-import { Context } from '../../context';
+import { PENDING, PREPARING, ON_THE_WAY, DELIVERED } from '../consts';
+import { Context } from '../../../context';
 
 const useStyles = makeStyles((theme) => ({
   preparing: {
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HeaderButton = ({ type, status, orderNumber }) => {
+const HeaderButton = ({ type, status, orderId }) => {
   const classes = useStyles();
   const { socket } = useContext(Context);
 
@@ -58,11 +58,23 @@ const HeaderButton = ({ type, status, orderNumber }) => {
     }
   };
 
+  const getTestId = () => {
+    switch (type) {
+    case PREPARING:
+      return 'seller_order_details__button-preparing-check';
+    case ON_THE_WAY:
+      return 'seller_order_details__button-dispatch-check';
+    case DELIVERED:
+      return 'customer_order_details__button-delivery-check';
+    default: return 'button';
+    }
+  };
+
   const handleClick = () => {
     const flow = [PENDING, PREPARING, ON_THE_WAY, DELIVERED];
     const prevIndex = flow.indexOf(status);
     const newStatus = flow[prevIndex + 1];
-    socket.emit('updateOrder', { number: orderNumber, newStatus });
+    socket.emit('updateOrder-server', { id: orderId, newStatus });
   };
 
   return (
@@ -71,7 +83,7 @@ const HeaderButton = ({ type, status, orderNumber }) => {
       type="button"
       variant="contained"
       onClick={ handleClick }
-      data-testid=""
+      data-testid={ getTestId() }
       disabled={ shouldDisable() }
     >
       { getText() }
@@ -82,7 +94,7 @@ const HeaderButton = ({ type, status, orderNumber }) => {
 HeaderButton.propTypes = {
   type: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
-  orderNumber: PropTypes.number.isRequired,
+  orderId: PropTypes.number.isRequired,
 };
 
 export default HeaderButton;

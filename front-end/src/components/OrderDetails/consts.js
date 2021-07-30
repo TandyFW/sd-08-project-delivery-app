@@ -1,7 +1,7 @@
-const PENDING = 'pending';
-const PREPARING = 'preparing';
-const ON_THE_WAY = 'onTheWay';
-const DELIVERED = 'delivered';
+const PENDING = 'Pendente';
+const PREPARING = 'Preparando';
+const ON_THE_WAY = 'Em Trânsito';
+const DELIVERED = 'Entregue';
 
 export {
   PENDING,

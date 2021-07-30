@@ -1,57 +1,51 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import HeaderButton from './HeaderButton';
-import HeaderStatus from './HeaderStatus';
-import { PENDING, PREPARING, ON_THE_WAY, DELIVERED } from './consts';
+import { HeaderButton, HeaderSeller, HeaderStatus, HeaderDate,
+  HeaderOrderId } from './elements';
+import { PREPARING, ON_THE_WAY, DELIVERED } from './consts';
 import { Context } from '../../context';
+import testIds from './testIds';
 
 const OrderDetailsHeader = ({ info }) => {
-  const { orderNumber, date, userType, seller } = info;
+  const { orderId, date, userType, seller } = info;
   const { socket } = useContext(Context);
 
-  const [status, setStatus] = useState(PENDING);
+  const [status, setStatus] = useState(info.status);
 
   useEffect(() => {
-    socket.on('updateOrder', ({ number, newStatus }) => {
-      if (number === orderNumber) {
+    socket.on('updateOrder-client', ({ id, newStatus }) => {
+      if (id === orderId) {
         setStatus(newStatus);
       }
     });
-  }, []);
+  }, [socket, orderId]);
 
   const getButtons = () => {
     if (userType === 'customer') {
       return (
-        <HeaderButton type={ DELIVERED } status={ status } orderNumber={ orderNumber } />
+        <HeaderButton type={ DELIVERED } status={ status } orderId={ orderId } />
       );
     }
     return (
       <>
-        <HeaderButton type={ PREPARING } status={ status } orderNumber={ orderNumber } />
-        <HeaderButton type={ ON_THE_WAY } status={ status } orderNumber={ orderNumber } />
+        <HeaderButton type={ PREPARING } status={ status } orderId={ orderId } />
+        <HeaderButton type={ ON_THE_WAY } status={ status } orderId={ orderId } />
       </>
     );
   };
 
+  const dti = testIds(userType).header;
+
   return (
     <Grid container>
       <Grid container item>
-        <Typography variant="h4" color="textPrimary">
-          { `PEDIDO ${orderNumber}` }
-        </Typography>
-        <Typography variant="h5" color="textPrimary">
-          { date }
-        </Typography>
-        { seller && (
-          <Typography variant="subtitle1" color="textPrimary">
-            { `P. Vendedora: ${seller}` }
-          </Typography>
-        ) }
+        <HeaderOrderId id={ orderId } testId={ dti.orderId } />
+        <HeaderDate date={ date } testId={ dti.orderDate } />
+        <HeaderSeller seller={ seller } testId={ dti.sellerName } />
       </Grid>
       <Grid item>
-        <HeaderStatus statusValue={ status.value } />
+        <HeaderStatus status={ status } testId={ dti.deliveryStatus } />
       </Grid>
       <Grid item>
         { getButtons() }
@@ -62,10 +56,11 @@ const OrderDetailsHeader = ({ info }) => {
 
 OrderDetailsHeader.propTypes = {
   info: PropTypes.shape({
-    orderNumber: PropTypes.number.isRequired,
+    orderId: PropTypes.number.isRequired,
     date: PropTypes.string.isRequired,
     userType: PropTypes.string.isRequired,
     seller: PropTypes.string,
+    status: PropTypes.string.isRequired,
   }).isRequired,
 };
 

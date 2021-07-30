@@ -2,7 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const http = require('http');
 const socketio = require('socket.io');
-const { loginRoute, registerByAdminRoute, productRoute, registerRoute } = require('./routes');
+const { userRoute, registerByAdminRoute, productRoute, registerRoute,
+  saleRoute } = require('./routes');
 const { errorHandler } = require('./middlewares');
 const socketEvents = require('./socketEvents');
 
@@ -19,7 +20,8 @@ app.use(cors());
 
 app.use('/images', express.static('public'));
 
-app.use(loginRoute);
+app.use(userRoute);
+app.use(saleRoute);
 app.use(registerByAdminRoute);
 app.use(productRoute);
 app.use(registerRoute);
