@@ -10,7 +10,7 @@ import Home from './views/Home';
 import Register from './views/Register';
 import CustomerRouts from './views/Customer/Routes';
 import Context from './context/Context';
-import Seller from './views/Seller';
+import SellerOrders from './views/Seller';
 
 function Routes() {
   const { userData } = useContext(Context);
@@ -25,7 +25,7 @@ function Routes() {
           <Route path="/customer" component={ CustomerRouts } />
         )}
         { userData && userData.user && userData.user.role === 'seller' && (
-          <Route path="/seller/orders" component={ Seller } />
+          <Route path="/seller/orders" component={ SellerOrders } />
         )}
       </Switch>
     </Router>
