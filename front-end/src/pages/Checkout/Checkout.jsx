@@ -6,7 +6,7 @@ import NavBar from '../../Components/NavBar/NavBar';
 export default function Checkout() {
   return (
     <div>
-      <NavBar />
+      <NavBar label="PRODUTOS" text="MEUS PEDIDOS" />
       <ItemTable />
       <DeliveryForm />
     </div>

@@ -4,7 +4,7 @@ import './NavBar.css';
 import { useHistory } from 'react-router-dom';
 import { getUserInfo } from '../../service/getLocalStorage';
 
-export default function NavBar({ screen }) {
+export default function NavBar({ label, text }) {
   const history = useHistory();
 
   const logout = () => {
@@ -15,10 +15,10 @@ export default function NavBar({ screen }) {
   return (
     <ul>
       <li data-testid="customer_products__element-navbar-link-products">
-        {screen}
+        {label}
       </li>
       <li data-testid="customer_products__element-navbar-link-orders">
-        Meus Pedidos
+        { text }
       </li>
       <li data-testid="customer_products__element-navbar-user-full-name">
         {getUserInfo().name}
@@ -33,5 +33,6 @@ export default function NavBar({ screen }) {
 }
 
 NavBar.propTypes = {
-  screen: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
 };
