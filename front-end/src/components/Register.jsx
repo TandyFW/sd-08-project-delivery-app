@@ -1,23 +1,51 @@
 import React, { useState, useEffect } from 'react';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router-dom';
+import Typography from '@material-ui/core/Typography';
 import { isValidUserForRegistration, request, getPathByRole, lStorage } from '../utils';
 import TransitionAlerts from './TransitionAlerts';
 
+// const useStyles = makeStyles((theme) => ({
+//   selectEmpty: {
+//     marginTop: theme.spacing(2),
+//   },
+//   root: {
+//     display: 'flex',
+//     justifyContent: 'space-around',
+//     flexWrap: 'wrap',
+//     flexDirection: 'column',
+//     '& > *': {
+//       margin: theme.spacing(1),
+//       width: '25ch',
+//     },
+//   },
+// }));
+
 const useStyles = makeStyles((theme) => ({
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-  root: {
+  form: {
+    width: '100%',
+    maxWidth: '560px',
     display: 'flex',
-    justifyContent: 'space-around',
-    flexWrap: 'wrap',
+    marginInline: 'auto',
     flexDirection: 'column',
+    backgroundColor: theme.palette.background.form,
     '& > *': {
-      margin: theme.spacing(1),
-      width: '25ch',
+      margin: theme.spacing(2),
+    },
+    '& > div + div': {
+      marginTop: theme.spacing(0),
+    },
+    '& > button:first-of-type': {
+      marginBottom: theme.spacing(1),
+      marginTop: theme.spacing(2),
+    },
+    '& > :last-child': {
+      marginTop: theme.spacing(0),
+      marginBottom: theme.spacing(2),
     },
   },
 }));
@@ -85,40 +113,50 @@ export default function Register() {
 
   return (
     <>
-      <h3>Cadastro</h3>
-      <form className={ classes.root }>
-        <TextField
-          value={ name }
-          inputProps={ { 'data-testid': 'common_register__input-name' } }
-          label="Nome"
-          variant="outlined"
-          onChange={ (event) => handleChange(setName, event) }
-        />
-        <TextField
-          value={ email }
-          inputProps={ { 'data-testid': 'common_register__input-email' } }
-          label="Email"
-          variant="outlined"
-          onChange={ (event) => handleChange(setEmail, event) }
-        />
-        <TextField
-          type="password"
-          value={ password }
-          inputProps={ { 'data-testid': 'common_register__input-password' } }
-          label="Senha"
-          variant="outlined"
-          onChange={ (event) => handleChange(setPassword, event) }
-        />
-        <Button
-          data-testid="common_register__button-register"
-          variant="contained"
-          color="primary"
-          disabled={ isDisabled }
-          onClick={ handleClick }
-        >
-          Cadastrar
-        </Button>
-      </form>
+      <Grid className={ classes.root } item xs={ 11 } sm={ 8 } md={ 6 } lg={ 4 }>
+        <Paper component="form" elevation={ 8 } className={ classes.form }>
+          <Typography variant="h4" gutterBottom align="center">
+            Cadastro
+          </Typography>
+          <TextField
+            type="text"
+            value={ name }
+            inputProps={ { 'data-testid': 'common_register__input-name' } }
+            label="Nome"
+            variant="outlined"
+            onChange={ (event) => handleChange(setName, event) }
+            margin="dense"
+          />
+          <TextField
+            type="text"
+            value={ email }
+            inputProps={ { 'data-testid': 'common_register__input-email' } }
+            label="Email"
+            variant="outlined"
+            onChange={ (event) => handleChange(setEmail, event) }
+            margin="dense"
+          />
+          <TextField
+            type="password"
+            value={ password }
+            inputProps={ { 'data-testid': 'common_register__input-password' } }
+            label="Senha"
+            variant="outlined"
+            onChange={ (event) => handleChange(setPassword, event) }
+            margin="dense"
+          />
+          <Button
+            type="button"
+            data-testid="common_register__button-register"
+            variant="contained"
+            color="primary"
+            disabled={ isDisabled }
+            onClick={ handleClick }
+          >
+            Cadastrar
+          </Button>
+        </Paper>
+      </Grid>
       {renderErrorMessage()}
     </>
   );
