@@ -16,7 +16,7 @@ module.exports = async (id, role, saleId) => {
     include: { model: salesProduct,
         attributes: ['quantity'],
         include: { model: product,
-          atributes: ['name', 'price', 'urlImage'],
+          atributes: ['name', 'price', 'url_image'],
         },
       },
   });

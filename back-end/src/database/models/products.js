@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
   const product = sequelize.define('product', {
     name: DataTypes.STRING,
     price: DataTypes.DECIMAL,
-    urlImage: DataTypes.STRING
+    url_image: DataTypes.STRING
   },
   {
     timestamps: false,

@@ -6,7 +6,7 @@ import Context from '../../../context/Context';
 const CardProduct = ({ product }) => {
   const [quantity, setQuantity] = useState(0);
   const { cart, setCart } = useContext(Context);
-  const { id, name, price, urlImage } = product;
+  const { id, name, price, url_image: urlImage } = product;
 
   useEffect(() => {
     const isInCart = cart.filter((item) => item.id === id);

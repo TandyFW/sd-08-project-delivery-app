@@ -8,7 +8,7 @@ module.exports = async (id) => {
         attributes: ['quantity'],
         include: {
           model: product,
-          atributes: ['name', 'price', 'urlImage'],
+          atributes: ['name', 'price', 'url_image'],
         },
       },
   });
