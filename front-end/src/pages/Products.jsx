@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Components from '../components';
+import { NavBar, ProductsList, ProductsCart } from '../components';
 import { lStorage } from '../utils';
 
 lStorage().cart.remove();
@@ -31,9 +31,9 @@ const Products = () => {
 
   return (
     <div>
-      <Components.NavBar screens={ screens } user={ userFullName } />
-      <Components.ProductsCart subtotal={ subtotal } refreshCart={ refreshSubTotal } />
-      <Components.ProductsList refreshCart={ refreshSubTotal } />
+      <NavBar screens={ screens } user={ userFullName } />
+      <ProductsCart subtotal={ subtotal } refreshCart={ refreshSubTotal } />
+      <ProductsList refreshCart={ refreshSubTotal } />
     </div>
   );
 };

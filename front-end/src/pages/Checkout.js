@@ -1,18 +1,18 @@
 import React from 'react';
-import Components from '../components';
+import { NavBar, Checkout } from '../components';
 import { lStorage } from '../utils';
 
-const Checkout = () => {
+const CheckoutPage = () => {
   const screens = [
     { name: 'Produtos', testId: 'products' }, { name: 'Meus Pedidos', testId: 'orders' },
   ];
   const userFullName = lStorage().user.get().name;
   return (
     <div>
-      <Components.NavBar screens={ screens } user={ userFullName } />
-      <Components.Checkout />
+      <NavBar screens={ screens } user={ userFullName } />
+      <Checkout />
     </div>
   );
 };
 
-export default Checkout;
+export default CheckoutPage;

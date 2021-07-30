@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import { useParams } from 'react-router-dom';
-import Components from '../components';
+import { OrderDetails } from '../components';
 import { lStorage } from '../utils';
 
-const { Header, Table, TotalPrice } = Components.OrderDetails;
+const { Header, Table, TotalPrice } = OrderDetails;
 
 async function preRenderConfig(orderId, userType, setInfo) {
   const { name: userName, token } = lStorage().user.get();

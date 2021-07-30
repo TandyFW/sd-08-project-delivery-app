@@ -3,7 +3,7 @@ const cors = require('cors');
 const http = require('http');
 const socketio = require('socket.io');
 const { userRoute, registerByAdminRoute, productRoute, registerRoute,
-  saleRoute } = require('./routes');
+  saleRoute, transactionRoute } = require('./routes');
 const { errorHandler } = require('./middlewares');
 const socketEvents = require('./socketEvents');
 
@@ -23,6 +23,7 @@ app.use('/images', express.static('public'));
 app.use(userRoute);
 app.use(saleRoute);
 app.use(registerByAdminRoute);
+app.use(transactionRoute);
 app.use(productRoute);
 app.use(registerRoute);
 app.get('/coffee', (_req, res) => res.status(418).end());
