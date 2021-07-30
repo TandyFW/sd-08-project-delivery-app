@@ -9,6 +9,7 @@ export const REQUEST_ALL_PRODUCTS = 'REQUEST_ALL_PRODUCTS';
 export const ISLOADING = 'ISLOADING';
 export const SAVE_PRODUCTS = 'SAVE_PRODUCTS';
 export const CHANGE_TOTAL_VALUE = 'CHANGE_TOTAL_VALUE';
+export const SAVE_USERS = 'SAVE_USERS';
 
 export const storeEmail = (email) => ({
   type: STORE_EMAIL,
@@ -26,6 +27,13 @@ export const saveProducts = (products) => ({
   type: SAVE_PRODUCTS,
   payload: {
     products,
+  },
+});
+
+export const saveUsers = (users) => ({
+  type: SAVE_USERS,
+  payload: {
+    users,
   },
 });
 
@@ -58,4 +66,23 @@ export const actionChangeTotalValue = () => {
     0,
   );
   return { type: CHANGE_TOTAL_VALUE, payload: { totalValue } };
+};
+
+export const requestAllUsers = () => async (dispatch) => {
+  dispatch(actionIsLoading(true));
+  try {
+    const response = await axios({
+      method: 'get',
+      url: 'http://localhost:3001/get/users',
+      headers: {
+        authorization: getUserInfo().token,
+      },
+    });
+    console.log('response', response.data);
+    dispatch(saveUsers(response.data));
+    dispatch(actionIsLoading(false));
+  } catch (e) {
+    console.log(e);
+    dispatch(actionIsLoading(false));
+  }
 };

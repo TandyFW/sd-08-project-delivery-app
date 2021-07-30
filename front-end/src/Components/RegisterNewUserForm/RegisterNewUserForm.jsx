@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import './RegisterNewUserForm.css';
 import { getUserInfo } from '../../service/getLocalStorage';
+import { requestAllUsers } from '../../redux/actions/index.action';
 
 export default function RegisterNewUserForm() {
+  const dispatch = useDispatch();
   const history = useHistory();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -50,6 +53,7 @@ export default function RegisterNewUserForm() {
       setEmail('');
       setPassword('');
       history.push('/admin/manage');
+      dispatch(requestAllUsers());
     } catch (e) {
       console.log(e);
       const {
