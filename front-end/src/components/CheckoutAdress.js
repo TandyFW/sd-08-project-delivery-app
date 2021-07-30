@@ -1,6 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getByRole } from '../services';
 
 class CheckoutAdress extends React.Component {
   constructor() {
@@ -8,9 +9,20 @@ class CheckoutAdress extends React.Component {
     this.state = {};
   }
 
+  componentDidMount() {
+    this.getSellers();
+  }
+
+  async getSellers() {
+    const sellers = await getByRole('seller');
+    this.setState({ sellers });
+  }
+
   render() {
-    const { history } = this.props;
-    console.log(history);
+    const { state } = this;
+    const { props } = this;
+    console.log(props.history);
+    console.log(state.sellers);
     return (
       <div className="checkout-adress-container">
         <div className="checkout-adress-selectdiv">
@@ -20,9 +32,12 @@ class CheckoutAdress extends React.Component {
               id="seller"
               data-testid="customer_checkout__select-seller"
             >
-              <option>bla</option>
-              <option>blalda</option>
-              <option>blaldo</option>
+              {(state.sellers && state.sellers.length > 0)
+                && state.sellers.map((elem, index) => (
+                  <option key={ index }>
+                    { elem.name }
+                  </option>
+                ))}
             </select>
           </label>
           <label htmlFor="adress">
@@ -44,6 +59,7 @@ class CheckoutAdress extends React.Component {
         <button
           type="button"
           data-testid="customer_checkout__button-submit-order"
+          // onClick={ () => history.push(`/customer/orders/${}`)}
         >
           Finalizar Pedido
         </button>

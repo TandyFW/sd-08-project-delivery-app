@@ -21,7 +21,6 @@ class Checkout extends React.Component {
   render() {
     const { history } = this.props;
     const { loading } = this.state;
-    console.log(history);
     return (
       <div className="checkout-container">
         <Header history={ history } />

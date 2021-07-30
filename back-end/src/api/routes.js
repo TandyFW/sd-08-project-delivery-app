@@ -13,6 +13,7 @@ loginRoute.post('/', loginController.login);
 
 registerRoute.post('/', registerController.createRegister);
 registerRoute.get('/', registerController.getAllRegisters);
+registerRoute.get('/role/:role', registerController.getByRole);
 registerRoute.get('/:id', registerController.getByIdRegister);
 registerRoute.put('/:id', registerController.updateByIdRegister); // não é usado no projeto
 registerRoute.delete('/:id', registerController.deleteByIdRegister);

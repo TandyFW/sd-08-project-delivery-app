@@ -15,6 +15,13 @@ const getAllRegisters = rescue(async (_req, res, next) => {
   res.status(success.OK).json({ registers: result });
 });
 
+const getByRole = rescue(async (req, res, next) => {
+  const { role } = req.params;
+  const result = await registerServices.getByRole(role);
+  if (result.error) return next(result);
+  res.status(success.OK).json({ registers: result });
+});
+
 const getByIdRegister = rescue(async (req, res, next) => {
   const { id } = req.params;
   const result = await registerServices.getById(id);
@@ -43,4 +50,5 @@ module.exports = {
   getByIdRegister,
   updateByIdRegister,
   deleteByIdRegister,
+  getByRole,
 };

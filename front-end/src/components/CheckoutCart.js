@@ -10,9 +10,6 @@ class CheckoutCart extends React.Component {
     this.remove = this.remove.bind(this);
   }
 
-  componentDidMount() {
-  }
-
   remove(id) {
     const { stateCart, dispatchCart } = this.props;
     const newCart = stateCart.filter((elem) => elem.id !== id);
