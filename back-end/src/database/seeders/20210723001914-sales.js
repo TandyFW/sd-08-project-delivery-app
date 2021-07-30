@@ -9,7 +9,7 @@ module.exports = {
       deliveryAddress: 'Rua Aleatoria E. Duvidosa',
       deliveryNumber: '+8000',
       salesDate: '2021-07-23 16:35:54',
-      status: 'Esquecido',
+      status: 'Pendente',
     }], {});
   },
 
