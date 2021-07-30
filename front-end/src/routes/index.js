@@ -5,14 +5,17 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Products from '../pages/Products';
 import Checkout from '../pages/Checkout';
+import OrderDetails from '../pages/OrderDetails';
 
 const Routes = () => (
   <BrowserRouter>
     <Switch>
+      <Route exact path="/" render={ (props) => <Redirect { ...props } to="login" /> } />
       <Route path="/login" component={ Login } />
       <Route path="/register" component={ Register } />
       <Route path="/customer/products" component={ Products } />
       <Route path="/customer/checkout" component={ Checkout } />
+      <Route path="/customer/orders/1" component={ OrderDetails } />
       <Route exact path="/" render={ (props) => <Redirect { ...props } to="login" /> } />
     </Switch>
   </BrowserRouter>

@@ -3,8 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ListHeader from './ListHeader';
 
-const StyledProductListHeader = styled(ListHeader)`
-  > * {
+const StyledProductListHeader = styled(ListHeader)`> * {
     display: flex;
     flex-basis: 130px;
     font-size: 1rem;
@@ -12,18 +11,15 @@ const StyledProductListHeader = styled(ListHeader)`
   }
 `;
 
-const Item = styled.p`
-  flex-basis: 70px;
+const Item = styled.p`flex-basis: 70px;
 `;
 
-const Description = styled.p`
-  flex: 1;
+const Description = styled.p`flex: 1;
   justify-content: flex-start;
   padding-left: 20px;
 `;
 
-const Remover = styled.p`
-  flex-basis: 170px;
+const Remover = styled.p`flex-basis: 170px;
 `;
 
 const ProductListHeader = ({ removable }) => (

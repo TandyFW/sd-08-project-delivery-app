@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import React from 'react';
-import PropTypes from 'prop-types';
 
 const Wrapper = styled.div`
   border-radius: 8px;
@@ -56,19 +55,18 @@ const RemoveButton = styled.p`
   font-weight: 700;
 `;
 
-const ProductResume = ({ removable }) => (
-  <Wrapper>
-    <Id>1</Id>
-    <Name>Product X</Name>
-    <Quantity>10</Quantity>
-    <UnitPrice>R$1,99</UnitPrice>
-    <SubTotal>R$1,99</SubTotal>
-    { removable && <RemoveButton>Remover</RemoveButton> }
-  </Wrapper>
-);
-
-ProductResume.propTypes = {
-  removable: PropTypes.bool.isRequired,
+const ProductResume = (order, removable) => {
+  const { userId, name, quantity, price, totalPrice } = order;
+  return (
+    <Wrapper>
+      <Id>{userId}</Id>
+      <Name>{name}</Name>
+      <Quantity>{quantity}</Quantity>
+      <UnitPrice>{price}</UnitPrice>
+      <SubTotal>{totalPrice}</SubTotal>
+      { removable && <RemoveButton>Remover</RemoveButton> }
+    </Wrapper>
+  );
 };
 
 export default ProductResume;
