@@ -40,6 +40,25 @@ const getAllOrdersByUserId = async (id) => {
   return foundSales;
 };
 
+const getAllOrdersBySellerId = async (id) => {
+  const sellerId = 'seller_id'; // Miau para quem fez essa regra =)
+  const foundSales = await sale.findAll({
+    where: { [sellerId]: id },
+    attributes: { exclude: ['seller_id', 'user_id'] }, // exclui o order
+    include: [{
+      attributes: { exclude: [''] }, /* exclui o product */
+      model: product,
+      as: 'productId',
+      required: false,
+      through: { 
+        attributes: { exclude: ['sale_id', 'product_id'] }, // exclui o salesProducts
+      },
+    }],
+  });
+
+  return foundSales;
+};
+
 // getAllOrdersByUserId('1').then((data) => console.log(data));
 
 // getById('1').then(console.log);
@@ -49,6 +68,7 @@ module.exports = {
   getAllOrders,
   getOrderById,
   getAllOrdersByUserId,
+  getAllOrdersBySellerId,
   // getAllAll,
 };
 

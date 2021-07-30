@@ -1,13 +1,5 @@
 import React from 'react';
 
-const date = new Date();
-const formatedDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
-const orders = [
-  { order_id: 1, status: 'pendente', date: formatedDate, price: 24.65 },
-  { order_id: 2, status: 'preparando', date: formatedDate, price: 88.98 },
-  { order_id: 3, status: 'entregue', date: formatedDate, price: 25.30 },
-];
-
 const testId = 'customer_orders__';
 
 class CustomerOrdersList extends React.Component {
@@ -25,27 +17,27 @@ class CustomerOrdersList extends React.Component {
               <div>
                 <h4>Pedido</h4>
                 <span
-                  data-testid={ `${testId}-order-id-${order.order_id}` }
+                  data-testid={ `${testId}-order-id-${order.id}` }
                 >
-                  {order.order_id}
+                  {order.id}
                 </span>
               </div>
               <div
                 className={ order.status }
-                data-testid={ `${testId}-delivery-status-${order.order_id}` }
+                data-testid={ `${testId}-delivery-status-${order.id}` }
               >
                 { order.status }
               </div>
               <div>
                 <div
-                  data-testid={ `${testId}-order-date-${order.order_id}` }
+                  data-testid={ `${testId}-order-date-${order.id}` }
                 >
-                  { order.date }
+                  { order.salesDate }
                 </div>
                 <div
-                  data-testid={ `${testId}-card-price-${order.order_id}` }
+                  data-testid={ `${testId}-card-price-${order.id}` }
                 >
-                  { `R$ ${order.price}` }
+                  { `R$ ${order.totalPrice}` }
                 </div>
               </div>
             </div>

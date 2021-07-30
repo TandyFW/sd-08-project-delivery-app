@@ -14,7 +14,15 @@ const createOrder = rescue(async (req, res, _next) => {
 
 const getAllOrdersByUserId = rescue(async (req, res, next) => {
   const { id } = req.dataUser;
+  console.log(id);
   const result = await orderServices.getAllOrdersByUserId(id);
+  if (result.error) return next(result);
+  res.status(success.OK).json({ orders: result });
+});
+
+const getAllOrdersBySellerId = rescue(async (req, res, next) => {
+  const { id } = req.dataUser;
+  const result = await orderServices.getAllOrdersBySellerId(id);
   if (result.error) return next(result);
   res.status(success.OK).json({ orders: result });
 });
@@ -52,4 +60,5 @@ module.exports = {
   createOrder,
   getAllOrders,
   getAllOrdersByUserId,
+  getAllOrdersBySellerId,
 };
