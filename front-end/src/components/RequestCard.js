@@ -88,7 +88,7 @@ const RequestCard = ({
 } = {}) => {
   const history = useHistory();
   return (
-    <Wrapper onClick={ () => history.push(`customer/order/${id}`) }>
+    <Wrapper onClick={ () => history.push(`/customer/orders/${id}`) }>
       <OrderWrapper>
         <OrderLabel>Pedido</OrderLabel>
         <p data-testid={ `customer_orders__element-order-id-${id}` }>{id}</p>
