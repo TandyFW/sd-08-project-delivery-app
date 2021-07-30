@@ -1,19 +1,33 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { cartAction } from '../redux/actions';
 
 class CheckoutCart extends React.Component {
   constructor() {
     super();
     this.state = {};
+    this.remove = this.remove.bind(this);
   }
 
   componentDidMount() {
   }
 
+  remove(id) {
+    const { stateCart, dispatchCart } = this.props;
+    const newCart = stateCart.filter((elem) => elem.id !== id);
+    dispatchCart(newCart);
+    localStorage.setItem('cart', JSON.stringify(newCart));
+    let totalPrice = 0;
+    newCart.forEach((element) => {
+      totalPrice += Number((element.price * element.quantity).toFixed(2));
+      console.log(totalPrice);
+    });
+    localStorage.setItem('totalPrice', totalPrice);
+  }
+
   render() {
     const { stateCart } = this.props;
-    console.log(stateCart);
     const LSprice = localStorage.getItem('totalPrice');
     return (
       <div className="checkout-cart-container">
@@ -60,6 +74,7 @@ class CheckoutCart extends React.Component {
               <td>
                 <button
                   type="button"
+                  onClick={ () => this.remove(elem.id) }
                   data-testid={
                     `customer_checkout__element-order-table-remove-${index}`
                   }
@@ -85,10 +100,15 @@ const mapStateToProps = (state) => ({
   stateCart: state.products.cart,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  dispatchCart: (array) => dispatch(cartAction(array)),
+});
+
 CheckoutCart.propTypes = {
   // history: PropTypes.shape().isRequired,
   // stateUser: PropTypes.arrayOf(PropTypes.object).isRequired,
+  dispatchCart: PropTypes.func.isRequired,
   stateCart: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default connect(mapStateToProps, null)(CheckoutCart);
+export default connect(mapStateToProps, mapDispatchToProps)(CheckoutCart);
