@@ -1,11 +1,10 @@
-import React, { useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Redirect, useHistory } from 'react-router-dom';
 import axios from 'axios';
-import Context from '../context/Context';
 
-const setLocalStorage = async (userInfos) => {
-  await localStorage.setItem('user', JSON.stringify(userInfos));
-};
+// const setLocalStorage = (userInfos) => {
+//   localStorage.setItem('user', JSON.stringify(userInfos));
+// };
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,7 +19,7 @@ function Login() {
     }
     return true;
   }
-  const { username } = useContext(Context);
+  const [redirect, setRedirect] = useState('');
 
   const login = async () => {
     try {
@@ -30,10 +29,10 @@ function Login() {
         headers: { 'Content-Type': 'application/json' },
         data: { email, password },
       });
+      console.log(loggedUser);
       const { redirectPath, ...userInfos } = loggedUser.data;
-      await setLocalStorage(userInfos);
-      username.set(userInfos.name);
-      history.push(redirectPath);
+      localStorage.setItem('user', JSON.stringify(userInfos));
+      setRedirect(redirectPath);
     } catch (error) {
       setVisible('visible');
     }
@@ -41,6 +40,7 @@ function Login() {
 
   return (
     <>
+      {redirect !== '' && <Redirect to={ redirect } />}
       <div>
         Login
         <input

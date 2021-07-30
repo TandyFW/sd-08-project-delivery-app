@@ -8,6 +8,8 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import theme from './theme/theme';
 import MyOrders from './pages/client/MyOrders';
+import Checkout from './pages/client/Checkout';
+import OrderDetails from './pages/client/OrderDetails';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
         <Route exact path="/register" component={ Register } />
         <Route exact path="/customer/products" component={ Products } />
         <Route exact path="/customer/orders" component={ MyOrders } />
+        <Route exact path="/customer/orders/:id" component={ OrderDetails } />
+        <Route exact path="/customer/checkout" component={ Checkout } />
         <Route exact path="/admin/manage" component={ Management } />
         <Redirect from="/" to="/login" />
       </Switch>
