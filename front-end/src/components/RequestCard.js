@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import RequestStatusTag from './RequestStatusTag';
 
 const Wrapper = styled.div`
@@ -42,7 +43,7 @@ const PriceDataWrapper = styled.div`
   justify-content: space-evenly;
   margin-left: 5px;
 
-  > *:not( :last-child ) {
+  > *:not(:last-child) {
     margin-bottom: 5px;
   }
 `;
@@ -60,31 +61,70 @@ const BodyWrapper = styled.div`
   flex-direction: column;
   padding: 5px;
 
-  > *:not( :last-child ) {
+  > *:not(:last-child) {
     margin-bottom: 5px;
   }
 `;
 
-const RequestCard = ({ showAddress = false } = {}) => (
-  <Wrapper>
-    <OrderWrapper>
-      <OrderLabel>Pedido</OrderLabel>
-      <p>0001</p>
-    </OrderWrapper>
-    <BodyWrapper>
-      <Body>
-        <RequestStatusTag status="delivered">Entregue</RequestStatusTag>
-        <PriceDataWrapper>
-          <Paragraph>DD/MM/AA</Paragraph>
-          <Paragraph>RS 01,99</Paragraph>
-        </PriceDataWrapper>
-      </Body>
-      { showAddress && <Address>Meu endereço</Address> }
-    </BodyWrapper>
-  </Wrapper>
-);
+const renderStatus = (status) => {
+  switch (status) {
+  case 'pending':
+    return 'PENDENTE';
+  case 'preparing':
+    return 'PREPARANDO';
+  case 'delivered':
+    return 'ENTREGUE';
+  default:
+    return 'seila';
+  }
+};
+
+const RequestCard = ({
+  showAddress = false,
+  id,
+  status,
+  createdAt,
+  totalPrice,
+} = {}) => {
+  const history = useHistory();
+  return (
+    <Wrapper onClick={ () => history.push(`customer/order/${id}`) }>
+      <OrderWrapper>
+        <OrderLabel>Pedido</OrderLabel>
+        <p data-testid={ `customer_orders__element-order-id-${id}` }>{id}</p>
+      </OrderWrapper>
+      <BodyWrapper>
+        <Body>
+          <RequestStatusTag
+            status={ status }
+            data-testid={ `customer_orders__element-delivery-status-${id}` }
+          >
+            {renderStatus(status)}
+          </RequestStatusTag>
+          <PriceDataWrapper>
+            <Paragraph data-testid={ `customer_orders__element-order-date-${id}` }>
+              {createdAt}
+            </Paragraph>
+            <Paragraph data-testid={ `customer_orders__element-card-price-${id}` }>
+              {
+                totalPrice
+                  .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
+                  .replace('.', ',')
+              }
+            </Paragraph>
+          </PriceDataWrapper>
+        </Body>
+        {showAddress && <Address>Meu endereço</Address>}
+      </BodyWrapper>
+    </Wrapper>
+  );
+};
 
 RequestCard.propTypes = {
+  id: PropTypes.number.isRequired,
+  status: PropTypes.string.isRequired,
+  createdAt: PropTypes.number.isRequired,
+  totalPrice: PropTypes.number.isRequired,
   showAddress: PropTypes.bool.isRequired,
 };
 
