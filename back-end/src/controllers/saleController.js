@@ -3,7 +3,6 @@ const SaleService = require('../services/saleService');
 
 const registerSale = rescue(async (req, res, next) => {
   const saleDetails = req.body;
-  console.log('SALE --->', saleDetails);
   const token = req.headers.authorization;
   const resultService = await SaleService.registerSale(saleDetails, token);
   if (resultService.err) return next(resultService);

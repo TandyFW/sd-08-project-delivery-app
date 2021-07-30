@@ -6,7 +6,7 @@ import { getProductsCarrinho, getUserInfo } from '../../service/getLocalStorage'
 
 export default function DeliveryForm() {
   const [addressUser, setAddress] = useState('');
-  const [numberAddress, setNumberAddress] = useState(0);
+  const [numberAddress, setNumberAddress] = useState('');
   const [sellerAll, setSellerAll] = useState([]);
   const [seller, setSeller] = useState('');
   const [isLoading, setLoading] = useState(true);
