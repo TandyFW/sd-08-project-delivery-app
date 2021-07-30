@@ -44,7 +44,7 @@ export async function login(email, password) {
   try {
     const token = await axios.post(`${URL_BASE}/login`,
       { email, password })
-      .then((response) => response.data);
+      .then((response) => response.data.token);
     return token;
   } catch (error) {
     if (error.response) {

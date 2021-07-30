@@ -10,7 +10,6 @@ class UserTable extends React.Component {
     this.state = {
       users: [{}],
     };
-
     this.exclude = this.exclude.bind(this);
   }
 
