@@ -18,9 +18,9 @@ const createSales = async (req, res) => {
 
 const findSalesById = async (req, res) => {
   const { email } = req.decoded;
-  const sales = await getAllSalesById(email)
-  res.status(OK).json(sales)
-}
+  const sales = await getAllSalesById(email);
+  res.status(OK).json(sales);
+};
 
 module.exports = {
   getAllSales,

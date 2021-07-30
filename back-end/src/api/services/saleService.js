@@ -1,5 +1,5 @@
 const { sales, salesProducts } = require('../../database/models');
-const { getUserByEmail } = require('./userService')
+const { getUserByEmail } = require('./userService');
 
 const getAll = async () => {
   try {
@@ -11,10 +11,10 @@ const getAll = async () => {
 };
 
 const getAllSalesById = async (email) => {
-  const { id } = await getUserByEmail(email)
+  const { id } = await getUserByEmail(email);
   const sellerSales = await sales.findAll({ where: { sellerId: id } });
   return sellerSales;
-}
+};
 
 const create = async (sale) => {
   try {
