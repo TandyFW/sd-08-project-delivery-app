@@ -1,8 +1,13 @@
 import React from 'react';
+import Header from '../components/Header';
+import AdminForm from '../components/AdminForm';
 
 function Admin() {
   return (
-    <div />
+    <>
+      <Header />
+      <AdminForm />
+    </>
   );
 }
 

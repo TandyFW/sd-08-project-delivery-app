@@ -5,10 +5,9 @@ const {
 const { Op } = require("sequelize");
 const md5 = require('md5');
 const { users } = require('../database/models');
-const { signToken } = require('../../config/jwtConfig');
 const HandleError = require('../utils/handleError');
 
-exports.auth = async ({ name, email, password, role }) => {
+const auth = async ({ name, email }) => {
   const user = await users.findOne({
     where: {
       [Op.or]: [
@@ -23,7 +22,18 @@ exports.auth = async ({ name, email, password, role }) => {
       getReasonPhrase(StatusCodes.CONFLICT),
     );
   }
-  const { id, name, role } = user;
-  const token = await signToken({ user: { id, role } });
-  return { name, email, role, token };
+  return true;
+};
+
+exports.createUser = async ({ name, email, password, role }) => {
+  if (await auth({ name, email })) {
+    const md5pass = md5(password);
+    await users.create({ name, email, password: md5pass, role });
+    return { name, email, md5pass, role };
+  }
+};
+
+exports.getAllUsers = async () => {
+  const allUsers = await users.findAll();
+  return allUsers;
 };
