@@ -68,6 +68,12 @@ const getByEmail = async (email) => {
   return foundUser;
 };
 
+const getByRole = async (role) => {
+  const sellers = await user.findAll({ where: { role } });
+  const { password: _, ...result } = sellers[0].dataValues
+  return [result];
+};
+
 module.exports = {
   create,
   getAll,
@@ -75,4 +81,5 @@ module.exports = {
   updateById,
   deleteById,
   getByEmail,
+  getByRole,
 };

@@ -22,6 +22,12 @@ export async function getAllProducts() {
   return products;
 }
 
+export async function getByRole(role) {
+  const users = await axios.get(`${URL_BASE}/register/role/${role}`)
+    .then((response) => response.data.registers);
+  return users;
+}
+
 export async function create(name, email, password, role) {
   try {
     const user = await axios.post(`${URL_BASE}/register`,

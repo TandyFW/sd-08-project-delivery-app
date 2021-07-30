@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { exclude } from '../services';
-import { userActionThunk } from '../redux/actions';
 
 class UserTable extends React.Component {
   constructor() {
@@ -14,14 +13,13 @@ class UserTable extends React.Component {
   }
 
   async componentDidMount() {
-    const { dispatchTable } = this.props;
+    // const { dispatchTable } = this.props;
     // await userAction();
-    await dispatchTable();
+    // await dispatchTable();
   }
 
-  // refresh() {
-  //   // re-renders the component
-  //   this.setState({});
+  // async getUsers() {
+  //   const users = await getAllUsers();
   // }
 
   async exclude(id) {
@@ -105,9 +103,9 @@ class UserTable extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  dispatchTable: () => dispatch(userActionThunk()),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   // dispatchTable: () => dispatch(userActionThunk()),
+// });
 
 const mapStateToProps = (state) => ({
   stateUsers: state.user.user,
@@ -115,8 +113,8 @@ const mapStateToProps = (state) => ({
 
 UserTable.propTypes = {
   // history: PropTypes.shape().isRequired,
-  dispatchTable: PropTypes.func.isRequired,
+  // dispatchTable: PropTypes.func.isRequired,
   // stateUsers: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserTable);
+export default connect(mapStateToProps, null)(UserTable);

@@ -1,5 +1,3 @@
-import { getAllUsers } from '../../services';
-
 export const PROD_LIST = 'PROD_LIST';
 export const CART = 'CART';
 export const LOGIN = 'LOGIN';
