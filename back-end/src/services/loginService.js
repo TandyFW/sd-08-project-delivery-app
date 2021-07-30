@@ -20,7 +20,7 @@ const login = async (dataForLogin) => {
   }
   const { name, email, id, role } = dataLoginDB;
    const token = await createToken({ name, email, id, role });
-   return token;
+   return { name, email, role, token };
 };
 
 module.exports = {
