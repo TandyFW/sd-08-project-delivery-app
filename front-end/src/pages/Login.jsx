@@ -25,6 +25,20 @@ const Login = () => {
     }
   }, [email, password]);
 
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    switch (user && user.role) {
+    case 'customer':
+      return history.push('/customer/products');
+    case 'seller':
+      return history.push('/seller/orders');
+    case 'administrator':
+      return history.push('/admin/manage');
+    default:
+      break;
+    }
+  }, []);
+
   const onClick = () => history.push('/register');
 
   const fetchApi = async () => {
