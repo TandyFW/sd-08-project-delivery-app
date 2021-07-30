@@ -6,6 +6,8 @@ import React from 'react';
 
 import '../styles/customerOrderDetails.css';
 
+const prefix1 = 'customer_order_details__element-order';
+const prefix2 = 'customer_order_details__';
 const newDate = new Date();
 const formatDate = `${newDate.getDate()}/${newDate.getMonth()}/${newDate.getFullYear()}`;
 const OrderDetails = {
@@ -50,13 +52,28 @@ class CustomerOrdersDetailsList extends React.Component {
       <div className="customerOrdersDetailsList-div">
         <table className="customerOrdersDetailsList-table">
           <tr>
-            <td>{ `Pedido ${OrderDetails.oderId}` }</td>
-            <td>{ `P. Vend: ${OrderDetails.sellerName}` }</td>
-            <td>{ OrderDetails.date }</td>
-            <td>{ (OrderDetails.status).toLocaleUpperCase() }</td>
+            <td
+              data-testid={ `${prefix1}-details-label-order-id` }
+            >
+              { `Pedido ${OrderDetails.oderId}` }
+            </td>
+            <td
+              data-testid={ `${prefix1}-details-label-seller-name` }
+            >
+              { `P. Vend: ${OrderDetails.sellerName}` }
+            </td>
+            <td
+              data-testid={ `${prefix1}-details-label-order-date` }
+            >
+              { OrderDetails.date }
+            </td>
+            <td>
+              { (OrderDetails.status).toLocaleUpperCase() }
+            </td>
             <td>
               <button
                 type="button"
+                data-testid={ `${prefix2}button-delivery-check` }
               >
                 MARCAR COMO ENTREGUE
               </button>
@@ -74,15 +91,32 @@ class CustomerOrdersDetailsList extends React.Component {
           {
             OrderDetails.purchasedProducts.map((product, i) => (
               <tr key={ i }>
-                <td>{ product.productId }</td>
+                <td
+                  data-testid={ `${prefix1}-table-item-number-${product.productId}` }
+                >
+                  { product.productId }
+                </td>
                 <td
                   className="text-left"
+                  data-testid={ `${prefix1}-table-name-${product.productId}` }
                 >
                   { product.name }
                 </td>
-                <td>{ product.quantity }</td>
-                <td>{ `R$ ${product.price}` }</td>
-                <td>{ `R$ ${(product.price * product.quantity).toFixed(2)}` }</td>
+                <td
+                  data-testid={ `${prefix1}-table-quantity-${product.productId}` }
+                >
+                  { product.quantity }
+                </td>
+                <td
+                  data-testid={ `${prefix1}-table-unit-price-${product.productId}` }
+                >
+                  { `R$ ${product.price}` }
+                </td>
+                <td
+                  data-testid={ `${prefix1}-table-sub-total-${product.productId}` }
+                >
+                  { `R$ ${(product.price * product.quantity).toFixed(2)}` }
+                </td>
               </tr>
             ))
           }
