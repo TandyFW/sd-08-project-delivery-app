@@ -1,0 +1,31 @@
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  height: 200px;
+  margin: 15px;
+  transition: 0.3s;
+  width: 120px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card_body {
+  padding: 2px 6px;
+}
+
+.card_img {
+  width: 100px;
+}
+
+.card_foot {
+  padding: 2px 6px;
+}
+
+img {
+  height: 100px;
+}
+
+h6 {
+  margin: 5px;
+}
