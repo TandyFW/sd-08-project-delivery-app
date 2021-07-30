@@ -1,27 +1,8 @@
 import React, { useRef } from 'react';
 import './styles.css';
+import PropTypes from 'prop-types';
 
-const data = [
-  {
-    id: 1,
-    descricao: 'Cerveja Stella 250ml',
-    quantidade: 3,
-    valor: 3.5,
-  },
-  {
-    id: 2,
-    descricao: 'Cerveja Skol Latão 450ml',
-    quantidade: 4,
-    valor: 4.1,
-  },
-  {
-    id: 3,
-    descricao: 'Salgadinho Torcida Churrasco',
-    quantidade: 1,
-    valor: 1.56,
-  }];
-
-function CheckoutTable() {
+function CheckoutTable({ cart }) {
   const total = useRef();
   return (
     <div className="main-wrapper-table">
@@ -37,7 +18,7 @@ function CheckoutTable() {
           </tr>
         </thead>
         <tbody>
-          {data.map((element, index) => (
+          {cart.map((element, index) => (
             <tr key={ index }>
               <td
                 data-testid={
@@ -49,26 +30,26 @@ function CheckoutTable() {
               <td
                 data-testid={ `customer_checkout__element-order-table-name-${index}` }
               >
-                {element.descricao}
+                {element.name}
               </td>
               <td
                 data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
               >
-                {element.quantidade}
+                {element.quantity}
               </td>
               <td
                 data-testid={
                   `customer_checkout__element-order-table-unit-price-${index}`
                 }
               >
-                {element.valor}
+                {element.price}
               </td>
               <td
                 data-testid={
                   `customer_checkout__element-order-table-sub-total-${index}`
                 }
               >
-                {Number(element.valor) * Number(element.quantidade)}
+                {Number(element.price) * Number(element.quantity)}
               </td>
               <button
                 type="button"
@@ -85,11 +66,15 @@ function CheckoutTable() {
         data-testid="customer_checkout__element-order-total-price"
       >
         {`Total Price: 
-        ${data.reduce((acc, curr) => acc + (curr.quantidade * curr.valor), 0).toFixed(2)
+        ${cart.reduce((acc, curr) => acc + (curr.quantity * curr.price), 0).toFixed(2)
     }`}
       </h4>
     </div>
   );
 }
+
+CheckoutTable.propTypes = {
+  cart: PropTypes.arrayOf(Object).isRequired,
+};
 
 export default CheckoutTable;

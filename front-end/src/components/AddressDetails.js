@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 import Context from '../context/Context';
 
 const dataSellers = [
@@ -16,52 +17,32 @@ const dataSellers = [
   },
 ];
 
-const data = [
-  {
-    id: 1,
-    descricao: 'Cerveja Stella 250ml',
-    quantidade: 3,
-    valor: 3.5,
-  },
-  {
-    id: 2,
-    descricao: 'Cerveja Skol Latão 450ml',
-    quantidade: 4,
-    valor: 4.1,
-  },
-  {
-    id: 3,
-    descricao: 'Salgadinho Torcido Churrasco',
-    quantidade: 1,
-    valor: 1.56,
-  }];
-
-function AddressDetails() {
+function AddressDetails({ cart }) {
   const { userData } = useContext(Context);
   const [seller, setSeller] = useState('');
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
   const [sellers] = useState(dataSellers);
-  const totalPrice = data.reduce((acc, curr) => acc + (curr.quantidade * curr.valor), 0)
+  const totalPrice = cart.reduce((acc, curr) => acc + (curr.quantity * curr.price), 0)
     .toFixed(2);
-  console.log(userData);
   async function handleSubmit() {
     const myInit = {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        token: data.token,
+        authorization: userData.token,
       },
       body: JSON.stringify({
         sellerId: seller,
         totalPrice,
         deliveryAddress: address,
         deliveryNumber: number,
-        products: data.map(({ id, quantidade }) => ({ id, quantidade })),
+        products: cart.map(({ id, quantity }) => ({ id, quantity })),
       }),
     };
     const rawResponse = await fetch('http://localhost:3001/customer/order', myInit);
+    console.log(myInit);
     const content = await rawResponse.json();
     console.log(content);
   }
@@ -116,5 +97,9 @@ function AddressDetails() {
     </div>
   );
 }
+
+AddressDetails.propTypes = {
+  cart: PropTypes.arrayOf(Object).isRequired,
+};
 
 export default AddressDetails;

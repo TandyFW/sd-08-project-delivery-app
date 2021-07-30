@@ -8,10 +8,8 @@ import Login from './views/Login/index';
 import Components from './views/Components';
 import Home from './views/Home';
 import Register from './views/Register';
-import CustomerCheckout from './views/CustomerCheckout';
 import CustomerRouts from './views/Customer/Routes';
 import Context from './context/Context';
-
 
 function Routes() {
   const { userData } = useContext(Context);
@@ -25,7 +23,6 @@ function Routes() {
         { userData && userData.user && userData.user.role === 'customer' && (
           <Route path="/customer" component={ CustomerRouts } />
         )}
-        <Route path="/customer/checkout" component={ CustomerCheckout } />
       </Switch>
     </Router>
   );
