@@ -36,9 +36,9 @@ const orderStatusUpdate = async (req, res) => {
   } catch (err) {
     res.status(409).json(err);
   }
-}
+};
 
 module.exports = {
   orderDetails,
   orderStatusUpdate,
-}
+};
