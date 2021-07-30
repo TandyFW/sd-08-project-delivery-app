@@ -43,7 +43,7 @@ const saveSale = async (sale) => {
 
 const getSales = async () => {
     const sales = await Sale.findAll({
-        attributes: ['status', 'total_price', 'sale_date'],
+        attributes: ['id', 'status', 'total_price', 'sale_date'],
       });
 
       return sales;
@@ -52,7 +52,7 @@ const getSales = async () => {
 const getSaleById = async (id) => {
     const sale = await Sale.findOne({
         where: { id },
-        include: [{ model: Product, as: 'sales' }],
+        include: [{ model: Product, as: 'Products' }],
       });
     return sale;
 };
