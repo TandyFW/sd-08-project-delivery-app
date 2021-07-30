@@ -40,10 +40,10 @@ export default function FormRegister() {
     }
   };
 
-  const register = async (e) => {
-    e.preventDefault();
+  const register = async () => {
     try {
       const newRegister = await UserRegister(currentName, currentEmail, encryptPassword);
+      console.log('entrei', newRegister);
       if (newRegister) {
         setShowMessage(false);
         setRedirect(true);
@@ -73,7 +73,7 @@ export default function FormRegister() {
           Email:
           <input
             type="email"
-            maxLength="30"
+            maxLength="50"
             placeholder="Digite aqui seu email"
             className="email-input"
             onKeyUp={ validation }
@@ -96,10 +96,10 @@ export default function FormRegister() {
           />
         </label>
         <button
-          type="button"
+          type="submit"
           className="btn-register"
           disabled={ !isValid }
-          onClick={ (e) => register(e) }
+          onClick={ register }
           id="btn-register"
           data-testid="common_register__button-register"
         >
