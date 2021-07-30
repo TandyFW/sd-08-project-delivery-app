@@ -44,4 +44,24 @@ export const registerRequest = (user, setUsrExists, history) => (
 
 export const getProducts = (token) => requestApi('/product', 'GET', {}, token);
 
+export const postSale = async (seller,
+  user, { deliveryAddress, deliveryNumber }, products) => {
+  const data = {
+    userId: user.id,
+    sellerId: seller.id,
+    totalPrice: products
+      .reduce((acc, { count, price }) => acc + Number(count * price), 0)
+      .toFixed(2),
+    deliveryAddress,
+    deliveryNumber,
+    products: products.map(({ id, count }) => ({ id, quantity: count })),
+  };
+
+  console.log(data);
+
+  return requestApi('/sale', 'POST', data, user.token);
+};
+
+export const getSaleById = (id, token) => requestApi(`/sale/${id}`, 'GET', {}, token);
+
 export default requestApi;

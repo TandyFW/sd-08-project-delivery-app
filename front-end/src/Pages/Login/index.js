@@ -9,6 +9,8 @@ import { emailVerify, passwordVerify } from '../../services/validations';
 
 import LoginErrorMessage from '../../components/LoginErrorMessage';
 
+import Logo from '../../components/Logo';
+
 const Login = ({ history }) => {
   const [usrNotFound, setUsrNotFound] = useState(false);
   const [email, setEmail] = useState('');
@@ -32,9 +34,7 @@ const Login = ({ history }) => {
           testId="common_login__element-invalid-email"
         />
       )}
-      <div>
-        <p>LOGO</p>
-      </div>
+      <Logo />
       <LoginForm>
         <TextField
           label="Email"

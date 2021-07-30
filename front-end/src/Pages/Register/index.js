@@ -9,6 +9,8 @@ import { emailVerify, passwordVerify, nameVerify } from '../../services/validati
 
 import LoginErrorMessage from '../../components/LoginErrorMessage';
 
+import Logo from '../../components/Logo';
+
 const Register = ({ history }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -36,10 +38,6 @@ const Register = ({ history }) => {
           disableMessage={ setUsrExists }
         />
       )}
-
-      <div>
-        <p>LOGO, alguma mensagem, outra coisa</p>
-      </div>
       <RegisterForm>
         <TextField
           label="Nome"
@@ -85,6 +83,7 @@ const Register = ({ history }) => {
           JÁ TENHO UMA CONTA
         </Button>
       </RegisterForm>
+      <Logo />
     </RegisterPage>
 
   );

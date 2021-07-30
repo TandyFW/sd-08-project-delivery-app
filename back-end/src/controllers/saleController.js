@@ -3,9 +3,9 @@ const saleServices = require('../services/saleService');
 const { OK } = require('../statusCode');
 
 const saveSale = rescue(async (req, res) => {
-      await saleServices.saveSale(req.body);
+      const saleId = await saleServices.saveSale(req.body);
 
-      res.status(OK).json({ message: 'Venda cadastrada com sucesso' });
+      res.status(OK).json({ saleId, message: 'Venda cadastrada com sucesso' });
 });
 
 const getSales = rescue(async (_req, res) => {

@@ -1,5 +1,10 @@
+<<<<<<< HEAD
+const { badRequest } = require('@hapi/boom');
+const { Sale, SaleProduct, sequelize } = require('../database/models');
+=======
 const { conflict } = require('@hapi/boom');
 const { Sale, SaleProduct, sequelize, Product } = require('../database/models');
+>>>>>>> b7dbe24141533c89d6f807a2725c923c91b24bbe
 
 const createSale = async (sale, t) => {
     const { userId, sellerId, totalPrice,
@@ -35,9 +40,10 @@ const saveSale = async (sale) => {
         }, { transaction: t });
 
         await t.commit();
+        return saleId;
     } catch (err) {
         await t.rollback();
-        throw conflict(err);
+        throw badRequest(err);
     }
 };
 
