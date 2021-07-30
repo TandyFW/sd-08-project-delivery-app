@@ -28,7 +28,7 @@ function NavBar({ user, show }) {
         show={ show }
         disabled={ show }
         color={ colors.teal }
-        onClick={ () => goToRoute('/login') }
+        onClick={ () => goToRoute('/customer/orders') }
         data-testid={ `${prefix}element-navbar-link-orders` }
       >
         {!show && 'Meus Pedidos'}

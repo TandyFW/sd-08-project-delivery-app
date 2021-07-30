@@ -27,15 +27,15 @@ const Orderer = () => {
   return (
     <>
       <span>oi</span>
-      { sales.length > 0 && sales.map(({ id, saleDate, status, totalPrice }) => (
-        <div key={ id }>
+      { sales.length > 0 && sales.map((sale) => (
+        <div key={ sale.id }>
           <CardOrder
             prefix={ prefix }
-            id={ id }
-            deliveryStatus={ status }
-            orderDate={ saleDate }
-            price={ totalPrice }
-            onClick={ () => goToDetails(id) }
+            id={ sale.id }
+            deliveryStatus={ sale.status }
+            orderDate={ sale.sale_date }
+            price={ sale.total_price }
+            onClick={ () => goToDetails(sale.id) }
           />
         </div>
       ))}
