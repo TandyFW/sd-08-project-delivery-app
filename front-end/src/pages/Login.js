@@ -18,9 +18,9 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  async componentDidMount() {
-    localStorage.clear();
-  }
+  // async componentDidMount() {
+  //   localStorage.clear();
+  // }
 
   componentWillUnmount() {
     document.querySelector('.hidden-span').style.display = 'none';
@@ -51,9 +51,9 @@ class Login extends React.Component {
     const password = target.parentNode.parentNode.firstChild.childNodes[3].value;
 
     const infoLoginAccess = await login(email, password);
+    localStorage.setItem('user', JSON.stringify(infoLoginAccess));
 
     if (infoLoginAccess.token) {
-      localStorage.setItem('user', JSON.stringify(infoLoginAccess));
       setDataLoginStore(infoLoginAccess);
 
       if (infoLoginAccess.role === 'seller') {

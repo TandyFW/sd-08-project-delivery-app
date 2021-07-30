@@ -11,7 +11,8 @@ class Products extends React.Component {
 
   async componentDidMount() {
     // verificar se o usuario está autenticado
-    const Loading = 1500;
+    const Loading = 500;
+    // const Loading = 1500;
     setTimeout(() => {
       this.setState({ loading: false });
     }, Loading);
@@ -45,7 +46,7 @@ const mapStateToProps = (state) => ({
 
 Products.propTypes = {
   history: PropTypes.shape().isRequired,
-  stateUser: PropTypes.arrayOf(PropTypes.object).isRequired,
+  stateUser: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default connect(mapStateToProps, null)(Products);
