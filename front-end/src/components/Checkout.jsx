@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { request, lStorage } from '../utils';
+// import { request, lStorage } from '../utils';
 import CartTable from './CartTable';
 import AddressForm from './AddressForm';
 
@@ -14,24 +14,7 @@ const useStyles = makeStyles({
 });
 
 const CheckoutList = () => {
-  const [products, setProducts] = useState([]);
-
   const classes = useStyles();
-
-  useEffect(() => {
-    const getProducts = async () => {
-      const { token } = lStorage().user.get();
-      const options = {
-        headers: {
-          Authorization: token,
-        },
-        method: 'GET',
-      };
-      const result = await request('products', options);
-      setProducts(result);
-    };
-    if (products.length === 0) getProducts();
-  }, [products]);
 
   return (
     <div className={ classes.root }>

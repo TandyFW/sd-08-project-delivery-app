@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { isValidUserForRegistration, lStorage, request } from '../utils';
+import { lStorage, request } from '../utils';
 import TransitionAlerts from './TransitionAlerts';
 import { useGroupState } from '../hooks';
 
@@ -27,20 +28,44 @@ const TWO_AND_A_HALF_SECONDS = 2500;
 
 export default function AddressForm() {
   const classes = useStyles();
+  const history = useHistory();
 
-  const { role, name, email, password, isDisabled, message, open } = useGroupState({
-    role: 'seller',
-    name: '',
-    email: '',
-    password: '',
+  const { address, number, sellerName, isDisabled, message, open } = useGroupState({
+    address: '',
+    number: '',
     isDisabled: true,
+    sellerName: '',
     message: { text: '', severity: 'warning' },
     open: false,
   });
 
+  const [sellers, setSellers] = useState([]);
+
   useEffect(() => {
-    isDisabled.set(!isValidUserForRegistration(name.value, email.value, password.value));
-  }, [name.value, email.value, password.value, isDisabled]);
+    const getSellers = async () => {
+      const { token } = lStorage().user.get();
+      const options = {
+        headers: {
+          Authorization: token,
+        },
+        method: 'GET',
+      };
+      const result = await request('users', options);
+      console.log(result);
+      setSellers(result);
+    };
+    if (sellers.length === 0) getSellers();
+  }, [sellers]);
+
+  // useEffect(() => {
+  //   isDisabled.set(!isValidUserForRegistration(name.value, email.value, password.value));
+  // }, [name.value, email.value, password.value, isDisabled]);
+
+  useEffect(() => {
+    if (sellerName.value && address.value && number.value) {
+      isDisabled.set(false);
+    } else isDisabled.set(true);
+  }, [isDisabled, number.value, sellerName.value, address.value]);
 
   useEffect(() => {
     if (message.value.text) {
@@ -49,41 +74,49 @@ export default function AddressForm() {
     setTimeout(() => {
       open.set(false);
     }, TWO_AND_A_HALF_SECONDS);
-  }, [message.value]);
+  }, [message.value, open]);
 
   const handleChange = (callback, event) => {
     callback(event.target.value);
   };
 
-  const resetFields = () => {
-    name.set('');
-    email.set('');
-    password.set('');
+  const getSellerId = () => {
+    const selectedSeller = sellers.filter((seller) => seller.name === sellerName.value);
+    return selectedSeller[0].id;
+  };
+
+  const getTotalPrice = () => {
+    const totalPriceString = document.querySelector('#sale-total-price').innerText;
+    const totalPrice = parseFloat(parseFloat(totalPriceString.split(' ')[1]
+      .replace(',', '.')));
+    return totalPrice;
   };
 
   const handleClick = async (event) => {
     event.preventDefault();
 
-    const admin = lStorage().user.get();
+    const { token } = lStorage().user.get();
     const options = {
       headers: {
-        Authorization: admin.token,
+        Authorization: token,
       },
       body: {
-        name: name.value,
-        email: email.value,
-        password: password.value,
-        role: role.value,
+        sellerId: getSellerId(),
+        totalPrice: getTotalPrice(),
+        deliveryAddress: address.value,
+        deliveryNumber: number.value,
       },
       method: 'POST',
     };
 
-    const userObj = await request('admin', options);
+    const userObj = await request('sales', options);
+    console.log(userObj);
     if (userObj.message) {
       message.set({ text: userObj.message, severity: 'warning' });
     } else {
-      resetFields();
-      message.set({ text: 'Usuário cadastrado com sucesso', severity: 'success' });
+      const { id } = userObj;
+      history.push(`/customer/orders/${id}`);
+      // message.set({ text: 'Usuário cadastrado com sucesso', severity: 'success' });
     }
   };
 
@@ -101,26 +134,28 @@ export default function AddressForm() {
       <form className={ classes.root }>
         <Select
           inputProps={ { 'data-testid': 'customer_checkout__select-seller' } }
-          value={ role.value }
-          onChange={ (event) => handleChange(role.set, event) }
+          value={ sellerName.value }
+          onChange={ (event) => handleChange(sellerName.set, event) }
           native
         >
-          <option value="seller">Vendedor</option>
-          <option value="customer">Cliente</option>
+          <option hidden>Selecione vendedor</option>
+          { sellers.map((seller, index) => (
+            <option key={ index } value={ seller.name }>{seller.name}</option>
+          )) }
         </Select>
         <TextField
-          value={ name.value }
+          value={ address.value }
           inputProps={ { 'data-testid': 'customer_checkout__input-address' } }
           label="Endereço"
           variant="outlined"
-          onChange={ (event) => handleChange(name.set, event) }
+          onChange={ (event) => handleChange(address.set, event) }
         />
         <TextField
-          value={ email.value }
+          value={ number.value }
           inputProps={ { 'data-testid': 'customer_checkout__input-addressNumber' } }
           label="Numero"
           variant="outlined"
-          onChange={ (event) => handleChange(email.set, event) }
+          onChange={ (event) => handleChange(number.set, event) }
         />
         <Button
           data-testid="customer_checkout__button-submit-order"

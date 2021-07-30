@@ -120,10 +120,11 @@ export default function SpanningTable() {
             <TableCell rowSpan={ 3 } />
             <TableCell rowSpan={ 3 } />
             <TableCell rowSpan={ 3 } />
-            <TableCell align="center" colSpan={ 1 }>Total</TableCell>
+            <TableCell rowSpan={ 3 } />
             <TableCell
               data-testid="customer_checkout__element-order-total-price"
               align="center"
+              id="sale-total-price"
             >
               {`TOTAL: ${subtotal(itensCart).toFixed(2).toString().replace('.', ',')}`}
             </TableCell>
