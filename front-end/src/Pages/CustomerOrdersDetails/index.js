@@ -23,14 +23,14 @@ const CustomerOrdersDetails = ({ match }) => {
     const getData = async () => {
       const saleData = await api.getSaleById(id, token);
       setSale(saleData.data.response);
-      const sellerData = await api.getUserById(id, token);
+      const sellerData = await api.getUserById(saleData.data.response.seller_id, token);
       setSeller(sellerData.data.response);
     };
     getData();
   }, [id, token]);
 
   if (!Object.keys(sale).length || !Object.keys(seller).length) return <p />;
-  console.log(sale.products);
+  console.log(seller.name);
 
   return (
     <div>
