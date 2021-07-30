@@ -51,10 +51,17 @@ const deleteUserByManager = rescue(async (req, res, next) => {
   return res.status(200).json(result);
 });
 
+const getAllSeller = rescue(async (req, res, next) => {
+  const resultService = await userService.getAllSeller();
+  if (!resultService.seller) return next(resultService);
+  return res.status(200).json(resultService);
+});
+
 module.exports = {
   login,
   registerClient,
   registerUserByManager,
   getAllUsers,
   deleteUserByManager,
+  getAllSeller,
 };

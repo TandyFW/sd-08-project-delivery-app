@@ -29,7 +29,7 @@ module.exports = {
         }
       },
       total_price: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.DECIMAL(10, 2),
         allowNull: false,
       },
       delivery_address: {
@@ -40,7 +40,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      sales_date: {
+      sale_date: {
         type: Sequelize.DATE,
         allowNull: false,
       },

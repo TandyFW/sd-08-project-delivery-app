@@ -5,10 +5,6 @@ const { User } = require('../database/models');
 const userErrors = require('../schema/userErrors');
 
 const generateToken = async (email, role) => {
-  // const SECRET = await fs.readFileSync('jwt.evaluation.key', {
-  //   encoding: 'utf8',
-  //   flag: 'r',
-  // });
   const SECRET = fs
     .readFileSync('jwt.evaluation.key', { encoding: 'utf-8' })
     .trim();
@@ -99,10 +95,16 @@ const deleteUserByManager = async (token, id) => {
   return { message: 'User Deleted' };
 };
 
+const getAllSeller = async () => {
+  const result = await User.findAll({ where: { role: 'seller' } });
+  return { seller: result };
+};
+
 module.exports = {
   login,
   registerClient,
   registerUserByManager,
   getAllUsers,
   deleteUserByManager,
+  getAllSeller,
 };
