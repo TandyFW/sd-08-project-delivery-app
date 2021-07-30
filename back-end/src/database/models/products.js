@@ -6,10 +6,12 @@ module.exports = (sequelize, DataTypes) => {
   },
   {
     timestamps: false,
+    tableName: 'products'
     });
 
   product.associate = (models) => {
-    product.hasOne(models.sales_product);
+    product.belongsToMany(models.sale, { through: models.salesProduct });
+    product.hasMany(models.salesProduct);
   };
 
   return product;

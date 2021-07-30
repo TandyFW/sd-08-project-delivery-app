@@ -1,0 +1,44 @@
+ul {
+  background-color: #f3f3f3;
+  border: 1px solid #e7e7e7;
+  list-style-type: none;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+li {
+  float: left;
+  font-size: 13.33px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.flexRigth {
+  float: right;
+}
+
+.nav-name {
+  margin-right: 15px;
+  margin-top: 5px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+li a {
+  background-color: #f3f3f3;
+  border: none;
+  display: block;
+  padding: 5px 15px;
+  text-align: center;
+}
+
+li a:hover {
+  background-color: #fff9d5;
+}

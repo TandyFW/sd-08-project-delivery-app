@@ -4,6 +4,8 @@ const {
   loginController,
   registerController,
   productsController,
+  orderController,
+  usersController,
 } = require('./controllers');
 
 const {
@@ -13,6 +15,7 @@ const {
   userNameDataValidation,
   registerUserValidation,
   tokenValidation,
+  orderInfoHandler,
 } = require('./middlewares');
 
 router.post('/login',
@@ -35,5 +38,25 @@ router.get('/customer/products',
 router.get('/customer/products/:id',
   tokenValidation,
   productsController.getById);
+
+router.get('/seller',
+  usersController.getAllSellers);
+
+router.post('/customer/order',
+  tokenValidation,
+  orderInfoHandler,
+  orderController.createOrder);
+
+router.get('/order',
+  tokenValidation,
+  orderController.getAllOrders);
+
+router.get('/order/:id',
+  tokenValidation,
+  orderController.getOrder);
+
+router.put('/order/:id',
+  tokenValidation,
+  orderController.updateOrderStatus);
 
 module.exports = router;

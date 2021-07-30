@@ -1,0 +1,8 @@
+.card_content {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin-top: 50px;
+  width: 100%;
+}
