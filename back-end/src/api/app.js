@@ -6,6 +6,9 @@ const {
   customersRouter,
   registerRouter,
   adminRouter,
+  orderDetailsRouter,
+  sellerOrdersDetailsRouter,
+  sellersRouter,
 } = require('../routes');
 
 const app = express();
@@ -15,9 +18,12 @@ app.use(express.json());
 app.use(express.static(path.resolve('public')));
 
 app.use('/login', sessionsRouter);
+app.use('/seller', sellersRouter);
 app.use('/customer', customersRouter);
 app.use('/register', registerRouter);
 app.use('/admin', adminRouter);
+app.use('/customer/orders', orderDetailsRouter);
+app.use('/seller/orders', sellerOrdersDetailsRouter);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 
