@@ -9,7 +9,6 @@ import { GlobalContext } from '../context/GlobalProvider';
 
 function Products() {
   const [redirect, setRedirect] = useState(false);
-  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [disable, setDisable] = useState(true);
 
@@ -17,7 +16,15 @@ function Products() {
     localStorage.setItem('carrinho', JSON.stringify({}));
   }
 
-  const { values: { totalPrice } } = useContext(GlobalContext);
+  const {
+    values: {
+      totalPrice,
+      products,
+    },
+    functions: {
+      setProducts,
+    },
+  } = useContext(GlobalContext);
 
   useEffect(() => {
     setLoading(true);
@@ -27,7 +34,7 @@ function Products() {
     })
       .then((result) => setProducts(result.data));
     setLoading(false);
-  }, []);
+  }, [setProducts]);
 
   useEffect(() => {
     if (totalPrice > 0) {
