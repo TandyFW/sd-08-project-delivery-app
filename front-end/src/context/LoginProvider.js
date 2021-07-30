@@ -24,12 +24,6 @@ export function LoginProvider({ children }) {
     await request(API_LOGIN_URL({ email, password }));
   };
 
-  const roleConfig = {
-    customer: '/customer/products',
-    seller: '/seller/order',
-    administrator: '/admin/manage',
-  };
-
   const history = useHistory();
   if (response) {
     localStorage.setItem('user', JSON.stringify(response.data));
