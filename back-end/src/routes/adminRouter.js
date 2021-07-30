@@ -12,14 +12,12 @@ adminRouter.post('/manage',
     email: Joi.string().email().required(),
     password: Joi.string().min(6).required(),
     role: Joi.string().required(),
-  }}),
+  } }),
   auth,
-  adminController.createUser
-);
+  adminController.createUser);
 
 adminRouter.get('/manage',
   auth,
-  adminController.getAllUsers
-);
+  adminController.getAllUsers);
 
 module.exports = adminRouter;

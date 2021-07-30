@@ -2,7 +2,7 @@ const {
   StatusCodes,
   getReasonPhrase,
 } = require('http-status-codes');
-const { Op } = require("sequelize");
+const { Op } = require('sequelize');
 const md5 = require('md5');
 const { users } = require('../database/models');
 const HandleError = require('../utils/handleError');
@@ -12,9 +12,9 @@ const auth = async ({ name, email }) => {
     where: {
       [Op.or]: [
         { name },
-        { email }
-      ]
-    }
+        { email },
+      ],
+    },
   });
   if (user) {
     throw new HandleError(
