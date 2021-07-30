@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { FormControl, Select, MenuItem, Button,
+import { FormControl, Button,
   TextField, FormHelperText } from '@material-ui/core';
 
 import { CheckoutFormBody, Form } from './styled';
 
 import requestApi, { postSale } from '../../services/api';
 import DeliveryContext from '../../context/DeliveryContext';
+
+// Select, MenuItem,
 
 function CheckoutForm() {
   const history = useHistory();
@@ -57,27 +59,24 @@ function CheckoutForm() {
     <CheckoutFormBody>
       <FormHelperText>Some important helper text</FormHelperText>
       <Form>
+
         <FormControl>
-          <Select
+          <select
             value={ seller }
             onChange={ ({ target: { value } }) => { setSeller(value); } }
-            displayEmpty
-            inputProps={
-              { 'aria-label': 'Without label',
-                'data-testid': 'customer_checkout__select-seller' }
-            }
+            data-testid="customer_checkout__select-seller"
           >
-            <MenuItem value="" disabled>
+            <option value="" disabled>
               P.Vendedora Responsável
-            </MenuItem>
+            </option>
             { sellers.map((thisSeller, i) => (
-              <MenuItem
+              <option
                 key={ i }
                 value={ JSON.stringify(thisSeller) }
               >
                 {thisSeller.name}
-              </MenuItem>))}
-          </Select>
+              </option>))}
+          </select>
         </FormControl>
         <TextField
           id="standard-basic"

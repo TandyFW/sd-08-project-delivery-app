@@ -25,7 +25,11 @@ function OrderDetails() {
       <OrderTable products={ cart } testIds={ testIds } />
       <TotalPrice>
         Total: R$
-        <span>{totalPrice.replace('.', ',')}</span>
+        <span
+          data-testid="customer_checkout__element-order-total-price"
+        >
+          {totalPrice.replace('.', ',')}
+        </span>
       </TotalPrice>
     </OrderDetailsBody>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
+import DeliveryContext from '../../context/DeliveryContext';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -39,6 +40,13 @@ const useStyles = makeStyles(
 export default function OrderTable({ products, testIds, remove }) {
   const classes = useStyles();
 
+  const { setCart } = useContext(DeliveryContext);
+
+  const removeItem = (id) => {
+    const removed = products.filter((elem) => elem.id !== id);
+    setCart(removed);
+  };
+
   return (
     <TableContainer component={ Paper }>
       <Table className={ classes.table } aria-label="customized table">
@@ -53,50 +61,60 @@ export default function OrderTable({ products, testIds, remove }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.map(({ price, name, count }, index) => (
-            <StyledTableRow key={ index }>
-              <StyledTableCell
-                component="th"
-                scope="row"
-                data-testid={ `${testIds.item}${index}` }
-              >
-                {index + 1}
-              </StyledTableCell>
-              <StyledTableCell
-                align="right"
-                data-testid={ `${testIds.name}${index}` }
-              >
-                {name}
-              </StyledTableCell>
-              <StyledTableCell
-                align="right"
-                data-testid={ `${testIds.quantity}${index}` }
-              >
-                {count}
-              </StyledTableCell>
-              <StyledTableCell
-                align="right"
-                data-testid={ `${testIds.price}${index}` }
-              >
-                {`R$ ${price}`}
-              </StyledTableCell>
-              <StyledTableCell
-                align="right"
-                data-testid={ `${testIds.subTotal}${index}` }
-              >
-                {`R$ ${(count * price).toFixed(2)}`}
-              </StyledTableCell>
-              {remove && (
-                <StyledTableCell align="right">
-                  <button
-                    data-testid={ `${testIds.remove}${index}` }
-                    type="button"
+          {products
+            .map(({ price, name, count, id }, index) => (
+              <StyledTableRow key={ index }>
+                <StyledTableCell
+                  component="th"
+                  scope="row"
+                  data-testid={ `${testIds.item}${index}` }
+                >
+                  {index + 1}
+                </StyledTableCell>
+                <StyledTableCell
+                  align="right"
+                  data-testid={ `${testIds.name}${index}` }
+                >
+                  {name}
+                </StyledTableCell>
+                <StyledTableCell
+                  align="right"
+                  data-testid={ `${testIds.quantity}${index}` }
+                >
+                  {count}
+                </StyledTableCell>
+                <StyledTableCell
+                  align="right"
+                >
+                  R$
+                  <span
+                    data-testid={ `${testIds.price}${index}` }
                   >
-                    Remover
-                  </button>
-                </StyledTableCell>)}
-            </StyledTableRow>
-          ))}
+                    {price.replace('.', ',')}
+                  </span>
+                </StyledTableCell>
+                <StyledTableCell
+                  align="right"
+                >
+                  R$
+                  <span
+                    data-testid={ `${testIds.subTotal}${index}` }
+                  >
+                    {(count * price).toFixed(2).replace('.', ',')}
+                  </span>
+                </StyledTableCell>
+                {remove && (
+                  <StyledTableCell align="right">
+                    <button
+                      data-testid={ `${testIds.remove}${index}` }
+                      type="button"
+                      onClick={ () => removeItem(id) }
+                    >
+                      Remover
+                    </button>
+                  </StyledTableCell>)}
+              </StyledTableRow>
+            ))}
         </TableBody>
       </Table>
     </TableContainer>

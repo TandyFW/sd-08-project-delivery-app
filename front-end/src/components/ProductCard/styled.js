@@ -3,9 +3,9 @@ import styled from 'styled-components';
 export const CardBody = styled.div`align-items: center;
   display: flex;
   flex-direction: column;
-  height: 486px;
+  height: calc(486px / 1.5);
   justify-content: center;
-  width: 378px;
+  width: calc(378px / 1.5);
 `;
 
 export const CardImg = styled.img`height: 73%;
