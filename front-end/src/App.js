@@ -9,6 +9,7 @@ import {
   Products,
   SellerOrders,
   CustomerOrders,
+  CustomerOrdersDetails,
 } from './pages';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route exact path="/customer/products" component={ Products } />
         <Route exact path="/seller/orders" component={ SellerOrders } />
         <Route exact path="/customer/orders" component={ CustomerOrders } />
+        <Route exact path="/customer/orders/:id" component={ CustomerOrdersDetails } />
       </Switch>
     </div>
   );
