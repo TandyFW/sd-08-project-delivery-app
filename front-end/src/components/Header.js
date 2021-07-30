@@ -14,11 +14,35 @@ export default function Header() {
     setRedirect(true);
   };
 
+  // const { name, role } = JSON.parse(obj) || 'undefined';
+  // const ruleConfig = {
+  //   customer: [
+  //     { name: 'PRODUTOS', link: '/customer/products' },
+  //     { name: 'MEUS PEDIDOS', link: '/customer/orders' },
+  //   ],
+  //   seller: [
+  //     { name: 'PEDIDOS', link: '/seller/products' },
+  //   ],
+  //   admin: [
+  //     { name: 'GERENCIAR USUÁRIOS', link: '/admin/manage' },
+  //   ],
+  // };
+
+  // { ruleConfig[role].map((contents) => (
+  //   <Nav.Link
+  //     href={ contents.link }
+  //     data-testid={`${role}_products__element-navbar-link-${contents.link.split('/')[1]}`}
+  //   > ));
+  //   }
+
   return (
     <Navbar bg="light" variant="light">
       <Container>
         <Navbar.Brand href="#home">Delivery App</Navbar.Brand>
-        <Nav className="me-auto">
+        <Nav
+          className="me-auto"
+        >
+
           <Navbar.Text
             data-testid="customer_products__element-navbar-user-full-name"
           >
