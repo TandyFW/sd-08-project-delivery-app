@@ -94,7 +94,7 @@ class CheckoutCart extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  stateCart: state.products.cart,
+  stateCart: state.productReducer.cart,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -102,8 +102,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 CheckoutCart.propTypes = {
-  // history: PropTypes.shape().isRequired,
-  // stateUser: PropTypes.arrayOf(PropTypes.object).isRequired,
   dispatchCart: PropTypes.func.isRequired,
   stateCart: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
