@@ -8,11 +8,15 @@ export const Card = styled.div`
   background-color: ${(props) => props.color};
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 `;
-export const ProductImage = styled.img`
+export const ProductImage = styled.div`
   margin: auto;
-  max-width: 50%;
-  max-height: 50%;
+  width: 100%;
+  height: 200px;
   background-color: ${(props) => props.color};
+  background-image: url(${(props) => props.image});
+  background-size: contain; /* Scaling down large image to a div */
+  background-repeat: no-repeat;
+  background-position: center;
 `;
 export const ProductPrice = styled.span`
   float: left;

@@ -11,13 +11,12 @@ import {
   ListHeader,
 } from '../styles/pages/SellerDetails.styled';
 
+const prefix = 'customer_order_details__';
 const user = JSON.parse(localStorage.getItem('user'));
 
-const prefix = 'seller_order_details__';
-
-const SellerDetails = () => (
+const CustomerDetails = () => (
   <Container>
-    <NavBar show user={ user.name } />
+    <NavBar user={ user.name } />
     <h4>Detalhe do Pedido</h4>
     <DetailsContainer>
       <DetailsBar color={ colors.whitesmoke }>
@@ -27,6 +26,13 @@ const SellerDetails = () => (
             data-testid={ `${prefix}element-order-details-label-order-id` }
           >
             0001
+          </LabelInfo>
+          <span>VENDEDOR:</span>
+          <LabelInfo
+            data-testid={ `${prefix}element-order-details-label-seller-name` }
+          >
+            Fulana Pereira da Silva
+
           </LabelInfo>
           <LabelInfo
             data-testid={ `${prefix}element-order-details-label-order-date` }
@@ -38,21 +44,15 @@ const SellerDetails = () => (
             data-testid={ `${prefix}element-order-details-label-delivery-status` }
             color={ colors.goldenrod }
           >
-            PENDENTE
+            ENTREGUE
           </LabelInfo>
         </section>
         <section className="control-buttons">
           <OrderButton
-            data-testid={ `${prefix}button-preparing-check` }
-            color={ colors.mediumseagreen }
-          >
-            PEPARAR PEDIDO
-          </OrderButton>
-          <OrderButton
-            data-testid={ `${prefix}button-dispatch-check` }
+            data-testid={ `${prefix}button-delivery-check` }
             color={ colors.teal }
           >
-            SAIU PARA ENTREGA
+            PEPARAR PEDIDO
           </OrderButton>
         </section>
       </DetailsBar>
@@ -81,4 +81,4 @@ const SellerDetails = () => (
   </Container>
 );
 
-export default SellerDetails;
+export default CustomerDetails;

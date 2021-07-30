@@ -51,7 +51,7 @@ const CardProduct = ({ prefix, price, tumbnail, title, id }) => {
       </ProductPrice>
       <ProductImage
         data-testid={ `${prefix}img-card-bg-image-${id}` }
-        src={ tumbnail }
+        image={ tumbnail }
       />
       <ControlArea color={ colors.whitesmoke }>
         <ProductDescription data-testid={ `${prefix}element-card-title-${id}` }>

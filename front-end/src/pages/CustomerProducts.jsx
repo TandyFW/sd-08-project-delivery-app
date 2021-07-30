@@ -34,7 +34,7 @@ function ClientProducts() {
     getProducts().then((response) => setProducts(response));
     console.log(products);
     setLoading(false);
-  }, []);
+  }, [products]);
   return (
     <div>
       <NavBar user={ user.name } />
