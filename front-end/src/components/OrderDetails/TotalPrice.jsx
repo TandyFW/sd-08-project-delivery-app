@@ -1,15 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/styles';
 import { formatNumberToReal } from '../../utils';
 import testIds from './testIds';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: '6px',
+    justifyContent: 'flex-end',
+  },
   totalPrice: {
     color: theme.palette.getContrastText('#036B52'),
     backgroundColor: '#036B52',
+    padding: '12px',
   },
 }));
 
@@ -17,18 +23,17 @@ const TotalPrice = ({ info }) => {
   const { userType, totalPrice } = info;
   const classes = useStyles();
   return (
-    <Grid container alignItems="flex-end">
-      <Button
+    <Grid container className={ classes.root }>
+      <Paper
         component="section"
         className={ classes.totalPrice }
-        type="button"
-        variant="contained"
+        elevation={ 4 }
         data-testid={ testIds(userType).totalPrice }
-        size="large"
-        disabled
       >
-        { formatNumberToReal(totalPrice) }
-      </Button>
+        <Typography variant="h5">
+          { formatNumberToReal(totalPrice) }
+        </Typography>
+      </Paper>
     </Grid>
   );
 };

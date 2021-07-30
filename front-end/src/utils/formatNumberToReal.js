@@ -1,4 +1,5 @@
 export default (number) => {
-  const formatted = number.toFixed(2).toString().replace(/\./, ',');
+  const num = +number;
+  const formatted = num.toFixed(2).toString().replace(/\./, ',');
   return `R$ ${formatted}`;
 };

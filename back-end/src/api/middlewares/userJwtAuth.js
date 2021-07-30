@@ -5,7 +5,6 @@ const { getJwtSecret } = require('../utils');
 module.exports = async (req, _res, next) => {
   try {
     const token = req.headers.authorization;
-    console.log(token);
     if (!token) return next({ code: 'unauthenticated', message: 'Token not found' });
 
     const secret = await getJwtSecret();

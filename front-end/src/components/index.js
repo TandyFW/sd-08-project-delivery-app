@@ -10,6 +10,7 @@ import OrderDetails from './OrderDetails';
 import Checkout from './Checkout';
 import ProductsCart from './ProductsCart';
 import OrdersList from './OrdersList';
+import Loading from './Loading';
 
 export {
   TopBar,
@@ -24,4 +25,5 @@ export {
   Checkout,
   ProductsCart,
   OrdersList,
+  Loading,
 };

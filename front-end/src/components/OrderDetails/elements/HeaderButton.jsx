@@ -7,21 +7,21 @@ import { PENDING, PREPARING, ON_THE_WAY, DELIVERED } from '../consts';
 import { Context } from '../../../context';
 
 const useStyles = makeStyles((theme) => ({
-  preparing: {
+  [PENDING.action]: {
     color: theme.palette.getContrastText(lightGreen[500]),
     backgroundColor: lightGreen[500],
     '&:hover': {
       backgroundColor: lightGreen[700],
     },
   },
-  onTheWay: {
+  [PREPARING.action]: {
     color: theme.palette.getContrastText(brown[500]),
     backgroundColor: brown[500],
     '&:hover': {
       backgroundColor: brown[700],
     },
   },
-  delivered: {
+  [ON_THE_WAY.action]: {
     color: theme.palette.getContrastText(teal[400]),
     backgroundColor: teal[400],
     '&:hover': {
@@ -36,23 +36,23 @@ const HeaderButton = ({ type, status, orderId }) => {
 
   const shouldDisable = () => {
     switch (type) {
-    case PREPARING:
-      return status !== PENDING;
-    case ON_THE_WAY:
-      return status !== PREPARING;
-    case DELIVERED:
-      return status !== ON_THE_WAY;
+    case PENDING.action:
+      return status !== PENDING.state;
+    case PREPARING.action:
+      return status !== PREPARING.state;
+    case ON_THE_WAY.action:
+      return status !== ON_THE_WAY.state;
     default: return true;
     }
   };
 
   const getText = () => {
     switch (type) {
-    case PREPARING:
+    case PENDING.action:
       return 'Preparar pedido';
-    case ON_THE_WAY:
+    case PREPARING.action:
       return 'Saiu para entrega';
-    case DELIVERED:
+    case ON_THE_WAY.action:
       return 'Entregue';
     default: return 'Button';
     }
@@ -60,18 +60,18 @@ const HeaderButton = ({ type, status, orderId }) => {
 
   const getTestId = () => {
     switch (type) {
-    case PREPARING:
+    case PENDING.action:
       return 'seller_order_details__button-preparing-check';
-    case ON_THE_WAY:
+    case PREPARING.action:
       return 'seller_order_details__button-dispatch-check';
-    case DELIVERED:
+    case ON_THE_WAY.action:
       return 'customer_order_details__button-delivery-check';
     default: return 'button';
     }
   };
 
   const handleClick = () => {
-    const flow = [PENDING, PREPARING, ON_THE_WAY, DELIVERED];
+    const flow = [PENDING.state, PREPARING.state, ON_THE_WAY.state, DELIVERED.state];
     const prevIndex = flow.indexOf(status);
     const newStatus = flow[prevIndex + 1];
     socket.emit('updateOrder-server', { id: orderId, newStatus });

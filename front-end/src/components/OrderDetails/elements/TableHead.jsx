@@ -7,7 +7,10 @@ import { blueGrey } from '@material-ui/core/colors';
 
 const useStyles = makeStyles(() => ({
   root: {
-    backgroundColor: blueGrey[500],
+    backgroundColor: blueGrey[400],
+    '& > * > *': {
+      fontWeight: '700',
+    },
   },
 }));
 

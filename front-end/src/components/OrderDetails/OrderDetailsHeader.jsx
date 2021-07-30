@@ -1,13 +1,37 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
 import { HeaderButton, HeaderSeller, HeaderStatus, HeaderDate,
   HeaderOrderId } from './elements';
-import { PREPARING, ON_THE_WAY, DELIVERED } from './consts';
+import { PENDING, PREPARING, ON_THE_WAY } from './consts';
 import { Context } from '../../context';
 import testIds from './testIds';
 
+const useStyles = makeStyles(() => ({
+  root: {
+    padding: '6px',
+    alignItems: 'center',
+  },
+  OrderNumberDate: {
+    justifyContent: 'space-between',
+    '& > *': {
+      alignSelf: 'center',
+    },
+  },
+  status: {
+    justifyContent: 'center',
+  },
+  buttons: {
+    justifyContent: 'flex-end',
+    '& > button + button': {
+      marginLeft: '6px',
+    },
+  },
+}));
+
 const OrderDetailsHeader = ({ info }) => {
+  const classes = useStyles();
   const { orderId, date, userType, seller } = info;
   const { socket } = useContext(Context);
 
@@ -24,13 +48,13 @@ const OrderDetailsHeader = ({ info }) => {
   const getButtons = () => {
     if (userType === 'customer') {
       return (
-        <HeaderButton type={ DELIVERED } status={ status } orderId={ orderId } />
+        <HeaderButton type={ ON_THE_WAY.action } status={ status } orderId={ orderId } />
       );
     }
     return (
       <>
-        <HeaderButton type={ PREPARING } status={ status } orderId={ orderId } />
-        <HeaderButton type={ ON_THE_WAY } status={ status } orderId={ orderId } />
+        <HeaderButton type={ PENDING.action } status={ status } orderId={ orderId } />
+        <HeaderButton type={ PREPARING.action } status={ status } orderId={ orderId } />
       </>
     );
   };
@@ -38,16 +62,16 @@ const OrderDetailsHeader = ({ info }) => {
   const dti = testIds(userType).header;
 
   return (
-    <Grid container>
-      <Grid container item>
+    <Grid container className={ classes.root }>
+      <Grid container item className={ classes.OrderNumberDate } xs={ 4 }>
         <HeaderOrderId id={ orderId } testId={ dti.orderId } />
         <HeaderDate date={ date } testId={ dti.orderDate } />
         <HeaderSeller seller={ seller } testId={ dti.sellerName } />
       </Grid>
-      <Grid item>
+      <Grid container item xs={ 3 } className={ classes.status }>
         <HeaderStatus status={ status } testId={ dti.deliveryStatus } />
       </Grid>
-      <Grid item>
+      <Grid container item xs={ 5 } className={ classes.buttons }>
         { getButtons() }
       </Grid>
     </Grid>

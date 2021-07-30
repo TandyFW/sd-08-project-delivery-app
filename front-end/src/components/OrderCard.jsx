@@ -50,7 +50,7 @@ export default function OrderCard({ order, title }) {
   };
 
   const redirectToSaleDetail = (idParam) => {
-    history.push(`orders/${idParam}`);
+    history.push(`/${title}/orders/${idParam}`);
   };
 
   return (
