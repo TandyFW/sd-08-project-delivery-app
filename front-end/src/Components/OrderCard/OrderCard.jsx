@@ -19,10 +19,10 @@ export default function OrderCard({ path, order, address, prefix, idPedido }) {
       className="container"
       type="button"
       onClick={ () => history.push(`/${path}/orders/${id}`) }
+      data-testid={ `${prefix}__element-order-id-${id}` }
     >
       <div
         className="order-number"
-        data-testid={ `${prefix}__element-order-id-${idPedido}` }
       >
         <span>Pedido</span>
         <h1>{ idPedido }</h1>
@@ -30,25 +30,25 @@ export default function OrderCard({ path, order, address, prefix, idPedido }) {
       <div className="order-container">
         <div
           className="current-status"
-          data-testid={ `${prefix}__element-delivery-status-${idPedido}` }
+          data-testid={ `${prefix}__element-delivery-status-${id}` }
         >
           { status }
         </div>
         <div
           className="order-date"
-          data-testid={ `${prefix}__element-order-date-${idPedido}` }
+          data-testid={ `${prefix}__element-order-date-${id}` }
         >
           { formataDate() }
         </div>
         <div
           className="order-total"
-          data-testid={ `${prefix}__element-card-price-${idPedido}` }
+          data-testid={ `${prefix}__element-card-price-${id}` }
         >
           { totalPrice }
         </div>
         <div
           className="order-address"
-          data-testid={ `${prefix}__element-card-address-${idPedido}` }
+          data-testid={ `${prefix}__element-card-address-${id}` }
         >
           { address }
         </div>

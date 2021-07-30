@@ -12,13 +12,25 @@ export default function NavBar({ label, text }) {
     history.push('/login');
   };
 
+  const goToMyOrders = () => {
+    history.push('/customer/orders');
+  };
+
+  const goToProducts = () => {
+    history.push('/customer/products');
+  };
+
   return (
     <ul>
       <li data-testid="customer_products__element-navbar-link-products">
-        {label}
+        <button type="button" onClick={ goToProducts }>
+          {label}
+        </button>
       </li>
       <li data-testid="customer_products__element-navbar-link-orders">
-        { text }
+        <button onClick={ goToMyOrders } type="button">
+          {text}
+        </button>
       </li>
       <li data-testid="customer_products__element-navbar-user-full-name">
         {getUserInfo().name}
