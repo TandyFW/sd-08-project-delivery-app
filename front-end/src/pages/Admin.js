@@ -18,6 +18,10 @@ class Admin extends React.Component {
     this.signIn = this.signIn.bind(this);
   }
 
+  componentDidMount() {
+
+  }
+
   handleChange({ target: { name, value } }) {
     if (name === 'email') {
       const isValid = validator.validate(value.toLowerCase());
@@ -46,13 +50,6 @@ class Admin extends React.Component {
   }
 
   async signIn({ target }) {
-    // console.log('name', target.parentNode.firstChild.childNodes[1].value);
-    // console.log('email', target.parentNode.firstChild.childNodes[3].value);
-    // console.log('password', target.parentNode.firstChild.childNodes[5].value);
-    // console.log('role', target.parentNode.firstChild.childNodes[7].value);
-    // // console.log('password', target.parentNode.firstChild.childNodes[6].value);
-    // // console.log('role', target.parentNode.firstChild.childNodes[8].value);
-
     const name = target.parentNode.firstChild.childNodes[1].value;
     const email = target.parentNode.firstChild.childNodes[3].value;
     const pass = target.parentNode.firstChild.childNodes[5].value;

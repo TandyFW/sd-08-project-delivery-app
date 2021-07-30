@@ -110,13 +110,12 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  stateUsers: state.userReducer.user,
+  stateUsers: state.user.user,
 });
 
 UserTable.propTypes = {
   // history: PropTypes.shape().isRequired,
   dispatchTable: PropTypes.func.isRequired,
-  // xablau: PropTypes.shape().isRequired,
   // stateUsers: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 

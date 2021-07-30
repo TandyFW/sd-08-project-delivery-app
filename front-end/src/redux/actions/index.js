@@ -18,8 +18,3 @@ export const loginAction = (array) => ({
   type: LOGIN,
   array,
 });
-
-export const userActionThunk = () => async (dispatch) => {
-  const { registers } = await getAllUsers();
-  dispatch(userAction(registers));
-};

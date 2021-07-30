@@ -4,7 +4,6 @@ const URL_BASE = 'http://localhost:3001';
 
 export async function getAllUsers() {
   const accessToken = JSON.parse(localStorage.getItem('token'));
-  // console.log(accessToken.token);
   const users = await axios.get(`${URL_BASE}/register`, {
     headers: {
       Authorization: `${accessToken.token}`,
