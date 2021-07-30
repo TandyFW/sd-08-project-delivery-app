@@ -20,7 +20,7 @@ function App() {
         </Route>
         <Route exact path="/register" component={ Register } />
         <Route exact path="/customer/products" component={ ClientProducts } />
-        <Route exact path="/customer/seller" component={ Seller } />
+        <Route exact path="/seller/orders" component={ Seller } />
         <Route exact path="/customer/orders" component={ Orders } />
         <Route exact path="/customer/orders/:id" component={ CustomerDetails } />
         <Route exact path="/customer/checkout" component={ Checkout } />

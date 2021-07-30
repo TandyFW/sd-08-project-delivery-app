@@ -12,8 +12,9 @@ const CardOrder = ({ prefix, id, deliveryStatus, orderDate, price, onClick }) =>
       <span data-testid={ `${prefix}element-order-date-${id}` }>
         { dateFormat(orderDate) }
       </span>
+      <span>R$</span>
       <span data-testid={ `${prefix}element-card-price-${id}` }>
-        { `R$${price}` }
+        { price.replace('.', ',') }
       </span>
     </div>
   </div>

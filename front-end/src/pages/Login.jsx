@@ -26,6 +26,20 @@ const Login = () => {
     }
   }, [email, password]);
 
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    switch (user && user.role) {
+    case 'customer':
+      return history.push('/customer/products');
+    case 'seller':
+      return history.push('/seller/orders');
+    case 'administrator':
+      return history.push('/admin/manage');
+    default:
+      break;
+    }
+  }, [history]);
+
   const onClick = () => history.push('/register');
 
   const fetchApi = async () => {
@@ -44,7 +58,7 @@ const Login = () => {
       localStorage.setItem('user', JSON.stringify(userStorage));
       localStorage.setItem('carrinho', JSON.stringify([]));
       if (data.role === 'customer') history.push('/customer/products');
-      if (data.role === 'seller') history.push('/customer/seller');
+      if (data.role === 'seller') history.push('/seller/orders');
       if (data.role === 'administrator') history.push('/admin/manage');
     } catch (err) {
       setVisible('visible');
