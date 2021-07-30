@@ -100,7 +100,7 @@ class CardList extends React.Component {
     }
   }
 
-  async decreaseQuantity(id) {
+  decreaseQuantity(id) {
     const { stateCart, dispatchCart } = this.props;
     // selects product in the redux cart
     const selected = stateCart.filter((prod) => prod.id === id)[0];
@@ -120,6 +120,9 @@ class CardList extends React.Component {
       // send to redux && localStorage
       localStorage.setItem('cart', JSON.stringify(stateCart));
       dispatchCart(stateCart);
+      // if the user clicks, and the quantity is 0
+    } else if (!selected) {
+      this.setState({ [id]: 0 });
       // not in redux's cart
     } else {
       // remove from local & redux
@@ -134,6 +137,7 @@ class CardList extends React.Component {
   render() {
     const { state } = this;
     const { stateProducts, history } = this.props;
+    const LSprice = localStorage.getItem('totalPrice');
     return (
       <div className="cardlist-container">
         { stateProducts
@@ -186,12 +190,13 @@ class CardList extends React.Component {
           <button
             type="button"
             data-testid="customer_products__button-cart"
-            onClick={ () => history.push('/checkout') }
+            onClick={ () => history.push('/customer/checkout') }
+            disabled={ !Number(LSprice) > 0 }
           >
             Ver Carrinho: R$:
             <span data-testid="customer_products__checkout-bottom-value">
               {
-                ` ${localStorage.getItem('totalPrice').replace('.', ',')}`
+                ` ${LSprice.replace('.', ',')}`
               }
             </span>
           </button>

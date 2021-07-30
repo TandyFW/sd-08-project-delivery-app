@@ -132,3 +132,16 @@
     }
   }
 }
+
+@media only screen and (max-height: 650px) { //chegando em width 1400
+  .products-container {
+    .cardlist-container {
+      .product {
+        width: 150px;
+        img {
+          background-size: contain;
+        }
+      }
+    }
+  }
+}
