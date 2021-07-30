@@ -3,17 +3,14 @@ import axios from 'axios';
 const URL_BASE = 'http://localhost:3001';
 
 export async function getAllUsers() {
-  const accessToken = JSON.parse(localStorage.getItem('token'));
-  // console.log(accessToken.token);
+  const accessToken = JSON.parse(localStorage.getItem('user'));
   const users = await axios.get(`${URL_BASE}/register`, {
     headers: {
       Authorization: `${accessToken.token}`,
     },
   })
     .then((response) => response.data)
-    .catch((error) => {
-      console.error(error);
-    });
+    .catch(console.error);
   return users;
 }
 
@@ -23,13 +20,14 @@ export async function getAllProducts() {
   return products;
 }
 
-export async function create(name, email, password, role) {
+export async function createUser(name, email, password, role) {
   try {
     const user = await axios.post(`${URL_BASE}/register`,
       { name, email, password, role })
       .then((response) => response.data);
     return user;
   } catch (error) {
+    console.error(error);
     if (error.response) {
       return {
         status: error.response.status,
@@ -42,11 +40,12 @@ export async function create(name, email, password, role) {
 
 export async function login(email, password) {
   try {
-    const token = await axios.post(`${URL_BASE}/login`,
+    const dataLogin = await axios.post(`${URL_BASE}/login`,
       { email, password })
       .then((response) => response.data);
-    return token;
+    return dataLogin;
   } catch (error) {
+    console.error(error);
     if (error.response) {
       return {
         status: error.response.status,
@@ -58,7 +57,7 @@ export async function login(email, password) {
 }
 
 export async function exclude(id) {
-  const accessToken = JSON.parse(localStorage.getItem('token'));
+  const accessToken = JSON.parse(localStorage.getItem('user'));
   try {
     const result = await axios.delete(`${URL_BASE}/register/${id}`,
       { headers: {
@@ -67,6 +66,7 @@ export async function exclude(id) {
       .then((response) => response.data);
     return result;
   } catch (error) {
+    console.error(error);
     if (error.response) {
       return {
         status: error.response.status,

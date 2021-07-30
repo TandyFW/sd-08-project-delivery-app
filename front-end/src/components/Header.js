@@ -9,20 +9,24 @@ class Header extends React.Component {
   }
 
   componentDidMount() {
-    const { history: { location: { pathname } } } = this.props;
+    const {
+      history: {
+        location: { pathname },
+      },
+    } = this.props;
     const products = document.querySelector('#products');
     if (pathname === '/customer/products') {
       products.style.boxShadow = 'inset 0 -17px 0px -14px #FFFFFF';
       products.style.backgroundColor = '#0f9562';
     }
     if (pathname === '/customer/products') {
-      document.querySelector('#products')
-        .style.boxShadow = 'inset 0 -17px 0px -14px #FFFFFF';
+      document
+        .querySelector('#products').style.boxShadow = 'inset 0 -17px 0px -14px #FFFFFF';
     }
   }
 
   render() {
-    const { history, stateUser } = this.props;
+    const { history, dataLogin } = this.props;
     return (
       <header className="globalheader-container">
         <div className="left">
@@ -46,8 +50,9 @@ class Header extends React.Component {
             type="button"
             data-testid="customer_products__element-navbar-user-full-name"
           >
-            { stateUser ? stateUser.name
-              : (`${JSON.parse(localStorage.getItem('token')).name}`)}
+            {dataLogin
+              ? dataLogin.name
+              : `${JSON.parse(localStorage.getItem('token')).name}`}
           </button>
           <button
             type="button"
@@ -66,12 +71,12 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  stateUser: state.user.user,
+  dataLogin: state.userReducer.dataLogin,
 });
 
 Header.propTypes = {
   history: PropTypes.shape().isRequired,
-  stateUser: PropTypes.arrayOf(PropTypes.object).isRequired,
+  dataLogin: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default connect(mapStateToProps, null)(Header);

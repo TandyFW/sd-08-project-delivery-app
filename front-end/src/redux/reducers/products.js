@@ -1,7 +1,7 @@
 import { PROD_LIST, CART } from '../actions';
 
 const INITIAL_STATE = {
-  products: [{}],
+  products: [],
   cart: [],
 };
 

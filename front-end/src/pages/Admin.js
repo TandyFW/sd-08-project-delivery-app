@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
 import validator from 'email-validator';
-import { create } from '../services';
+import { createUser } from '../services';
 import { UserTable } from '../components';
-import { userAction } from '../redux/actions';
 
+const MAX_TIME_SPAM_TEN_SECONDS = 10000;
+const MIN_LENGTH_NAME = 13;
+const MIN_LENGTH_PASSWORD = 6;
 class Admin extends React.Component {
   constructor() {
     super();
@@ -13,7 +14,6 @@ class Admin extends React.Component {
       email: false,
       password: false,
       name: false,
-      xablau: {},
     };
     this.handleChange = this.handleChange.bind(this);
     this.signIn = this.signIn.bind(this);
@@ -29,16 +29,14 @@ class Admin extends React.Component {
       }
     }
     if (name === 'password') {
-      const maxLength = 5;
-      if (value.length > maxLength) {
+      if (value.length >= MIN_LENGTH_PASSWORD) {
         this.setState({ password: true });
       } else {
         this.setState({ password: false });
       }
     }
     if (name === 'name') {
-      const MIN_LENGTH_NAME = 12;
-      if (value.length > MIN_LENGTH_NAME) {
+      if (value.length >= MIN_LENGTH_NAME) {
         this.setState({ name: true });
       } else {
         this.setState({ name: false });
@@ -47,30 +45,23 @@ class Admin extends React.Component {
   }
 
   async signIn({ target }) {
-    // console.log('name', target.parentNode.firstChild.childNodes[1].value);
-    // console.log('email', target.parentNode.firstChild.childNodes[3].value);
-    // console.log('password', target.parentNode.firstChild.childNodes[5].value);
-    // console.log('role', target.parentNode.firstChild.childNodes[7].value);
-    // // console.log('password', target.parentNode.firstChild.childNodes[6].value);
-    // // console.log('role', target.parentNode.firstChild.childNodes[8].value);
-
     const name = target.parentNode.firstChild.childNodes[1].value;
     const email = target.parentNode.firstChild.childNodes[3].value;
     const pass = target.parentNode.firstChild.childNodes[5].value;
     const role = target.parentNode.firstChild.childNodes[7].value;
-    const user = await create(name, email, pass, role);
-    const xablau = user.newRegister;
-    console.log(user.newRegister);
-    const spanMaxTime = 10000;
-    this.setState({ xablau });
+    const user = await createUser(name, email, pass, role);
+
     if (user.statusText) {
       const hiddenSpan = document.querySelector('.hidden-span');
       hiddenSpan.style.display = 'inline-block';
       hiddenSpan.innerHTML = user.message;
-      hiddenSpan.setAttribute('data-testid', 'admin_manage__element-invalid_register');
+      hiddenSpan.setAttribute(
+        'data-testid',
+        'admin_manage__element-invalid_register',
+      );
       setTimeout(() => {
         document.querySelector('.hidden-span').style.display = 'none';
-      }, spanMaxTime);
+      }, MAX_TIME_SPAM_TEN_SECONDS);
       await userAction();
       return null;
     }
@@ -79,13 +70,14 @@ class Admin extends React.Component {
   render() {
     // const { history } = this.props;
     // const { loading } = this.state;
-    const { email, password, name, xablau } = this.state;
+    const { email, password, name } = this.state;
     return (
       <div className="ADM-Page">
         <div className="register-form">
-          <div>
+          <form>
             <span>Nome</span>
             <input
+              autoComplete="off"
               name="name"
               className="input"
               onChange={ this.handleChange }
@@ -93,6 +85,7 @@ class Admin extends React.Component {
             />
             <span>Email</span>
             <input
+              autoComplete="off"
               name="email"
               className="input"
               onChange={ this.handleChange }
@@ -101,6 +94,7 @@ class Admin extends React.Component {
 
             <span>Senha</span>
             <input
+              autoComplete="off"
               name="password"
               type="password"
               className="input"
@@ -115,23 +109,24 @@ class Admin extends React.Component {
               onChange={ this.handleChange }
               data-testid="admin_manage__select-role"
             >
-              <option value="admininstrador">Administrador</option>
+              <option value="administrator">Administrador</option>
               <option value="seller">Vendedor</option>
               <option value="customer">Usuário</option>
             </select>
-          </div>
+          </form>
           <button
             type="button"
             data-testid="admin_manage__button-register"
             disabled={ !email || !password || !name }
-            onClick={ (event) => { this.signIn(event); } }
+            onClick={ (event) => {
+              this.signIn(event);
+            } }
           >
             Cadastrar
           </button>
-
         </div>
         <span className="hidden-span" />
-        <UserTable register={ xablau } />
+        <UserTable />
       </div>
     );
   }

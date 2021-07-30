@@ -40,7 +40,7 @@ class Products extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  stateUser: state.user.user,
+  stateUser: state.userReducer.user,
 });
 
 Products.propTypes = {

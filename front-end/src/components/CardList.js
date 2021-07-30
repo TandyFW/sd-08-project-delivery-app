@@ -8,7 +8,19 @@ class CardList extends React.Component {
   constructor() {
     super();
     this.state = {
-      1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0 };
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+      7: 0,
+      8: 0,
+      9: 0,
+      10: 0,
+      11: 0,
+      12: 0,
+    };
   }
 
   async componentDidMount() {
@@ -19,7 +31,7 @@ class CardList extends React.Component {
     //
     if (LScart && LScart.length > 0) {
       LScart.forEach((element) => {
-        // pass the quantity from localstorage to 'this.state'
+        // pass the quantity from localStorage to 'this.state'
         const { state } = this;
         state[element.id] = element.quantity;
       });
@@ -36,11 +48,14 @@ class CardList extends React.Component {
     const { dispatchCart, stateProducts } = this.props;
     // selects the product on DOM
     const productName = document.getElementById(`name-${id}`).innerText;
-    const selectedProduct = stateProducts.filter((prod) => prod.name === productName);
+    const selectedProduct = stateProducts.filter(
+      (prod) => prod.name === productName,
+    );
     // checks if contains on redux
     const { stateCart } = this.props;
-    const contains = stateCart
-      .filter((prod) => prod.name === selectedProduct[0].name);
+    const contains = stateCart.filter(
+      (prod) => prod.name === selectedProduct[0].name,
+    );
     if (contains.length < 1) {
       // send to redux && local storage
       stateCart.push(selectedProduct[0]);
@@ -50,9 +65,12 @@ class CardList extends React.Component {
       dispatchCart(stateCart);
       // adding price into localStorage
       const localStoragePrice = localStorage.getItem('totalPrice');
-      localStorage.setItem('totalPrice',
-        (Number(selectedProduct[0].price)
-        + Number(localStoragePrice)).toFixed(2));
+      localStorage.setItem(
+        'totalPrice',
+        (Number(selectedProduct[0].price) + Number(localStoragePrice)).toFixed(
+          2,
+        ),
+      );
     } else {
       // foreach to find the exact index of statecart, and add +1
       stateCart.forEach((element, index) => {
@@ -60,9 +78,12 @@ class CardList extends React.Component {
           stateCart[index].quantity += 1;
           // adding price into localStorage
           const localStoragePrice = localStorage.getItem('totalPrice');
-          localStorage.setItem('totalPrice',
-            (Number(stateCart[index].price)
-            + Number(localStoragePrice)).toFixed(2));
+          localStorage.setItem(
+            'totalPrice',
+            (
+              Number(stateCart[index].price) + Number(localStoragePrice)
+            ).toFixed(2),
+          );
         }
       });
       // just increase one on state && localstorage
@@ -76,20 +97,26 @@ class CardList extends React.Component {
     const { dispatchCart, stateCart } = this.props;
     // selects the product on DOM
     const productName = document.getElementById(`name-${id}`).innerText;
-    const selectedProduct = stateCart.filter((prod) => prod.name === productName);
+    const selectedProduct = stateCart.filter(
+      (prod) => prod.name === productName,
+    );
     console.log(selectedProduct);
     const localStoragePrice = localStorage.getItem('totalPrice');
     if (localStoragePrice > 0) {
-      localStorage.setItem('totalPrice',
-        (Number(localStoragePrice)
-        - Number(selectedProduct[0].price)).toFixed(2));
+      localStorage.setItem(
+        'totalPrice',
+        (Number(localStoragePrice) - Number(selectedProduct[0].price)).toFixed(
+          2,
+        ),
+      );
     }
     // checks if exists on redux
     if (selectedProduct.length > 0) {
-    // if so, its removed
+      // if so, its removed
       if (selectedProduct[0].quantity < 2) {
-        const cartWithout = stateCart
-          .filter((prod) => prod.name !== selectedProduct[0].name);
+        const cartWithout = stateCart.filter(
+          (prod) => prod.name !== selectedProduct[0].name,
+        );
         this.setState({ [id]: 0 });
         localStorage.setItem('cart', JSON.stringify(cartWithout));
         dispatchCart(cartWithout);
@@ -109,7 +136,7 @@ class CardList extends React.Component {
     const { state } = this;
     return (
       <div className="cardlist-container">
-        { stateProducts
+        {stateProducts
           && stateProducts.map((product, index) => (
             <div className="product" key={ index }>
               <span
@@ -156,14 +183,9 @@ class CardList extends React.Component {
             </div>
           ))}
         <div className="cart-container">
-          <button
-            type="button"
-            data-testid="customer_products__button-cart"
-          >
+          <button type="button" data-testid="customer_products__button-cart">
             Ver Carrinho: R$:
-            {
-              ` ${localStorage.getItem('totalPrice')}`
-            }
+            {` ${localStorage.getItem('totalPrice')}`}
           </button>
         </div>
       </div>
@@ -177,9 +199,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  stateProducts: state.products.products,
-  stateCart: state.products.cart,
-  stateUser: state.user.user,
+  stateProducts: state.productReducer.products,
+  stateCart: state.productReducer.cart,
+  stateUser: state.userReducer.user,
 });
 
 CardList.propTypes = {

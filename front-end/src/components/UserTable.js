@@ -2,28 +2,32 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { exclude } from '../services';
-import { userActionThunk } from '../redux/actions';
+import Loader from './Loader';
+import { getAllUsersApi } from '../redux/actions';
 
 class UserTable extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
     this.state = {
-      users: [{}],
+      users: [],
+      isLoading: true,
     };
 
     this.exclude = this.exclude.bind(this);
+    this.setAllUsersInState = this.setAllUsersInState.bind(this);
   }
 
   async componentDidMount() {
-    const { dispatchTable } = this.props;
-    // await userAction();
-    await dispatchTable();
+    const { getAllUsers } = this.props;
+    await getAllUsers();
+    this.setAllUsersInState();
   }
 
-  // refresh() {
-  //   // re-renders the component
-  //   this.setState({});
-  // }
+  setAllUsersInState() {
+    const { allUsers } = this.props;
+    this.setState((state) => ({ ...state, users: allUsers, isLoading: false }));
+  }
 
   async exclude(id) {
     const { users } = this.state;
@@ -46,38 +50,39 @@ class UserTable extends React.Component {
   }
 
   render() {
+    const { isLoading } = this.state;
+    if (isLoading) {
+      return <Loader />;
+    }
     const item = 'admin_manage__element-user-table-';
     const remove = 'admin_manage__element-user-table-remove-';
     const { users } = this.state;
-    const keyOfstatateUsers = Object.keys(users[0]);
+    const namesTables = Object.keys(users[0]);
     return (
       <div className="cardlist-container">
         <table>
           <thead>
             <tr>
-              { keyOfstatateUsers
-            && keyOfstatateUsers.map((title) => (
-              <th
-                data-testid={ `admin_manage__element-user-table-${title}` }
-                key={ `title-${title}` }
-              >
-                {title}
-              </th>
-            ))}
-
+              { namesTables.map((title) => (
+                <th
+                  data-testid={ `admin_manage__element-user-table-${title}` }
+                  key={ `title-${title}` }
+                >
+                  {title}
+                </th>
+              ))}
               <th key="title-excluir">Excluir</th>
             </tr>
           </thead>
           <tbody>
-
             { users && users.map((user, index) => (
               <tr
                 id={ `${index}` }
                 className="user"
                 key={ `line-${user.id}` }
-                // data-testid={ `admin_manage__element-user-table-id-${user.id}` }
+                data-testid={ `admin_manage__element-user-table-id-${user.id}` }
               >
-                { keyOfstatateUsers.map((key) => {
+                { namesTables.map((key) => {
                   if (user.role !== 'administrator') {
                     return (
                       <td
@@ -109,17 +114,17 @@ class UserTable extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchTable: () => dispatch(userActionThunk()),
+  getAllUsers: () => dispatch(getAllUsersApi()),
 });
 
 const mapStateToProps = (state) => ({
-  stateUsers: state.userReducer.user,
+  allUsers: state.userReducer.allUsers,
 });
 
 UserTable.propTypes = {
   // history: PropTypes.shape().isRequired,
-  dispatchTable: PropTypes.func.isRequired,
-  // xablau: PropTypes.shape().isRequired,
+  getAllUsers: PropTypes.func.isRequired,
+  allUsers: PropTypes.arrayOf(PropTypes.object).isRequired,
   // stateUsers: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
