@@ -27,6 +27,12 @@ const Product = (sequelize, DataTypes) => {
     tableName: 'products',
     underscored: true,
   });
+
+  product.associate = (models) => {
+    product.belongsToMany(models.Sale,{
+        through: 'SaleProduct'
+    })
+  };
   
   return product;
 };

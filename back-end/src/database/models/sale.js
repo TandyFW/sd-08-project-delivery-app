@@ -51,7 +51,11 @@ const Sale = (sequelize, DataTypes) => {
     { foreignKey: 'userId', as: 'user' });
     sale.belongsTo(models.User,
       { foreignKey: 'sellerId', as: 'seller' });
+    sale.belongsToMany(models.Product, {
+      through: 'SaleProduct'
+    })
   };
+
   
   return sale;
 };

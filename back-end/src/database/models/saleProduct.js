@@ -23,15 +23,6 @@ const SaleProduct = (sequelize, DataTypes) => {
     underscored: true,
   });
 
-  // saleProduct.associate = (models) => {
-  //   models.Product.belongsToMany(models.Sale, {
-  //     as: 'sales',
-  //     through: saleProduct,
-  //     primaryKey: 'sale_id',
-  //     otherKey: 'product_id',
-  //   });
-  // };
-  
   return saleProduct;
 };
 

@@ -1,7 +1,9 @@
 const routes = require('express').Router();
 
-const saveSale = require('../controllers/saleController');
+const saleController = require('../controllers/saleController');
 
-routes.post('/', saveSale);
+routes.post('/', saleController.saveSale);
+routes.get('/', saleController.getSales);
+routes.get('/:id', saleController.getSaleById);
 
 module.exports = routes;
