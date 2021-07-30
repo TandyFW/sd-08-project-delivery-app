@@ -114,7 +114,7 @@ export default function FormRegister() {
           >
             Usuário não encontrado.
           </p>)}
-      {redirect && <Redirect to="/login" />}
+      {redirect && <Redirect to="/customer/products" />}
     </>
   );
 }
