@@ -1,4 +1,4 @@
-import axios from 'axios';
+﻿import axios from 'axios';
 
 const URL_BASE = 'http://localhost:3001';
 
@@ -22,10 +22,9 @@ export async function getAllProducts() {
 
 export async function getByRole(role) {
   const users = await axios.get(`${URL_BASE}/register/role/${role}`)
-  .then((response) => response.data.registers);
+    .then((response) => response.data.registers);
   return users;
 }
-
 export async function createUser(name, email, password, role) {
   try {
     const user = await axios.post(`${URL_BASE}/register`,
