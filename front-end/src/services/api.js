@@ -2,7 +2,7 @@ const axios = require('axios');
 
 const endpoint = 'http://localhost:3001';
 
-const requestApi = async (route, method = 'GET', data, token) => {
+const requestApi = async (route, method = 'GET', data = {}, token = '') => {
   const options = {
     url: `${endpoint}${route}`,
     method,
@@ -32,13 +32,16 @@ export const loginRequest = (user, setUsrNotFound, history) => (
 export const registerRequest = (user, setUsrExists, history) => (
   requestApi('/user', 'POST', user)
     .then((response) => {
+      localStorage.setItem('user', JSON.stringify(response.user));
+
       history.push('/customer/products');
-      return response;
     })
     .catch((err) => {
       setUsrExists(true);
       return err.response;
     })
 );
+
+export const getProducts = (token) => requestApi('/product', 'GET', {}, token);
 
 export default requestApi;

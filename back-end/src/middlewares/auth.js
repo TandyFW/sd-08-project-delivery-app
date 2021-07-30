@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const { User } = require('../database/models');
 const { UNAUTHORIZED } = require('../statusCode');
 
-const JWT_SECRET = fs.readFileSync('./jwt.evaluation.key', 'utf-8');
+const JWT_SECRET = fs.readFileSync('./jwt.evaluation.key', 'utf-8').trim();
 
 module.exports = async (req, res, next) => {
   const token = req.headers.authorization;
