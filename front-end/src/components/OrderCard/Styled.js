@@ -4,6 +4,7 @@ export const OrderContainer = styled.div`
   align-items: stretch;
   background-color: #eaf1ef;
   border: 1px solid #b1c2be;
+  box-shadow: rgba(0, 0, 0, 0.322) 2px 2px 6px;
   display: flex;
   width: 790px;
 `;
