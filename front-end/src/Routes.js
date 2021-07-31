@@ -6,6 +6,7 @@ import CustomerCheckout from './Pages/CustomerCheckout';
 import CustomerProducts from './Pages/CustomerProducts';
 import CustomerOrdersDetails from './Pages/CustomerOrdersDetails';
 import Register from './Pages/Register';
+import SellerOrders from './Pages/SellerOrders';
 
 export default () => (
   <Switch>
