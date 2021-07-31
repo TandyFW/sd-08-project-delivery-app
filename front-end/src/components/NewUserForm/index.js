@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import { useHistory } from 'react-router-dom';
 import api from '../../Apis/api1';
 
 import {
@@ -13,36 +12,31 @@ import {
   ContainerEmail,
   ContainerPassword,
   ContainerSelect,
+  ContainerOption,
   FinalizeRegister,
   /* InvalidBox, */
 } from './Styled';
 
-const typeUser = ['Cliente', 'P.Vendedora'];
-
 export default function NewUserForm() {
-  // const history = useHistory();
-
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
-  const [name, setName] = useState('');
+  const [role, setRole] = useState('seller');
   const [valid, setValid] = useState(true);
-  // const [logged, setLogged] = useState(true);
+  const [logged, setLogged] = useState(true);
 
   const submitHandler = async (e) => {
     const CREATED = 201;
     e.preventDefault();
-    const result = await api.registerFetch(name, email, pass).then((data) => {
+    const result = await api.registerUser(name, email, pass, role).then((data) => {
       localStorage.setItem('newUser', JSON.stringify(data.data));
       return data;
     })
       .catch((err) => err.message);
     if (result.status !== CREATED) {
-      setValid(false);
+      setLogged(false);
     } else {
-      setValid(true);
-      if (result.data.role === 'customer') {
-        console.log(result.data);
-      }
+      setLogged(true);
     }
   };
 
@@ -59,7 +53,7 @@ export default function NewUserForm() {
 
   return (
     <Container>
-      <Form onSubmit={ submitHandler }>
+      <Form>
         <Title>Cadastrar novo usuário</Title>
         <ContainerDiv>
           <Paragraph>Nome</Paragraph>
@@ -83,6 +77,7 @@ export default function NewUserForm() {
               id="email"
               name="email"
               placeholder="seu-email@site.com.br"
+              autocomplete="off"
               onChange={ ({ target }) => setEmail(target.value) }
             />
           </ContainerLabel>
@@ -96,40 +91,34 @@ export default function NewUserForm() {
               id="password"
               name="password"
               placeholder="******"
+              autocomplete="off"
               onChange={ ({ target }) => setPass(target.value) }
             />
           </ContainerLabel>
         </ContainerDiv>
         <ContainerDiv>
           <Paragraph>Tipo</Paragraph>
-          <ContainerLabel htmlFor="type">
-            <ContainerSelect
-              id="type"
-              name="type"
-              data-testid="admin_manage__select-role"
-            >
-              { typeUser.map((type, index) => (
-                <option
-                  key={ index }
-                >
-                  { type }
-                </option>
-              )) }
-            </ContainerSelect>
-          </ContainerLabel>
+          <ContainerSelect
+            data-testid="admin_manage__select-role"
+            onChange={ ({ target }) => setRole(target.value) }
+          >
+            <ContainerOption value="administrator">Administrador</ContainerOption>
+            <ContainerOption value="customer">Cliente</ContainerOption>
+            <ContainerOption value="seller">Vendedor</ContainerOption>
+          </ContainerSelect>
         </ContainerDiv>
         <ContainerDiv>
           <FinalizeRegister
             data-testid="admin_manage__button-register"
             type="submit"
             disabled={ valid }
-            onClick={ () => console.log('cadastrar') }
+            onClick={ submitHandler }
           >
             CADASTRAR
           </FinalizeRegister>
         </ContainerDiv>
-        {/* { logged === false
-        && <p>Dados inválidos</p> } */}
+        { logged === false
+        && <p>Dados inválidos</p> }
       </Form>
     </Container>
   );

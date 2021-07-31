@@ -22,6 +22,17 @@ const register = async (req, res) => {
   }
 }
 
+const adminRegister = async (req, res) => {
+  try {
+    const { name, email, password, role } = req.body;
+    const result = await SERVICES.adminRegister(name, email, password, role)
+    if (result.error) return res.status(result.error).json({ message: result.message })
+    return res.status(201).json(result);
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
+}
+
 const getAllUsers = async (req, res) => {
   const response = await SERVICES.getAllUsers();
   res.status(200).json({ response });
@@ -32,6 +43,16 @@ const getAllSellers = async (req, res) => {
   res.status(200).json({ response });
 };
 
+// const deleteUser = async (req, res) => {
+//   const { id } = req.params;
+//   try {
+//     await SERVICES.deleteUser(id);
+//     return res.status(204).json({});
+//     } catch (error) {
+//     return res.status(500).json({ message: error.message });
+//   }
+// };
+
 module.exports = {
-  login, register, getAllUsers, getAllSellers
+  login, register, adminRegister, getAllUsers, getAllSellers
 }
