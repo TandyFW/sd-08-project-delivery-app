@@ -1,39 +1,36 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './CustomerOrderCard.css';
 
 const CustomerOrderCard = ({ order }) => (
-  <div
-    className="order-card"
-    onClick={ () => { } }
-    onKeyDown={ () => { } }
-    role="button"
-    tabIndex={ 0 }
-  >
-    <div className="order-card-number">
-      <p>Pedido</p>
-      <p data-testid={ `customer_orders__element-order-id-${order.id}` }>{order.id}</p>
+  <Link to={ `customer/orders/${order.id}` }>
+    <div className="order-card">
+      <div className="order-card-number">
+        <p>Pedido</p>
+        <p data-testid={ `customer_orders__element-order-id-${order.id}` }>{order.id}</p>
+      </div>
+      <div className="order-card-status">
+        <span
+          data-testid={ `customer_orders__element-delivery-status-${order.id}` }
+        >
+          {order.status}
+        </span>
+      </div>
+      <div className="order-card-info">
+        <p
+          data-testid={ `customer_orders__element-order-date-${order.id}` }
+        >
+          {order.date}
+        </p>
+        <p
+          data-testid={ `customer_orders__element-card-price-${order.id}` }
+        >
+          {order.total}
+        </p>
+      </div>
     </div>
-    <div className="order-card-status">
-      <span
-        data-testid={ `customer_orders__element-delivery-status-${order.id}` }
-      >
-        {order.status}
-      </span>
-    </div>
-    <div className="order-card-info">
-      <p
-        data-testid={ `customer_orders__element-order-date-${order.id}` }
-      >
-        {order.date}
-      </p>
-      <p
-        data-testid={ `customer_orders__element-card-price-${order.id}` }
-      >
-        {order.total}
-      </p>
-    </div>
-  </div>
+  </Link>
 );
 
 CustomerOrderCard.propTypes = {
