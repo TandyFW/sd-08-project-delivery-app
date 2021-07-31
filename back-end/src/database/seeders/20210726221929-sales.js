@@ -5,10 +5,10 @@ module.exports = {
     return queryInterface.bulkInsert('sales', [{
       user_id: 3,
       seller_id: 2,
-      totalPrice: 3,
-      deliveryAddress: 'Rua Entrega',
-      deliveryNumber: '0',
-      salesDate: '2021-07-25 14:49:10',
+      total_price: 3,
+      delivery_address: 'Rua Entrega',
+      delivery_number: '0',
+      sale_date: '2021-07-25 14:49:10',
       status: 'Entregue',
     }], {});
   },

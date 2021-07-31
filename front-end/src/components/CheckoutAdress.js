@@ -20,7 +20,7 @@ class CheckoutAdress extends React.Component {
 
   async makeCheckout({ target }) {
     const { history } = this.props;
-    const totalPrice = localStorage.getItem('totalPrice').replace('.', ',');
+    const totalPrice = localStorage.getItem('totalPrice');
     const deliveryAddress = target.parentNode.firstChild
       .childNodes[1].childNodes[1].value;
     const deliveryNumber = target.parentNode.firstChild.childNodes[2].childNodes[1].value;

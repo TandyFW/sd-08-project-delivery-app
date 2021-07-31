@@ -8,6 +8,7 @@ const createOrder = rescue(async (req, res, _next) => {
   const status = 'Pendente';
   const { data, stateCart } = req.body;
   const { sellerId, totalPrice, deliveryAddress, deliveryNumber } = data;
+  console.log(sellerId, totalPrice, deliveryAddress, deliveryNumber);
   const result = await orderServices.createOrder({
     userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, salesDate, stateCart, status });
 
