@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Loader from './Loader';
-// import { getOrdersForUserById } from '../services';
 import { getAllOrdesByUserApi } from '../redux/actions';
 
 import '../styles/customerOrderDetails.css';
 
+// import { getOrdersForUserById } from '../services';
 const prefix1 = 'customer_order_details__element-order';
 const prefix2 = 'customer_order_details__';
 // const newDate = new Date();
