@@ -49,8 +49,9 @@ const getOrderById = async (id) => {
 const getAllOrdersByUserId = async (id) => {
   const foundSales = await sale.findAll({
     where: { [userSnake]: id },
-    attributes: { exclude: ['seller_id', 'user_id'] }, // exclui o order
-    include: [{
+    attributes: { exclude: ['user_id'] }, // exclui o order
+    include: [
+      {
       attributes: { exclude: [''] }, /* exclui o product */
       model: product,
       as: 'productId',
@@ -58,7 +59,8 @@ const getAllOrdersByUserId = async (id) => {
       through: { 
         attributes: { exclude: ['sale_id', 'product_id'] }, // exclui o salesProducts
       },
-    }],
+    },
+  ],
   });
 
   return foundSales;
@@ -79,6 +81,42 @@ const getAllOrdersBySellerId = async (id) => {
       },
     }],
   });
+  return foundSales;
+};
+
+  const getOrdersByUserById = async (id, ordersId) => {
+    const foundSales = await sale.findAll({
+      where: { [userSnake]: id, id: parseInt(ordersId, 10) },
+      attributes: { exclude: ['user_id'] }, // exclui o order
+      include: [{
+        attributes: { exclude: [''] }, /* exclui o product */
+        model: product,
+        as: 'productId',
+        required: false,
+        through: { 
+          attributes: { exclude: ['sale_id', 'product_id'] }, // exclui o salesProducts
+        },
+      }],
+    });
+  
+    return foundSales;
+  };
+  
+  const getOrdersBySellerById = async (id, ordersId) => {
+    const sellerId = 'seller_id'; // Miau para quem fez essa regra =)
+    const foundSales = await sale.findAll({
+      where: { [sellerId]: id, id: parseInt(ordersId, 10) },
+      attributes: { exclude: ['seller_id', 'user_id'] }, // exclui o order
+      include: [{
+        attributes: { exclude: [''] }, /* exclui o product */
+        model: product,
+        as: 'productId',
+        required: false,
+        through: { 
+          attributes: { exclude: ['sale_id', 'product_id'] }, // exclui o salesProducts
+        },
+      }],
+    });
 
   return foundSales;
 };
@@ -93,9 +131,11 @@ module.exports = {
   getOrderById,
   getAllOrdersByUserId,
   getAllOrdersBySellerId,
+  getOrdersByUserById,
+  getOrdersBySellerById,
   // getAllAll,
 };
 
 // const { error } = registerSchema.create.validate(dataForCreate);
 // if (error) return clientError.badRequest(error.details[0].message);
-// // include: [{model: sale, as: 'saleId' }, { model: product, as: 'productId' }],
+// include: [{model: sale, as: 'saleId' }, { model: product, as: 'productId' }]

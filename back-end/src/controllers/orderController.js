@@ -30,6 +30,25 @@ const getAllOrdersBySellerId = rescue(async (req, res, next) => {
   res.status(success.OK).json({ orders: result });
 });
 
+const getOrdersByUserById = rescue(async (req, res, next) => {
+  const { orderId } = req.params;
+  const { id } = req.dataUser;
+  console.log(id);
+  console.log(orderId);
+  const result = await orderServices.getOrdersByUserById(id, orderId);
+  if (result.error) return next(result);
+  res.status(success.OK).json({ orders: result });
+});
+
+const getOrdersBySellerById = rescue(async (req, res, next) => {
+  const { orderId } = req.params;
+  const { id } = req.dataUser;
+  console.log(orderId);
+  const result = await orderServices.getOrdersBySellerById(id, orderId);
+  if (result.error) return next(result);
+  res.status(success.OK).json({ orders: result });
+});
+
 const getAllOrders = rescue(async (_req, res, next) => {
   const result = await orderServices.getAllOrders();
   if (result.error) return next(result);
@@ -64,4 +83,6 @@ module.exports = {
   getAllOrders,
   getAllOrdersByUserId,
   getAllOrdersBySellerId,
+  getOrdersByUserById,
+  getOrdersBySellerById,
 };

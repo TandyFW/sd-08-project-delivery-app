@@ -33,6 +33,8 @@ class CheckoutAdress extends React.Component {
     const result = await createSaler(data, stateCart);
     const { id } = result.newOrder;
     console.log(result);
+    localStorage.removeItem('totalPrice');
+    localStorage.removeItem('cart');
     history.push(`/customer/orders/${id}`);
   }
 

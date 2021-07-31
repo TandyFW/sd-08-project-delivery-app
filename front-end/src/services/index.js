@@ -24,6 +24,46 @@ export async function getAllProducts() {
   return products;
 }
 
+export async function getAllOrdersForUser() {
+  const accessToken = JSON.parse(localStorage.getItem('user'));
+  const products = await axios.get(`${URL_BASE}/order/user`,
+    { headers: {
+      Authorization: `${accessToken.token}`,
+    } })
+    .then((response) => response.data);
+  return products;
+}
+
+export async function getOrdersForUserById(id) {
+  const accessToken = JSON.parse(localStorage.getItem('user'));
+  const products = await axios.get(`${URL_BASE}/order/user/${id}`,
+    { headers: {
+      Authorization: `${accessToken.token}`,
+    } })
+    .then((response) => response.data);
+  return products;
+}
+
+export async function getAllOrdersForSeller() {
+  const accessToken = JSON.parse(localStorage.getItem('user'));
+  const products = await axios.get(`${URL_BASE}/order/seller`,
+    { headers: {
+      Authorization: `${accessToken.token}`,
+    } })
+    .then((response) => response.data);
+  return products;
+}
+
+export async function getOrdersForSellerById(id) {
+  const accessToken = JSON.parse(localStorage.getItem('user'));
+  const products = await axios.get(`${URL_BASE}/order/seller/${id}`,
+    { headers: {
+      Authorization: `${accessToken.token}`,
+    } })
+    .then((response) => response.data);
+  return products;
+}
+
 export async function getByRole(role) {
   const accessToken = JSON.parse(localStorage.getItem('user'));
   const users = await axios.get(`${URL_BASE}/register/role/${role}`,
@@ -92,9 +132,6 @@ export async function exclude(id) {
 }
 
 export async function createSaler(data, stateCart) {
-  // const { deliveryAddress, deliveryNumber, totalPrice,
-  //   sellerId } = data;
-  console.log(stateCart);
   const accessToken = JSON.parse(localStorage.getItem('user'));
   try {
     const result = await axios.post(`${URL_BASE}/order/user`,

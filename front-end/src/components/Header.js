@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+const productsRoute = '/customer/products';
 class Header extends React.Component {
   constructor() {
     super();
@@ -15,11 +16,11 @@ class Header extends React.Component {
       },
     } = this.props;
     const products = document.querySelector('#products');
-    if (pathname === '/customer/products') {
+    if (pathname === productsRoute) {
       products.style.boxShadow = 'inset 0 -17px 0px -14px #FFFFFF';
       products.style.backgroundColor = '#0f9562';
     }
-    if (pathname === '/customer/products') {
+    if (pathname === productsRoute) {
       document
         .querySelector('#products').style.boxShadow = 'inset 0 -17px 0px -14px #FFFFFF';
     }
@@ -34,6 +35,9 @@ class Header extends React.Component {
             type="button"
             id="products"
             data-testid="customer_products__element-navbar-link-products"
+            onClick={ () => {
+              history.push(productsRoute);
+            } }
           >
             Produtos
           </button>
@@ -41,6 +45,9 @@ class Header extends React.Component {
             type="button"
             id="orders"
             data-testid="customer_products__element-navbar-link-orders"
+            onClick={ () => {
+              history.push('/customer/orders');
+            } }
           >
             Meus Pedidos
           </button>
@@ -49,6 +56,9 @@ class Header extends React.Component {
           <button
             type="button"
             data-testid="customer_products__element-navbar-user-full-name"
+            onClick={ () => {
+              history.push(productsRoute);
+            } }
           >
             {dataLogin
               ? dataLogin.name
@@ -57,7 +67,7 @@ class Header extends React.Component {
           <button
             type="button"
             onClick={ () => {
-              localStorage.setItem('user', '');
+              localStorage.clear();
               history.push('/login');
             } }
             data-testid="customer_products__element-navbar-link-logout"

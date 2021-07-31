@@ -23,6 +23,8 @@ orderRoute.use(verifyAuth);
 orderRoute.post('/user', orderController.createOrder);
 orderRoute.get('/seller', orderController.getAllOrdersBySellerId);
 orderRoute.get('/user', orderController.getAllOrdersByUserId);
+orderRoute.get('/seller/:orderId', orderController.getOrdersBySellerById);
+orderRoute.get('/user/:orderId', orderController.getOrdersByUserById);
 orderRoute.get('/', orderController.getAllOrders); 
 
 module.exports = {
