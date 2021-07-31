@@ -43,42 +43,21 @@ const saveSale = async (sale) => {
 };
 
 const getSales = async () => {
-    const allSales = await Sale.findAll({
-        attributes: [
-            'id',
-            'sale_date',
-            'status',
-            'total_price',
-            'delivery_address',
-            'delivery_number',
-        ],
+    const allSales = await Sale.findAll({ attributes: ['id',
+    'sale_date', 'status', 'total_price', 'delivery_address', 'delivery_number'],
         include: [
-            {
-                model: User,
+            { model: User,
                 as: 'user',
-                require: true,
-                attributes: ['id', 'name', 'email', 'role'],
-            },
-            {
-                model: User,
+                attributes: ['id', 'name', 'email', 'role'] },
+            { model: User, 
                 as: 'seller',
-                require: true,
-                attributes: ['id', 'name', 'email', 'role'],
-            },
-            {
-                model: SaleProduct,
+                attributes: ['id', 'name', 'email', 'role'] },
+            { model: SaleProduct,
                 as: 'sales_products',
-                require: true,
-                include: [
-                    {
-                        model: Product,
-                        as:  'product', 
-                        attributes: ['id', 'name'],
-                    }
-                ],
-                attributes: ['quantity'],
-            },
-        ],
+                include: [{ model: Product, 
+                    as: 'product',
+                    attributes: ['id', 'name'] }],
+                attributes: ['quantity'] }],
     });
     return { sales: allSales };
 };
