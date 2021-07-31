@@ -1,15 +1,12 @@
-import React, { useRef } from 'react';
-import './styles.css';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-function CheckoutTable({ cart, setCart }) {
-  function handleRemove({ target }) {
-    const data = cart.filter((element) => element.id !== Number(target.value));
-    setCart(data);
-  }
-  const total = useRef();
+function OrderDetailsTable({ data }) {
   return (
     <div className="main-wrapper-table">
+      <div className="status">
+        <p>{}</p>
+      </div>
       <table className="checkout-table">
         <thead>
           <tr>
@@ -18,11 +15,10 @@ function CheckoutTable({ cart, setCart }) {
             <th>Quantidade</th>
             <th>Valor Unitário</th>
             <th>Sub-total</th>
-            <th>Remover Item</th>
           </tr>
         </thead>
         <tbody>
-          {cart.map((element, index) => (
+          {data.map(({ product, quantity }, index) => (
             <tr key={ index }>
               <td
                 data-testid={
@@ -34,46 +30,38 @@ function CheckoutTable({ cart, setCart }) {
               <td
                 data-testid={ `customer_checkout__element-order-table-name-${index}` }
               >
-                {element.name}
+                {product.name}
               </td>
               <td
                 data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
               >
-                {element.quantity}
+                {quantity}
               </td>
               <td
                 data-testid={
                   `customer_checkout__element-order-table-unit-price-${index}`
                 }
               >
-                {String(element.price.toFixed(2)).replace('.', ',')}
+                {String(product.price).replace('.', ',')}
               </td>
               <td
                 data-testid={
                   `customer_checkout__element-order-table-sub-total-${index}`
                 }
               >
-                {String((Number(element.price) * Number(element.quantity)).toFixed(2))
+                {String((Number(product.price) * Number(quantity)).toFixed(2))
                   .replace('.', ',')}
               </td>
-              <button
-                value={ element.id }
-                onClick={ handleRemove }
-                type="button"
-                data-testid={ `customer_checkout__element-order-table-remove-${index}` }
-              >
-                Remover
-              </button>
             </tr>
           ))}
         </tbody>
       </table>
       <h4
-        ref={ total }
         data-testid="customer_checkout__element-order-total-price"
       >
         {`Total Price: 
-        ${String((cart.reduce((acc, curr) => acc + (curr.quantity * curr.price), 0)
+        ${String((data.reduce((acc, curr) => acc + (curr.quantity
+          * curr.product.price), 0)
       .toFixed(2)))
       .replace('.', ',')
     }`}
@@ -82,9 +70,8 @@ function CheckoutTable({ cart, setCart }) {
   );
 }
 
-CheckoutTable.propTypes = {
-  cart: PropTypes.arrayOf(Object).isRequired,
-  setCart: PropTypes.func.isRequired,
+OrderDetailsTable.propTypes = {
+  data: PropTypes.arrayOf(Object).isRequired,
 };
 
-export default CheckoutTable;
+export default OrderDetailsTable;
