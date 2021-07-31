@@ -8,8 +8,8 @@ export default function CustomerCheckout() {
 
   useEffect(async () => {
     const user = await axios.get('http://localhost:3001/customer/checkout')
-    .then((data) => data.data)
-    .catch((err) => console.log(err));
+      .then((data) => data.data)
+      .catch((err) => console.log(err));
     setSellers(user);
   }, []);
 
@@ -17,7 +17,7 @@ export default function CustomerCheckout() {
     <div>
       <h1>Finalizar Pedido</h1>
       <TableCheckout />
-      <InputCheckout seller={ sellers }/>
+      <InputCheckout seller={ sellers } />
     </div>
   );
 }

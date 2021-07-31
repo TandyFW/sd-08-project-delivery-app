@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
 function InputCheckout({ seller }) {
@@ -10,24 +11,24 @@ function InputCheckout({ seller }) {
     e.preventDefault();
     const nameUser = JSON.parse(localStorage.getItem('user'));
     await axios.post('http://localhost:3001/customer/checkout', {
-      name: nameUser.name, seller: sellerName, address, number
+      name: nameUser.name, seller: sellerName, address, number,
     })
-    .then((data) => data)
-    .catch((err) => console.log(err));
+      .then((data) => data)
+      .catch((err) => console.log(err));
     console.log(nameUser.name, number, address, sellerName);
-  }
-  
+  };
+
   const handleAddress = ({ target: { value } }) => {
     setAddress(value);
-  }
+  };
 
   const handleNumber = ({ target: { value } }) => {
     setNumber(value);
-  }
+  };
 
   const handleSellerName = ({ target: { value } }) => {
     setSellerName(value);
-  }
+  };
 
   return (
     <div>
@@ -39,17 +40,18 @@ function InputCheckout({ seller }) {
           P. vendedora responsável
         </legend>
         <select
-        onChange={ handleSellerName }
+          onChange={ handleSellerName }
           id="select-seller"
           data-testid="customer_checkout__select-seller"
         >
           <option value="default">-</option>
-          {seller && seller.map((sellers) => {
-          return (<option
-            key={ sellers.name }
-            value={ sellers.name }
-          >{ sellers.name }</option>)
-        })}
+          {seller && seller.map((sellers) => (
+            <option
+              key={ sellers.name }
+              value={ sellers.name }
+            >
+              { sellers.name }
+            </option>))}
         </select>
         <legend
           id="input-address"
@@ -83,8 +85,11 @@ function InputCheckout({ seller }) {
         FINALIZAR PEDIDO
       </button>
     </div>
-  )
-  
+  );
 }
+
+InputCheckout.propTypes = {
+  seller: PropTypes.string.isRequired,
+};
 
 export default InputCheckout;

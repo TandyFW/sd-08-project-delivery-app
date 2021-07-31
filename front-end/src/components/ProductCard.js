@@ -4,7 +4,7 @@ import CartContext from './CartContext';
 import './ProductCard.css';
 
 const ProductCard = ({ product }) => {
-  const { id, name, price, url_image: urlImage } = product;;
+  const { id, name, price, url_image: urlImage } = product;
   const [quantity, setQuantity] = useState(0);
   const { addToCart, removeFromCart } = useContext(CartContext);
 
@@ -13,7 +13,7 @@ const ProductCard = ({ product }) => {
       return removeFromCart(id);
     }
     addToCart({ id, name, unitPrice: price, quantity });
-  }, [quantity]);
+  }, [addToCart, id, name, price, quantity, removeFromCart]);
 
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
@@ -72,7 +72,7 @@ ProductCard.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.string.isRequired,
-    urlImage: PropTypes.string.isRequired,
+    url_image: PropTypes.string.isRequired,
   }).isRequired,
 };
 
