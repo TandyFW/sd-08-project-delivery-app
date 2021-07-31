@@ -5,6 +5,7 @@ import moment from 'moment';
 
 export default function OrderCard({ path, order, address, prefix, idPedido }) {
   const history = useHistory();
+  console.log(idPedido);
   const { sale_date: saleDate, status, total_price: totalPrice, id } = order;
   const formataDate = () => {
     moment.locale();
@@ -19,13 +20,12 @@ export default function OrderCard({ path, order, address, prefix, idPedido }) {
       className="container"
       type="button"
       onClick={ () => history.push(`/${path}/orders/${id}`) }
-      data-testid={ `${prefix}__element-order-id-${id}` }
     >
       <div
         className="order-number"
       >
         <span>Pedido</span>
-        <h1>{ idPedido }</h1>
+        <h1 data-testid={ `${prefix}__element-order-id-${id}` }>{ id }</h1>
       </div>
       <div className="order-container">
         <div
@@ -44,7 +44,7 @@ export default function OrderCard({ path, order, address, prefix, idPedido }) {
           className="order-total"
           data-testid={ `${prefix}__element-card-price-${id}` }
         >
-          { totalPrice }
+          { totalPrice.replace('.', ',') }
         </div>
         <div
           className="order-address"

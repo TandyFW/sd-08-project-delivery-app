@@ -4,6 +4,7 @@ import axios from 'axios';
 import './Login.css';
 import delivery from '../../images/delivery.jpeg';
 import { setUserInfo } from '../../service/setLocalStorage';
+import { getUserInfo } from '../../service/getLocalStorage';
 
 export default function Login() {
   const history = useHistory();
@@ -13,6 +14,10 @@ export default function Login() {
   const [statusRequestLogin, setStatusRequestLogin] = useState('');
   const [showMessageLogin, setShowMessageLogin] = useState(false);
   const [tokenLogin, setTokenLogin] = useState('');
+
+  if (getUserInfo() !== null) {
+    history.push('/customer/products');
+  }
 
   const handleEmail = ({ target }) => {
     setEmail(target.value);
