@@ -1,43 +1,45 @@
 import { Redirect, Route, Switch } from 'react-router-dom';
 import React from 'react';
 import Login from './Pages/Login';
-import CustomerOrders from './Pages/CustomerOrders';
+import Orders from './Pages/CustomerOrders';
 import CustomerCheckout from './Pages/CustomerCheckout';
 import CustomerProducts from './Pages/CustomerProducts';
 import CustomerOrdersDetails from './Pages/CustomerOrdersDetails';
 import Register from './Pages/Register';
+import SellerOrders from './Pages/SellerOrders';
 
 export default () => (
   <Switch>
-    <Route path="/" exact>
+    <Route exact path="/">
       <Redirect to="/login" />
     </Route>
-    <Route path="/login" exact>
+    <Route exact path="/login">
       <Login />
     </Route>
-    <Route path="/register" exact>
+    <Route exact path="/register">
       <Register />
     </Route>
-    <Route path="/customer/products" exact>
+    <Route exact path="/customer/products">
       <CustomerProducts />
     </Route>
-    <Route path="/customer/checkout" exact>
+    <Route exact path="/customer/checkout">
       <CustomerCheckout />
     </Route>
-    <Route path="/customer/orders" exact>
-      <CustomerOrders />
+    <Route exact path="/customer/orders">
+      <Orders userRole="customer" />
     </Route>
-    <Route path="/customer/orders/:id" exact>
-      <CustomerOrdersDetails />
-    </Route>
-    {/*
-    <Route path="/seller/orders" exact>
+    <Route
+      exact
+      path="/customer/orders/:id"
+      component={ CustomerOrdersDetails }
+    />
+    <Route exact path="/seller/orders" >
       <SellerOrders />
-    </Route> */}
-    {/*  <Route path="/seller/orders/:id" exact>
+    </Route>
+    {/*  <exact Route path="/seller/orders/:id" >
       <SellerOrdersDetails />
     </Route> */}
-    {/*   <Route path="/admin/manage" exact>
+    {/*   <exact Route path="/admin/manage" >
       <Admin />
     </Route> */}
   </Switch>

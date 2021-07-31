@@ -1,25 +1,33 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import api from '../../Apis/api1';
 import { OrderCard, Header } from '../../components';
 import OrderCardContainer from './Styled';
 
-const CustomerOrders = () => {
+const Orders = ({ userRole }) => {
   const [orders, setOrders] = useState([]);
+  const { token } = JSON.parse(localStorage.getItem('user'));
 
-  useEffect(() => api.getAllSales().then((response) => setOrders(response)), []);
+  useEffect(
+    () => api.getAllSales(token, userRole).then((response) => {
+      setOrders(response);
+    }),
+    [token, userRole],
+  );
 
   return (
     <main>
       <Header />
       <OrderCardContainer>
         {!!orders.length
-          && orders.map((order) => (<OrderCard
-            key={ order.id }
-            orderData={ order }
-          />))}
+          && orders.map((order) => <OrderCard key={ order.id } orderData={ order } />)}
       </OrderCardContainer>
     </main>
   );
 };
 
-export default CustomerOrders;
+export default Orders;
+
+Orders.propTypes = {
+  userRole: PropTypes.string.isRequired,
+};
