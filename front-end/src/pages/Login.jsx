@@ -6,6 +6,7 @@ import loginValidation from '../services/loginValidation';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import { Container } from '../styles/pages/Login.styled';
+import colors from '../styles/colors';
 
 const Login = () => {
   const prefix = 'common_login__';
@@ -26,8 +27,8 @@ const Login = () => {
     }
   }, [email, password]);
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
+  useEffect(async () => {
+    const user = await JSON.parse(localStorage.getItem('user'));
     switch (user && user.role) {
     case 'customer':
       return history.push('/customer/products');
@@ -67,7 +68,7 @@ const Login = () => {
 
   return (
     <>
-      <Container>
+      <Container color={ colors.whitesmoke }>
         <section className="inputs">
           Login
           <Input
@@ -79,6 +80,7 @@ const Login = () => {
           />
           Senha
           <Input
+            type="password"
             className="data-input"
             datatestid={ `${prefix}input-password` }
             onChange={ ({ target }) => setPassword(target.value) }
@@ -93,6 +95,7 @@ const Login = () => {
           onClick={ () => fetchApi() }
         />
         <Button
+          className="create-account"
           datatestid={ `${prefix}button-register` }
           label="Ainda não tenho conta"
           onClick={ onClick }

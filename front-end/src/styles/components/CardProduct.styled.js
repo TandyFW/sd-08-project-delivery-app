@@ -19,6 +19,9 @@ export const ProductImage = styled.div`
   background-position: center;
 `;
 export const ProductPrice = styled.span`
+  span {
+    margin-right: 5px;
+  }
   float: left;
   margin: 10px;
   font-weight: bold;

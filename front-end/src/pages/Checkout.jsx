@@ -25,8 +25,10 @@ function ClientCheckout() {
 
   const fetchAPI = async () => {
     const { data } = await axios.get('http://localhost:3001/delivery/sellers');
-    const sellerAPI = data
-      .reduce((acc, curr) => [...acc, { name: curr.name, id: curr.id }], ['']);
+    const sellerAPI = data.reduce(
+      (acc, curr) => [...acc, { name: curr.name, id: curr.id }],
+      [''],
+    );
     setSellers(sellerAPI);
   };
 
@@ -59,7 +61,6 @@ function ClientCheckout() {
           products,
         },
       });
-      console.log(data);
       history.push(`/customer/orders/${data.id}`);
     } catch (error) {
       console.log('falha ao chamar api');

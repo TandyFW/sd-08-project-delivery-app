@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 
+export const Center = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+`;
+
 export const ProductList = styled.div`
   display: grid;
   margin: 20px;

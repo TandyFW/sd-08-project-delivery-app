@@ -21,8 +21,8 @@ function App() {
         <Route exact path="/register" component={ Register } />
         <Route exact path="/customer/products" component={ ClientProducts } />
         <Route exact path="/seller/orders" component={ Seller } />
-        <Route exact path="/customer/orders" component={ Orders } />
         <Route exact path="/customer/orders/:id" component={ CustomerDetails } />
+        <Route exact path="/customer/orders" component={ Orders } />
         <Route exact path="/customer/checkout" component={ Checkout } />
         <Route exact path="/seller/orders/:id" component={ SellerDetails } />
         <Route exact path="/admin/manage" component={ AdminManager } />

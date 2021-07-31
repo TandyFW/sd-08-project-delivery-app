@@ -1,6 +1,7 @@
 const { getAll, create, getAllSalesById } = require('../services/saleService');
 const { getUserByEmail } = require('../services/userService');
 const { OK, CREATED } = require('../services/statusCode');
+const { getSale } = require('../services/saleService');
 
 const getAllSales = async (req, res) => {
   const sales = await getAll();
@@ -22,8 +23,15 @@ const findSalesById = async (req, res) => {
   res.status(OK).json(sales);
 };
 
+const getOneSale = async (req, res) => {
+  const { id } = req.params;
+  const sale = await getSale(id);
+  res.status(OK).json(sale);
+};
+
 module.exports = {
   getAllSales,
   createSales,
   findSalesById,
+  getOneSale,
 };
