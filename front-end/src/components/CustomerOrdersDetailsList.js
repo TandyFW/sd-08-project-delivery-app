@@ -55,6 +55,8 @@ class CustomerOrdersDetailsList extends React.Component {
 
   setAllOrdesInState(orderId) {
     const { allOrdes } = this.props;
+    orderId -= 1;
+    console.log(orderId);
     console.log(allOrdes);
     if (allOrdes) {
       const { id, status, productId } = allOrdes[orderId];

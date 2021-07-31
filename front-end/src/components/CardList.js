@@ -13,10 +13,10 @@ class CardList extends React.Component {
   }
 
   async componentDidMount() {
-    const { dispatchProducts, dispatchCart, stateUser } = this.props;
+    const { dispatchProducts, dispatchCart } = this.props;
     const products = await getAllProducts();
     const LScart = JSON.parse(localStorage.getItem('cart'));
-    localStorage.setItem('user', JSON.stringify(stateUser));
+    // localStorage.setItem('user', JSON.stringify(stateUser));
     //
     if (LScart && LScart.length > 0) {
       LScart.forEach((element) => {
@@ -230,7 +230,7 @@ CardList.propTypes = {
   dispatchProducts: PropTypes.func.isRequired,
   dispatchCart: PropTypes.func.isRequired,
   stateProducts: PropTypes.arrayOf(PropTypes.object).isRequired,
-  stateUser: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // stateUser: PropTypes.arrayOf(PropTypes.object).isRequired,
   stateCart: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 

@@ -6,7 +6,9 @@ import { getByRole, createSaler } from '../services';
 class CheckoutAdress extends React.Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      sellers: {},
+    };
   }
 
   componentDidMount() {
@@ -20,7 +22,7 @@ class CheckoutAdress extends React.Component {
 
   async makeCheckout({ target }) {
     const { history } = this.props;
-    const totalPrice = localStorage.getItem('totalPrice');
+    const totalPrice = parseFloat(localStorage.getItem('totalPrice')).toFixed(2);
     const deliveryAddress = target.parentNode.firstChild
       .childNodes[1].childNodes[1].value;
     const deliveryNumber = target.parentNode.firstChild.childNodes[2].childNodes[1].value;
