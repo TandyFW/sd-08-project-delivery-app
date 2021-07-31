@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Context from '../../context/Context';
+// import NavBar from '../Components/NavBar';
 import OrderDetailsCard from '../Components/OrderDetailCard';
 
 function SellerOrders() {
@@ -25,7 +26,7 @@ function SellerOrders() {
           Authorization: userData.token,
         },
       };
-      await fetch('http://localhost:3001/order', myInit)
+      await fetch('http://localhost:3001/order/', myInit)
         .then((response) => console.log(response) || response.json())
         .then((data) => setOrders(data.sale))
         .catch((err) => console.log(err));
@@ -35,7 +36,7 @@ function SellerOrders() {
 
   return (
     <div>
-      <h1>Seller</h1>
+      {/* <NavBar props="seller" /> */}
       { orders.map((order) => <OrderDetailsCard key={ order.id } order={ order } />)}
     </div>
   );

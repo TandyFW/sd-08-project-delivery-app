@@ -3,15 +3,6 @@ import { useHistory } from 'react-router-dom';
 
 import './styles.css';
 
-// const data = {
-//   id: 1,
-//   order: '0001',
-//   status: 'PENDENTE',
-//   date: '08/08/21',
-//   value: '23,80',
-//   address: 'Rua Sessenta e Dois, Bairro Maranguepe II, 533',
-// };
-
 function OrderDetailsCard(order) {
   console.log(order);
   const { order: {
@@ -25,7 +16,6 @@ function OrderDetailsCard(order) {
   const history = useHistory();
 
   function handleClick() {
-    console.log('clicou');
     history.push(`/seller/orders/${id}`);
   }
 
@@ -36,24 +26,35 @@ function OrderDetailsCard(order) {
       onKeyPress={ handleClick }
       onClick={ () => handleClick() }
       className="Card"
-      data-testid={ `seller_orders__element-order-date-${id}` }
     >
-      <div className="order-number">
+      <div
+        className="order-number"
+        data-testid={ `seller_orders__element-order-id-${id}` }
+      >
         <span>Pedido</span>
         <span>{deliveryNumber}</span>
       </div>
       <div className="">
         <div className="order-status-date">
-          <div className="order-status">{status}</div>
+          <div
+            className="order-status"
+            data-testid={ `seller_orders__element-delivery-status-${id}` }
+          >
+            {status}
+          </div>
           <div className="status-date-value">
-            <span>{saleDate}</span>
-            <span>
+            <span data-testid={ `seller_orders__element-order-date-${id}` }>
+              {saleDate}
+            </span>
+            <span data-testid={ `seller_orders__element-card-price-${id}` }>
               R$
               {totalPrice}
             </span>
           </div>
         </div>
-        <div>{deliveryAddress}</div>
+        <div data-testid={ `seller_orders__element-card-address-${id}` }>
+          {deliveryAddress}
+        </div>
       </div>
     </div>
   );

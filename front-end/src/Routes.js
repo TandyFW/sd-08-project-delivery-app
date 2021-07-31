@@ -11,6 +11,7 @@ import Register from './views/Register';
 import CustomerRouts from './views/Customer/Routes';
 import Context from './context/Context';
 import SellerOrders from './views/Seller';
+import SellerDetailPage from './views/SellerDetail';
 
 function Routes() {
   const { userData } = useContext(Context);
@@ -24,9 +25,12 @@ function Routes() {
         { userData && userData.user && userData.user.role === 'customer' && (
           <Route path="/customer" component={ CustomerRouts } />
         )}
-        { userData && userData.user && userData.user.role === 'seller' && (
-          <Route path="/seller/orders" component={ SellerOrders } />
-        )}
+        {/* { userData && userData.user && userData.user.role === 'seller' && (
+          <> */}
+        <Route exact path="/seller/orders/:id" component={ SellerDetailPage } />
+        <Route path="/seller/orders" component={ SellerOrders } />
+        {/* </>
+        )} */}
       </Switch>
     </Router>
   );
