@@ -54,7 +54,6 @@ export default function AddressForm() {
       console.log(result[0].name);
       setSellers(result);
       sellerName.set(result[0].name);
-      setSellerId(result[0].id);
     };
     if (sellers.length === 0) getSellers();
   }, [sellers]);
@@ -78,6 +77,12 @@ export default function AddressForm() {
     callback(event.target.value);
   };
 
+  const getSellerId = () => {
+    const sellerSelect = document.querySelector('#seller-name-select');
+    const selectedSeller = sellers.filter((seller) => seller.name === sellerSelect.value);
+    return selectedSeller[0].id;
+  };
+
   const getTotalPrice = () => {
     const totalPriceString = document.querySelector('#sale-total-price').innerText;
     const totalPrice = parseFloat(parseFloat(totalPriceString.split(' ')[1]
@@ -94,7 +99,7 @@ export default function AddressForm() {
         Authorization: token,
       },
       body: {
-        sellerId: 2,
+        sellerId: getSellerId(),
         totalPrice: getTotalPrice(),
         deliveryAddress: address.value,
         deliveryNumber: number.value,
@@ -127,6 +132,7 @@ export default function AddressForm() {
         <Select
           inputProps={ { 'data-testid': 'customer_checkout__select-seller' } }
           value={ sellerName.value }
+          id="seller-name-select"
           onChange={ (event) => handleChange(sellerName.set, event) }
           native
         >
