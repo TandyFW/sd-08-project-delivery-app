@@ -93,7 +93,6 @@ const Register = () => {
               onChange={ ({ target }) => setPass(target.value) }
             />
             <SubmitButton
-              onClick={ () => console.log('clicou') }
               data-testid="common_register__button-register"
               disabled={ valid }
               type="submit"

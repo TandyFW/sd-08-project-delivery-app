@@ -23,14 +23,15 @@ export const Paragraph = styled.p`
 `;
 export const TotalOrder = styled.h1`
   background-color: #216844;
-  padding: 10px;
+  border-radius: 10px;
+  padding: 20px 10px;
   color: white;
-  width: 15%;
+  width: 250px;
   border: none;
   outline: none;
   font-weight: bold;
   margin-bottom: 15px;
-  font-size: 25px;
+  font-size: 28px;
   text-align: center;
-  margin-left: 1100px;
+  margin: 20px auto;
 `;

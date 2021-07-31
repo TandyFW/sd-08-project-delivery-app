@@ -56,6 +56,10 @@ export const OrderDetailsInfo = styled.div`
   height: 65px;
   justify-content: center;
   width: 265px;
+
+  &::before {
+    content: 'R$ '
+  }
 `;
 
 export const OrderAddress = styled.p`

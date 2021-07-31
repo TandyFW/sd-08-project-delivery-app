@@ -4,9 +4,14 @@ const BASEURL = 'http://localhost:3001/';
 const LOGIN = 'users/login';
 const REGISTER = 'users/create';
 const SALES = 'sales';
-// const USERS = 'users';
+const USERS = 'users';
 const SELLERS = 'users/sellers';
 const PRODUCTS = 'products';
+
+const HEADERS_TOKEN = (token) => ({
+  'Content-Type': 'application/json',
+  Authorization: token,
+});
 
 export default {
   loginFetch: async (email, password) => {
@@ -21,31 +26,40 @@ export default {
     return res;
   },
 
-  getAllSales: async () => axios
-    .get(`${BASEURL}${SALES}`)
-    .then((result) => result.data.response),
-
+  getAllSales: async (token, role) => {
+    const headers = HEADERS_TOKEN(token);
+    return axios
+      .get(`${BASEURL}${SALES}/?role=${role}`, { headers })
+      .then((result) => result.data.response);
+  },
   // getAllUsers: async () => axios
   //   .get(`${BASEURL}${USERS}`)
   //   .then((result) => result.data.response),
 
-  getAllSellers: async () => axios
-    .get(`${BASEURL}${SELLERS}`)
-    .then((result) => result.data.response),
+  getAllSellers: async () => axios.get(
+    `${BASEURL}${SELLERS}`,
+  ).then((result) => result.data.response),
 
   productsFetch: async () => {
-    const res = await axios
-      .get(`${BASEURL}${PRODUCTS}`);
+    const res = await axios.get(`${BASEURL}${PRODUCTS}`);
     return res;
   },
 
   registerSale: async (sale, token) => {
-    const headers = {
-      'Content-Type': 'application/json',
-      Authorization: token,
-    };
-    const res = await axios
-      .post(`${BASEURL}${SALES}`, sale, { headers });
+    const headers = HEADERS_TOKEN(token);
+    const res = await axios.post(`${BASEURL}${SALES}`, sale, { headers });
+    return res;
+  },
+
+  getSaleById: async (id, token) => {
+    const headers = HEADERS_TOKEN(token);
+    const res = await axios.get(`${BASEURL}${SALES}/${id}`, { headers });
+    return res;
+  },
+
+  getUserById: async (id, token) => {
+    const headers = HEADERS_TOKEN(token);
+    const res = await axios.get(`${BASEURL}${USERS}/${id}`, { headers });
     return res;
   },
 };
