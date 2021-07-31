@@ -5,10 +5,10 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Seller from './pages/Seller';
 import Orders from './pages/Orders';
-import saleDetails from './pages/SaleDetails';
 import Checkout from './pages/Checkout';
 import SellerDetails from './pages/SellerDetails';
 import AdminManager from './pages/AdminManager';
+import CustomerDetails from './pages/CustomerDetails';
 
 function App() {
   return (
@@ -21,8 +21,8 @@ function App() {
         <Route exact path="/register" component={ Register } />
         <Route exact path="/customer/products" component={ ClientProducts } />
         <Route exact path="/seller/orders" component={ Seller } />
+        <Route exact path="/customer/orders/:id" component={ CustomerDetails } />
         <Route exact path="/customer/orders" component={ Orders } />
-        <Route exact path="/customer/orders/:id" component={ saleDetails } />
         <Route exact path="/customer/checkout" component={ Checkout } />
         <Route exact path="/seller/orders/:id" component={ SellerDetails } />
         <Route exact path="/admin/manage" component={ AdminManager } />

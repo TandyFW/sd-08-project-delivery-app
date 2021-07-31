@@ -6,6 +6,7 @@ import CardProduct from '../components/CardProduct';
 import {
   ProductList,
   CartButton,
+  Center,
 } from '../styles/pages/CustomerProducts.styled';
 import api from '../services/api';
 import colors from '../styles/colors';
@@ -34,21 +35,23 @@ function ClientProducts() {
     getProducts().then((response) => setProducts(response));
     console.log(products);
     setLoading(false);
-  }, []);
+  }, [products]);
   return (
     <div>
       <NavBar user={ user.name } />
-      <CartButton
-        disabled={ total === 0 }
-        onClick={ () => gotoCheckout() }
-        data-testid={ `${prefix}button-cart` }
-        color={ colors.teal }
-      >
-        <span>Ver Carrinho</span>
-        <span data-testid={ `${prefix}checkout-bottom-value` }>
-          {total.toFixed(2).replace('.', ',')}
-        </span>
-      </CartButton>
+      <Center>
+        <CartButton
+          disabled={ total === 0 }
+          onClick={ () => gotoCheckout() }
+          data-testid={ `${prefix}button-cart` }
+          color={ colors.teal }
+        >
+          <span>Ver Carrinho</span>
+          <span data-testid={ `${prefix}checkout-bottom-value` }>
+            {total.toFixed(2).replace('.', ',')}
+          </span>
+        </CartButton>
+      </Center>
       <ProductList>
         {!loading
           && products.map((product, index) => (

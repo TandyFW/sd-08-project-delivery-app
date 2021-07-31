@@ -5,6 +5,8 @@ import axios from 'axios';
 import loginValidation from '../services/loginValidation';
 import Button from '../components/Button';
 import Input from '../components/Input';
+import { Container } from '../styles/pages/Login.styled';
+import colors from '../styles/colors';
 
 const Login = () => {
   const prefix = 'common_login__';
@@ -66,21 +68,26 @@ const Login = () => {
 
   return (
     <>
-      <fieldset>
-        <Input
-          datatestid={ `${prefix}input-email` }
-          label="Login"
-          onChange={ ({ target }) => setEmail(target.value) }
-          value={ email }
-          placeholder="Digite seu email"
-        />
-        <Input
-          datatestid={ `${prefix}input-password` }
-          label="Senha"
-          onChange={ ({ target }) => setPassword(target.value) }
-          value={ password }
-          placeholder="Digite sua senha"
-        />
+      <Container color={ colors.whitesmoke }>
+        <section className="inputs">
+          Login
+          <Input
+            className="data-input"
+            datatestid={ `${prefix}input-email` }
+            onChange={ ({ target }) => setEmail(target.value) }
+            value={ email }
+            placeholder="Digite seu email"
+          />
+          Senha
+          <Input
+            type="password"
+            className="data-input"
+            datatestid={ `${prefix}input-password` }
+            onChange={ ({ target }) => setPassword(target.value) }
+            value={ password }
+            placeholder="Digite sua senha"
+          />
+        </section>
         <Button
           datatestid={ `${prefix}button-login` }
           label="LOGIN"
@@ -88,11 +95,12 @@ const Login = () => {
           onClick={ () => fetchApi() }
         />
         <Button
+          className="create-account"
           datatestid={ `${prefix}button-register` }
           label="Ainda não tenho conta"
           onClick={ onClick }
         />
-      </fieldset>
+      </Container>
       <span
         data-testid={ `${prefix}element-invalid-email` }
         style={ { visibility: visible } }

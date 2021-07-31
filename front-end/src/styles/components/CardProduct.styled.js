@@ -10,11 +10,16 @@ export const Card = styled.div`
 `;
 export const ProductImage = styled.img`
   margin: auto;
+  width: 100%;
   max-width: 50%;
   max-height: 50%;
+  height: 250px;
   background-color: ${(props) => props.color};
 `;
 export const ProductPrice = styled.span`
+  span {
+    margin-right: 5px;
+  }
   float: left;
   margin: 10px;
   font-weight: bold;

@@ -1,4 +1,4 @@
-const { sales, salesProducts } = require('../../database/models');
+const { sales, salesProducts, user, products: Products } = require('../../database/models');
 const { getUserByEmail } = require('./userService');
 
 const getAll = async () => {
@@ -20,16 +20,29 @@ const create = async (sale) => {
   try {
     const { products, sellerId, ...data } = sale;
     const newSale = await sales.create({ sellerId, ...data });
-    products.forEach(({ qtd, id }) => salesProducts
-      .create({ saleId: newSale.id, productId: id, quantity: qtd }));
+    products.forEach(({ qtd, id }) =>
+      salesProducts.create({ saleId: newSale.id, productId: id, quantity: qtd }));
     return newSale;
   } catch (error) {
     return error.message;
   }
+};
+const getSale = async (id) => {
+  const sale = await sales.findOne({
+    where: { id },
+    include: [
+      { model: user, as: 'user', attributes: ['name'] },
+      { model: user, as: 'seller', attributes: ['name'] },
+      { model: Products, as: 'products', through: { attributes: ['quantity'] } },
+    ],
+  });
+  if (!sale) return { message: 'Usuário não encontrado' };
+  return sale;
 };
 
 module.exports = {
   getAll,
   create,
   getAllSalesById,
+  getSale,
 };

@@ -11,11 +11,13 @@ import {
   ListHeader,
 } from '../styles/pages/SellerDetails.styled';
 
+const user = JSON.parse(localStorage.getItem('user'));
+
 const prefix = 'seller_order_details__';
 
 const SellerDetails = () => (
   <Container>
-    <NavBar show user="Nome do Pinguço" />
+    <NavBar show user={ user.name } />
     <h4>Detalhe do Pedido</h4>
     <DetailsContainer>
       <DetailsBar color={ colors.whitesmoke }>
@@ -62,6 +64,7 @@ const SellerDetails = () => (
         <span>Sub-total</span>
       </ListHeader>
       <ListItem
+        prefix={ prefix }
         index="1"
         description="Skol Lata 250ml"
         quantity="4"

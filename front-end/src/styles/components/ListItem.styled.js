@@ -12,6 +12,9 @@ export const Container = styled.div`
   grid-template-columns: 1fr 8fr 2fr 2fr 2fr;
 `;
 export const Field = styled.div`
+  span {
+    margin-left: 5px;
+  }
   text-align: ${(props) => (props.center ? 'center' : 'left')};
   font-weight: bold;
   color: ${(props) => props.txtColor};
