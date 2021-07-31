@@ -6,6 +6,7 @@ import api from './Apis/api1';
 export const Context = createContext();
 
 const Provider = ({ children }) => {
+  const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const client = io('http://localhost:3002');
@@ -25,7 +26,18 @@ const Provider = ({ children }) => {
     loadProducts();
   }, []);
 
+  useEffect(() => {
+    const loadUsers = async () => {
+      const responseUsers = await api.getAllUsers();
+      setUsers(responseUsers);
+    };
+    loadUsers();
+  }, []);
+  // console.log('Users', users);
+
   const obj = {
+    users,
+    setUsers,
     products,
     setProducts,
     totalPrice,

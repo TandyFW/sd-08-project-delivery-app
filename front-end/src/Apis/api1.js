@@ -32,9 +32,10 @@ export default {
       .get(`${BASEURL}${SALES}/?role=${role}`, { headers })
       .then((result) => result.data.response);
   },
-  // getAllUsers: async () => axios
-  //   .get(`${BASEURL}${USERS}`)
-  //   .then((result) => result.data.response),
+
+  getAllUsers: async () => axios
+    .get(`${BASEURL}${USERS}`)
+    .then((result) => result.data.response),
 
   getAllSellers: async () => axios.get(
     `${BASEURL}${SELLERS}`,

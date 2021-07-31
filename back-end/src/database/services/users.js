@@ -34,7 +34,7 @@ const register = async (name, email, password) => {
 };
 
 const getAllUsers = async () => {
-  const response = await user.findAll();
+  const response = await user.findAll({ where: { role: ['seller', 'customer'] } });
   return response;
 };
 
