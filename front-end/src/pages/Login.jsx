@@ -27,18 +27,19 @@ const Login = () => {
     }
   }, [email, password]);
 
-  useEffect(async () => {
-    const user = await JSON.parse(localStorage.getItem('user'));
-    switch (user && user.role) {
-    case 'customer':
-      return history.push('/customer/products');
-    case 'seller':
-      return history.push('/seller/orders');
-    case 'administrator':
-      return history.push('/admin/manage');
-    default:
-      break;
-    }
+  useEffect(() => {
+    JSON.parse(localStorage.getItem('user')).then((user) => {
+      switch (user && user.role) {
+      case 'customer':
+        return history.push('/customer/products');
+      case 'seller':
+        return history.push('/seller/orders');
+      case 'administrator':
+        return history.push('/admin/manage');
+      default:
+        break;
+      }
+    });
   }, [history]);
 
   const onClick = () => history.push('/register');
