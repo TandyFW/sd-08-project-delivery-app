@@ -5,10 +5,16 @@ import DeliveryAppContext from './DeliveryAppContext';
 
 function DeliveryAppProvider({ children }) {
   const [itemsList, setItemsList] = useState([]);
+  const [route, setRoute] = useState([]);
 
   return (
     <DeliveryAppContext.Provider
-      value={ { itemsList, setItemsList } }
+      value={ {
+        itemsList,
+        setItemsList,
+        route,
+        setRoute,
+      } }
     >
       {children}
     </DeliveryAppContext.Provider>
