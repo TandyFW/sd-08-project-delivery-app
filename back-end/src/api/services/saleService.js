@@ -9,7 +9,7 @@ const newSale = async (sale) => {
     totalPrice,
     deliveryAddress,
     deliveryNumber,
-    salesDate: moment().toISOString(),
+    saleDate: moment().toISOString(),
     status: 'Pendente',
   });
   return { result: newSaleResult };
