@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-// import { request, lStorage } from '../utils';
 import CartTable from './CartTable';
 import AddressForm from './AddressForm';
 

@@ -34,18 +34,19 @@ export default function SpanningTable({ updateCheckout }) {
   const [itensCart, setItensCart] = useState([]);
 
   useEffect(() => {
-    const cart = lStorage().cart.get();
-    const cartKeys = Object.keys(cart);
-    const rows = cartKeys.map((cartKey) => {
-      const { quantity, price, id } = cart[cartKey];
-      return createRow(cartKey, quantity, price, id);
-    });
-    setItensCart(rows);
-    updateCheckout(rows);
-  }, []);
+    if (!itensCart.length) {
+      const cart = lStorage().cart.get();
+      const cartKeys = Object.keys(cart);
+      const rows = cartKeys.map((cartKey) => {
+        const { quantity, price, id } = cart[cartKey];
+        return createRow(cartKey, quantity, price, id);
+      });
+      setItensCart(rows);
+      updateCheckout(rows);
+    }
+  }, [itensCart.length, updateCheckout]);
 
   const handleClick = (index) => {
-    console.log(index);
     const newCart = itensCart.filter((itenCart, itenIndex) => itenIndex !== index);
     setItensCart(newCart);
     updateCheckout(newCart);

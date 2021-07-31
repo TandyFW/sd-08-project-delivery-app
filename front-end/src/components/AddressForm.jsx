@@ -52,18 +52,17 @@ export default function AddressForm({ itensCheckout }) {
         method: 'GET',
       };
       const result = await request('users', options);
-      console.log(result[0].name);
       setSellers(result);
       sellerName.set(result[0].name);
     };
     if (sellers.length === 0) getSellers();
-  }, [sellers]);
+  }, [sellers, sellerName]);
 
   useEffect(() => {
-    if (sellerName.value && address.value && number.value) {
+    if (address.value && number.value) {
       isDisabled.set(false);
     } else isDisabled.set(true);
-  }, [isDisabled, number.value, sellerName.value, address.value]);
+  }, [isDisabled, number.value, address.value]);
 
   useEffect(() => {
     if (message.value.text) {
@@ -93,7 +92,6 @@ export default function AddressForm({ itensCheckout }) {
 
   const handleClick = async (event) => {
     event.preventDefault();
-    console.log(itensCheckout);
     const { token } = lStorage().user.get();
     const options = {
       headers: {
@@ -109,7 +107,6 @@ export default function AddressForm({ itensCheckout }) {
       method: 'POST',
     };
     const userObj = await request('sales', options);
-    console.log(userObj);
     if (userObj.message) {
       message.set({ text: userObj.message, severity: 'warning' });
     } else {
@@ -160,7 +157,7 @@ export default function AddressForm({ itensCheckout }) {
           data-testid="customer_checkout__button-submit-order"
           variant="contained"
           color="primary"
-          disabled={ false }
+          disabled={ isDisabled.value }
           onClick={ handleClick }
         >
           FINALIZAR PEDIDO
