@@ -49,7 +49,7 @@ export default function OrderCard({ orderData, isSeller }) {
             <OrderDetailsInfo
               data-testid={ `customer_orders__element-card-price-${orderData.id}` }
             >
-              {`R$${orderData.total_price.toFixed(2)}`}
+              {`R$${orderData.total_price}`}
             </OrderDetailsInfo>
           </OrderDetails>
         </OrderData>
