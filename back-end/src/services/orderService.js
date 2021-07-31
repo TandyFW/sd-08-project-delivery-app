@@ -1,9 +1,17 @@
 const registerSchema = require('../schemas/registerSchema');
-const { sale/* , salesProducts, */, product } = require('../database/models');
+const { sale, salesProducts, product } = require('../database/models');
 const clientError = require('../utils/clientError');
 
 const createOrder = async (dataForCreate) => {
-  const result = await sale.create(dataForCreate);
+  console.log('entrou');
+  const {userId, sellerId, totalPrice, deliveryAddress, deliveryNumber ,salesDate ,status, stateCart } = dataForCreate;
+  const dataForModel = {
+    user_id: userId, seller_id: parseInt(sellerId, 10), totalPrice: parseFloat(totalPrice), deliveryAddress, deliveryNumber ,salesDate ,status
+  }
+  const result = await sale.create(dataForModel);
+   stateCart.forEach(  ( async product =>{
+     const subResult = await salesProducts.create({ sale_id: result.id, product_id: product.id, quantity: product.quantity   });
+    }) )
   return result;
 };
 

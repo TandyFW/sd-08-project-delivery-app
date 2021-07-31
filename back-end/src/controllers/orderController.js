@@ -3,11 +3,13 @@ const orderServices = require('../services/orderService');
 const success = require('../utils/success');
 
 const createOrder = rescue(async (req, res, _next) => {
-  const {
-    userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, salesDate, status } = req.body;
-
+  const userId = req.dataUser.id;
+  const salesDate = Date.now();
+  const status = 'Pendente';
+  const { data, stateCart } = req.body;
+  const {sellerId, totalPrice, deliveryAddress, deliveryNumber} = data;
   const result = await orderServices.createOrder({
-    userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, salesDate, status });
+    userId,  sellerId, totalPrice, deliveryAddress, deliveryNumber, salesDate, stateCart, status });
 
   res.status(success.Created).json({ newOrder: result });
 });

@@ -90,3 +90,29 @@ export async function exclude(id) {
     }
   }
 }
+
+export async function createSaler(data, stateCart) {
+  // const { deliveryAddress, deliveryNumber, totalPrice,
+  //   sellerId } = data;
+  console.log(stateCart);
+  const accessToken = JSON.parse(localStorage.getItem('user'));
+  try {
+    const result = await axios.post(`${URL_BASE}/order/user`,
+      { data,
+        stateCart,
+      }, { headers: {
+        Authorization: `${accessToken.token}`,
+      } })
+      .then((response) => response.data);
+    return result;
+  } catch (error) {
+    console.error(error);
+    if (error.response) {
+      return {
+        status: error.response.status,
+        statusText: error.response.statusText,
+        message: error.response.data.message,
+      };
+    }
+  }
+}
