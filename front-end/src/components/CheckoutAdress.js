@@ -30,8 +30,10 @@ class CheckoutAdress extends React.Component {
       deliveryNumber,
       totalPrice,
       sellerId };
-    await createSaler(data, stateCart);
-    history.push('/customer/orders');
+    const result = await createSaler(data, stateCart);
+    const { id } = result.newOrder;
+    console.log(result);
+    history.push(`/customer/orders/${id}`);
   }
 
   render() {
