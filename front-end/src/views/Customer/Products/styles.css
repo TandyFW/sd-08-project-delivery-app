@@ -1,8 +1,11 @@
-.card_content {
+.main-wrapper-products {
   align-items: center;
   display: flex;
-  flex-flow: row wrap;
+  flex-direction: column;
   justify-content: center;
-  margin-top: 50px;
-  width: 100%;
+}
+
+.wrapper-card-product {
+  display: flex;
+  flex-flow: wrap;
 }

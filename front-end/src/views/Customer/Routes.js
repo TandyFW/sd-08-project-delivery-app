@@ -5,8 +5,8 @@ import {
   Route,
 } from 'react-router-dom';
 import CustomerProducts from './Products';
-import CustomerCheckout from '../CustomerCheckout/index';
-import OrderDetails from '../OrderDetails';
+import CustomerCheckout from './Checkout/index';
+import OrderDetails from './OrderDetails';
 
 function Routes() {
   return (

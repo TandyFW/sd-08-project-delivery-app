@@ -39,12 +39,14 @@ const Products = () => {
   }, []);
 
   return (
-    <div className="card_content">
+    <div className="main-wrapper-products">
       <NavBar userType="customer" userName={ userData.user.name } />
-      {products && products.length > 0 && (
-        products.map((product) => (
-          <CardProduct key={ product.id } product={ product } />
-        )))}
+      <div className="wrapper-card-product">
+        {products && products.length > 0 && (
+          products.map((product) => (
+            <CardProduct key={ product.id } product={ product } />
+          )))}
+      </div>
       <Cart />
     </div>
   );

@@ -33,7 +33,7 @@ function NavBar(props) {
             </li>
             <li>
               <a
-                href="/customer/requests"
+                href="/customer/orders"
                 data-testid={ `${prefix}element-navbar-link-orders` }
               >
                 Meus pedidos
