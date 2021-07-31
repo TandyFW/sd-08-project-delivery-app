@@ -7,6 +7,17 @@ const suffix = {
   development: "-dev",
   test: "-test",
 };
+
+const environment = process.env.NODE_ENV || "test";
+
+const suffix = {
+  prod: "",
+  production: "",
+  dev: "-dev",
+  development: "-dev",
+  test: "-test",
+};
+
 const options = {
   host: process.env.MYSQL_HOST || 'mysql',
   port: process.env.MYSQL_PORT || '3306',
