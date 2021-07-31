@@ -2,16 +2,28 @@ const registerSchema = require('../schemas/registerSchema');
 const { sale, salesProducts, product } = require('../database/models');
 const clientError = require('../utils/clientError');
 
+const userIdNOTCAMEL = 'user_id'; // Miau para quem fez essa regra =)
+const sellerIDNOTCAMEL = 'seller_id'; // Miau para quem fez essa regra =)
+const productIdNOTCAMEL = 'product_id'; // Miau para quem fez essa regra =)
+const saleIdIDNOTCAMEL = 'sale_id'; // Miau para quem fez essa regra =)
 const createOrder = async (dataForCreate) => {
-  console.log('entrou');
-  const {userId, sellerId, totalPrice, deliveryAddress, deliveryNumber ,salesDate ,status, stateCart } = dataForCreate;
+  const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, 
+    salesDate, status, stateCart } = dataForCreate;
   const dataForModel = {
-    user_id: userId, seller_id: parseInt(sellerId, 10), totalPrice: parseFloat(totalPrice), deliveryAddress, deliveryNumber ,salesDate ,status
-  }
+    [userIdNOTCAMEL]: userId,
+[sellerIDNOTCAMEL]: parseInt(sellerId, 10),
+totalPrice: parseFloat(totalPrice), 
+    deliveryAddress,
+deliveryNumber,
+salesDate,
+status,
+  };
   const result = await sale.create(dataForModel);
-   stateCart.forEach(  ( async product =>{
-     const subResult = await salesProducts.create({ sale_id: result.id, product_id: product.id, quantity: product.quantity   });
-    }) )
+   stateCart.forEach((async (productItem) => {
+      await salesProducts.create({ [saleIdIDNOTCAMEL]: result.id,
+[productIdNOTCAMEL]: productItem.id,
+quantity: productItem.quantity });
+    }));
   return result;
 };
 
@@ -30,9 +42,8 @@ const getOrderById = async (id) => {
 };
 
 const getAllOrdersByUserId = async (id) => {
-  const userId = 'user_id'; // Miau para quem fez essa regra =)
   const foundSales = await sale.findAll({
-    where: { [userId]: id },
+    where: { [userIdNOTCAMEL]: id },
     attributes: { exclude: ['seller_id', 'user_id'] }, // exclui o order
     include: [{
       attributes: { exclude: [''] }, /* exclui o product */
