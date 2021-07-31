@@ -9,6 +9,8 @@ app.use(express.json());
 app.use(cors());
 app.use('/images', express.static(path.join(__dirname, '../../', 'public')));
 
+app.get('/orders/:id', controller.orderProductController);
+app.get('/orders', controller.orderController);
 app.get('/seller', controller.sellerController);
 app.get('/products', controller.getProductsController);
 app.post('/login', controller.loginController);
