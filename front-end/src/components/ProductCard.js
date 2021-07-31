@@ -13,7 +13,7 @@ const ProductCard = ({ product }) => {
       return removeFromCart(id);
     }
     addToCart({ id, name, unitPrice: price, quantity });
-  }, [addToCart, id, name, price, quantity, removeFromCart]);
+  }, [quantity]);
 
   const increaseQuantity = () => {
     setQuantity(quantity + 1);

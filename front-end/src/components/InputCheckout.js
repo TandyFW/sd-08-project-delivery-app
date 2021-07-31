@@ -89,7 +89,7 @@ function InputCheckout({ seller }) {
 }
 
 InputCheckout.propTypes = {
-  seller: PropTypes.string.isRequired,
+  seller: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default InputCheckout;
