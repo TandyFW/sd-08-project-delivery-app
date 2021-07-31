@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 // import { request, lStorage } from '../utils';
 import CartTable from './CartTable';
@@ -14,17 +14,23 @@ const useStyles = makeStyles({
 });
 
 const CheckoutList = () => {
+  const [itensCheckout, setItensCheckout] = useState([]);
+
   const classes = useStyles();
+
+  const updateItensCheckout = (itens) => {
+    setItensCheckout(itens);
+  };
 
   return (
     <div className={ classes.root }>
       <h3>Finalizar Pedido</h3>
 
-      <CartTable />
+      <CartTable updateCheckout={ updateItensCheckout } />
 
       <h3>Detalhes e Endereço para Entrega</h3>
 
-      <AddressForm />
+      <AddressForm itensCheckout={ itensCheckout } />
 
     </div>
   );

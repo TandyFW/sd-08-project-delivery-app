@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 const TWO_AND_A_HALF_SECONDS = 2500;
 
-export default function AddressForm() {
+export default function AddressForm({ itensCheckout }) {
   const classes = useStyles();
   const history = useHistory();
 
@@ -92,7 +93,7 @@ export default function AddressForm() {
 
   const handleClick = async (event) => {
     event.preventDefault();
-
+    console.log(itensCheckout);
     const { token } = lStorage().user.get();
     const options = {
       headers: {
@@ -103,6 +104,7 @@ export default function AddressForm() {
         totalPrice: getTotalPrice(),
         deliveryAddress: address.value,
         deliveryNumber: number.value,
+        productsList: itensCheckout,
       },
       method: 'POST',
     };
@@ -168,3 +170,7 @@ export default function AddressForm() {
     </div>
   );
 }
+
+AddressForm.propTypes = {
+  itensCheckout: PropTypes.arrayOf(PropTypes.object).isRequired,
+};

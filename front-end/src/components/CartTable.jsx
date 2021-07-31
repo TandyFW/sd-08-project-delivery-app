@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -20,33 +21,34 @@ function priceRow(qty, unit) {
   return qty * unit;
 }
 
-function createRow(desc, qty, unit) {
+function createRow(desc, qty, unit, id) {
   const price = priceRow(qty, unit);
-  return { desc, qty, unit, price };
+  return { desc, qty, unit, price, id };
 }
 
 function subtotal(items) {
   return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
 }
 
-export default function SpanningTable() {
+export default function SpanningTable({ updateCheckout }) {
   const [itensCart, setItensCart] = useState([]);
 
   useEffect(() => {
     const cart = lStorage().cart.get();
     const cartKeys = Object.keys(cart);
     const rows = cartKeys.map((cartKey) => {
-      const { quantity, price } = cart[cartKey];
-      return createRow(cartKey, quantity, price);
+      const { quantity, price, id } = cart[cartKey];
+      return createRow(cartKey, quantity, price, id);
     });
     setItensCart(rows);
+    updateCheckout(rows);
   }, []);
 
   const handleClick = (index) => {
     console.log(index);
     const newCart = itensCart.filter((itenCart, itenIndex) => itenIndex !== index);
-    console.log(newCart);
     setItensCart(newCart);
+    updateCheckout(newCart);
   };
 
   const DATA_TEST_ID_ITEM = 'customer_checkout__element-order-table-item-number-';
@@ -134,3 +136,7 @@ export default function SpanningTable() {
     </TableContainer>
   );
 }
+
+SpanningTable.propTypes = {
+  updateCheckout: PropTypes.func.isRequired,
+};
