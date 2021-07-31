@@ -9,7 +9,7 @@ const jwtConfig = {
 };
 
 const userMockDB = {
-  id: 1,
+  id: 4,
   name: 'Ciclano da Silva',
   email: 'user@example.com',
   password: 'password',
@@ -26,5 +26,35 @@ const userMockDBResponse = {
     role: 'customer',
   }
 };
+const userAdminMockDB = {
+  id: 1,
+  name: 'Delivery App Admin',
+  email: 'adm@deliveryapp.com',
+  password: '--adm2@21!!--',
+  role: 'administrator'
+};
 
-module.exports = { userMockDB, userMockDBResponse }
+const userSellerMockDB = {
+  id: 2,
+  name: 'Fulana Pereira',
+  email: 'fulana@deliveryapp.com',
+  password: 'fulana@123',
+  role: 'seller'
+};
+
+const userCustomerMockDB = {
+  id: 3,
+  name: 'Cliente Zé Birita',
+  email: 'zebirita@email.com',
+  password: '$#zebirita#$',
+  role: 'customer'
+};
+
+module.exports = {
+  userMockDB,
+  userMockDBResponse,
+  token,
+  userAdminMockDB,
+  userSellerMockDB,
+  userCustomerMockDB,
+};

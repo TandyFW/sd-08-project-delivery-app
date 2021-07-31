@@ -1,11 +1,11 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
 
-const loginController = require('../../api/controllers/loginController');
+const registerController = require('../../api/controllers/registerController');
 const { userMockDBResponse, userMockDB } = require('../__mocks__/userMock');
 
-describe('Login Controller', () => {
-  describe('When user is logged in with success', () => {
+describe('Register Controller', () => {
+  describe('When user is register with success', () => {
     const response = {};
     const request = {};
 
@@ -21,10 +21,10 @@ describe('Login Controller', () => {
       response.json = sinon.stub().returns(userMockDBResponse);
     });
 
-    it('should return status 200 and a json message', async () => {
-      await loginController.userLogin(request, response);
+    it('should return status 201 and a json message', async () => {
+      await registerController.userRegister(request, response);
 
-      expect(response.status.calledWith(200)).to.be.equal(true);
+      expect(response.status.calledWith(201)).to.be.equal(true);
       expect(response.json.calledWith(userMockDBResponse)).to.be.equal(true);
     });
   });

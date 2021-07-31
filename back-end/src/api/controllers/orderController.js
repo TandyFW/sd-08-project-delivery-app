@@ -17,7 +17,6 @@ const createOrder = async (req, res) => {
   await createSaleProductOrder({ saleId, products });
 
   const result = await getSaleById(saleId);
-
   return res.status(201).json({ sale: result });
 };
 
