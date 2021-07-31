@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 import './CustomerOrderCard.css';
 
 const CustomerOrderCard = ({ order }) => (
-  <div className="order-card">
+  <div
+    className="order-card"
+    onClick={ () => { } }
+    onKeyDown={ () => { } }
+    role="button"
+    tabIndex={ 0 }
+  >
     <div className="order-card-number">
       <p>Pedido</p>
       <p data-testid={ `customer_orders__element-order-id-${order.id}` }>{order.id}</p>
