@@ -21,6 +21,7 @@ const options = {
   },
   logging: false,
 };
+
 module.exports = {
   development: {
     ...options,
