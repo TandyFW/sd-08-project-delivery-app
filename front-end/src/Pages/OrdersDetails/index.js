@@ -13,7 +13,7 @@ const formatDate = (date) => {
   return `${day.padStart(2, '0')}/${month.padStart(2, '0')}/${year}`;
 };
 
-const CustomerOrdersDetails = ({ match }) => {
+const OrdersDetails = ({ match }) => {
   const { id } = match.params;
   const [sale, setSale] = useState({});
   const [seller, setSeller] = useState({});
@@ -90,8 +90,8 @@ const CustomerOrdersDetails = ({ match }) => {
   );
 };
 
-export default CustomerOrdersDetails;
+export default OrdersDetails;
 
-CustomerOrdersDetails.propTypes = {
+OrdersDetails.propTypes = {
   match: PropTypes.objectOf(PropTypes.any).isRequired,
 };

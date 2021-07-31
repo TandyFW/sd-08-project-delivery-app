@@ -1,12 +1,11 @@
 import { Redirect, Route, Switch } from 'react-router-dom';
 import React from 'react';
 import Login from './Pages/Login';
-import Orders from './Pages/CustomerOrders';
+import Orders from './Pages/Orders';
 import CustomerCheckout from './Pages/CustomerCheckout';
 import CustomerProducts from './Pages/CustomerProducts';
-import CustomerOrdersDetails from './Pages/CustomerOrdersDetails';
+import OrdersDetails from './Pages/OrdersDetails';
 import Register from './Pages/Register';
-import SellerOrders from './Pages/SellerOrders';
 
 export default () => (
   <Switch>
@@ -31,12 +30,11 @@ export default () => (
     <Route
       exact
       path="/customer/orders/:id"
-      component={ CustomerOrdersDetails }
+      component={ OrdersDetails }
     />
-    {/*
-    <Route exact path="/seller/orders" >
-      <SellerOrders />
-    </Route> */}
+    <Route exact path="/seller/orders">
+      <Orders userRole="seller" />
+    </Route>
     {/*  <exact Route path="/seller/orders/:id" >
       <SellerOrdersDetails />
     </Route> */}

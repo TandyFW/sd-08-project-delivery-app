@@ -29,9 +29,13 @@ export default function OrderCard({ orderData, isSeller }) {
   const TARGET_LENGTH = 4;
   const prefix = isSeller ? 'seller_orders__element-' : 'customer_orders__element-';
 
+  const redirect = () => (isSeller
+    ? history.push(`/seller/orders/${orderData.id}`)
+    : history.push(`/customer/orders/${orderData.id}`));
+
   return (
     <OrderContainer
-      onClick={ () => history.push(`/customer/orders/${orderData.id}`) }
+      onClick={ redirect }
     >
       <OrderIdContainer>
         <p>Pedido</p>

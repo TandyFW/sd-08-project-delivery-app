@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import api from '../../Apis/api1';
-import { OrderCard, Header } from '../../components';
+import { OrderCard, Header, HeaderSeller } from '../../components';
 import OrderCardContainer from './Styled';
 
 const Orders = ({ userRole }) => {
@@ -17,10 +17,16 @@ const Orders = ({ userRole }) => {
 
   return (
     <main>
-      <Header />
+      {userRole === 'customer' ? <Header /> : <HeaderSeller />}
       <OrderCardContainer>
         {!!orders.length
-          && orders.map((order) => <OrderCard key={ order.id } orderData={ order } />)}
+          && orders.map(
+            (order) => (<OrderCard
+              key={ order.id }
+              orderData={ order }
+              isSeller={ userRole === 'seller' }
+            />),
+          )}
       </OrderCardContainer>
     </main>
   );

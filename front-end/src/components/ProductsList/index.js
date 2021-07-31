@@ -7,7 +7,6 @@ import {
   Title,
   ContainerDiv,
   TotalOrder,
-  /* InvalidBox, */
 } from './Styled';
 
 export default function ProductsList() {
