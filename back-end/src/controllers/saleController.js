@@ -10,7 +10,7 @@ const saveSale = rescue(async (req, res) => {
 
 const getSales = rescue(async (_req, res) => {
       const Sales = await saleServices.getSales();
-      res.status(OK).json({ sales: Sales });
+      res.status(OK).json(Sales);
 });
 
 const getSaleById = rescue(async (req, res) => {

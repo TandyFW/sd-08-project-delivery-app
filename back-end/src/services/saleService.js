@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 const { badRequest } = require('@hapi/boom');
-const { Sale, SaleProduct, sequelize } = require('../database/models');
-=======
-const { conflict } = require('@hapi/boom');
-const { Sale, SaleProduct, sequelize, Product } = require('../database/models');
->>>>>>> b7dbe24141533c89d6f807a2725c923c91b24bbe
+const { User, Product, Sale, SaleProduct, sequelize } = require('../database/models');
 
 const createSale = async (sale, t) => {
     const { userId, sellerId, totalPrice,
@@ -48,11 +43,44 @@ const saveSale = async (sale) => {
 };
 
 const getSales = async () => {
-    const sales = await Sale.findAll({
-        attributes: ['id', 'status', 'total_price', 'sale_date'],
-      });
-
-      return sales;
+    const allSales = await Sale.findAll({
+        attributes: [
+            'id',
+            'sale_date',
+            'status',
+            'total_price',
+            'delivery_address',
+            'delivery_number',
+        ],
+        include: [
+            {
+                model: User,
+                as: 'user',
+                require: true,
+                attributes: ['id', 'name', 'email', 'role'],
+            },
+            {
+                model: User,
+                as: 'seller',
+                require: true,
+                attributes: ['id', 'name', 'email', 'role'],
+            },
+            {
+                model: SaleProduct,
+                as: 'sales_products',
+                require: true,
+                include: [
+                    {
+                        model: Product,
+                        as:  'product', 
+                        attributes: ['id', 'name'],
+                    }
+                ],
+                attributes: ['quantity'],
+            },
+        ],
+    });
+    return { sales: allSales };
 };
 
 const getSaleById = async (id) => {
