@@ -121,10 +121,7 @@ class AdminSignIn extends React.Component {
           </button>
 
         </div>
-        <span
-          className="hidden-span"
-          data-testid="admin_manage__element-invalid-register"
-        />
+        <span className="hidden-span" />
       </div>
     );
   }

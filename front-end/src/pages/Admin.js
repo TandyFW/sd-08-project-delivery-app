@@ -19,13 +19,16 @@ class Admin extends React.Component {
     dispatchUsers(users.registers);
   }
 
-  render() {
+  componentDidUpdate() { // nao excluir
     const { state } = this;
+    console.log(state.user);
+  }
 
+  render() {
     return (
       <div className="ADM-Page">
         <AdminSignIn newUsers={ (user) => this.setState({ user }) } />
-        <AdminUsers newUsers={ state.user } />
+        <AdminUsers newUsers={ (user) => this.setState({ user }) } />
       </div>
     );
   }

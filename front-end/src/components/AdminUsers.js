@@ -12,11 +12,12 @@ class AdminUsers extends React.Component {
     this.exclude = this.exclude.bind(this);
   }
 
-  componentDidUpdate() {
+  shouldComponentUpdate() { // nao excluir
     const { props } = this;
-    if (props.newUser) {
-      console.log('componentDidUpdate', props.newUser);
+    if (props.newUsers) {
+      console.log('shouldComponentUpdate', props.newUsers);
     }
+    return true;
   }
 
   async exclude(id) {
@@ -113,7 +114,11 @@ const mapStateToProps = (state) => ({
 AdminUsers.propTypes = {
   dispatchUsers: PropTypes.func.isRequired,
   stateUsers: PropTypes.arrayOf(PropTypes.object).isRequired,
-  newUser: PropTypes.arrayOf(PropTypes.object).isRequired,
+  newUsers: PropTypes.arrayOf(PropTypes.object),
+};
+
+AdminUsers.defaultProps = {
+  newUsers: [{}],
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminUsers);
