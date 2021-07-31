@@ -9,6 +9,7 @@ import ItemList from './ItemList';
 import OrderCard from './OrderCard';
 import ProductCard from './ProductCard';
 import DisplayProducts from './DisplayProducts';
+import HeaderSeller from './HeaderSeller';
 
 export {
   Header,
@@ -22,4 +23,5 @@ export {
   OrderCard,
   ProductCard,
   DisplayProducts,
+  HeaderSeller,
 };
