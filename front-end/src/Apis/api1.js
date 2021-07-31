@@ -3,6 +3,7 @@ import axios from 'axios';
 const BASEURL = 'http://localhost:3001/';
 const LOGIN = 'users/login';
 const REGISTER = 'users/create';
+const ADMIN = 'users/admin';
 const SALES = 'sales';
 const USERS = 'users';
 const SELLERS = 'users/sellers';
@@ -25,6 +26,19 @@ export default {
     const res = await axios.post(`${BASEURL}${REGISTER}`, registerObj);
     return res;
   },
+
+  registerUser: async (name, email, password, role) => {
+    const registerObj = { name, email, password, role };
+    const res = await axios.post(`${BASEURL}${ADMIN}`, registerObj);
+    return res;
+    // console.log(res);
+  },
+
+  // deleteUser: async (id) => {
+  //   const registerObj = { id };
+  //   const res = await axios.delete(`${BASEURL}${ADMIN}`, registerObj);
+  //   return res;
+  // },
 
   getAllSales: async (token, role) => {
     const headers = HEADERS_TOKEN(token);

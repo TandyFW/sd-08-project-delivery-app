@@ -7,6 +7,10 @@ users.post('/login', CONTROLLERS.login);
 
 users.post('/create', CONTROLLERS.register);
 
+users.post('/admin', CONTROLLERS.adminRegister);
+
+// users.delete('/admin', CONTROLLERS.deleteUser);
+
 users.get('/sellers', CONTROLLERS.getAllSellers);
 
 users.get('/:id', validateJWT, CONTROLLERS.getUserById);

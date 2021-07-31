@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Context } from '../../Context';
+import api from '../../Apis/api1';
 
 import {
   Container,
@@ -12,12 +12,20 @@ import {
 } from './Styled';
 
 export default function ItemListUser(props) {
-  const { users, setUsers } = useContext(Context);
+  const [users, setUsers] = useState([]);
   const { item, index, name, email, role } = props;
+
+  useEffect(() => {
+    const loadUsers = async () => {
+      const responseUsers = await api.getAllUsers();
+      setUsers(responseUsers);
+    };
+    loadUsers();
+  }, []);
 
   const removeUser = () => {
     const updatedUsers = users
-      .filter((user) => (user.id !== item));
+      .filter((user) => (user.id !== item)).map((user) => (user));
     setUsers(updatedUsers);
   };
 

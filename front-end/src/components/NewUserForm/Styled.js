@@ -67,6 +67,14 @@ export const ContainerSelect = styled.select`
   text-align: center;
   width: 200px;
 `;
+export const ContainerOption = styled.option`
+  padding: 5px;
+  color: black;
+  margin-bottom: 15px;
+  font-size: 18px;
+  text-align: center;
+  width: 200px;
+`;
 export const FinalizeRegister = styled.button`
   background-color: #216844;
   border-radius: 8px;

@@ -1,6 +1,7 @@
-import React, { useContext } from 'react';
-import { Context } from '../../Context';
+import React, { useEffect, useState } from 'react';
+// import { Context } from '../../Context';
 import ItemListUser from '../ItemListUser';
+import api from '../../Apis/api1';
 
 import {
   Container,
@@ -10,7 +11,16 @@ import {
 } from './Styled';
 
 export default function Users() {
-  const { users } = useContext(Context);
+  // const { users } = useContext(Context);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const loadUsers = async () => {
+      const responseUsers = await api.getAllUsers();
+      setUsers(responseUsers);
+    };
+    loadUsers();
+  }, []);
 
   return (
     <Container>
