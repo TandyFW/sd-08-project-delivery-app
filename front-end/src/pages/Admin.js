@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import validator from 'email-validator';
 import { createUser } from '../services';
-import { UserTable } from '../components';
+// import { UserTable } from '../components';
 import { getAllUsersApi } from '../redux/actions';
 
 const MAX_TIME_SPAM_TEN_SECONDS = 10000;
@@ -131,7 +131,7 @@ class Admin extends React.Component {
           </button>
         </div>
         <span className="hidden-span" />
-        <UserTable />
+        {/* <UserTable /> */}
       </div>
     );
   }
