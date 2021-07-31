@@ -42,8 +42,10 @@ export default function FormRegister() {
 
   const register = async (e) => {
     e.preventDefault();
+    
     try {
       const newRegister = await UserRegister(currentName, currentEmail, encryptPassword);
+
       if (newRegister) {
         setShowMessage(false);
         setRedirect(true);
