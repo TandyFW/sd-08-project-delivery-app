@@ -33,7 +33,7 @@ export default () => (
       path="/customer/orders/:id"
       component={ CustomerOrdersDetails }
     />
-    <Route exact path="/seller/orders" >
+    <Route exact path="/seller/orders">
       <SellerOrders />
     </Route>
     {/*  <exact Route path="/seller/orders/:id" >
