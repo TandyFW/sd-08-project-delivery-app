@@ -14,7 +14,6 @@ import
   ContainerNumber,
   ContainerSelect,
   FinalizeOrder,
-  /* InvalidBox, */
 } from './Styled';
 
 export default function AddressForm() {
@@ -42,6 +41,7 @@ export default function AddressForm() {
   };
 
   const handleClick = async () => {
+    if (!parseInt(selectedSeller, 10)) return;
     const sale = {
       deliveryAddress: address.street,
       deliveryNumber: address.number,
