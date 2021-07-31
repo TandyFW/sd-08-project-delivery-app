@@ -26,10 +26,10 @@ export default {
     return res;
   },
 
-  getAllSales: async (token) => {
+  getAllSales: async (token, role) => {
     const headers = HEADERS_TOKEN(token);
     return axios
-      .get(`${BASEURL}${SALES}`, { headers })
+      .get(`${BASEURL}${SALES}/?role=${role}`, { headers })
       .then((result) => result.data.response);
   },
   // getAllUsers: async () => axios

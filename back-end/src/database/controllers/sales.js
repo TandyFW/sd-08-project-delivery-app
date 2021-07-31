@@ -1,7 +1,9 @@
 const SalesServices = require('../services/sales');
 
 const getAllSales = async (req, res) => {
-  const response = await SalesServices.getAllSales();
+  const { role } = req.query;
+  const { id } = req.user;
+  const response = await SalesServices.getAllSales(id, role);
   return res.status(200).json({ response });
 };
 

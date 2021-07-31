@@ -57,9 +57,9 @@ const Login = () => {
       setLogged(false);
     } else {
       setLogged(true);
-      if (result.data.role === 'customer') {
-        history.push('/customer/products');
-      }
+      if (result.data.role === 'customer') return history.push('/customer/products');
+      if (result.data.role === 'seller') return history.push('/seller/orders');
+      return history.push('/admin/manage');
     }
   };
 
