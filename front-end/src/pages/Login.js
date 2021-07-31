@@ -43,6 +43,7 @@ class Login extends React.Component {
     const email = target.parentNode.parentNode.firstChild.childNodes[1].value;
     const password = target.parentNode.parentNode.firstChild.childNodes[3].value;
     const user = await login(email, password);
+    console.log(user.role);
     if (!user.status) {
       localStorage.setItem('user', JSON.stringify(user));
       dispatchUser(user);

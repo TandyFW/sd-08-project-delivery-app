@@ -3,12 +3,14 @@ import axios from 'axios';
 const URL_BASE = 'http://localhost:3001';
 
 export async function getAllUsers() {
-  const accessToken = JSON.parse(localStorage.getItem('token'));
-  const users = await axios.get(`${URL_BASE}/register`, {
-    headers: {
-      Authorization: `${accessToken.token}`,
-    },
-  })
+  // const accessToken = JSON.parse(localStorage.getItem('token'));
+  // console.log(accessToken);
+  const users = await axios.get(`${URL_BASE}/register`)
+  // {
+  //   headers: {
+  //     Authorization: `${accessToken.token}`,
+  //   },
+  // }
     .then((response) => response.data)
     .catch((error) => {
       console.error(error);
@@ -29,10 +31,12 @@ export async function getByRole(role) {
 }
 
 export async function create(name, email, password, role) {
+  const token = JSON.parse(localStorage.getItem('user'));
   try {
     const user = await axios.post(`${URL_BASE}/register`,
-      { name, email, password, role })
-      .then((response) => response.data);
+      { name, email, password, role }, { headers: {
+        Authorization: `${token.token}`,
+      } }).then((response) => response.data);
     return user;
   } catch (error) {
     if (error.response) {
@@ -62,12 +66,11 @@ export async function login(email, password) {
   }
 }
 
-export async function exclude(id) {
-  const accessToken = JSON.parse(localStorage.getItem('token'));
+export async function exclude(id, token) {
   try {
     const result = await axios.delete(`${URL_BASE}/register/${id}`,
       { headers: {
-        Authorization: `${accessToken.token}`,
+        Authorization: `${token}`,
       } })
       .then((response) => response.data);
     return result;
