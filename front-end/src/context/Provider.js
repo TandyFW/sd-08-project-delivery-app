@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Context from './Context';
 
 function Provider({ children }) {
-  const [userData, setUserData] = useState([]);
+  const [userData, setUserData] = useState(null);
   const [cart, setCart] = useState([]);
   const context = {
     userData,

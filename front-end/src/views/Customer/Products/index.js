@@ -10,15 +10,6 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const { userData } = useContext(Context);
 
-  useEffect(() => {
-    localStorage.setItem('user', JSON.stringify({
-      token: userData.token,
-      name: userData.user.name,
-      email: userData.user.email,
-      role: userData.user.role,
-    }));
-  }, [userData]);
-
   async function getData() {
     const myInit = {
       method: 'GET',
