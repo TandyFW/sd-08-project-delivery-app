@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Loader from './Loader';
+import { getNameUserById } from '../services';
 import { getAllOrdesByUserApi } from '../redux/actions';
 
 import '../styles/customerOrderDetails.css';
@@ -54,17 +55,22 @@ class CustomerOrdersDetailsList extends React.Component {
     this.setAllOrdesInState(orderId);
   }
 
-  setAllOrdesInState(orderId) {
+  async setAllOrdesInState(orderId) {
     const { allOrdes } = this.props;
     orderId -= 1;
     console.log(orderId);
     console.log(allOrdes);
     if (allOrdes) {
       const { id, status, productId } = allOrdes[orderId];
+      const sellerName = await getNameUserById(allOrdes[orderId].seller_id);
+      const dateArray = allOrdes[orderId].sale_date.split('T')[0].split('-');
+      const date = `${dateArray[2]}/${dateArray[1]}/${dateArray[0]}`;
+      console.log(typeof allOrdes[orderId].seller_id);
+      console.log(sellerName);
       const OrderDetails = {
         oderId: id,
-        sellerName: 'prof xavier',
-        date: allOrdes[orderId].sale_date,
+        sellerName,
+        date,
         status,
         totalPrice: allOrdes[orderId].total_price,
         purchasedProducts: productId,
@@ -108,7 +114,7 @@ class CustomerOrdersDetailsList extends React.Component {
             <td
               data-testid={ `${prefix1}-details-label-delivery-status` }
             >
-              { (OrderDetails.status).toLocaleUpperCase() }
+              { (OrderDetails.status) }
             </td>
             <td>
               <button
@@ -165,7 +171,7 @@ class CustomerOrdersDetailsList extends React.Component {
         <h2
           data-testid={ `${prefix2}element-order-total-price` }
         >
-          { `Total: R$ ${OrderDetails.totalPrice}` }
+          { `${OrderDetails.totalPrice.replace('.', ',')}` }
         </h2>
       </div>
     );

@@ -34,6 +34,17 @@ export async function getAllOrdersForUser() {
   return products;
 }
 
+export async function getNameUserById(id) {
+  const accessToken = JSON.parse(localStorage.getItem('user'));
+  const result = await axios.get(`${URL_BASE}/register/name/${id}`,
+    { headers: {
+      Authorization: `${accessToken.token}`,
+    } })
+    .then((response) => response.data);
+  console.log(result.register);
+  return result.register;
+}
+
 export async function getOrdersForUserById(id) {
   const accessToken = JSON.parse(localStorage.getItem('user'));
   const products = await axios.get(`${URL_BASE}/order/user/${id}`,
