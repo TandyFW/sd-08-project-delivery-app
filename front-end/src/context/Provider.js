@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import Context from './Context';
 
 function Provider({ children }) {
-  const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('user'))
-    ?? []);
+  const [userData, setUserData] = useState(localStorage.getItem('user')
+    ? JSON.parse(localStorage.getItem('user')) : []);
   const [cart, setCart] = useState([]);
   const context = {
     userData,
