@@ -39,7 +39,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      sales_date: {
+      sale_date: {
         allowNull: false,
         type: Sequelize.DATE,
       },

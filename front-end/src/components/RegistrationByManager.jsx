@@ -49,7 +49,7 @@ export default function RegistrationByManager() {
     setTimeout(() => {
       open.set(false);
     }, TWO_AND_A_HALF_SECONDS);
-  }, [message.value]);
+  }, [message.value, open]);
 
   const handleChange = (callback, event) => {
     callback(event.target.value);
