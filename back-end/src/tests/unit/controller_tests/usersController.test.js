@@ -1,13 +1,13 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
 
-const usersController = require('../../api/controllers/usersController');
-const services = require('../../api/services');
+const usersController = require('../../../api/controllers/usersController');
+const services = require('../../../api/services');
 const {
   userAdminMockDB,
   userSellerMockDB,
   userCustomerMockDB,
-} = require('../__mocks__/userMock');
+} = require('../../__mocks__/userMock');
 
 describe('Users Controller', () => {
   describe('When get users Admin with success', () => {
@@ -15,14 +15,14 @@ describe('Users Controller', () => {
     const request = {};
     const adminResponse = { administrator: [userAdminMockDB] }
 
-    before(() => {
+    beforeEach(() => {
       response.status = sinon.stub().returns(response);
       response.json = sinon.stub().returns(adminResponse);
 
       sinon.stub(services, 'getUsersByRole')
         .resolves([userAdminMockDB]);
     });
-    after(() => {
+    afterEach(() => {
       services.getUsersByRole.restore();
     });
 

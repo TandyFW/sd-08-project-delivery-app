@@ -56,7 +56,36 @@ const saleByIdResponse = [ {
   ]
 } ];
 
-const orderResponse = { sale: saleByIdResponse[0] };
+const orderResponse = { sale: saleByIdResponse[ 0 ] };
+
+const getAllOrdersMockDB = [
+  saleCreateResponse,
+  {
+    id: 2,
+    userId: 3,
+    sellerId: 2,
+    totalPrice: 40.90,
+    deliveryAddress: 'rua qualquer',
+    deliveryNumber: 'numero algum',
+    saleDate: '2021-08-01T17:00:12.000Z',
+    status: 'Pendente',
+  }
+]
+
+const getAllOrdersMockDBResponse = {
+  sale: getAllOrdersMockDB
+};
+
+const updatedOrderStatusResponse = {
+  id: 1,
+  userId: 3,
+  sellerId: 2,
+  totalPrice: 20.90,
+  deliveryAddress: 'rua qualquer',
+  deliveryNumber: 'numero algum',
+  saleDate: '2021-07-31T17:51:12.000Z',
+  status: 'Preparando',
+}
 
 
 module.exports = {
@@ -65,5 +94,8 @@ module.exports = {
   saleCreateResponse,
   saleProductCreateResponse,
   saleByIdResponse,
-  orderResponse
+  orderResponse,
+  getAllOrdersMockDB,
+  getAllOrdersMockDBResponse,
+  updatedOrderStatusResponse,
 };

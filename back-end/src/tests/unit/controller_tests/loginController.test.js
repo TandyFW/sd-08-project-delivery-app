@@ -1,15 +1,15 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
 
-const loginController = require('../../api/controllers/loginController');
-const { userMockDBResponse, userMockDB } = require('../__mocks__/userMock');
+const loginController = require('../../../api/controllers/loginController');
+const { userMockDBResponse, userMockDB } = require('../../__mocks__/userMock');
 
 describe('Login Controller', () => {
   describe('When user is logged in with success', () => {
     const response = {};
     const request = {};
 
-    before(() => {
+    beforeEach(() => {
       request.body = {
         name: userMockDB.name,
         email: userMockDB.email,

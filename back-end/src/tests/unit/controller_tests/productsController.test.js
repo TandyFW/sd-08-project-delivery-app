@@ -1,23 +1,25 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
+// const proxyquire = require('proxyquire');
 
-const productsController = require('../../api/controllers/productsController');
-const services = require('../../api/services');
-const { productsMockDB, productsMockDBResponse, productByIdMockDB, productByIdMockDBResponse } = require('../__mocks__/productsMock');
+// const { ProductsMock } = require('../../__mocks__/connection');
+const productsController = require('../../../api/controllers/productsController');
+const services = require('../../../api/services');
+const { productsMockDB, productsMockDBResponse, productByIdMockDB, productByIdMockDBResponse } = require('../../__mocks__/productsMock');
 
 describe('Products Controller', () => {
   describe('When get all products with success', () => {
     const response = {};
     const request = {};
 
-    before(async () => {
+    beforeEach(async () => {
       response.status = sinon.stub().returns(response);
       response.json = sinon.stub().returns(productsMockDBResponse);
 
       sinon.stub(services, 'getAllProducts')
         .resolves(productsMockDB);
     });
-    after(() => {
+    afterEach(() => {
       services.getAllProducts.restore();
     });
 
@@ -33,7 +35,7 @@ describe('Products Controller', () => {
     const response = {};
     const request = {};
 
-    before(() => {
+    beforeEach(() => {
       request.params = { id: 7 };
       response.status = sinon.stub().returns(response);
       response.json = sinon.stub().returns(productByIdMockDBResponse);
@@ -41,7 +43,7 @@ describe('Products Controller', () => {
       sinon.stub(services, 'getProductById')
         .resolves(productByIdMockDB);
     });
-    after(() => {
+    afterEach(() => {
       services.getProductById.restore();
     });
 
