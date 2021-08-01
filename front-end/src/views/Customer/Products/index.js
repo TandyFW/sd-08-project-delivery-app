@@ -9,7 +9,7 @@ import './styles.css';
 const Products = () => {
   const [products, setProducts] = useState([]);
   const { userData } = useContext(Context);
-
+  console.log(userData);
   async function getData() {
     const myInit = {
       method: 'GET',
@@ -32,8 +32,8 @@ const Products = () => {
   return (
     <div className="main-wrapper-products">
       <NavBar
-        userType={ userData.role }
-        userName={ userData.name }
+        userType={ !userData.role ? userData.user.role : userData.role }
+        userName={ !userData.name ? userData.user.name : userData.name }
       />
       <div className="wrapper-card-product">
         {products && products.length > 0 && (
