@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Context from '../../context/Context';
-import NavBar from '../Components/NavBar';
+// import NavBar from '../Components/NavBar';
 import OrderDetailsCard from '../Components/OrderDetailCard';
 
 function SellerOrders() {
@@ -36,7 +36,7 @@ function SellerOrders() {
 
   return (
     <div>
-      <NavBar userType="customer" userName={ userData.user.name } />
+      {/* <NavBar userType="customer" userName={ userData.user.name } /> */}
       { orders.map((order) => <OrderDetailsCard key={ order.id } order={ order } />)}
     </div>
   );

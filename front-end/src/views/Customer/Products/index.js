@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 
-import NavBar from '../../Components/NavBar';
+// import NavBar from '../../Components/NavBar';
 import Cart from '../../Components/Cart';
 import CardProduct from '../../Components/CardProduct';
 import Context from '../../../context/Context';
@@ -40,7 +40,7 @@ const Products = () => {
 
   return (
     <div className="card_content">
-      <NavBar userType="customer" userName={ userData.user.name } />
+      {/* <NavBar userType="customer" userName={ userData.user.name } /> */}
       {products && products.length > 0 && (
         products.map((product) => (
           <CardProduct key={ product.id } product={ product } />
