@@ -15,9 +15,10 @@ class Admin extends React.Component {
   async componentDidMount() {
     const { dispatchUsers } = this.props;
     const users = await getAllUsers();
-    console.log(users);
-    localStorage.setItem('allUsers', JSON.stringify(users.registers));
-    dispatchUsers(users.registers);
+    if (users) {
+      localStorage.setItem('allUsers', JSON.stringify(users.registers));
+      dispatchUsers(users.registers);
+    }
   }
 
   componentDidUpdate() { // nao excluir
@@ -30,7 +31,9 @@ class Admin extends React.Component {
     return (
       <div className="admin-container">
         <Header history={ history } />
+        <h4>Cadastrar Novo Usuário</h4>
         <AdminSignIn newUsers={ (user) => this.setState({ user }) } />
+        <h4>Lista de Usuários</h4>
         <AdminUsers newUsers={ (user) => this.setState({ user }) } />
       </div>
     );

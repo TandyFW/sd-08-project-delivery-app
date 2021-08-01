@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import validator from 'email-validator';
 import { createUser } from '../services';
 import { allUsersAction } from '../redux/actions';
+import AdminSelect from './AdminSelect';
 
 class AdminSignIn extends React.Component {
   constructor() {
@@ -44,14 +45,14 @@ class AdminSignIn extends React.Component {
     }
   }
 
-  async validate({ target }) {
+  async validate() {
     const { dispatchUsers, stateUsers } = this.props;
     const { props } = this;
-    const spanMaxTime = 35000;
-    const name = target.parentNode.firstChild.childNodes[1].value;
-    const email = target.parentNode.firstChild.childNodes[3].value;
-    const pass = target.parentNode.firstChild.childNodes[5].value;
-    const role = target.parentNode.firstChild.childNodes[7].value;
+    const spanMaxTime = 10000;
+    const name = document.getElementById('admin-name').value;
+    const email = document.getElementById('admin-email').value;
+    const pass = document.getElementById('admin-password').value;
+    const role = document.getElementById('admin-select').value;
     const newUser = await createUser(name, email, pass, role);
     if (newUser && newUser.statusText) {
       const hiddenSpan = document.querySelector('.hidden-span');
@@ -73,55 +74,49 @@ class AdminSignIn extends React.Component {
     const { email, password, name } = this.state;
     return (
       <div>
-        <div className="register-form">
-          <div>
-            <span>Nome</span>
+        <div className="admin-form">
+          <label htmlFor="admin-name">
+            Nome
             <input
+              id="admin-name"
               name="name"
               className="input"
               onChange={ this.handleChange }
               data-testid="admin_manage__input-name"
             />
-            <span>Email</span>
+          </label>
+          <label htmlFor="admin-email">
+            E-mail
             <input
+              id="admin-email"
               name="email"
               className="input"
               onChange={ this.handleChange }
               data-testid="admin_manage__input-email"
             />
-
-            <span>Senha</span>
+          </label>
+          <label htmlFor="admin-password">
+            Senha
             <input
               name="password"
+              id="admin-password"
               type="password"
               className="input"
               onChange={ this.handleChange }
               data-testid="admin_manage__input-password"
             />
-            <span>Tipo</span>
-            <select
-              name="role"
-              type="select"
-              className="input"
-              onChange={ this.handleChange }
-              data-testid="admin_manage__select-role"
-            >
-              <option value="administrator">Administrador</option>
-              <option value="seller">Vendedor</option>
-              <option value="customer">Usuário</option>
-            </select>
-          </div>
+          </label>
+          <AdminSelect handleChange={ this.handleChange } />
           <button
             type="button"
             data-testid="admin_manage__button-register"
             disabled={ !email || !password || !name }
-            onClick={ (event) => { this.validate(event); } }
+            onClick={ this.validate }
           >
             Cadastrar
           </button>
-
+          <span className="hidden-span" />
         </div>
-        <span className="hidden-span" />
       </div>
     );
   }

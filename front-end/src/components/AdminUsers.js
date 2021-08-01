@@ -42,8 +42,10 @@ class AdminUsers extends React.Component {
 
   render() {
     const { stateUsers } = this.props;
+    const filteredUsers = stateUsers
+      .filter((item) => item.role !== 'administrator');
     return (
-      <div className="cardlist-container">
+      <div className="admin-table">
         <table>
           <thead>
             <tr>
@@ -55,14 +57,14 @@ class AdminUsers extends React.Component {
             </tr>
           </thead>
           <tbody>
-            { stateUsers && stateUsers.map((elem, index) => (
+            { filteredUsers && filteredUsers.map((elem) => (
               <tr
-                id={ `${index}` }
                 className="user"
                 key={ `line-${elem.id}` }
                 data-testid={ `admin_manage__element-user-table-id-${elem.id}` }
               >
                 <td
+                  id="index-td"
                   data-testid={
                     `admin_manage__element-user-table-itemNumber-${elem.id}`
                   }
@@ -70,21 +72,24 @@ class AdminUsers extends React.Component {
                   {elem.id}
                 </td>
                 <td
+                  id="name-td"
                   data-testid={ `admin_manage__element-user-table-name-${elem.id}` }
                 >
                   {elem.name}
                 </td>
                 <td
+                  id="email-td"
                   data-testid={ `admin_manage__element-user-table-email-${elem.id}` }
                 >
                   {elem.email}
                 </td>
                 <td
+                  id="role-td"
                   data-testid={ `admin_manage__element-user-table-role-${elem.id}` }
                 >
                   {elem.role}
                 </td>
-                <td>
+                <td id="button-td">
                   <button
                     key={ `button-${elem.id}` }
                     data-testid={ `admin_manage__element-user-table-remove-${elem.id}` }
