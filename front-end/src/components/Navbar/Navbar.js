@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import DeliveryContext from '../context/DeliveryContext';
+import DeliveryContext from '../../context/DeliveryContext';
 
 const StyledNavbar = styled.nav`
   background-color: ${({ theme }) => theme.colors.primary};

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import CartContext from '../context/CartContext';
+import CartContext from '../../context/CartContext';
 
 const Wrapper = styled.div`
   align-items: center;

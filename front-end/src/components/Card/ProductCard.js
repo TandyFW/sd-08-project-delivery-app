@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import React from 'react';
-import PropTypes from 'prop-types';
-import Label from './Label';
-import Counter from './Counter';
+import Label from '../Input/Label';
+import Counter from '../Input/Counter';
+import productType from '../../types/product';
 
 const Wrapper = styled.div`
   align-items: center;
@@ -69,12 +69,7 @@ const ProductCard = ({ product }) => {
 };
 
 ProductCard.propTypes = {
-  product: PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    price: PropTypes.string,
-    urlImage: PropTypes.string,
-  }).isRequired,
+  product: productType.isRequired,
 };
 
 export default ProductCard;

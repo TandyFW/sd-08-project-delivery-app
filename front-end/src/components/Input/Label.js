@@ -5,12 +5,15 @@ import PropTypes from 'prop-types';
 const StyledLabel = styled.label`
   align-items: center;
   display: inline-flex;
+  flex: 1;
   flex-direction: column;
   font-size: 1.5rem;
   justify-content: center;
 
   span {
-    margin-bottom: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+
     ${(props) => {
     if (props.centered) {
       return css`
@@ -18,7 +21,7 @@ const StyledLabel = styled.label`
       `;
     }
     return css`
-        margin-left: 15px;
+      padding-left: 20px;
     `;
   }}
   }

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React from 'react';
-import RequestStatusTag from './RequestStatusTag';
+import RequestStatusTag from '../RequestStatusTag';
 
 const Wrapper = styled.div`
   background-color: #eaf1ef;

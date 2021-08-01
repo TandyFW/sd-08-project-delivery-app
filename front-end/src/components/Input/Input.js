@@ -5,6 +5,7 @@ const Input = styled.input`
   border-radius: 5px;
   font-size: 1.5rem;
   padding: 15px;
+  width: 100%;
 
   &::placeholder {
     color: #828282;

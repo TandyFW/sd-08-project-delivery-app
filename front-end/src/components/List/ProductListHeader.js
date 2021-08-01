@@ -37,8 +37,12 @@ const ProductListHeader = ({ removable }) => (
   </StyledProductListHeader>
 );
 
+ProductListHeader.defaultProps = {
+  removable: false,
+};
+
 ProductListHeader.propTypes = {
-  removable: PropTypes.bool.isRequired,
+  removable: PropTypes.bool,
 };
 
 export default ProductListHeader;

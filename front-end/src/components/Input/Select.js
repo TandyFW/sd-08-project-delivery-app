@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 const Wrapper = styled.div`
   position: relative;
+  width: 100%;
 
   &:after {
     border-color: black transparent transparent;
@@ -26,7 +27,8 @@ const StyledSelect = styled.select`
   cursor: pointer;
   font-size: 1.5rem;
   min-width: 300px;
-  padding: 10px 40px 10px 10px;
+  /* padding: 10px 40px 10px 10px; */
+  padding: 15px;
   width: 100%;
 
   option {
