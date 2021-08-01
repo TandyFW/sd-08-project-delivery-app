@@ -32,8 +32,8 @@ const Products = () => {
   return (
     <div className="main-wrapper-products">
       <NavBar
-        userType={ userData.user.role }
-        userName={ userData.user.name }
+        userType={ userData.role }
+        userName={ userData.name }
       />
       <div className="wrapper-card-product">
         {products && products.length > 0 && (

@@ -25,7 +25,7 @@ function Orders() {
   }, []);
   return (
     <div className="main-wrapper-orders">
-      <NavBar userType={ userData.user.role } userName={ userData.user.name } />
+      <NavBar userType={ userData.role } userName={ userData.name } />
       <div className="orders">
         {orderData && orderData.map((element, index) => (
           <OrderCard
