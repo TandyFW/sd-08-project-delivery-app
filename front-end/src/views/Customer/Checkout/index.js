@@ -9,7 +9,10 @@ function CustomerCheckout() {
   const { cart, setCart, userData } = useContext(Context);
   return (
     <div className="main-wrapper-checkout">
-      <NavBar userType={ userData.user.role } userName={ userData.user.name } />
+      <NavBar
+        userType={ !userData.role ? userData.user.role : userData.role }
+        userName={ !userData.name ? userData.user.name : userData.name }
+      />
       <div>
         <h3>Finalizar Pedido</h3>
         <CheckoutTable cart={ cart } setCart={ setCart } />
