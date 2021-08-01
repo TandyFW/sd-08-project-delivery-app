@@ -22,6 +22,11 @@ export function CartProvider({ children }) {
     setCart({ ...cart, [id]: Math.max(0, cart[id] - 1) });
   };
 
+  const removeCartItem = (id) => {
+    const { [id]: itemToRemove, ...keep } = cart;
+    setCart(keep);
+  };
+
   const getCartTotal = () => (
     Object.entries(cart).reduce((acc, [id, quantity]) => {
       const product = products.find((currentProduct) => currentProduct.id === Number(id));
@@ -37,6 +42,7 @@ export function CartProvider({ children }) {
     incCartQuantity,
     decCartQuantity,
     getCartTotal,
+    removeCartItem,
   };
 
   return (
