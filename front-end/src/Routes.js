@@ -5,8 +5,8 @@ import Orders from './Pages/Orders';
 import CustomerCheckout from './Pages/CustomerCheckout';
 import CustomerProducts from './Pages/CustomerProducts';
 import OrdersDetails from './Pages/OrdersDetails';
+import OrdersDetailsSeller from './Pages/OrdersDetailsSeller';
 import Register from './Pages/Register';
-import SellerOrdersDetails from './Pages/SellerOrdersDetails';
 
 export default () => (
   <Switch>
@@ -36,9 +36,11 @@ export default () => (
     <Route exact path="/seller/orders">
       <Orders userRole="seller" />
     </Route>
-    <Route path="/seller/orders/:id" exact>
-      <SellerOrdersDetails />
-    </Route>
+    <Route
+      path="/seller/orders/:id"
+      exact
+      component={ OrdersDetailsSeller }
+    />
     {/*   <exact Route path="/admin/manage" >
       <Admin />
     </Route> */}

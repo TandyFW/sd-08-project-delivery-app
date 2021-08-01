@@ -6,6 +6,7 @@ import OrderCard from './OrderCard';
 import ProductCard from './ProductCard';
 import DisplayProducts from './DisplayProducts';
 import HeaderSeller from './HeaderSeller';
+import ItemListOrderSeller from './ItemListOrderSeller';
 
 export {
   Header,
@@ -16,4 +17,5 @@ export {
   ProductCard,
   DisplayProducts,
   HeaderSeller,
+  ItemListOrderSeller,
 };
