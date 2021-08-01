@@ -5,6 +5,9 @@ import validator from 'email-validator';
 import { login } from '../services';
 import { loginAction } from '../redux/actions';
 
+const MIN_LENGTH_PASSWORD = 6;
+const MAX_VIEW_SPAN_FIVE_SECONDS = 5000;
+
 class Login extends React.Component {
   constructor() {
     super();
@@ -15,12 +18,15 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  async componentDidMount() {
+    localStorage.clear();
+  }
+
   componentWillUnmount() {
     document.querySelector('.hidden-span').style.display = 'none';
   }
 
   handleChange({ target: { name, value } }) {
-    const maxLength = 5;
     if (name === 'email') {
       const isValid = validator.validate(value.toLowerCase());
       if (isValid) {
@@ -30,7 +36,7 @@ class Login extends React.Component {
       }
     }
     if (name === 'password') {
-      if (value.length > maxLength) {
+      if (value.length >= MIN_LENGTH_PASSWORD) {
         this.setState({ password: true });
       } else {
         this.setState({ password: false });
@@ -39,29 +45,38 @@ class Login extends React.Component {
   }
 
   async signIn({ target }) {
-    const { history, dispatchUser } = this.props;
+    const { history, setDataLoginStore } = this.props;
+
     const email = target.parentNode.parentNode.firstChild.childNodes[1].value;
     const password = target.parentNode.parentNode.firstChild.childNodes[3].value;
-    const user = await login(email, password);
-    if (!user.status) {
-      localStorage.setItem('user', JSON.stringify(user));
-      dispatchUser(user);
-      if (user.role === 'seller') {
+
+    const infoLoginAccess = await login(email, password);
+    localStorage.setItem('user', JSON.stringify(infoLoginAccess));
+
+    if (infoLoginAccess.token) {
+      setDataLoginStore(infoLoginAccess);
+
+      if (infoLoginAccess.role === 'seller') {
         history.push('/seller/orders');
-      } else if (user.role === 'customer') {
+      } else if (infoLoginAccess.role === 'customer') {
         history.push('/customer/products');
+      } else if (infoLoginAccess.role === 'administrator') {
+        history.push('/admin/manage');
       } else {
         history.push('/register');
       }
     } else {
-      const spanMaxTime = 5000;
       const hiddenSpan = document.querySelector('.hidden-span');
       hiddenSpan.style.display = 'inline-block';
-      hiddenSpan.setAttribute('data-testid', 'common_login__element-invalid-email');
-      hiddenSpan.innerHTML = user.message;
+      hiddenSpan.setAttribute(
+        'data-testid',
+        'common_login__element-invalid-email',
+      );
+      hiddenSpan.innerHTML = infoLoginAccess.message;
+
       setTimeout(() => {
         hiddenSpan.style.display = 'none';
-      }, spanMaxTime);
+      }, MAX_VIEW_SPAN_FIVE_SECONDS);
       return null;
     }
   }
@@ -69,6 +84,7 @@ class Login extends React.Component {
   render() {
     const { email, password } = this.state;
     const { history } = this.props;
+
     return (
       <div className="login-container">
         <div className="input-div">
@@ -114,12 +130,12 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchUser: (array) => dispatch(loginAction(array)),
+  setDataLoginStore: (infoLoginAccess) => dispatch(loginAction(infoLoginAccess)),
 });
 
 Login.propTypes = {
   history: PropTypes.shape().isRequired,
-  dispatchUser: PropTypes.func.isRequired,
+  setDataLoginStore: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Login);

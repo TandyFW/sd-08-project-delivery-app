@@ -13,14 +13,14 @@ class CardList extends React.Component {
   }
 
   async componentDidMount() {
-    const { dispatchProducts, dispatchCart, stateUser } = this.props;
+    const { dispatchProducts, dispatchCart } = this.props;
     const products = await getAllProducts();
     const LScart = JSON.parse(localStorage.getItem('cart'));
-    localStorage.setItem('user', JSON.stringify(stateUser));
+    // localStorage.setItem('user', JSON.stringify(stateUser));
     //
     if (LScart && LScart.length > 0) {
       LScart.forEach((element) => {
-        // pass the quantity from localstorage to 'this.state'
+        // pass the quantity from localStorage to 'this.state'
         const { state } = this;
         state[element.id] = element.quantity;
       });
@@ -62,7 +62,9 @@ class CardList extends React.Component {
     const { dispatchCart, stateProducts } = this.props;
     // selects the product on DOM
     const productName = document.getElementById(`name-${id}`).innerText;
-    const selectedProduct = stateProducts.filter((prod) => prod.name === productName);
+    const selectedProduct = stateProducts.filter(
+      (prod) => prod.name === productName,
+    );
     // checks if contains on redux
     const { stateCart } = this.props;
     const contains = stateCart
@@ -78,9 +80,12 @@ class CardList extends React.Component {
       dispatchCart(stateCart);
       // adding price into localStorage
       const localStoragePrice = localStorage.getItem('totalPrice');
-      localStorage.setItem('totalPrice',
-        (Number(selectedProduct[0].price)
-        + Number(localStoragePrice)).toFixed(2));
+      localStorage.setItem(
+        'totalPrice',
+        (Number(selectedProduct[0].price) + Number(localStoragePrice)).toFixed(
+          2,
+        ),
+      );
     } else {
       // foreach to find the exact index of statecart, and add +1
       stateCart.forEach((element, index) => {
@@ -88,9 +93,12 @@ class CardList extends React.Component {
           stateCart[index].quantity += 1;
           // adding price into localStorage
           const localStoragePrice = localStorage.getItem('totalPrice');
-          localStorage.setItem('totalPrice',
-            (Number(stateCart[index].price)
-            + Number(localStoragePrice)).toFixed(2));
+          localStorage.setItem(
+            'totalPrice',
+            (
+              Number(stateCart[index].price) + Number(localStoragePrice)
+            ).toFixed(2),
+          );
         }
       });
       // just increase one on state && localstorage
@@ -140,7 +148,7 @@ class CardList extends React.Component {
     const LSprice = localStorage.getItem('totalPrice');
     return (
       <div className="cardlist-container">
-        { stateProducts
+        {stateProducts
           && stateProducts.map((product, index) => (
             <div className="product" key={ index }>
               <span
@@ -212,9 +220,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  stateProducts: state.products.products,
-  stateCart: state.products.cart,
-  stateUser: state.user.user,
+  stateProducts: state.productReducer.products,
+  stateCart: state.productReducer.cart,
+  stateUser: state.userReducer.user,
 });
 
 CardList.propTypes = {
@@ -222,7 +230,7 @@ CardList.propTypes = {
   dispatchProducts: PropTypes.func.isRequired,
   dispatchCart: PropTypes.func.isRequired,
   stateProducts: PropTypes.arrayOf(PropTypes.object).isRequired,
-  stateUser: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // stateUser: PropTypes.arrayOf(PropTypes.object).isRequired,
   stateCart: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 

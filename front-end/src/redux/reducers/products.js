@@ -1,11 +1,11 @@
 import { PROD_LIST, CART } from '../actions';
 
 const INITIAL_STATE = {
-  products: [{}],
+  products: [],
   cart: [],
 };
 
-export default function (state = INITIAL_STATE, action) {
+export default function productReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
   case PROD_LIST:
     return {

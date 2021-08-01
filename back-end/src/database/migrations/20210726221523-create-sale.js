@@ -22,21 +22,25 @@ module.exports = {
           key: "id",
         },
       },
-      totalPrice: {
+      total_price: {
         allowNull: false,
-        type: Sequelize.DECIMAL(10, 2),
+        type: Sequelize.DECIMAL(9, 2),
+        field: 'total_price',
       },
-      deliveryAddress: {
-        allowNull: false,
-        type: Sequelize.STRING(100),
-      },
-      deliveryNumber: {
+      delivery_address: {
         allowNull: false,
         type: Sequelize.STRING(100),
+        field: 'delivery_address',
       },
-      salesDate: {
+      delivery_number: {
+        allowNull: false,
+        type: Sequelize.STRING(100),
+        field: 'delivery_number',
+      },
+      sale_date: {
         allowNull: false,
         type: Sequelize.DATE,
+        field: 'sale_date',
       },
       status: {
         allowNull: false,

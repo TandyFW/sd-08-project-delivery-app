@@ -2,3 +2,8 @@ export { default as Loader } from './Loader';
 export { default as Header } from './Header';
 export { default as CardList } from './CardList';
 export { default as UserTable } from './UserTable';
+export { default as CheckoutCart } from './CheckoutCart';
+export { default as CheckoutAdress } from './CheckoutAdress';
+export { default as SellerOrderList } from './SellerOrderList';
+export { default as CustomerOrdersList } from './CustomerOrdersList';
+export { default as CustomerOrdersDetailsList } from './CustomerOrdersDetailsList';

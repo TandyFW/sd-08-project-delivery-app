@@ -3,9 +3,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import validator from 'email-validator';
 import { Loader } from '../components';
-import { create, login } from '../services';
+import { createUser, login } from '../services';
 import { loginAction } from '../redux/actions';
 
+const SECOND_HALF = 1500;
+const MAX_TIME_SPAM_TEN_SECONDS = 10000;
+const MIN_LENGTH_NAME = 13;
+const MIN_LENGTH_PASSWORD = 6;
 class Register extends React.Component {
   constructor() {
     super();
@@ -20,10 +24,9 @@ class Register extends React.Component {
   }
 
   componentDidMount() {
-    const Loading = 1500;
     setTimeout(() => {
       this.setState({ loading: false });
-    }, Loading);
+    }, SECOND_HALF);
   }
 
   componentWillUnmount() {
@@ -40,16 +43,14 @@ class Register extends React.Component {
       }
     }
     if (name === 'password') {
-      const maxLength = 5;
-      if (value.length > maxLength) {
+      if (value.length >= MIN_LENGTH_PASSWORD) {
         this.setState({ password: true });
       } else {
         this.setState({ password: false });
       }
     }
     if (name === 'name') {
-      const MIN_LENGTH_NAME = 12;
-      if (value.length > MIN_LENGTH_NAME) {
+      if (value.length >= MIN_LENGTH_NAME) {
         this.setState({ name: true });
       } else {
         this.setState({ name: false });
@@ -58,28 +59,34 @@ class Register extends React.Component {
   }
 
   async signIn({ target }) {
-    const { history, dispatchUser } = this.props;
-    console.log(history);
+    const { history, setDataLoginStore } = this.props;
+
     const name = target.parentNode.firstChild.childNodes[1].value;
     const email = target.parentNode.firstChild.childNodes[2].childNodes[1].value;
     const pass = target.parentNode.firstChild.childNodes[4].value;
     const role = 'customer';
-    const user = await create(name, email, pass, role);
-    const spanMaxTime = 10000;
+    const user = await createUser(name, email, pass, role);
+    console.log(user);
     if (user.statusText) {
       const hiddenSpan = document.querySelector('.hidden-span');
       hiddenSpan.style.display = 'inline-block';
       hiddenSpan.innerHTML = user.message;
-      hiddenSpan.setAttribute('data-testid', 'common_register__element-invalid_register');
+      hiddenSpan.setAttribute(
+        'data-testid',
+        'common_register__element-invalid_register',
+      );
+
       setTimeout(() => {
         hiddenSpan.style.display = 'none';
-      }, spanMaxTime);
+      }, MAX_TIME_SPAM_TEN_SECONDS);
       return null;
     }
+
     if (user) {
-      const loginUser = await login(email, pass);
-      localStorage.setItem('user', JSON.stringify(loginUser));
-      dispatchUser(loginUser);
+      const infoLoginAccess = await login(email, pass);
+      console.log(infoLoginAccess);
+      localStorage.setItem('user', JSON.stringify(infoLoginAccess));
+      setDataLoginStore(infoLoginAccess);
     }
     history.push('/customer/products');
   }
@@ -88,63 +95,61 @@ class Register extends React.Component {
     const { loading, email, password, name } = this.state;
     return (
       <div className="register-master-container">
-        {loading
-          ? (
-            <div className="loading-div">
-              <Loader />
-            </div>
-          )
-          : (
-            <div className="register-container">
-              <div className="register-form">
-                <span>Nome</span>
+        {loading ? (
+          <div className="loading-div">
+            <Loader />
+          </div>
+        ) : (
+          <div className="register-container">
+            <div className="register-form">
+              <span>Nome</span>
+              <input
+                name="name"
+                className="input"
+                onChange={ this.handleChange }
+                data-testid="common_register__input-name"
+              />
+              <div className="email-div">
+                <span>Email</span>
                 <input
-                  name="name"
+                  name="email"
                   className="input"
                   onChange={ this.handleChange }
-                  data-testid="common_register__input-name"
+                  data-testid="common_register__input-email"
                 />
-                <div className="email-div">
-                  <span>Email</span>
-                  <input
-                    name="email"
-                    className="input"
-                    onChange={ this.handleChange }
-                    data-testid="common_register__input-email"
-                  />
-                  <span className="hidden-span" />
-                </div>
-                <span>Senha</span>
-                <input
-                  name="password"
-                  type="password"
-                  className="input"
-                  onChange={ this.handleChange }
-                  data-testid="common_register__input-password"
-                />
+                <span className="hidden-span" />
               </div>
-              <button
-                type="button"
-                data-testid="common_register__button-register"
-                disabled={ !email || !password || !name }
-                onClick={ (event) => this.signIn(event) }
-              >
-                Cadastrar
-              </button>
+              <span>Senha</span>
+              <input
+                name="password"
+                type="password"
+                className="input"
+                onChange={ this.handleChange }
+                data-testid="common_register__input-password"
+              />
             </div>
-          )}
+            <button
+              type="button"
+              data-testid="common_register__button-register"
+              disabled={ !email || !password || !name }
+              onClick={ (event) => this.signIn(event) }
+            >
+              Cadastrar
+            </button>
+          </div>
+        )}
       </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchUser: (array) => dispatch(loginAction(array)),
+  setDataLoginStore: (infoLoginAccess) => dispatch(loginAction(infoLoginAccess)),
 });
 
 Register.propTypes = {
   history: PropTypes.shape().isRequired,
-  dispatchUser: PropTypes.func.isRequired,
+  setDataLoginStore: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Register);

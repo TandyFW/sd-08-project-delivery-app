@@ -1,0 +1,11 @@
+.checkout-container {
+  @include flex(flex, column, center, center);
+  @include loading-div(400px, 400px, $trybeGreen);
+  margin: 12% auto 0 auto;
+  .checkout-cart-container {
+    
+  }
+  .checkout-adress-container {
+
+  }
+}
