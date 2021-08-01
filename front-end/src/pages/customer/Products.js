@@ -1,10 +1,11 @@
 import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
-import CartContext from '../context/CartContext';
-import Navbar from '../components/Navbar';
-import ProductCard from '../components/ProductCard';
-import * as api from '../services/api';
+import CartContext from '../../context/CartContext';
+import ProductCard from '../../components/Card/ProductCard';
+import * as api from '../../services/api';
+import CustomerNavbar from '../../components/Navbar/CustomerNavbar';
+import TotalValueTag from '../../components/TotalValueTag';
 
 const StyledProducts = styled.div`
   position: relative;
@@ -17,15 +18,8 @@ const ProductsContainer = styled.div`
   padding: 40px 80px;
 `;
 
-const TotalValue = styled.button`
-  background-color: ${({ theme }) => theme.colors.primary};
-  border: none;
-  bottom: 20px;
-  color: white;
+const ProductsTotalValueTag = styled(TotalValueTag)`
   cursor: pointer;
-  padding: 20px;
-  position: fixed;
-  right: 20px;
 
   &:disabled {
     cursor: not-allowed;
@@ -41,30 +35,21 @@ function Products() {
     api.getProducts().then((result) => setProducts(result));
   }, [setProducts]);
 
-  const cartTotal = getCartTotal();
-
   return (
     <StyledProducts>
-      <Navbar>
-        <div data-testid="customer_products__element-navbar-link-products">Produtos</div>
-        <div data-testid="customer_products__element-navbar-link-orders">
-          Meus pedidos
-        </div>
-      </Navbar>
+      <CustomerNavbar />
       <ProductsContainer>
         { products.map((product) => (
           <ProductCard key={ product.id } product={ product } />)) }
       </ProductsContainer>
-      <TotalValue
-        disabled={ cartTotal === 0 }
+      <ProductsTotalValueTag
         onClick={ () => history.push('/customer/checkout') }
-        data-testid="customer_products__button-cart"
+        // testId="customer_products__checkout-bottom-value"
+        testId="customer_products__button-cart"
+        disabled={ getCartTotal() === 0 }
       >
-        TOTAL: R$
-        <span data-testid="customer_products__checkout-bottom-value">
-          { cartTotal.toFixed(2).replace('.', ',') }
-        </span>
-      </TotalValue>
+        Ver carrinho
+      </ProductsTotalValueTag>
     </StyledProducts>
   );
 }
