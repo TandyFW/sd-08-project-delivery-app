@@ -112,7 +112,7 @@ class CustomerOrdersDetailsList extends React.Component {
             </td>
             <td>
               <button
-                disabled={ isDelivered }
+                disabled={ !isDelivered }
                 type="button"
                 data-testid={ `${prefix2}button-delivery-check` }
               >
