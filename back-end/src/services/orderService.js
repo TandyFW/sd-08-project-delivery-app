@@ -70,7 +70,7 @@ const getAllOrdersBySellerId = async (id) => {
   const sellerId = 'seller_id'; // Miau para quem fez essa regra =)
   const foundSales = await sale.findAll({
     where: { [sellerId]: id },
-    attributes: { exclude: ['seller_id', 'user_id'] }, // exclui o order
+    attributes: { exclude: ['seller_id'] }, // exclui o order
     include: [{
       attributes: { exclude: [''] }, /* exclui o product */
       model: product,

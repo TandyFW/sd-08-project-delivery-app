@@ -44,7 +44,6 @@ class CustomerOrdersList extends React.Component {
       return <Loader />;
     }
     const { orders } = this.state;
-    console.log(orders);
     return (
       <div className="cardlist-container">
         {

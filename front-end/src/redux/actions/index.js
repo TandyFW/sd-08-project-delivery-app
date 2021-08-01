@@ -51,6 +51,6 @@ export const getAllOrdesByUserApi = () => async (dispatch) => {
 };
 
 export const getAllOrdesBySellerApi = () => async (dispatch) => {
-  const { ordes } = await getAllOrdersForSeller();
-  dispatch(allOrdesAction(ordes));
+  const { orders } = await getAllOrdersForSeller();
+  dispatch(allOrdesAction(orders));
 };
