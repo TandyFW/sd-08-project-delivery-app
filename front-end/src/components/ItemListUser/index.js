@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import api from '../../Apis/api1';
+import { Context } from '../../Context';
+// import api from '../../Apis/api1';
 
 import {
   Container,
@@ -12,16 +13,8 @@ import {
 } from './Styled';
 
 export default function ItemListUser(props) {
-  const [users, setUsers] = useState([]);
+  const { users, setUsers } = useContext(Context);
   const { item, index, name, email, role } = props;
-
-  useEffect(() => {
-    const loadUsers = async () => {
-      const responseUsers = await api.getAllUsers();
-      setUsers(responseUsers);
-    };
-    loadUsers();
-  }, []);
 
   const removeUser = () => {
     const updatedUsers = users
@@ -33,6 +26,7 @@ export default function ItemListUser(props) {
     <Container>
       <ContainerItem
         data-testid={ `admin_manage__element-user-table-item-number-${index}` }
+        key={ item }
       >
         {` ${index + 1} `}
       </ContainerItem>

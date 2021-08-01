@@ -51,15 +51,15 @@ const getUserById = async (req, res) => {
   res.status(200).json({ response });
 };
 
-// const deleteUser = async (req, res) => {
-//   const { id } = req.params;
-//   try {
-//     await SERVICES.deleteUser(id);
-//     return res.status(204).json({});
-//     } catch (error) {
-//     return res.status(500).json({ message: error.message });
-//   }
-// };
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deletedUser = await SERVICES.deleteUser(id);
+    return res.status(200).json({ deletedUser });
+    } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 module.exports = {
   login,
@@ -68,4 +68,5 @@ module.exports = {
   getAllUsers,
   getAllSellers,
   getUserById,
+  deleteUser,
 };

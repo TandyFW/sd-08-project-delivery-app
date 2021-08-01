@@ -34,11 +34,11 @@ export default {
     // console.log(res);
   },
 
-  // deleteUser: async (id) => {
-  //   const registerObj = { id };
-  //   const res = await axios.delete(`${BASEURL}${ADMIN}`, registerObj);
-  //   return res;
-  // },
+  deleteUser: async (id) => {
+    const registerObj = { id };
+    const res = await axios.delete(`${BASEURL}${ADMIN}`, registerObj);
+    return res;
+  },
 
   getAllSales: async (token, role) => {
     const headers = HEADERS_TOKEN(token);
@@ -47,9 +47,10 @@ export default {
       .then((result) => result.data.response);
   },
 
-  getAllUsers: async () => axios
-    .get(`${BASEURL}${USERS}`)
-    .then((result) => result.data.response),
+  getAllUsers: async () => {
+    const res = await axios.get(`${BASEURL}${USERS}`);
+    return res;
+  },
 
   getAllSellers: async () => axios.get(
     `${BASEURL}${SELLERS}`,

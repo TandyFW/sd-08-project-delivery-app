@@ -68,11 +68,16 @@ const getUserById = async (id) => {
 };
 
 // const deleteUser = async (id) => {
-//   const user = await user.findOne({ where: { id } });
-//   if (!user) throw new Error('User does not exist');
-//   await user.destroy({ where: { id } });
-//   return {};
-// };
+//   const response = await user.destroy({ where: { id } });
+//   return response;
+// }
+
+const deleteUser = async (id) => {
+  const userId = await userId.findOne({ where: { id } });
+  if (!userId) throw new Error('Product does not exist');
+  await user.destroy({ where: { id } });
+  return {};
+};
 
 module.exports = {
   login,
@@ -81,4 +86,5 @@ module.exports = {
   getAllUsers,
   getAllSellers,
   getUserById,
+  deleteUser,
 };
