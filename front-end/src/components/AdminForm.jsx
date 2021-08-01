@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { InputLabel, MenuItem, Select } from '@material-ui/core';
+import Joi from 'joi';
 import ButtonContained from './ButtonContained';
 import InputAdmin from './inputAdmin';
 
@@ -8,6 +9,19 @@ function AdminForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [disabled, setDisabled] = useState(true);
+
+  const minNameLength = 12;
+  const minPasswordLength = 6;
+  const validation = Joi.object({
+    nameValidation: Joi.string().min(minNameLength),
+    emailValidation: Joi.string().email({
+      minDomainSegments: 2,
+      tlds: { allow: false },
+    }),
+    passwordValidation: Joi.string().min(minPasswordLength),
+    roleValidation: Joi.string(),
+  });
 
   function handleInputs(value, label) {
     if (label === 'Nome') {
@@ -41,6 +55,18 @@ function AdminForm() {
     text: 'CADASTRAR',
   };
 
+  useEffect(() => {
+    const validate = validation.validate({
+      nameValidation: name,
+      emailValidation: email,
+      passwordValidation: password,
+      roleValidation: select,
+    });
+    console.log(name, email, password, select);
+    if (!validate.error) setDisabled(false);
+    else setDisabled(true);
+  }, [name, email, password, select]);
+
   return (
     <form>
       <p>Cadastrar novo usuário</p>
@@ -61,13 +87,14 @@ function AdminForm() {
         datatest-id="admin_manage__select-role"
         onChange={ ({ target }) => setSelect(target.value) }
       >
-        <MenuItem value="seller">Vendedor</MenuItem>
-        <MenuItem value="customer">Cliente</MenuItem>
+        <MenuItem value="customer">Vendedor</MenuItem>
+        <MenuItem value="seller">Cliente</MenuItem>
       </Select>
       <ButtonContained
         type={ buttonStuff.type }
         datatest-id={ buttonStuff.datatest }
         value={ buttonStuff.value }
+        disabled={ disabled }
         text={ buttonStuff.text }
       />
     </form>
