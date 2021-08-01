@@ -88,7 +88,6 @@ class SellerOrderList extends React.Component {
             className="sellerOrderlist-container"
             type="button"
             onClick={ () => history.push(`/seller/orders/${order.id}`) }
-
           >
             <div>
               <h4>Pedido</h4>

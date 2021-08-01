@@ -10,6 +10,7 @@ import {
   SellerOrders,
   CustomerOrders,
   CustomerOrdersDetails,
+  SellerOrdersDetails,
 } from '../pages';
 
 function Routes() {
@@ -22,6 +23,7 @@ function Routes() {
       {/* <Route exact path="/admin/manage" component={ Admin } /> */}
       <Route exact path="/customer/checkout" component={ Checkout } />
       <Route exact path="/seller/orders" component={ SellerOrders } />
+      <Route exact path="/seller/orders/:id" component={ SellerOrdersDetails } />
       <Route exact path="/customer/orders" component={ CustomerOrders } />
       <Route exact path="/customer/orders/:id" component={ CustomerOrdersDetails } />
 

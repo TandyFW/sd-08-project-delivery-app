@@ -7,3 +7,4 @@ export { default as CheckoutAdress } from './CheckoutAdress';
 export { default as SellerOrderList } from './SellerOrderList';
 export { default as CustomerOrdersList } from './CustomerOrdersList';
 export { default as CustomerOrdersDetailsList } from './CustomerOrdersDetailsList';
+export { default as SellerOrdersDetailsList } from './SellerOrdersDetailsList';
