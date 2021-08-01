@@ -6,35 +6,42 @@ const testIdData = {
 };
 
 function StatusNav({ orderData }) {
+  const TEN = 10;
   return (
-    <div className="order-status">
-      <p
-        data-testid="customer_order_details__element-order-details-label-order-id"
-      >
-        {`ID DO PEDIDO: ${orderData.id}`}
-      </p>
-      <p
-        data-testid="customer_order_details__element-order-details-label-seller-name"
-      >
-        {`VENDEDOR: ${orderData.sellerId}`}
-      </p>
-      <p
-        data-testid="customer_order_details__element-order-details-label-order-date"
-      >
-        {`DATA: ${orderData.saleDate}`}
-      </p>
-      <p
-        data-testid={ testIdData.deliveryStatus }
-      >
-        {`STATUS: ${orderData.status}`}
-      </p>
-      <button
-        type="button"
-        data-testid="customer_order_details__button-delivery-check"
-      >
-        MARCAR COMO ENTREGUE
-      </button>
-    </div>
+    orderData
+      ? (
+        <div className="order-status">
+          <p
+            data-testid="customer_order_details__element-order-details-label-order-id"
+          >
+            {`ID DO PEDIDO: ${orderData.id}`}
+          </p>
+          <p
+            data-testid="customer_order_details__element-order-details-label-seller-name"
+          >
+            Fulana Pereira
+          </p>
+          <p
+            data-testid="customer_order_details__element-order-details-label-order-date"
+          >
+            {orderData.saleDate
+              ? orderData.saleDate.slice(0, TEN).split('-').reverse().join('/') : null}
+          </p>
+          <p
+            data-testid={ testIdData.deliveryStatus }
+          >
+            {`STATUS: ${orderData.status}`}
+          </p>
+          <button
+            type="button"
+            data-testid="customer_order_details__button-delivery-check"
+            disabled
+          >
+            MARCAR COMO ENTREGUE
+          </button>
+        </div>
+      )
+      : null
   );
 }
 

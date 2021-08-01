@@ -40,9 +40,7 @@ function OrderDetailsTable({ data }) {
                 {quantity}
               </td>
               <td
-                data-testid={
-                  `customer_order_details__element-order-total-price-${index}`
-                }
+                data-testid="customer_order_details__element-order-price"
               >
                 {String(product.price).replace('.', ',')}
               </td>
@@ -59,7 +57,7 @@ function OrderDetailsTable({ data }) {
         </tbody>
       </table>
       <h4
-        data-testid="customer_checkout__element-order-total-price"
+        data-testid="customer_order_details__element-order-total-price"
       >
         {`Total Price: 
         ${String((data.reduce((acc, curr) => acc + (curr.quantity
