@@ -10,10 +10,20 @@ export const API_LOGIN_URL = ({ email, password }) => ({
 // necessario aplicar o token manualmente
 const users = JSON.parse(localStorage.getItem('user')) || { token: '999' };
 
-export const API_CUSTUMER_ORDER_URL = {
-  method: 'get',
-  url: 'http://127.0.0.1:3001/customer/orders',
-  headers: {
-    authorization: users.token,
+export const API = {
+  customer: {
+    method: 'get',
+    url: 'http://127.0.0.1:3001/customer/orders',
+    headers: {
+      authorization: users.token,
+    },
   },
+  seller: {
+    method: 'get',
+    url: 'http://127.0.0.1:3001/seller/orders',
+    headers: {
+      authorization: users.token,
+    },
+  },
+
 };
