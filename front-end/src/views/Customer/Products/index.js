@@ -10,15 +10,6 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const { userData } = useContext(Context);
 
-  useEffect(() => {
-    localStorage.setItem('user', JSON.stringify({
-      token: userData.token,
-      name: userData.user.name,
-      email: userData.user.email,
-      role: userData.user.role,
-    }));
-  }, [userData]);
-
   async function getData() {
     const myInit = {
       method: 'GET',
@@ -36,11 +27,14 @@ const Products = () => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [userData]);
 
   return (
     <div className="main-wrapper-products">
-      <NavBar userType="customer" userName={ userData.user.name } />
+      <NavBar
+        userType={ userData.user.role }
+        userName={ userData.user.name }
+      />
       <div className="wrapper-card-product">
         {products && products.length > 0 && (
           products.map((product) => (

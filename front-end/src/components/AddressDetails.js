@@ -18,7 +18,7 @@ const dataSellers = [
   },
 ];
 
-function AddressDetails({ cart }) {
+function AddressDetails({ cart, setCart }) {
   const { userData } = useContext(Context);
   const [seller, setSeller] = useState('');
   const [address, setAddress] = useState('');
@@ -45,6 +45,7 @@ function AddressDetails({ cart }) {
     };
     const rawResponse = await fetch('http://localhost:3001/customer/order', myInit);
     const content = await rawResponse.json();
+    setCart([]);
     history.push(`/customer/orders/${content.sale.id}`);
   }
 
@@ -101,6 +102,7 @@ function AddressDetails({ cart }) {
 
 AddressDetails.propTypes = {
   cart: PropTypes.arrayOf(Object).isRequired,
+  setCart: PropTypes.func.isRequired,
 };
 
 export default AddressDetails;

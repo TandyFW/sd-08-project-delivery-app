@@ -49,7 +49,7 @@ beforeEach(async () => {
 });
 
 describe(requirement(22), () => {
-  test("O avaliador ira testar se existem data-testids para até os dez primeiros itens contidos na tabela 'sales'", async () => {
+  test.only("O avaliador ira testar se existem data-testids para até os dez primeiros itens contidos na tabela 'sales'", async () => {
     for (const { id } of orderList) {
       await expect(page).toFindElement(
         customerOrdersPage.element.card.orderId + `[data-testid$='-${id}']`

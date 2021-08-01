@@ -16,7 +16,7 @@ function CustomerCheckout() {
       </div>
       <div>
         <h3>Detalhes e Endereço para Entrega</h3>
-        <AddressDetails cart={ cart } />
+        <AddressDetails cart={ cart } setCart={ setCart } />
       </div>
     </div>
   );

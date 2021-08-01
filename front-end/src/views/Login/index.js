@@ -20,7 +20,6 @@ function Login() {
     }
     return true;
   }
-
   useEffect(() => {
     if (userData.token) {
       history.push('/customer/products');
@@ -48,6 +47,7 @@ function Login() {
     };
     const rawResponse = await fetch('http://localhost:3001/login', myInit);
     const content = await rawResponse.json();
+    localStorage.setItem('user', JSON.stringify(content));
     return setUserData(content);
   };
   return (
