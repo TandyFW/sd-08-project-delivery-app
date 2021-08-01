@@ -93,7 +93,7 @@ describe(requirement(23), () => {
 });
 
 describe(requirement(24), () => {
-  test.only("O avaliador acessará a tela de detalhes do último pedido pela tela de pedidos, após o checkout do mesmo", async () => {
+  test("O avaliador acessará a tela de detalhes do último pedido pela tela de pedidos, após o checkout do mesmo", async () => {
     const { saleId } = order;
 
     await expect(page).toClickOnElement({
