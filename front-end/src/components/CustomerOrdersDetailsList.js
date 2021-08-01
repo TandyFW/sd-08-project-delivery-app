@@ -40,6 +40,7 @@ class CustomerOrdersDetailsList extends React.Component {
       OrderDetails: {},
       orders: [],
       isLoading: true,
+      isDelivered: false,
     };
     this.setAllOrdesInState = this.setAllOrdesInState.bind(this);
   }
@@ -84,7 +85,7 @@ class CustomerOrdersDetailsList extends React.Component {
     if (isLoading) {
       return <Loader />;
     }
-    const { OrderDetails } = this.state;
+    const { OrderDetails, isDelivered } = this.state;
     return (
       <div className="customerOrdersDetailsList-div">
         <table className="customerOrdersDetailsList-table">
@@ -104,11 +105,14 @@ class CustomerOrdersDetailsList extends React.Component {
             >
               { OrderDetails.date }
             </td>
-            <td>
+            <td
+              data-testid={ `${prefix1}-details-label-delivery-status` }
+            >
               { (OrderDetails.status).toLocaleUpperCase() }
             </td>
             <td>
               <button
+                disabled={ isDelivered }
                 type="button"
                 data-testid={ `${prefix2}button-delivery-check` }
               >
@@ -158,7 +162,9 @@ class CustomerOrdersDetailsList extends React.Component {
             ))
           }
         </table>
-        <h2>
+        <h2
+          data-testid={ `${prefix2}element-order-total-price` }
+        >
           { `Total: R$ ${OrderDetails.totalPrice}` }
         </h2>
       </div>
