@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.ul`
   display: flex;
-  justify-content: center;;
+  justify-content: center;
 `;
 export const ContainerItem = styled.div`
   background-color: #3FBF7F;

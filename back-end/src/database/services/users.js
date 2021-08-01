@@ -43,9 +43,15 @@ const getAllSellers = async () => {
   return response;
 };
 
+const getUserById = async (id) => {
+  const response = await user.findByPk(id);
+  return response;
+};
+
 module.exports = {
   login,
   register,
   getAllUsers,
   getAllSellers,
+  getUserById,
 };

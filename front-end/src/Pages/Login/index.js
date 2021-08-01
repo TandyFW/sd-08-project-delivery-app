@@ -15,14 +15,20 @@ import {
   RegisterButton,
   LoginLabel,
   PassLabel,
-  /*  InvalidBox, */
 } from './Styled';
-/* import { Context } from '../../Context'; */
 import api from '../../Apis/api1';
 
+const redirectLoggedUser = (user, history) => {
+  if (user.role === 'customer') return history.push('/customer/products');
+  if (user.role === 'seller') return history.push('/seller/orders');
+  if (user.role === 'administrator') return history.push('/admin/manage');
+};
+
 const Login = () => {
-  /* const { text, setText } = useContext(Context); */
   const history = useHistory();
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (user) redirectLoggedUser(user, history);
+
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const [valid, setValid] = useState(true);
@@ -51,9 +57,9 @@ const Login = () => {
       setLogged(false);
     } else {
       setLogged(true);
-      if (result.data.role === 'customer') {
-        history.push('/customer/products');
-      }
+      if (result.data.role === 'customer') return history.push('/customer/products');
+      if (result.data.role === 'seller') return history.push('/seller/orders');
+      return history.push('/admin/manage');
     }
   };
 
@@ -90,7 +96,6 @@ const Login = () => {
             />
             <SubmitButton
               type="submit"
-              onClick={ () => console.log('Clicou') }
               disabled={ valid }
               data-testid="common_login__button-login"
 

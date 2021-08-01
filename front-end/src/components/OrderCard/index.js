@@ -14,21 +14,33 @@ import {
 } from './Styled';
 
 const renderAddress = (id, address, number) => (
-  <OrderAddress data-testid={ `customer_orders__element-card-address-${id}` }>
+  <OrderAddress data-testid={ `seller_orders__element-card-address-${id}` }>
     {`${address}, ${number}`}
   </OrderAddress>
 );
 
+const formatDate = (date) => {
+  const [month, day, year] = new Date(date).toLocaleDateString().split('/');
+  return `${day.padStart(2, '0')}/${month.padStart(2, '0')}/${year}`;
+};
+
 export default function OrderCard({ orderData, isSeller }) {
   const history = useHistory();
   const TARGET_LENGTH = 4;
+  const prefix = isSeller ? 'seller_orders__element-' : 'customer_orders__element-';
+
+  const redirect = () => (isSeller
+    ? history.push(`/seller/orders/${orderData.id}`)
+    : history.push(`/customer/orders/${orderData.id}`));
 
   return (
-    <OrderContainer onClick={ () => history.push(`/customer/orders/${orderData.id}`) }>
+    <OrderContainer
+      onClick={ redirect }
+    >
       <OrderIdContainer>
         <p>Pedido</p>
         <OrderId
-          data-testid={ `customer_orders__element-order-id-${orderData.id}` }
+          data-testid={ `${prefix}order-id-${orderData.id}` }
         >
           {orderData.id.toString().padStart(TARGET_LENGTH, '0')}
         </OrderId>
@@ -36,20 +48,20 @@ export default function OrderCard({ orderData, isSeller }) {
       <OrderGeneral>
         <OrderData>
           <OrderCardStatus
-            data-testid={ `customer_orders__element-delivery-status-${orderData.id}` }
             status={ orderData.status }
             id={ orderData.id }
+            prefix={ prefix }
           />
           <OrderDetails>
             <OrderDetailsInfo
-              data-testid={ `customer_orders__element-order-date-${orderData.id}` }
+              data-testid={ `${prefix}order-date-${orderData.id}` }
             >
-              {orderData.sale_date}
+              {formatDate(orderData.sale_date)}
             </OrderDetailsInfo>
             <OrderDetailsInfo
-              data-testid={ `customer_orders__element-card-price-${orderData.id}` }
+              data-testid={ `${prefix}card-price-${orderData.id}` }
             >
-              {`R$${orderData.total_price}`}
+              {orderData.total_price.replace(/\./, ',')}
             </OrderDetailsInfo>
           </OrderDetails>
         </OrderData>
@@ -69,7 +81,7 @@ OrderCard.propTypes = {
     id: PropTypes.number,
     user_id: PropTypes.number,
     seller_id: PropTypes.number,
-    total_price: PropTypes.number,
+    total_price: PropTypes.string,
     delivery_address: PropTypes.string,
     delivery_number: PropTypes.string,
     sale_date: PropTypes.string,
