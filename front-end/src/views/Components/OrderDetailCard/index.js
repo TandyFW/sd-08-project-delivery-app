@@ -19,6 +19,12 @@ function OrderDetailsCard(order) {
     history.push(`/seller/orders/${id}`);
   }
 
+  function formatDate(fullDate) {
+    const date = fullDate.split('T');
+    const dateSplited = date[0].split('-');
+    return `${dateSplited[2]}/${dateSplited[1]}/${dateSplited[0]}`;
+  }
+
   return (
     <div
       role="button"
@@ -44,7 +50,7 @@ function OrderDetailsCard(order) {
           </div>
           <div className="status-date-value">
             <span data-testid={ `seller_orders__element-order-date-${id}` }>
-              {saleDate}
+              { formatDate(saleDate)}
             </span>
             <span data-testid={ `seller_orders__element-card-price-${id}` }>
               R$

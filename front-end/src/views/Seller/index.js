@@ -36,7 +36,7 @@ function SellerOrders() {
 
   return (
     <div>
-      <NavBar userType="seller" userName={ userData.user.name } />
+      <NavBar userType="customer" userName={ userData.user.name } />
       { orders.map((order) => <OrderDetailsCard key={ order.id } order={ order } />)}
     </div>
   );

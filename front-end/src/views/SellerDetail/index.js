@@ -31,7 +31,6 @@ function SellerDetailPage(props) {
   function formatDate(fullDate) {
     const date = fullDate.split('T');
     const dateSplited = date[0].split('-');
-    // console.log(date[0].split('-'));
     return `${dateSplited[2]}/${dateSplited[1]}/${dateSplited[0]}`;
   }
 
