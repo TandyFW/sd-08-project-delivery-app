@@ -3,7 +3,7 @@ const { expect } = require('chai');
 
 const { emailPasswordDataValidation } = require('../../../api/middlewares');
 
-describe('Email and Password data validation', () => {
+describe('Email and Password data validation middleware', () => {
   let response = {};
   let request = {};
 
