@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-// import { useHistory } from 'react-router-dom';
 import Context from '../../../context/Context';
 import NavBar from '../../Components/NavBar';
 import OrderCard from './components/OrderCard';
@@ -7,7 +6,6 @@ import OrderCard from './components/OrderCard';
 function Orders() {
   const { userData } = useContext(Context);
   const [orderData, setOrderData] = useState();
-  // const history = useHistory();
   async function fetchOrder() {
     const myInit = {
       method: 'GET',
