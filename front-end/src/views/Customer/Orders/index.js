@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
+// import { useHistory } from 'react-router-dom';
 import Context from '../../../context/Context';
 import NavBar from '../../Components/NavBar';
+import OrderCard from './components/OrderCard';
 
 function Orders() {
   const { userData } = useContext(Context);
   const [orderData, setOrderData] = useState();
+  // const history = useHistory();
   async function fetchOrder() {
     const myInit = {
       method: 'GET',
@@ -27,33 +30,11 @@ function Orders() {
       <NavBar userType={ userData.user.role } userName={ userData.user.name } />
       <div className="orders">
         {orderData && orderData.map((element, index) => (
-          <div key={ index } className="orders-cards">
-            <p
-              data-testid={ `seller_orders__element-order-id-${element.id}` }
-            >
-              {`PEDIDO: ${element.id}`}
-            </p>
-            <p
-              data-testid={ `seller_orders__element-delivery-status-${element.id}` }
-            >
-              {`STATUS: ${element.status}`}
-            </p>
-            <p
-              data-testid={ `seller_orders__element-order-date-${element.id}` }
-            >
-              {`DATA: ${element.saleDate}`}
-            </p>
-            <p
-              data-testid={ `seller_orders__element-card-price-${element.id}` }
-            >
-              {`TOTAL: ${element.totalPrice}`}
-            </p>
-            <p
-              data-testid={ `seller_orders__element-card-address-${element.id}` }
-            >
-              {`ENDEREÇO: ${element.deliveryAddress}, ${element.deliveryNumber}`}
-            </p>
-          </div>
+          <OrderCard
+            key={ index }
+            data={ element }
+            index={ index }
+          />
         ))}
       </div>
     </div>
