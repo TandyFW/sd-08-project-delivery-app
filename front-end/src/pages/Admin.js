@@ -1,144 +1,53 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import validator from 'email-validator';
-import { createUser } from '../services';
-// import { UserTable } from '../components';
-import { getAllUsersApi } from '../redux/actions';
+import PropTypes from 'prop-types';
+import { getAllUsers } from '../services';
+import { AdminUsers, AdminSignIn, Header } from '../components';
+import { allUsersAction } from '../redux/actions';
 
-const MAX_TIME_SPAM_TEN_SECONDS = 10000;
-const MIN_LENGTH_NAME = 13;
-const MIN_LENGTH_PASSWORD = 6;
 class Admin extends React.Component {
   constructor() {
     super();
     this.state = {
-      email: false,
-      password: false,
-      name: false,
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.signIn = this.signIn.bind(this);
   }
 
-  handleChange({ target: { name, value } }) {
-    if (name === 'email') {
-      const isValid = validator.validate(value.toLowerCase());
-      if (isValid) {
-        this.setState({ email: true });
-      } else {
-        this.setState({ email: false });
-      }
-    }
-    if (name === 'password') {
-      if (value.length >= MIN_LENGTH_PASSWORD) {
-        this.setState({ password: true });
-      } else {
-        this.setState({ password: false });
-      }
-    }
-    if (name === 'name') {
-      if (value.length >= MIN_LENGTH_NAME) {
-        this.setState({ name: true });
-      } else {
-        this.setState({ name: false });
-      }
-    }
+  async componentDidMount() {
+    const { dispatchUsers } = this.props;
+    const users = await getAllUsers();
+    console.log(users);
+    localStorage.setItem('allUsers', JSON.stringify(users.registers));
+    dispatchUsers(users.registers);
   }
 
-  async signIn({ target }) {
-    const name = target.parentNode.firstChild.childNodes[1].value;
-    const email = target.parentNode.firstChild.childNodes[3].value;
-    const pass = target.parentNode.firstChild.childNodes[5].value;
-    const role = target.parentNode.firstChild.childNodes[7].value;
-    const user = await createUser(name, email, pass, role);
-
-    if (user.statusText) {
-      const hiddenSpan = document.querySelector('.hidden-span');
-      hiddenSpan.style.display = 'inline-block';
-      hiddenSpan.innerHTML = user.message;
-      hiddenSpan.setAttribute(
-        'data-testid',
-        'admin_manage__element-invalid_register',
-      );
-      setTimeout(() => {
-        document.querySelector('.hidden-span').style.display = 'none';
-      }, MAX_TIME_SPAM_TEN_SECONDS);
-      await getAllUsersApi();
-      return null;
-    }
-    name.innerHTML = '';
-    email.innerHTML = '';
-    pass.innerHTML = '';
-    role.innerHTML = '';
+  componentDidUpdate() { // nao excluir
+    const { state } = this;
+    console.log(state.user);
   }
 
   render() {
-    // const { history } = this.props;
-    // const { loading } = this.state;
-    const { email, password, name } = this.state;
+    const { history } = this.props;
     return (
-      <div className="ADM-Page">
-        <div className="register-form">
-          <form>
-            <span>Nome</span>
-            <input
-              autoComplete="off"
-              name="name"
-              className="input"
-              onChange={ this.handleChange }
-              data-testid="admin_manage__input-name"
-            />
-            <span>Email</span>
-            <input
-              autoComplete="off"
-              name="email"
-              className="input"
-              onChange={ this.handleChange }
-              data-testid="admin_manage__input-email"
-            />
-
-            <span>Senha</span>
-            <input
-              autoComplete="off"
-              name="password"
-              type="password"
-              className="input"
-              onChange={ this.handleChange }
-              data-testid="admin_manage__input-password"
-            />
-            <span>Tipo</span>
-            <select
-              name="role"
-              type="select"
-              className="input"
-              onChange={ this.handleChange }
-              data-testid="admin_manage__select-role"
-            >
-              <option value="administrator">Administrador</option>
-              <option value="seller">Vendedor</option>
-              <option value="customer">Usuário</option>
-            </select>
-          </form>
-          <button
-            type="button"
-            data-testid="admin_manage__button-register"
-            disabled={ !email || !password || !name }
-            onClick={ (event) => {
-              this.signIn(event);
-            } }
-          >
-            Cadastrar
-          </button>
-        </div>
-        <span className="hidden-span" />
-        {/* <UserTable /> */}
+      <div className="admin-container">
+        <Header history={ history } />
+        <AdminSignIn newUsers={ (user) => this.setState({ user }) } />
+        <AdminUsers newUsers={ (user) => this.setState({ user }) } />
       </div>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  setAllUserStore: () => dispatch(getAllUsersApi()),
+const mapStateToProps = (state) => ({
+  stateUsers: state.userReducer.users,
 });
 
-export default connect(null, mapDispatchToProps)(Admin);
+const mapDispatchToProps = (dispatch) => ({
+  dispatchUsers: (array) => dispatch(allUsersAction(array)),
+});
+
+Admin.propTypes = {
+  history: PropTypes.shape().isRequired,
+  dispatchUsers: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Admin);

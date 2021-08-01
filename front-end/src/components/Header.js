@@ -60,9 +60,9 @@ class Header extends React.Component {
               history.push(productsRoute);
             } }
           >
-            {dataLogin
-              ? dataLogin.name
-              : `${JSON.parse(localStorage.getItem('token')).name}`}
+            {(dataLogin || JSON.parse(localStorage.getItem('user')))
+              ? `${JSON.parse(localStorage.getItem('user')).name}`
+              : dataLogin.name}
           </button>
           <button
             type="button"
