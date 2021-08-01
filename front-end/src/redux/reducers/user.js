@@ -1,17 +1,17 @@
-import { DATA_LOGIN, ALL_USER, USER, USERS } from '../actions';
+import { DATA_LOGIN, ALL_USER, USERS, LOGIN } from '../actions';
 
 const INITIAL_STATE = {
   dataLogin: {},
   allUsers: [],
-  user: {},
+  user: [],
   users: [],
 };
 
 export default function userReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case USER: return {
+  case LOGIN: return {
     ...state,
-    user: action.payload,
+    user: action.array,
   };
   case DATA_LOGIN:
     return {

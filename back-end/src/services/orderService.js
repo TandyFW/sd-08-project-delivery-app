@@ -22,12 +22,11 @@ const createOrder = async (dataForCreate) => {
     [salesDateSnake]: salesDate,
     status,
   };
-  console.log(dataForModel);
   const result = await sale.create(dataForModel);
    stateCart.forEach((async (productItem) => {
       await salesProducts.create({ [saleIdSnacke]: result.id,
-[productIdSnake]: productItem.id,
-quantity: productItem.quantity });
+  [productIdSnake]: productItem.id,
+  quantity: productItem.quantity });
     }));
   return result;
 };

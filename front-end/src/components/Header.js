@@ -56,16 +56,18 @@ class Header extends React.Component {
           <button
             type="button"
             data-testid="customer_products__element-navbar-user-full-name"
+            id="username"
             onClick={ () => {
               history.push(productsRoute);
             } }
           >
-            {dataLogin
-              ? dataLogin.name
-              : `${JSON.parse(localStorage.getItem('token')).name}`}
+            {(dataLogin || `${JSON.parse(localStorage.getItem('user')).name}`)
+              ? `${JSON.parse(localStorage.getItem('user')).name}`
+              : dataLogin.name}
           </button>
           <button
             type="button"
+            id="logout"
             onClick={ () => {
               localStorage.clear();
               history.push('/login');
@@ -81,7 +83,7 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  dataLogin: state.userReducer.dataLogin,
+  dataLogin: state.userReducer.user,
 });
 
 Header.propTypes = {

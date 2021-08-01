@@ -45,7 +45,6 @@ class Login extends React.Component {
     const email = target.parentNode.parentNode.firstChild.childNodes[1].value;
     const password = target.parentNode.parentNode.firstChild.childNodes[3].value;
     const actualUser = await login(email, password);
-    console.log(actualUser);
     if (!actualUser.status) {
       localStorage.setItem('user', JSON.stringify(actualUser));
       dispatchUser(actualUser);
@@ -65,7 +64,7 @@ class Login extends React.Component {
         'data-testid',
         'common_login__element-invalid-email',
       );
-      hiddenSpan.innerHTML = user.message;
+      hiddenSpan.innerHTML = actualUser.message;
 
       setTimeout(() => {
         hiddenSpan.style.display = 'none';

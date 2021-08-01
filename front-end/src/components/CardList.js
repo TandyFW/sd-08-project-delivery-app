@@ -16,8 +16,6 @@ class CardList extends React.Component {
     const { dispatchProducts, dispatchCart } = this.props;
     const products = await getAllProducts();
     const LScart = JSON.parse(localStorage.getItem('cart'));
-    // localStorage.setItem('user', JSON.stringify(stateUser));
-    //
     if (LScart && LScart.length > 0) {
       LScart.forEach((element) => {
         // pass the quantity from localStorage to 'this.state'
@@ -222,7 +220,6 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   stateProducts: state.productReducer.products,
   stateCart: state.productReducer.cart,
-  stateUser: state.userReducer.user,
 });
 
 CardList.propTypes = {
@@ -230,7 +227,6 @@ CardList.propTypes = {
   dispatchProducts: PropTypes.func.isRequired,
   dispatchCart: PropTypes.func.isRequired,
   stateProducts: PropTypes.arrayOf(PropTypes.object).isRequired,
-  // stateUser: PropTypes.arrayOf(PropTypes.object).isRequired,
   stateCart: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 

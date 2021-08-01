@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getAllUsers } from '../services';
-import { AdminUsers, AdminSignIn } from '../components';
+import { AdminUsers, AdminSignIn, Header } from '../components';
 import { allUsersAction } from '../redux/actions';
 
 class Admin extends React.Component {
@@ -25,8 +25,10 @@ class Admin extends React.Component {
   }
 
   render() {
+    const { history } = this.props;
     return (
       <div className="ADM-Page">
+        <Header history={ history } />
         <AdminSignIn newUsers={ (user) => this.setState({ user }) } />
         <AdminUsers newUsers={ (user) => this.setState({ user }) } />
       </div>
@@ -43,6 +45,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Admin.propTypes = {
+  history: PropTypes.shape().isRequired,
   dispatchUsers: PropTypes.func.isRequired,
 };
 
