@@ -3,8 +3,10 @@ const dateFormat = (completeDate) => {
   const date = new Date(completeDate);
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
+  const formatedMonth = month > MIN_CHARACTER ? month : `0${month}`;
   const day = date.getDate();
-  return `${day}/${month > MIN_CHARACTER ? month : `0${month}`}/${year}`;
+  const formatedDay = day > MIN_CHARACTER ? day : `0${day}`;
+  return `${formatedDay}/${formatedMonth}/${year}`;
 };
 
 export default dateFormat;

@@ -16,7 +16,6 @@ const Orderer = () => {
   const fetchApi = async () => {
     const { data } = await axios.get('http://localhost:3001/delivery/sales');
     setSales(data);
-    console.log(data);
     return data;
   };
 
