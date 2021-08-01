@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
+// const setLocalStorage = (userInfos) => {
+//   localStorage.setItem('user', JSON.stringify(userInfos));
+// };
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,16 +19,20 @@ function Login() {
     }
     return true;
   }
+  const [redirect, setRedirect] = useState('');
 
   const login = async () => {
     try {
-      await axios({
+      const loggedUser = await axios({
         method: 'POST',
         url: 'http://localhost:3001/login',
         headers: { 'Content-Type': 'application/json' },
         data: { email, password },
       });
-      history.push('/customer/products');
+      console.log(loggedUser);
+      const { redirectPath, ...userInfos } = loggedUser.data;
+      localStorage.setItem('user', JSON.stringify(userInfos));
+      setRedirect(redirectPath);
     } catch (error) {
       setVisible('visible');
     }
@@ -33,6 +40,7 @@ function Login() {
 
   return (
     <>
+      {redirect !== '' && <Redirect to={ redirect } />}
       <div>
         Login
         <input

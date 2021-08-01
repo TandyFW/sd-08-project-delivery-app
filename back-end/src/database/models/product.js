@@ -3,7 +3,12 @@ const product = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     price: DataTypes.DECIMAL,
     urlImage: DataTypes.STRING,
-  }, { timestamps: false });
+  }, 
+  { 
+    timestamps: false,
+    underscored: true,
+  }
+  );
 
   /*ProductTable.associate = (models) => {
   /* ProductTable.associate = (models) => {
