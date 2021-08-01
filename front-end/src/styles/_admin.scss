@@ -58,9 +58,9 @@
       position: absolute;
       font-weight: 500;
       text-align: center;
-      bottom: -30px;
+      bottom: -45px;
       width: 100%;
-      font-size: 17px;
+      font-size: 18px;
       color: crimson;
     }
     button {
@@ -91,10 +91,11 @@
   .admin-table {
     @include flex(flex, row, center, flex-start);
     width: 1300px;
-    height: 55vh;
+    height: 600px;
     padding-top: 10px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     box-shadow: 1px 1px 4px 1px rgba(5, 3, 3, 0.2) , 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
     table {
       border-collapse: separate;
       border-spacing: 0 15px;
@@ -149,18 +150,16 @@
           }
           #name-td {
             background-color: rgba(253, 253, 253, 0.863);
-            border-left: 1px solid rgba(0, 0, 0, 0.6);
           }
           #email-td {
             background-color: rgba(253, 253, 253, 0.863);
-            border-left: 1px solid rgba(0, 0, 0, 0.6);
+            border-left: 2px solid rgba(0, 0, 0, .3);
           }
           #role-td {
             background-color: rgba(253, 253, 253, 0.863);
-            border-left: 1px solid rgba(0, 0, 0, 0.6);
+            border-left: 2px solid rgba(0, 0, 0, .3);
           }
           #button-td {
-            border-left: 1px solid rgba(0, 0, 0, 0.6);
             border-top-right-radius: 7px;
             border-bottom-right-radius: 7px;
             background-color: $trybeGreen;
