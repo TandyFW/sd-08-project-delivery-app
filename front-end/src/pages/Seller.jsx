@@ -21,7 +21,7 @@ const Seller = () => {
 
   useEffect(() => {
     fetchApi();
-  }, [fetchApi]);
+  }, []);
 
   const onClick = (id) => {
     history.push(`/seller/orders/${id}`);

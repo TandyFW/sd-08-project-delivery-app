@@ -40,9 +40,19 @@ const getSale = async (id) => {
   return sale;
 };
 
+const updateStatusSale = async (status, id) => {
+  try {
+    const updatedSale = await sales.update({ status }, { where: { id } });
+    return updatedSale;
+  } catch (error) {
+    return error.message;
+  }
+};
+
 module.exports = {
   getAll,
   create,
   getAllSalesById,
   getSale,
+  updateStatusSale,
 };
