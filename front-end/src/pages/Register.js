@@ -60,13 +60,11 @@ class Register extends React.Component {
 
   async signIn({ target }) {
     const { history, setDataLoginStore } = this.props;
-
     const name = target.parentNode.firstChild.childNodes[1].value;
     const email = target.parentNode.firstChild.childNodes[2].childNodes[1].value;
     const pass = target.parentNode.firstChild.childNodes[4].value;
     const role = 'customer';
     const user = await create(name, email, pass, role);
-    console.log(user);
     if (user.statusText) {
       const hiddenSpan = document.querySelector('.hidden-span');
       hiddenSpan.style.display = 'inline-block';

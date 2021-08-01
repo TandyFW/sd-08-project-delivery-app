@@ -18,6 +18,10 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentDidMount() {
+    localStorage.clear();
+  }
+
   componentWillUnmount() {
     document.querySelector('.hidden-span').style.display = 'none';
   }
