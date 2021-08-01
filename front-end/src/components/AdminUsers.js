@@ -108,7 +108,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  stateUsers: state.user.users,
+  stateUsers: state.userReducer.users,
 });
 
 AdminUsers.propTypes = {

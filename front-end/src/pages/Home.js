@@ -1,24 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Loader } from '../components';
 
-class Home extends React.Component {
-  componentDidMount() {
-    const { history } = this.props;
-    const number = 1500;
+const SECOND_HALF = 1500;
+
+const Home = ({ history }) => {
+  useEffect(() => {
     setTimeout(() => {
       history.push('./login');
-    }, number);
-  }
+    }, SECOND_HALF);
+  });
 
-  render() {
-    return (
-      <div className="home">
-        <Loader />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="home">
+      <Loader />
+    </div>
+  );
+};
 
 Home.propTypes = {
   history: PropTypes.shape().isRequired,

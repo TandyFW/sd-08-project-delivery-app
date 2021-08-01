@@ -132,11 +132,10 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  stateUsers: state.user.users,
+  stateUsers: state.userReducer.users,
 });
 
 AdminSignIn.propTypes = {
-  // history: PropTypes.shape().isRequired,
   stateUsers: PropTypes.arrayOf(PropTypes.object).isRequired,
   dispatchUsers: PropTypes.func.isRequired,
   newUsers: PropTypes.func.isRequired,

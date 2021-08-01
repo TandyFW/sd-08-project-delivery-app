@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getByRole } from '../services';
+import { getByRole, createSaler } from '../services';
 
 class CheckoutAdress extends React.Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      sellers: {},
+    };
   }
 
   componentDidMount() {
@@ -15,14 +17,35 @@ class CheckoutAdress extends React.Component {
 
   async getSellers() {
     const sellers = await getByRole('seller');
+    console.log(sellers);
     this.setState({ sellers });
+  }
+
+  async makeCheckout({ target }) {
+    const { history } = this.props;
+    const totalPrice = parseFloat(localStorage.getItem('totalPrice')).toFixed(2);
+    const deliveryAddress = target.parentNode.firstChild
+      .childNodes[1].childNodes[1].value;
+    const deliveryNumber = target.parentNode.firstChild.childNodes[2].childNodes[1].value;
+    const sellerId = target.parentNode.firstChild.childNodes[0].childNodes[1].value;
+    const { stateCart } = this.props;
+    const data = { deliveryAddress,
+      deliveryNumber,
+      totalPrice,
+      sellerId };
+    const result = await createSaler(data, stateCart);
+    const { id } = result.newOrder;
+    console.log(result);
+    localStorage.removeItem('totalPrice');
+    localStorage.removeItem('cart');
+    history.push(`/customer/orders/${id}`);
   }
 
   render() {
     const { state } = this;
     const { props } = this;
     console.log(props.history);
-    console.log(state.sellers);
+    // console.log(state.sellers);
     return (
       <div className="checkout-adress-container">
         <div className="checkout-adress-selectdiv">
@@ -34,7 +57,7 @@ class CheckoutAdress extends React.Component {
             >
               {(state.sellers && state.sellers.length > 0)
                 && state.sellers.map((elem, index) => (
-                  <option key={ index }>
+                  <option key={ index } value={ elem.id }>
                     { elem.name }
                   </option>
                 ))}
@@ -59,7 +82,7 @@ class CheckoutAdress extends React.Component {
         <button
           type="button"
           data-testid="customer_checkout__button-submit-order"
-          // onClick={ () => history.push(`/customer/orders/${}`)}
+          onClick={ (event) => { this.makeCheckout(event); } }
         >
           Finalizar Pedido
         </button>
@@ -68,8 +91,17 @@ class CheckoutAdress extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  stateCart: state.productReducer.cart,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchCart: (array) => dispatch(cartAction(array)),
+});
+
 CheckoutAdress.propTypes = {
   history: PropTypes.shape().isRequired,
+  stateCart: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default connect(null, null)(CheckoutAdress);
+export default connect(mapStateToProps, mapDispatchToProps)(CheckoutAdress);

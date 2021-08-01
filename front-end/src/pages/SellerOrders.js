@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Header, Loader, CardList } from '../components';
+import { Header, Loader, SellerOrderList } from '../components';
 
-class Products extends React.Component {
+class SellerOrders extends React.Component {
   constructor() {
     super();
     this.state = { loading: true };
@@ -11,12 +11,10 @@ class Products extends React.Component {
 
   async componentDidMount() {
     // verificar se o usuario está autenticado
-    const Loading = 500;
-    // const Loading = 1500;
+    const Loading = 1500;
     setTimeout(() => {
       this.setState({ loading: false });
     }, Loading);
-    if (!localStorage.totalPrice) localStorage.setItem('totalPrice', 0);
   }
 
   render() {
@@ -32,15 +30,15 @@ class Products extends React.Component {
             </div>
           )
           : (
-            <CardList history={ history } />
+            <SellerOrderList history={ history } />
           )}
       </div>
     );
   }
 }
 
-Products.propTypes = {
+SellerOrders.propTypes = {
   history: PropTypes.shape().isRequired,
 };
 
-export default connect(null, null)(Products);
+export default connect(null, null)(SellerOrders);

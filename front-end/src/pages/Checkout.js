@@ -12,7 +12,6 @@ class Checkout extends React.Component {
   async componentDidMount() {
     // verificar se o usuario está autenticado
     const Loading = 500;
-    // const Loading = 1500;
     setTimeout(() => {
       this.setState({ loading: false });
     }, Loading);
