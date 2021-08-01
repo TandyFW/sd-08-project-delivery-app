@@ -7,6 +7,7 @@ import CustomerProducts from './Pages/CustomerProducts';
 import CustomerOrdersDetails from './Pages/CustomerOrdersDetails';
 import Register from './Pages/Register';
 import SellerOrders from './Pages/SellerOrders';
+import SellerOrdersDetails from './Pages/SellerOrdersDetails';
 
 export default () => (
   <Switch>
@@ -34,9 +35,9 @@ export default () => (
     <Route path="/seller/orders" exact>
       <SellerOrders />
     </Route>
-    {/*  <Route path="/seller/orders/:id" exact>
+    <Route path="/seller/orders/:id" exact>
       <SellerOrdersDetails />
-    </Route> */}
+    </Route>
     {/*   <Route path="/admin/manage" exact>
       <Admin />
     </Route> */}
