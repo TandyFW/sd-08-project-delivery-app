@@ -17,6 +17,7 @@ registerRoute.get('/', registerController.getAllRegisters);
 registerRoute.get('/role/:role', registerController.getByRole);
 registerRoute.get('/:id', registerController.getByIdRegister);
 registerRoute.delete('/:id', registerController.deleteByIdRegister);
+registerRoute.get('/name/:id', registerController.getNameByIdRegister);
 
 productsRoute.get('/', productsController.getAll);
 orderRoute.use(verifyAuth);

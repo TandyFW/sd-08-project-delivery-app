@@ -74,6 +74,19 @@ const getByRole = async (role) => {
   return [result];
 };
 
+const getNameById = async (id) => {
+  const { error } = registerSchema.checkId.validate(id);
+  if (error) return clientError.badRequest(error.details[0].message);
+  
+  try {
+    const { dataValues: { password: _, ...result } } = await user.findByPk(id);
+    // console.log(user);
+    return result.name;
+  } catch (err) {
+    return clientError.badRequest(`Not Found Id: ${id}`);
+  }
+};
+
 module.exports = {
   create,
   getAll,
@@ -82,4 +95,5 @@ module.exports = {
   deleteById,
   getByEmail,
   getByRole,
+  getNameById,
 };

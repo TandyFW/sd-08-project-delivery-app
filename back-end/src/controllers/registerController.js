@@ -44,11 +44,20 @@ const deleteByIdRegister = rescue(async (req, res, next) => {
   res.status(success.OK).json({ register: result });
 });
 
+const getNameByIdRegister = rescue(async (req, res, next) => {
+  const { id } = req.params;
+  // console.log(id);
+  const result = await registerServices.getNameById(id);
+  if (result.error) return next(result);
+  res.status(success.OK).json({ register: result });
+});
+
 module.exports = {
   createRegister,
   getAllRegisters,
   getByIdRegister,
   updateByIdRegister,
   deleteByIdRegister,
+  getNameByIdRegister,
   getByRole,
 };

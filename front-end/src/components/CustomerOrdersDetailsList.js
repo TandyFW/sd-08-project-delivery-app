@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Loader from './Loader';
+import { getNameUserById } from '../services';
 import { getAllOrdesByUserApi } from '../redux/actions';
 
 import '../styles/customerOrderDetails.css';
@@ -40,6 +41,7 @@ class CustomerOrdersDetailsList extends React.Component {
       OrderDetails: {},
       orders: [],
       isLoading: true,
+      isDelivered: false,
     };
     this.setAllOrdesInState = this.setAllOrdesInState.bind(this);
   }
@@ -53,17 +55,22 @@ class CustomerOrdersDetailsList extends React.Component {
     this.setAllOrdesInState(orderId);
   }
 
-  setAllOrdesInState(orderId) {
+  async setAllOrdesInState(orderId) {
     const { allOrdes } = this.props;
     orderId -= 1;
     console.log(orderId);
     console.log(allOrdes);
     if (allOrdes) {
       const { id, status, productId } = allOrdes[orderId];
+      const sellerName = await getNameUserById(allOrdes[orderId].seller_id);
+      const dateArray = allOrdes[orderId].sale_date.split('T')[0].split('-');
+      const date = `${dateArray[2]}/${dateArray[1]}/${dateArray[0]}`;
+      console.log(typeof allOrdes[orderId].seller_id);
+      console.log(sellerName);
       const OrderDetails = {
         oderId: id,
-        sellerName: 'prof xavier',
-        date: allOrdes[orderId].sale_date,
+        sellerName,
+        date,
         status,
         totalPrice: allOrdes[orderId].total_price,
         purchasedProducts: productId,
@@ -84,7 +91,7 @@ class CustomerOrdersDetailsList extends React.Component {
     if (isLoading) {
       return <Loader />;
     }
-    const { OrderDetails } = this.state;
+    const { OrderDetails, isDelivered } = this.state;
     return (
       <div className="customerOrdersDetailsList-div">
         <table className="customerOrdersDetailsList-table">
@@ -104,11 +111,14 @@ class CustomerOrdersDetailsList extends React.Component {
             >
               { OrderDetails.date }
             </td>
-            <td>
-              { (OrderDetails.status).toLocaleUpperCase() }
+            <td
+              data-testid={ `${prefix1}-details-label-delivery-status` }
+            >
+              { (OrderDetails.status) }
             </td>
             <td>
               <button
+                disabled={ !isDelivered }
                 type="button"
                 data-testid={ `${prefix2}button-delivery-check` }
               >
@@ -158,8 +168,10 @@ class CustomerOrdersDetailsList extends React.Component {
             ))
           }
         </table>
-        <h2>
-          { `Total: R$ ${OrderDetails.totalPrice}` }
+        <h2
+          data-testid={ `${prefix2}element-order-total-price` }
+        >
+          { `${OrderDetails.totalPrice.replace('.', ',')}` }
         </h2>
       </div>
     );
