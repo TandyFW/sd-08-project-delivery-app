@@ -1,7 +1,6 @@
 const { Router } = require('express');
 const customersController = require('../controllers/customersController');
 const salesController = require('../controllers/salesController');
-const auth = require('../api/middlewares/isAuthenticated'); // aceitei ambas as alterações
 const { isAuthenticated, restrictionLevel } = require('../api/middlewares/isAuthenticated');
 
 const customersRouter = Router();

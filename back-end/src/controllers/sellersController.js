@@ -13,7 +13,7 @@ const findAll = async (req, res) => {
     } catch (error) {
       return res.status(error.statusCode).json(error.responseError());
     };
-};
+  }
 
 module.exports = {
   getAllSellers,
