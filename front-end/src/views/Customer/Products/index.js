@@ -19,7 +19,7 @@ const Products = () => {
       },
     };
     await fetch('http://localhost:3001/customer/products', myInit)
-      .then((response) => console.log(response) || response.json())
+      .then((response) => response.json())
       .then((data) => setProducts(data.products))
       .catch((err) => console.log(err));
   }
@@ -31,8 +31,8 @@ const Products = () => {
   return (
     <div className="main-wrapper-products">
       <NavBar
-        userType={ !userData.role ? userData.user.role : userData.role }
-        userName={ !userData.name ? userData.user.name : userData.name }
+        userType={ userData.role }
+        userName={ userData.name }
       />
       <div className="wrapper-card-product">
         {products && products.length > 0 && (

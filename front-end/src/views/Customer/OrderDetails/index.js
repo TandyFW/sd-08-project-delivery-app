@@ -31,8 +31,8 @@ function OrderDetails() {
   return (
     <div className="main-wrapper-details">
       <NavBar
-        userType={ !userData.role ? userData.user.role : userData.role }
-        userName={ !userData.name ? userData.user.name : userData.name }
+        userType={ userData.role }
+        userName={ userData.name }
       />
       <StatusNav orderData={ orderData } />
       <OrderDetailsTable data={ dataItems } />
