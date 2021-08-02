@@ -1,15 +1,17 @@
-const getUser = require('./getUser');
-const getAllProducts = require('./getAllProducts');
-const getProductById = require('./getProductById');
-const registerUser = require('./registerUser');
-const createSaleOrder = require('./createSaleOrder');
-const createSaleProductOrder = require('./createSaleProductOrder');
-const getUsersByRole = require('./getUsersByRole');
-const getUserById = require('./getUserById');
-const getSaleById = require('./getSaleById');
-const getAllOrdersByUser = require('./getAllOrdersByUser');
-const getOrderById = require('./getOrderById');
-const updateOrder = require('./updateOrder');
+const getUser = require('./usersService/getUser');
+const getUserById = require('./usersService/getUserById');
+const getUsersByRole = require('./usersService/getUsersByRole');
+const getCustomersAndSellersUser = require('./usersService/getCustomersAndSellersUser');
+const registerUser = require('./usersService/registerUser');
+const removeUserById = require('./usersService/removeUserById');
+const getAllProducts = require('./productsService/getAllProducts');
+const getProductById = require('./productsService/getProductById');
+const createSaleOrder = require('./salesService/createSaleOrder');
+const createSaleProductOrder = require('./salesService/createSaleProductOrder');
+const getAllOrdersByUser = require('./salesService/getAllOrdersByUser');
+const getDetailOrdersByUserId = require('./salesService/getDetailOrdersByUserId');
+const getSaleById = require('./salesService/getSaleById');
+const updateOrder = require('./salesService/updateOrder');
 
 module.exports = {
   getUser,
@@ -22,6 +24,8 @@ module.exports = {
   getUsersByRole,
   getUserById,
   getAllOrdersByUser,
-  getOrderById,
+  getDetailOrdersByUserId,
   updateOrder,
+  getCustomersAndSellersUser,
+  removeUserById,
 };

@@ -1,3 +1,6 @@
+// Controller para leitura dos produtos - todos os produtos (getAll)
+// e por identificação no paramentro na Url(getById).
+
 const { getAllProducts, getProductById } = require('../services');
 
 const getAll = async (req, res) => {

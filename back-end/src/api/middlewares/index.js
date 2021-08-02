@@ -5,6 +5,8 @@ const userNameDataValidation = require('./userNameDataValidation');
 const registerUserValidation = require('./registerUserValidation');
 const tokenValidation = require('./tokenValidation');
 const orderInfoHandler = require('./orderInfoHandler');
+const registerAdminValidation = require('./registerAdminValidation');
+const tokenAdminValidation = require('./tokenAdminValidation');
 
 module.exports = {
   loginUserValidation,
@@ -14,4 +16,6 @@ module.exports = {
   registerUserValidation,
   tokenValidation,
   orderInfoHandler,
+  registerAdminValidation,
+  tokenAdminValidation,
 };
