@@ -1,16 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Col, Container, Row } from 'react-bootstrap';
 import OrderCard from '../components/OrderCard';
 import useAxios from '../hooks/useAxios';
 import { API } from '../service/backendApi';
 import Header from '../components/Header';
+import { GlobalContext } from '../context/GlobalProvider';
 
 function Orders() {
+  const { values: { token } } = useContext(GlobalContext);
   const [, route] = useLocation().pathname.split('/');
   const hasSeller = route === 'seller';
   const { request, response } = useAxios();
-  useEffect(() => request(API[route]), [request, route]);
+  console.log(token);
+  useEffect(() => request(API(token)[route]), [request, route, token]);
   return (
     <>
       <Header />

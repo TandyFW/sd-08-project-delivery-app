@@ -8,7 +8,7 @@ import {
   Col,
   NavbarBrand,
 } from 'react-bootstrap';
-import { Redirect, useLocation } from 'react-router-dom';
+import { Redirect, useLocation, Link } from 'react-router-dom';
 import './Header.css';
 
 export default function Header() {
@@ -59,12 +59,13 @@ export default function Header() {
               <Nav.Link
                 key={ idx }
                 eventKey={ contents.link }
-                href={ contents.link }
                 data-testid={ `${role}_${route}__element-navbar-link-${
                   contents.link.split('/')[2]
                 }` }
               >
-                {contents.name}
+                <Link to={ contents.link }>
+                  {contents.name}
+                </Link>
               </Nav.Link>
             ))}
           </Nav>
