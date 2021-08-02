@@ -57,9 +57,7 @@ function SellerDetailTable({ order }) {
       <h4
         data-testid="seller_order_details__element-order-total-price"
       >
-        Total Price
-        {' '}
-        {order.totalPrice}
+        {order.totalPrice.replace('.', ',')}
       </h4>
     </div>
   );

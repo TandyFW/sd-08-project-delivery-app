@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import SellerDetailTable from '../../components/SellerDetailTable';
 import Context from '../../context/Context';
+import './style.css';
 
 function SellerDetailPage(props) {
   const { userData } = useContext(Context);
@@ -37,25 +38,18 @@ function SellerDetailPage(props) {
   if (!order[0]) return <h1>Sem produtos</h1>;
 
   return (
-    <div>
+    <div className="Seller-details-container">
       <div>
         <span data-testid="seller_order_details__element-order-details-label-order-id">
-          PEDIDO
-          {' '}
           {order[0].id}
-          {' '}
         </span>
         <span data-testid="seller_order_details__element-order-details-label-order-date">
-          {' '}
           { formatDate(order[0].saleDate) }
-          {' '}
         </span>
         <span
           data-testid="seller_order_details__element-order-details-label-delivery-status"
         >
-          {' '}
-          { order[0].status }
-          {' '}
+          {order[0].status}
         </span>
         <button
           data-testid="seller_order_details__button-preparing-check"
@@ -65,8 +59,9 @@ function SellerDetailPage(props) {
         </button
         >
         <button
-          ata-testid="seller_order_details__button-dispatch-check"
+          data-testid="seller_order_details__button-dispatch-check"
           type="button"
+          disabled={ ['Pendente', 'Em Trânsito', 'Entregue'].includes(order[0].status) }
         >
           SAIU PARA ENTREGA
         </button
