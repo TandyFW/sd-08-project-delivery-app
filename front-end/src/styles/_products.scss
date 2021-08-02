@@ -5,9 +5,7 @@
   justify-content: center;
   margin: 5% auto 0;
   width: 100%;
-
   @include loading-div(420px, 500px, $trybeGreen);
-
   .cardlist-container {
 
     @include flex(flex, row, center, center);
@@ -62,11 +60,9 @@
         font-weight: 500;
         margin: 0;
       }
-
       .quantity-div {
         align-items: center;
         display: flex;
-
         button {
           background-color: $white;
           border: none;
@@ -95,7 +91,6 @@
             }
           }
         }
-
         input {
           font-size: 20px;
           margin: 0 12px;
@@ -142,7 +137,7 @@
   }
 }
 
-@media only screen and ( max-height : 800px ) { //chegando em width 1400
+@media only screen and ( max-height : 800px ) { //chegando em height 800
 
   .products-container {
 
@@ -156,7 +151,7 @@
   }
 }
 
-@media only screen and ( max-height : 650px ) { //chegando em width 1400
+@media only screen and ( max-height : 650px ) { //chegando em heigh 650
 
   .products-container {
 

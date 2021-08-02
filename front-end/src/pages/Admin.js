@@ -2,14 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getAllUsers } from '../services';
-import { AdminUsers, AdminSignIn, Header } from '../components';
+import { AdminUsers, AdminSignIn, Header, Loader } from '../components';
 import { allUsersAction } from '../redux/actions';
 
 class Admin extends React.Component {
   constructor() {
     super();
-    this.state = {
-    };
+    this.state = { loading: true };
   }
 
   async componentDidMount() {
@@ -19,6 +18,11 @@ class Admin extends React.Component {
       localStorage.setItem('allUsers', JSON.stringify(users.registers));
       dispatchUsers(users.registers);
     }
+    const Loading = 500;
+    // const Loading = 1500;
+    setTimeout(() => {
+      this.setState({ loading: false });
+    }, Loading);
   }
 
   componentDidUpdate() { // nao excluir
@@ -27,14 +31,25 @@ class Admin extends React.Component {
   }
 
   render() {
+    const { loading } = this.state;
     const { history } = this.props;
     return (
       <div className="admin-container">
         <Header history={ history } />
-        <h4>Cadastrar Novo Usuário</h4>
-        <AdminSignIn newUsers={ (user) => this.setState({ user }) } />
-        <h4>Lista de Usuários</h4>
-        <AdminUsers newUsers={ (user) => this.setState({ user }) } />
+        {loading
+          ? (
+            <div className="loading-div">
+              <Loader />
+            </div>
+          )
+          : (
+            <div>
+              <h4>Cadastrar Novo Usuário</h4>
+              <AdminSignIn newUsers={ (user) => this.setState({ user }) } />
+              <h4>Lista de Usuários</h4>
+              <AdminUsers newUsers={ (user) => this.setState({ user }) } />
+            </div>
+          )}
       </div>
     );
   }

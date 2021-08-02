@@ -1,6 +1,7 @@
 .admin-container {
   margin: 5% auto 0 auto;
   @include flex(flex, column, center, center);
+  @include loading-div(500px, 500px, $trybeGreen);
   h4 {
     text-align: left;
     width: 1310px;
