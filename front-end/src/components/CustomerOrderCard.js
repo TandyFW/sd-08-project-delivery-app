@@ -5,14 +5,8 @@ import './CustomerOrderCard.css';
 
 const CustomerOrderCard = ({ order }) => {
   const { id, status, saleDate, totalPrice } = order;
-  const NEG_TWO = -2;
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const day = (`0${date.getDate()}`).slice(NEG_TWO);
-    const month = (`0${date.getDate()}`).slice(NEG_TWO);
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  };
+
+  const formatDate = (dateString) => new Date(dateString).toLocaleDateString('pt-br');
 
   return (
     <Link to={ `/customer/orders/${order.id}` }>
