@@ -1,9 +1,14 @@
 import React from 'react';
-import { RegistrationByManager, TopBar } from '../components';
+import { RegistrationByManager, NavBar } from '../components';
+import { lStorage } from '../utils';
 
-const AdminManage = () => (
-  <div>
-    <TopBar subject="Gerenciar Usuários" user="Admin" />
-    <RegistrationByManager />
-  </div>);
+const AdminManage = () => {
+  const { name } = lStorage().user.get();
+  return (
+    <>
+      <NavBar userType="administrator" userName={ name } />
+      <RegistrationByManager />
+    </>
+  );
+};
 export default AdminManage;

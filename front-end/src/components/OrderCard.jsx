@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-max-depth */
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-// import moment from 'moment';
+import { Context } from '../context';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,21 +23,32 @@ const useStyles = makeStyles((theme) => ({
 export default function OrderCard({ order, title }) {
   const classes = useStyles();
   const history = useHistory();
+  const { socket } = useContext(Context);
 
   const {
     deliveryAddress,
     deliveryNumber,
     id,
-    salesDate,
-    status,
+    saleDate,
+    status: initialStatus,
     totalPrice,
     // id,
     // status,
-    // sale_date: salesDate,
+    // sale_date: saleDate,
     // total_price: totalPrice,
     // delivery_address: deliveryAddress,
     // delivery_number: deliveryNumber,
   } = order;
+
+  const [status, setStatus] = useState(initialStatus);
+
+  useEffect(() => {
+    socket.on('updateOrder-client', ({ id: orderId, newStatus }) => {
+      if (id === orderId) {
+        setStatus(newStatus);
+      }
+    });
+  }, [socket, id]);
 
   const formatDate = (date) => {
     // const timesTampDate = Date.parse(date);
@@ -77,7 +88,7 @@ export default function OrderCard({ order, title }) {
                   data-testid={ `${title}_orders__element-order-date-${id}` }
                   variant="body2"
                 >
-                  {formatDate(salesDate)}
+                  {formatDate(saleDate)}
                 </Typography>
                 <Typography
                   data-testid={ `${title}_orders__element-card-address-${id}` }
@@ -113,7 +124,7 @@ OrderCard.propTypes = {
     // delivery_address: PropTypes.string,
     // delivery_number: PropTypes.string,
     id: PropTypes.number,
-    salesDate: PropTypes.string,
+    saleDate: PropTypes.string,
     status: PropTypes.string,
     totalPrice: PropTypes.string,
     deliveryAddress: PropTypes.string,

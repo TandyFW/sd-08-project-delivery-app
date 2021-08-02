@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useParams } from 'react-router-dom';
-import { OrderDetails, Loading } from '../components';
+import { OrderDetails, Loading, NavBar } from '../components';
 import { lStorage, request } from '../utils';
 
 const { Header, Table, TotalPrice } = OrderDetails;
@@ -32,9 +32,9 @@ async function preRenderConfig(orderId, userType, setInfo) {
   };
 
   const saleObj = await request(`sales/${orderId}`, options);
-  const { totalPrice, salesDate: date, status, products: prods } = saleObj;
+  const { totalPrice, saleDate: date, status, products: prods } = saleObj;
   let seller;
-  if (userType === 'seller') {
+  if (userType === 'customer') {
     const { name: sellerName } = await request(`users/${saleObj.sellerId}`, options);
     seller = sellerName;
   }
@@ -62,14 +62,17 @@ const OrderDetailsPage = ({ userType }) => {
 
   return (
     loading ? <Loading /> : (
-      <Grid container className={ classes.root }>
-        <Typography variant="h4">Detalhes do pedido</Typography>
-        <Paper elevation={ 8 }>
-          <Header info={ info } />
-          <Table info={ info } />
-          <TotalPrice info={ info } />
-        </Paper>
-      </Grid>
+      <>
+        <NavBar userType={ userType } userName={ info.userName } />
+        <Grid container className={ classes.root }>
+          <Typography variant="h4">Detalhes do pedido</Typography>
+          <Paper elevation={ 8 }>
+            <Header info={ info } />
+            <Table info={ info } />
+            <TotalPrice info={ info } />
+          </Paper>
+        </Grid>
+      </>
     )
   );
 };

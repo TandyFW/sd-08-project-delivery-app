@@ -11,10 +11,6 @@ const Products = () => {
     if (location.pathname === '/customer/products') lStorage().cart.remove();
   }, [location.pathname]);
 
-  const screens = [
-    { name: 'Produtos', testId: 'products' }, { name: 'Meus Pedidos', testId: 'orders' },
-  ];
-
   const sumCart = () => {
     const cart = lStorage().cart.get();
     const products = Object.keys(cart);
@@ -34,11 +30,11 @@ const Products = () => {
   const userFullName = lStorage().user.get().name;
 
   return (
-    <div>
-      <NavBar screens={ screens } user={ userFullName } />
+    <>
+      <NavBar userType="customer" userName={ userFullName } />
       <ProductsCart subtotal={ subtotal } refreshCart={ refreshSubTotal } />
       <ProductsList refreshCart={ refreshSubTotal } />
-    </div>
+    </>
   );
 };
 

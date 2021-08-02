@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
   all: {
     padding: '12px',
-    textTransform: 'Uppercase',
+    // textTransform: 'Uppercase',
   },
 }));
 

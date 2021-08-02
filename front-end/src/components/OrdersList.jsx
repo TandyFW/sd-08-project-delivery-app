@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import OrderCard from './OrderCard';
 import { request } from '../utils';
-// import Components from '../components';
 
 const OrdersList = ({ name, token, title }) => {
   const [user, setUser] = useState({});
@@ -22,12 +21,11 @@ const OrdersList = ({ name, token, title }) => {
       setUser(userRequest);
     };
     getSales();
-  }, []);
+  }, [name, token, uri]);
 
   const renderCards = () => {
     const orders = (title === 'customer' ? 'purchases' : 'sales');
     if (user[orders]) {
-      console.log(user[orders]);
       return user[orders].map((order) => (
         <OrderCard
           key={ order.id }
