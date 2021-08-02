@@ -20,7 +20,7 @@ import {
 export default function NewUserForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [pass, setPass] = useState('');
+  const [password, setPassword] = useState('');
   const [role, setRole] = useState('seller');
   const [valid, setValid] = useState(true);
   const [logged, setLogged] = useState(true);
@@ -28,10 +28,13 @@ export default function NewUserForm() {
   const submitHandler = async (e) => {
     const CREATED = 201;
     e.preventDefault();
-    const result = await api.registerUser(name, email, pass, role).then((data) => {
-      localStorage.setItem('newUser', JSON.stringify(data.data));
-      return data;
-    })
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    const result = await api
+      .registerUser({ name, email, password, role }, token)
+      .then((data) => {
+        localStorage.setItem('newUser', JSON.stringify(data.data));
+        return data;
+      })
       .catch((err) => err.message);
     if (result.status !== CREATED) {
       setLogged(false);
@@ -44,12 +47,16 @@ export default function NewUserForm() {
     const PASSLENGHT = 6;
     const NAMELENGTH = 12;
     const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    if (regex.test(email) && pass.length >= PASSLENGHT && name.length >= NAMELENGTH) {
+    if (
+      regex.test(email)
+      && password.length >= PASSLENGHT
+      && name.length >= NAMELENGTH
+    ) {
       setValid(false);
     } else {
       setValid(true);
     }
-  }, [email, name.length, pass]);
+  }, [email, name.length, password]);
 
   return (
     <Container>
@@ -90,7 +97,7 @@ export default function NewUserForm() {
               id="password"
               name="password"
               placeholder="******"
-              onChange={ ({ target }) => setPass(target.value) }
+              onChange={ ({ target }) => setPassword(target.value) }
             />
           </ContainerLabel>
         </ContainerDiv>
@@ -100,7 +107,9 @@ export default function NewUserForm() {
             data-testid="admin_manage__select-role"
             onChange={ ({ target }) => setRole(target.value) }
           >
-            <ContainerOption value="administrator">Administrador</ContainerOption>
+            <ContainerOption value="administrator">
+              Administrador
+            </ContainerOption>
             <ContainerOption value="customer">Cliente</ContainerOption>
             <ContainerOption value="seller">Vendedor</ContainerOption>
           </ContainerSelect>
@@ -115,8 +124,11 @@ export default function NewUserForm() {
             CADASTRAR
           </FinalizeRegister>
         </ContainerDiv>
-        { logged === false
-        && <p>Dados inválidos</p> }
+        {logged === false && (
+          <p data-testid="admin_manage__element-invalid-register">
+            Dados inválidos
+          </p>
+        )}
       </Form>
     </Container>
   );

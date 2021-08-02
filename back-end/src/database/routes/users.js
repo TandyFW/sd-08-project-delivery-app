@@ -7,7 +7,7 @@ users.post('/login', CONTROLLERS.login);
 
 users.post('/create', CONTROLLERS.register);
 
-users.post('/admin', CONTROLLERS.adminRegister);
+users.post('/admin', validateJWT, CONTROLLERS.adminRegister);
 
 users.delete('/admin', CONTROLLERS.deleteUser);
 

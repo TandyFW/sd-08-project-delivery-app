@@ -34,7 +34,7 @@ const register = async (name, email, password) => {
 };
 
 const adminRegister = async (name, email, password, role) => {
-  const [validUser] = await user.findAll({
+    const [validUser] = await user.findAll({
     where: {
       [Op.or]: [{ email }, { name }],
     },
@@ -47,7 +47,6 @@ const adminRegister = async (name, email, password, role) => {
     password: newPass,
     role,
   });
-  console.log(result);
   const token = getToken(result.toJSON());
   return { token, name: result.name, email: result.email, role: result.role };
 };

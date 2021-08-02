@@ -47,5 +47,5 @@ export default function Users(props) {
 }
 
 Users.propTypes = {
-  users: PropTypes.node.isRequired,
+  users: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

@@ -27,11 +27,13 @@ export default {
     return res;
   },
 
-  registerUser: async (name, email, password, role) => {
-    const registerObj = { name, email, password, role };
-    const res = await axios.post(`${BASEURL}${ADMIN}`, registerObj);
+  registerUser: async (registerObj, token) => {
+    console.log(registerObj);
+    const headers = HEADERS_TOKEN(token);
+    const res = await axios.post(`${BASEURL}${ADMIN}`, registerObj, {
+      headers,
+    });
     return res;
-    // console.log(res);
   },
 
   deleteUser: async (id) => {
@@ -47,13 +49,19 @@ export default {
       .then((result) => result.data.response);
   },
 
-  getAllUsers: async () => axios.get(
-    `${BASEURL}${USERS}`,
-  ).then((result) => result.data.response),
+  getAllUsers: async () => {
+    const res = axios
+      .get(`${BASEURL}${USERS}`)
+      .then((result) => result.data.response);
+    return res;
+  },
 
-  getAllSellers: async () => axios.get(
-    `${BASEURL}${SELLERS}`,
-  ).then((result) => result.data.response),
+  getAllSellers: async () => {
+    const res = axios
+      .get(`${BASEURL}${SELLERS}`)
+      .then((result) => result.data.response);
+    return res;
+  },
 
   productsFetch: async () => {
     const res = await axios.get(`${BASEURL}${PRODUCTS}`);
