@@ -8,24 +8,21 @@ const getAllSeller = async () => {
 const createSale = async (saleData) => {
   const { name, seller, total, address, number, cart } = saleData;
   const idUser = await User.findOne({ where: { name } });
-  
-  const createSell = await Sales.create({
-    user_id: idUser.id,
-    seller_id: seller,
-    total_price: total,
-    delivery_address: address,
-    delivery_number: number,
-    status: 'Pendente',
-    sale_date: new Date(),
-  });
-
-  await SalesProducts.bulkCreate(cart.map((item) => ({
-    sale_id: createSell.id,
-    product_id: item.id,
-    quantity: item.quantity,
-  })));
-
-  return createSell;
+    const createSell = await Sales.create({
+      userId: idUser.id,
+      sellerId: seller,
+      totalPrice: total,
+      deliveryAddress: address,
+      deliveryNumber: number,
+      status: 'Pendente',
+      saleDate: new Date(),
+    });
+    await SalesProducts.bulkCreate(cart.map((item) => ({
+      saleId: createSell.id,
+      productId: item.id,
+      quantity: item.quantity,
+    })));
+    return createSell;
 };
 
 module.exports = { getAllSeller, createSale };

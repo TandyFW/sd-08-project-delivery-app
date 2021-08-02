@@ -1,10 +1,12 @@
 const Sales = (sequelize, DataTypes) => {
   const Sales = sequelize.define("Sales", {
-  total_price: DataTypes.DECIMAL,
-  delivery_address: DataTypes.STRING,
-  delivery_number: DataTypes.STRING,
+  userId: DataTypes.INTEGER,
+  sellerId: DataTypes.INTEGER,
+  totalPrice: DataTypes.DECIMAL,
+  deliveryAddress: DataTypes.STRING,
+  deliveryNumber: DataTypes.STRING,
   status: DataTypes.STRING,
-  sale_date: DataTypes.DATE,
+  saleDate: DataTypes.DATE,
 },
 {
   tableName: 'sales',

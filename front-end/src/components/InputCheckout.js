@@ -16,7 +16,12 @@ function InputCheckout({ seller }) {
     e.preventDefault();
     const nameUser = JSON.parse(localStorage.getItem('user'));
     const cart = JSON.parse(localStorage.getItem('carrinho'));
-    console.log(nameUser.name);
+    console.log('username: ', nameUser.name);
+    console.log('sellerName: ', sellerName);
+    console.log('total: ', total);
+    console.log('address: ', address);
+    console.log('number: ', number);
+    console.log('cart: ', cart);
     await axios.post(
       'http://localhost:3001/customer/checkout',
       {
@@ -28,7 +33,10 @@ function InputCheckout({ seller }) {
         },
       },
     )
-      .then(({ data }) => history.push(`/customer/orders/${data}`))
+      .then(({ data }) => {
+        console.log('data: ', data);
+        history.push(`/customer/orders/${data}`);
+      })
       .catch((err) => console.log(err));
   };
 
@@ -62,10 +70,10 @@ function InputCheckout({ seller }) {
           <option value="default">-</option>
           {seller && seller.map((sellers) => (
             <option
-              key={ sellers.id }
-              value={ sellers.name }
+              key={ sellers.name }
+              value={ sellers.id }
             >
-              { sellers.name }
+              { sellers.id }
             </option>))}
         </select>
         <legend
