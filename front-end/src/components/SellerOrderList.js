@@ -36,19 +36,19 @@ class SellerOrderList extends React.Component {
     // console.log(history);
     // const { stateProducts } = this.props;
     return (
-      <div className="div-order-list">
+      <div className="orderlist-container">
         {
           orders.map((order, i) => (
-            <div key={ i } className="sellerOrderlist-container">
-              <div>
-                <h4>Pedido</h4>
+            <div key={ i } className="order-card">
+              <div className="order-left">
+                <span>Pedido</span>
                 <span
                   data-testid={ `${testId}-order-id-${order.order_id}` }
                 >
                   {order.order_id}
                 </span>
               </div>
-              <div>
+              <div className="order-right">
                 <div className="status-container">
                   <div
                     className={ order.status }

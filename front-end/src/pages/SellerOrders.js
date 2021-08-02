@@ -11,7 +11,7 @@ class SellerOrders extends React.Component {
 
   async componentDidMount() {
     // verificar se o usuario está autenticado
-    const Loading = 1500;
+    const Loading = 500;
     setTimeout(() => {
       this.setState({ loading: false });
     }, Loading);
@@ -21,7 +21,7 @@ class SellerOrders extends React.Component {
     const { history } = this.props;
     const { loading } = this.state;
     return (
-      <div className="products-container">
+      <div className="orders-container">
         <Header history={ history } />
         {loading
           ? (
