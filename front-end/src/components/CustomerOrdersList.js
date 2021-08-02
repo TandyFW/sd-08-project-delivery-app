@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import Loader from './Loader';
 import { getAllOrdesByUserApi } from '../redux/actions';
 
-import '../styles/customerOrderDetails.css';
-
 const testId = 'customer_orders__';
 
 class CustomerOrdersList extends React.Component {

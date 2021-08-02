@@ -1,11 +1,185 @@
 .checkout-container {
+  margin: 5% auto 0 auto;
+  height: calc(5% - 100vh);
   @include flex(flex, column, center, center);
-  @include loading-div(400px, 400px, $trybeGreen);
-  margin: 12% auto 0 auto;
+  @include loading-div(500px, 500px, $trybeGreen);
+  h4 {
+    text-align: left;
+    width: 1310px;
+    font-weight: 500;
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: $lightBlack;
+  }
   .checkout-cart-container {
-    
+    @include flex(flex, column, space-between, center);
+    position: relative;
+    width: 1300px;
+    height: 540px;
+    border-radius: 3px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 4px 0 rgba(5, 3, 3, 0.2) , 0 2px 1px 0 rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+    table {
+      border-collapse: separate;
+      border-spacing: 0 15px;
+      width: 95%;
+      thead {
+        th {
+          font-size: 18px;
+          font-weight: 500;
+          color: $lightBlack;
+        }
+      }
+      tbody {
+        tr {
+          text-align: center;
+          border-radius: 7px;
+          height: 50px;
+          box-shadow: 3px 4px 4px 0 rgba(5, 3, 3, 0.2) , 2px 3px 1px 0 rgba(0, 0, 0, 0.2);
+        }
+        td {
+          padding: 0;
+        }
+        button {
+          background-color: $trybeGreen;
+          font-size: 16px;
+          font-weight: 900;
+          color: $darkWhite;
+          border: none;
+          transition: 0.3s;
+          width: 100%;
+          height: 50px;
+          border-top-right-radius: 7px;
+          border-bottom-right-radius: 7px;
+          padding: 0;
+          &:hover {
+            transition: 0.3s;
+            background-color: $enabledGreen;
+          }
+          &:focus {
+            outline: none;
+          }
+        }
+        #index-td, #name-td, #quantity-td, #totalprice-td, #unitprice-td {
+          font-size: 17px;
+          font-weight: 500;
+          background-color: rgba(253, 253, 253, 0.863)
+        }
+        #index-td {
+          background-color: $trybeGreen;
+          border-top-left-radius: 7px;
+          border-bottom-left-radius: 7px;
+          color: $darkWhite;
+          font-size: 16px;
+          font-weight: 500;
+        }
+        #quantity-td {
+          border-left: 2px solid rgba(0, 0, 0, .3);
+        }
+        #totalprice-td {
+          border-left: 2px solid rgba(0, 0, 0, .3);
+        }
+        #unitprice-td {
+          border-left: 2px solid rgba(0, 0, 0, .3);
+        }
+      }
+    }
+    .checkout-totalprice {
+      @include flex(flex, column, flex-end, flex-end);
+      width: 1300px;
+      span {
+        background-color: $trybeGreen;
+        padding: 15px;
+        font-size: 28px;
+        font-weight: 500;
+        color: $darkWhite;
+        margin: 0 20px 15px 0;
+        border-radius: 4px;
+        border: 1px solid rgba(0, 0, 0, .05);
+        box-shadow: 3px 4px 4px 0 rgba(5, 3, 3, 0.2) , 2px 3px 1px 0 rgba(0, 0, 0, 0.2);
+
+      }
+    }
   }
   .checkout-adress-container {
-
+    @include flex(flex, column, space-between, center);
+    width: 1300px;
+    height: 200px;
+    border-radius: 3px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 4px 0 rgba(5, 3, 3, 0.2) , 0 2px 1px 0 rgba(0, 0, 0, 0.2);
+    .checkout-adress-selectdiv {
+      @include flex(flex, row, space-between, center);
+      width: 95%;
+      label {
+        span {
+          font-size: 20px;
+          margin: 15px 0;
+        }
+        @include flex(flex, column, center, flex-start);
+        input, select {
+          border: 0.13rem solid rgba(0, 0, 0, 0.75);
+          width: 380px;
+          height: 35px;
+          padding-left: 12px;
+          font-size: 16px;
+          color: $trybeGreen;
+          border-radius: 5px;
+          font-weight: 900;
+        }
+        input {
+          transition: 0.3s;
+          &:focus {
+            outline: none;
+            border-color: $enabledGreen;
+            box-shadow: 0 0px 9px $darkWhite;
+          }
+          &:hover {
+            box-shadow: 0 0px 7px $darkWhite;
+          }
+        }
+        select {
+          background-color: white;
+          height: 42px;
+          &:focus {
+            outline: none;
+            border-color: $enabledGreen;
+            box-shadow: 0 0px 9px $darkWhite;
+          }
+          &:hover {
+            box-shadow: 0 0px 7px $darkWhite;
+          }
+        }
+        // remove spin arrow input
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+          appearance: none;
+          margin: 0;
+        }
+        input[ type = 'number' ] {
+          appearance: textfield;
+        }
+      }
+    }
+    button {
+      background-color: $trybeGreen;
+      font-size: 16px;
+      font-weight: 900;
+      color: $darkWhite;
+      border: none;
+      transition: 0.3s;
+      width: 300px;
+      height: 55px;
+      border-radius: 7px;
+      padding: 0;
+      margin-bottom: 20px;
+      &:hover {
+        transition: 0,3s;
+        background-color: $enabledGreen;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
   }
 }

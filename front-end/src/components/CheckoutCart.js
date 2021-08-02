@@ -10,6 +10,14 @@ class CheckoutCart extends React.Component {
     this.remove = this.remove.bind(this);
   }
 
+  componentDidMount() {
+    const { dispatchCart } = this.props;
+    if (localStorage.cart) {
+      const LScart = JSON.parse(localStorage.getItem('cart'));
+      dispatchCart(LScart);
+    }
+  }
+
   remove(id) {
     const { stateCart, dispatchCart } = this.props;
     const newCart = stateCart.filter((elem) => elem.id !== id);
@@ -28,65 +36,80 @@ class CheckoutCart extends React.Component {
     const LSprice = localStorage.getItem('totalPrice');
     return (
       <div className="checkout-cart-container">
-        <ul>
-          <td>Item</td>
-          <td>Descrição</td>
-          <td>Quantidade</td>
-          <td>Valor Unitário</td>
-          <td>Sub-total</td>
-          <td>Remover Item</td>
-          {(stateCart && stateCart.length > 0) && stateCart.map((elem, index) => (
-            <tr key={ index }>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-item-number-${index}`
-                }
-              >
-                {index + 1}
-              </td>
-              <td
-                data-testid={ `customer_checkout__element-order-table-name-${index}` }
-              >
-                { elem.name }
-              </td>
-              <td
-                data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
-              >
-                { elem.quantity }
-              </td>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-unit-price-${index}`
-                }
-              >
-                { elem.price.toString().replace('.', ',') }
-              </td>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-sub-total-${index}`
-                }
-              >
-                { (elem.price * elem.quantity).toFixed(2).replace('.', ',') }
-              </td>
-              <td>
-                <button
-                  type="button"
-                  onClick={ () => this.remove(elem.id) }
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Descrição</th>
+              <th>Quantidade</th>
+              <th>Valor Unitário</th>
+              <th>Sub-total</th>
+              <th>Remover Item</th>
+            </tr>
+          </thead>
+          <tbody>
+            {(stateCart && stateCart.length > 0) && stateCart.map((elem, index) => (
+              <tr key={ index }>
+                <td
+                  id="index-td"
                   data-testid={
-                    `customer_checkout__element-order-table-remove-${index}`
+                    `customer_checkout__element-order-table-item-number-${index}`
                   }
                 >
-                  Remove
-                </button>
-              </td>
-            </tr>
-          ))}
-        </ul>
-        <div className="checkout-totalprice">
-          Total:
-          <span data-testid="customer_checkout__element-order-total-price">
-            { LSprice.replace('.', ',')}
-          </span>
+                  {index + 1}
+                </td>
+                <td
+                  id="name-td"
+                  data-testid={ `customer_checkout__element-order-table-name-${index}` }
+                >
+                  { elem.name }
+                </td>
+                <td
+                  id="quantity-td"
+                  data-testid={
+                    `customer_checkout__element-order-table-quantity-${index}`
+                  }
+                >
+                  { elem.quantity }
+                </td>
+                <td
+                  id="unitprice-td"
+                  data-testid={
+                    `customer_checkout__element-order-table-unit-price-${index}`
+                  }
+                >
+                  { elem.price.toString().replace('.', ',') }
+                </td>
+                <td
+                  id="totalprice-td"
+                  data-testid={
+                    `customer_checkout__element-order-table-sub-total-${index}`
+                  }
+                >
+                  { (elem.price * elem.quantity).toFixed(2).replace('.', ',') }
+                </td>
+                <td>
+                  <button
+                    id="button-td"
+                    type="button"
+                    onClick={ () => this.remove(elem.id) }
+                    data-testid={
+                      `customer_checkout__element-order-table-remove-${index}`
+                    }
+                  >
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div>
+          <div className="checkout-totalprice">
+            <span data-testid="customer_checkout__element-order-total-price">
+              { `Total: ${LSprice.replace('.', ',')}`}
+            </span>
+          </div>
         </div>
       </div>
     );

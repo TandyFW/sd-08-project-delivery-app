@@ -32,9 +32,9 @@ class Checkout extends React.Component {
           )
           : (
             <div>
-              Finalizar Pedido
+              <h4>Finalizar Pedido</h4>
               <CheckoutCart history={ history } />
-              Detalhes e Endereço para Entrega
+              <h4>Detalhes e Endereço para Entrega</h4>
               <CheckoutAdress history={ history } />
             </div>
           )}

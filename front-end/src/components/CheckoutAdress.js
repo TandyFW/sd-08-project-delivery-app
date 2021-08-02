@@ -20,7 +20,7 @@ class CheckoutAdress extends React.Component {
     this.setState({ sellers });
   }
 
-  async makeCheckout({ target }) {
+  async sendOrder({ target }) {
     const { history } = this.props;
     const totalPrice = parseFloat(localStorage.getItem('totalPrice')).toFixed(2);
     const deliveryAddress = target.parentNode.firstChild
@@ -49,7 +49,7 @@ class CheckoutAdress extends React.Component {
       <div className="checkout-adress-container">
         <div className="checkout-adress-selectdiv">
           <label htmlFor="seller">
-            P.Vendedora Responsável
+            <span>P.Vendedora Responsável</span>
             <select
               id="seller"
               data-testid="customer_checkout__select-seller"
@@ -63,14 +63,14 @@ class CheckoutAdress extends React.Component {
             </select>
           </label>
           <label htmlFor="adress">
-            Endereço
+            <span>Endereço</span>
             <input
               id="adress"
               data-testid="customer_checkout__input-address"
             />
           </label>
           <label htmlFor="number">
-            Numero
+            <span>Numero</span>
             <input
               id="number"
               type="number"
@@ -81,7 +81,7 @@ class CheckoutAdress extends React.Component {
         <button
           type="button"
           data-testid="customer_checkout__button-submit-order"
-          onClick={ (event) => { this.makeCheckout(event); } }
+          onClick={ (event) => { this.sendOrder(event); } }
         >
           Finalizar Pedido
         </button>
