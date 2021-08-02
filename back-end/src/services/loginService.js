@@ -14,7 +14,7 @@ const findUser = async (email, password) => {
       };
     }
 
-    const user = { id: result.id, name: result.name, role: result.role };
+    const user = { id: result.id, email, name: result.name, role: result.role };
     const newToken = JWT(result);
     return { statusCode: 200, json: { validate: true, token: newToken, user } };
   } catch (err) {
