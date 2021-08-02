@@ -1,6 +1,6 @@
 const { getAll, create, getAllSalesById, updateStatusSale } = require('../services/saleService');
 const { getUserByEmail } = require('../services/userService');
-const { OK, CREATED } = require('../services/statusCode');
+const { OK, CREATED, INTERNAL_SERVER_ERROR } = require('../services/statusCode');
 const { getSale } = require('../services/saleService');
 
 const getAllSales = async (req, res) => {
@@ -30,9 +30,14 @@ const getOneSale = async (req, res) => {
 };
 
 const updateStatus = async (req, res) => {
-  const { status, id } = req.body;
-  const updatedSale = await updateStatusSale(status, id);
-  res.status(OK).json(updatedSale);
+  const { status } = req.body;
+  const { id } = req.params;
+  const update = await updateStatusSale(status, id);
+  if (update) {
+    const updatedSale = await getSale(id);
+    res.status(OK).json(updatedSale);
+  }
+  res.status(INTERNAL_SERVER_ERROR).json({ message: 'Erro interno' });
 };
 
 module.exports = {

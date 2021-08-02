@@ -39,14 +39,6 @@ function ClientCheckout() {
   const finishSale = async () => {
     try {
       const fixedTotal = total.toFixed(2);
-      const dateStorage = {
-        totalPrice: fixedTotal,
-        deliveryAddress: address,
-        deliveryNumber: number,
-        sellerId: selectedSeller,
-        products,
-      };
-      console.log(dateStorage);
       const { data } = await axios({
         method: 'post',
         url: 'http://localhost:3001/delivery/sales',

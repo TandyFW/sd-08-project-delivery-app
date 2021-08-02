@@ -20,6 +20,17 @@ const getSale = async (id) => {
   return result.data;
 };
 
+const updateStatus = async (id, status, setFunction) => {
+  const { data } = await api({
+    method: 'put',
+    url: `http://localhost:3001/delivery/sales/${id}`,
+    data: {
+      status,
+    },
+  });
+  setFunction(data);
+};
+
 const SellerDetails = () => {
   const { id } = useParams();
   const user = JSON.parse(localStorage.getItem('user'));
@@ -30,6 +41,9 @@ const SellerDetails = () => {
       .then((response) => setSale(response))
       .then(() => setLoading(false));
   }, [id]);
+  useEffect(() => {
+    console.log('sale atualizado');
+  }, [sale]);
   return (
     <Container>
       <NavBar show user={ user.name } />
@@ -61,11 +75,14 @@ const SellerDetails = () => {
               <OrderButton
                 data-testid={ `${prefix}button-preparing-check` }
                 color={ colors.mediumseagreen }
+                disabled={ sale && sale.status !== 'Pendente' }
+                onClick={ () => updateStatus(id, 'Preparando', setSale) }
               >
                 PEPARAR PEDIDO
               </OrderButton>
               <OrderButton
-                disabled
+                disabled={ sale && sale.status !== 'Preparando' }
+                onClick={ () => updateStatus(id, 'Em Trânsito', setSale) }
                 data-testid={ `${prefix}button-dispatch-check` }
                 color={ colors.teal }
               >
