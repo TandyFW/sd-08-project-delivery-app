@@ -10,7 +10,7 @@ const UserRegister = async (name, email, password) => {
 
     const { data: { message, json } } = createUser;
 
-    if (message === 'Created') return (true, json);
+    if (message === 'Created') return json;
 
     return false;
   } catch (error) {
