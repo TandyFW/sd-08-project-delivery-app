@@ -52,7 +52,7 @@ export default function OrderDetailsComp() {
     requestOrderById();
   }, [id, loading, status, roleUser]);
 
-  const accTotalPrice = (value) => {
+  const totalPrice = (value) => {
     accTotalPriceValue = value + accTotalPriceValue;
     return null;
   };
@@ -153,7 +153,7 @@ export default function OrderDetailsComp() {
   );
 
   const renderTable = () => (
-    <Table striped bordered hover size="lg" key={ elem.id }>
+    <Table striped bordered hover size="lg">
       <thead>
         <tr>
           <th>Item</th>
@@ -204,10 +204,11 @@ export default function OrderDetailsComp() {
               {' '}
               {(elem.salesProducts.quantity * elem.price).toFixed(2)}
             </td>
-          </tr>))}
-        {
-          accTotalPrice(parseFloat(elem.salesProducts.quantity * elem.price).toFixed(2))
-        }
+            {
+              totalPrice(parseFloat(elem.salesProducts.quantity * elem.price).toFixed(2))
+            }
+          </tr>
+        ))}
       </tbody>
       <tbody>
         <tr>
