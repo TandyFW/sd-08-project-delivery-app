@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import productReducer from './products';
-import processReducer from './process';
+// import processReducer from './process';
 import userReducer from './user';
 import ordesReducer from './ordes';
 
