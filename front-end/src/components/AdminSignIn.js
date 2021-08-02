@@ -47,13 +47,15 @@ class AdminSignIn extends React.Component {
 
   async validate() {
     const { dispatchUsers, stateUsers } = this.props;
+    const token = JSON.parse(localStorage.getItem('user'));
     const { props } = this;
     const spanMaxTime = 10000;
     const name = document.getElementById('admin-name').value;
     const email = document.getElementById('admin-email').value;
-    const pass = document.getElementById('admin-password').value;
+    const password = document.getElementById('admin-password').value;
     const role = document.getElementById('admin-select').value;
-    const newUser = await createUser(name, email, pass, role);
+    const dataForCreate = { name, email, password, role };
+    const newUser = await createUser(dataForCreate, token);
     if (newUser && newUser.statusText) {
       const hiddenSpan = document.querySelector('.hidden-span');
       hiddenSpan.style.display = 'inline-block';

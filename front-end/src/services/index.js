@@ -85,10 +85,12 @@ export async function getByRole(role) {
   return users;
 }
 
-export async function createUser(name, email, password, role) {
+export async function createUser({ name, email, password, role }, token) {
   try {
     const user = await axios.post(`${URL_BASE}/register`,
-      { name, email, password, role })
+      { name, email, password, role }, { headers: {
+        Authorization: `${token.token}`,
+      } })
       .then((response) => response.data);
     return user;
   } catch (error) {
@@ -121,12 +123,11 @@ export async function login(email, password) {
   }
 }
 
-export async function exclude(id) {
-  const accessToken = JSON.parse(localStorage.getItem('user'));
+export async function exclude(id, token) {
   try {
     const result = await axios.delete(`${URL_BASE}/register/${id}`,
       { headers: {
-        Authorization: `${accessToken.token}`,
+        Authorization: `${token}`,
       } })
       .then((response) => response.data);
     return result;
