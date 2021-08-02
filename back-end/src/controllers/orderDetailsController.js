@@ -26,7 +26,7 @@ const orderStatusUpdate = async (req, res) => {
   const { status } = req.body;
   try {
     await sales.update({
-       status },
+      status },
       { where: { id },
     });
     const result = await sales.findOne({
