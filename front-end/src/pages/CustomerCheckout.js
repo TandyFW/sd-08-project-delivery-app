@@ -6,11 +6,14 @@ import TableCheckout from '../components/TableCheckout';
 export default function CustomerCheckout() {
   const [sellers, setSellers] = useState([]);
 
-  useEffect(async () => {
-    const user = await axios.get('http://localhost:3001/customer/checkout')
-      .then((data) => data.data)
-      .catch((err) => console.log(err));
-    setSellers(user);
+  useEffect(() => {
+    async function fetchData() {
+      const user = await axios.get('http://localhost:3001/customer/checkout')
+        .then((data) => data.data)
+        .catch((err) => console.log(err));
+      setSellers(user);
+    }
+    fetchData();
   }, []);
 
   return (

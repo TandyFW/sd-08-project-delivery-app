@@ -62,10 +62,10 @@ function InputCheckout({ seller }) {
           <option value="default">-</option>
           {seller && seller.map((sellers) => (
             <option
-              key={ sellers.name }
-              value={ sellers.id }
+              key={ sellers.id }
+              value={ sellers.name }
             >
-              { sellers.id }
+              { sellers.name }
             </option>))}
         </select>
         <legend
