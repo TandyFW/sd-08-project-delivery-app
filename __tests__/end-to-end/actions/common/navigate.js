@@ -58,7 +58,7 @@ const navigate = {
     //redirect
     homepage: async (page, role) => {
       const { homePage } = user[role]();
-
+      
       await expect(page).toNavigate(`${host}/login`);
       await expect(page).toCompareURL(`${host}${homePage}`);
       return true;
