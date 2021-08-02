@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './CustomerOrderCard.css';
 
 const CustomerOrderCard = ({ order }) => (
-  <Link to={ `customer/orders/${order.id}` }>
+  <Link to={ `/customer/orders/${order.id}` }>
     <div className="order-card">
       <div className="order-card-number">
         <p>Pedido</p>
@@ -21,12 +21,12 @@ const CustomerOrderCard = ({ order }) => (
         <p
           data-testid={ `customer_orders__element-order-date-${order.id}` }
         >
-          {order.date}
+          {order.saleDate}
         </p>
         <p
           data-testid={ `customer_orders__element-card-price-${order.id}` }
         >
-          {order.total}
+          {order.totalPrice}
         </p>
       </div>
     </div>
@@ -37,8 +37,8 @@ CustomerOrderCard.propTypes = {
   order: PropTypes.shape({
     id: PropTypes.number.isRequired,
     status: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-    total: PropTypes.string.isRequired,
+    saleDate: PropTypes.string.isRequired,
+    totalPrice: PropTypes.string.isRequired,
   }).isRequired,
 };
 

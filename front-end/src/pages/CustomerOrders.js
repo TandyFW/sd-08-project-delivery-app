@@ -9,19 +9,24 @@ const CustomerOrders = () => {
   const [user, setUser] = useState({});
   const [ordersList, setOrdersList] = useState([]);
   const history = useHistory();
-  const { orders } = useContext(OrderContext);
+  const { getOrders } = useContext(OrderContext);
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem('user'));
     if (!userData) return history.push('/login');
     setUser(userData);
-    setOrdersList(orders);
+    const updateOrders = async () => {
+      const orders = await getOrders();
+      setOrdersList(orders);
+    };
+    updateOrders();
   }, [history]);
 
   return (
     <>
       <Navbar name={ user.name } />
       <section className="order-cards-container">
+        { console.log('ordersListPage: ', ordersList) }
         { ordersList
           .map((order) => <CustomerOrderCard key={ order.id } order={ order } />) }
       </section>

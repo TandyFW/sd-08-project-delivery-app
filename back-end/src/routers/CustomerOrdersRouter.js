@@ -5,6 +5,6 @@ const { getAllUserOrders } = require('../controllers/CustomerOrdersController');
 const CustomerOrdersRouter = express.Router();
 
 
-CustomerOrdersRouter.get('customer/orders', AuthController, getAllUserOrders );
+CustomerOrdersRouter.get('/customer/orders', AuthController, getAllUserOrders );
 
 module.exports = CustomerOrdersRouter;
