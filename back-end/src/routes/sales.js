@@ -1,10 +1,10 @@
 const router = require('express').Router();
-
+const auth = require('../middlewares/auth');
 const SalesController = require('../controllers/sales');
 
-router.get('/list', SalesController.getAllSales);
+router.get('/', SalesController.getAllSales);
 
-router.post('/create', SalesController.createSale);
+router.post('/', auth, SalesController.createSale);
 
 router.put('/status', SalesController.updateSale);
 

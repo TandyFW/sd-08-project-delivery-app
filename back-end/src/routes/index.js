@@ -15,4 +15,10 @@ rootRouter.use('/sales', saleRouter);
 
 rootRouter.get('/sellers', SellerController);
 
+rootRouter.get(
+  '/teste',
+  require('../middlewares/auth'),
+  (req, res) => res.json(req.user),
+);
+
 module.exports = rootRouter;

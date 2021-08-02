@@ -2,14 +2,10 @@ const rescue = require('express-rescue');
 const joi = require('joi');
 const boom = require('@hapi/boom');
 const jwt = require('jsonwebtoken');
-const path = require('path');
-const fs = require('fs');
 const UserService = require('../services/user');
 const md5 = require('../utils/md5');
 
-const SECRET_FILE_PATH = path.resolve(__dirname, '..', '..', 'jwt.evaluation.key');
-
-const secret = fs.readFileSync(SECRET_FILE_PATH, 'utf-8').trim();
+const { secret } = require('../utils/jwt');
 
 const loginSchema = joi.object({
   email: joi.string().required(),
