@@ -5,6 +5,7 @@ const {
   sessionsRouter,
   customersRouter,
   registerRouter,
+  adminRouter,
   orderDetailsRouter,
   sellerOrdersDetailsRouter,
   sellersRouter,
@@ -20,6 +21,7 @@ app.use('/login', sessionsRouter);
 app.use('/seller', sellersRouter);
 app.use('/customer', customersRouter);
 app.use('/register', registerRouter);
+app.use('/admin', adminRouter);
 app.use('/customer/orders', orderDetailsRouter);
 app.use('/seller/orders', sellerOrdersDetailsRouter);
 

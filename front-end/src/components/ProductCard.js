@@ -44,15 +44,12 @@ export default function ProductCard(props) {
     }
   };
 
-  // ALTERAR DEPOIS
   const cardStyle = {
-    height: '5rem',
-    width: '10rem',
+    width: '18rem',
   };
 
   const imgStyle = {
-    height: '5px',
-    width: '5px',
+    height: '12rem',
   };
 
   return (
