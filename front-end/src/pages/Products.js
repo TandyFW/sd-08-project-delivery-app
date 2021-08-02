@@ -20,9 +20,9 @@ class Products extends React.Component {
   }
 
   render() {
-    const { history, stateUser } = this.props;
+    const { history } = this.props;
     const { loading } = this.state;
-    localStorage.setItem('user', JSON.stringify(stateUser));
+    // localStorage.setItem('user', JSON.stringify(stateUser));
     return (
       <div className="products-container">
         <Header history={ history } />
@@ -40,13 +40,13 @@ class Products extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  stateUser: state.userReducer.user,
-});
+// const mapStateToProps = (state) => ({
+//   stateUser: state.userReducer.user,
+// });
 
 Products.propTypes = {
   history: PropTypes.shape().isRequired,
-  stateUser: PropTypes.objectOf(PropTypes.string).isRequired,
+  // stateUser: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
-export default connect(mapStateToProps, null)(Products);
+export default connect(null, null)(Products);
