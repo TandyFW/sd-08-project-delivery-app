@@ -5,13 +5,20 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import CustomerProducts from './pages/CustomerProducts';
 import CustomerCheckout from './pages/CustomerCheckout';
+import CustomerOrders from './pages/CustomerOrders';
 import CartContextProvider from './components/CartContextProvider';
+import OrderContextProvider from './components/OrderContextProvider';
 import CustomerOrderDetails from './pages/CustomerOrderDetails';
 
 function Routes() {
   return (
     <Switch>
       <Route path="/register" component={ Register } />
+      <Route path="/customer/orders">
+        <OrderContextProvider>
+          <CustomerOrders />
+        </OrderContextProvider>
+      </Route>
       <Route path="/customer/products">
         <CartContextProvider>
           <CustomerProducts />
