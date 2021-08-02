@@ -152,19 +152,19 @@ export default function OrderDetailsComp() {
     </Row>
   );
 
-  const renderTable = () => {
-    const result = order.map((elem, index) => (
-      <Table striped bordered hover size="lg" key={ elem.id }>
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Descrição</th>
-            <th>Quantidade</th>
-            <th>Valor Unitário</th>
-            <th>Sub-Total</th>
-          </tr>
-        </thead>
-        <tbody>
+  const renderTable = () => (
+    <Table striped bordered hover size="lg" key={ elem.id }>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Descrição</th>
+          <th>Quantidade</th>
+          <th>Valor Unitário</th>
+          <th>Sub-Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        { order.map((elem, index) => (
           <tr key={ index }>
             <td
               data-testid={
@@ -204,27 +204,25 @@ export default function OrderDetailsComp() {
               {' '}
               {(elem.salesProducts.quantity * elem.price).toFixed(2)}
             </td>
-          </tr>
-          {
-            accTotalPrice(parseFloat(elem.salesProducts.quantity * elem.price).toFixed(2))
-          }
-        </tbody>
-        <tbody>
-          <tr>
-            <td
-              className="justify"
-              data-testid={ `${prefix[roleUser]}element-order-total-price` }
-            >
-              Total: R$
-              { ' ' }
-              { parseFloat(accTotalPriceValue).toFixed(2) }
-            </td>
-          </tr>
-        </tbody>
-      </Table>
-    ));
-    return result;
-  };
+          </tr>))}
+        {
+          accTotalPrice(parseFloat(elem.salesProducts.quantity * elem.price).toFixed(2))
+        }
+      </tbody>
+      <tbody>
+        <tr>
+          <td
+            className="justify"
+            data-testid={ `${prefix[roleUser]}element-order-total-price` }
+          >
+            Total: R$
+            { ' ' }
+            { parseFloat(accTotalPriceValue).toFixed(2) }
+          </td>
+        </tr>
+      </tbody>
+    </Table>
+  );
 
   const renderError = () => (
     <span>{error}</span>
