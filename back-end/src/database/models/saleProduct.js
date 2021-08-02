@@ -20,18 +20,9 @@ const SaleProduct = (sequelize, DataTypes) => {
   {
     timestamps: false,
     tableName: 'sales_products',
-    underscored: true,
   });
 
-  // saleProduct.associate = (models) => {
-  //   saleProduct.belongsTo(models.Sale, {
-  //     as: 'vendas',
-  //     through: saleProduct,
-  //     foreignKey: 'sale_id',
-  //     otherKey: 'product_id',
-  //   });
-  // };
-  
+
   return saleProduct;
 };
 

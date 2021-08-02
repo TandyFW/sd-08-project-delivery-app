@@ -12,6 +12,8 @@ app.use(cors({
   methods: ['GET', 'POST'],
   }));
 
+app.use('/images', express.static(__dirname.replace('/src/api', '/images'))); 
+
 app.get('/coffee', (_req, res) => res.status(418).end());
 app.use(routes);
 app.use(errorMiddleware);

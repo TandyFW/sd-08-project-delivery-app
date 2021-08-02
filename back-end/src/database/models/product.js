@@ -31,7 +31,6 @@ const Product = (sequelize, DataTypes) => {
   product.associate = (models) => {
     product.hasMany(models.SaleProduct);
   };
-  
   return product;
 };
 

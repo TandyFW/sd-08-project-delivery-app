@@ -1,22 +1,24 @@
 import styled from 'styled-components';
 
 export const LoginForm = styled.form`align-items: center;
-  border-left: solid 2px ${(props) => props.theme.colors.primary};
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 15px 30px;
-  width: 300px;
+  width: 50%;
 
   .MuiFormControl-root {
     margin: 10px 0;
+    max-width: 350px;
     width: 100%;
+
   }
 
   .MuiButtonBase-root {
     background-color: ${(props) => props.theme.colors.primary};
     font-weight: 550;
     margin: 10px 0;
+    max-width: 350px;
     width: 100%;
   }
 
