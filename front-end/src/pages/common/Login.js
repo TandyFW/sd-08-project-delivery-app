@@ -23,6 +23,7 @@ function Login() {
   async function handleClick() {
     try {
       const { name, email, role, token } = await api.login(localEmail, password);
+      localStorage.setItem('user', JSON.stringify({ name, email, role, token }));
       setName(name);
       setEmail(email);
       setRole(role);

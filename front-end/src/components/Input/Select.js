@@ -5,7 +5,8 @@ import { Wrapper, StyledSelect } from '../../styles/components/Input/Select';
 const Select = ({ options, ...props }) => (
   <Wrapper>
     <StyledSelect { ...props }>
-      { options.map((option, index) => <option key={ index }>{ option }</option>)}
+      { options.map(({ id, name }) => (
+        <option key={ id } value={ id }>{ name }</option>))}
     </StyledSelect>
   </Wrapper>
 );

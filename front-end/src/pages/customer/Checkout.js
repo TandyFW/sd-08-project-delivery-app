@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as api from '../../services/api';
 import CartContext from '../../context/CartContext';
-import DeliveryContext from '../../context/DeliveryContext';
 import CustomerNavbar from '../../components/Navbar/CustomerNavbar';
 import ListContainer from '../../components/List/ListContainer';
 import ProductListHeader from '../../components/List/ProductListHeader';
@@ -22,17 +21,15 @@ import {
 } from '../../styles/pages/customer/Checkout';
 
 const Checkout = () => {
-  const [selectedSeller, setSelectedSeller] = useState('');
+  const [selectedSeller, setSelectedSeller] = useState();
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
   const [sellers, setSellers] = useState([]);
   const { cart, products } = useContext(CartContext);
-  const { token } = useContext(DeliveryContext);
   const history = useHistory();
 
   const fetchSellers = async () => {
     const result = await api.getSellers();
-    if (result.length > 0) setSelectedSeller(result[0].name);
     setSellers(result);
   };
 
@@ -45,17 +42,15 @@ const Checkout = () => {
   ));
 
   const handleSubmitOrder = async () => {
-    console.log(sellers, selectedSeller);
-    const { id: sellerId } = sellers.find((currentSeller) => (
-      currentSeller.name === selectedSeller));
-
     const orderCart = Object.entries(cart).map(([id, quantity]) => (
       { id: Number(id), quantity }));
+
+    const { token } = JSON.parse(localStorage.getItem('user'));
 
     try {
       const { saleId } = await api.submitOrder({
         cart: orderCart,
-        sellerId,
+        sellerId: selectedSeller,
         deliveryAddress,
         deliveryNumber,
       }, token);
@@ -103,10 +98,10 @@ const Checkout = () => {
         <FormContainer>
           <CheckoutLabel text="P. Vendedora Responsável">
             <Select
-              options={ sellers.map((seller) => seller.name) }
+              options={ sellers }
               data-testid="customer_checkout__select-seller"
               value={ selectedSeller }
-              onChange={ ({ target }) => setSelectedSeller(target.value) }
+              onChange={ ({ target }) => setSelectedSeller(Number(target.value)) }
             />
           </CheckoutLabel>
           <CheckoutLabel text="Endereço">

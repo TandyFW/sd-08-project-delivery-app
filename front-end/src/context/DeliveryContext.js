@@ -1,15 +1,13 @@
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
-
-import useUserLocalStorage from '../hooks/useUserLocalStorage';
 
 const DeliveryContext = createContext();
 
 export function DeliveryProvider({ children }) {
-  const [name, setName] = useUserLocalStorage('name');
-  const [email, setEmail] = useUserLocalStorage('email');
-  const [role, setRole] = useUserLocalStorage('role');
-  const [token, setToken] = useUserLocalStorage('token');
+  const [name, setName] = useState('name');
+  const [email, setEmail] = useState('email');
+  const [role, setRole] = useState('role');
+  const [token, setToken] = useState('token');
 
   const contextValue = {
     name,
