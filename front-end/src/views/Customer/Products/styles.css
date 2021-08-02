@@ -1,8 +1,25 @@
-.card_content {
+.main-wrapper-products {
   align-items: center;
   display: flex;
-  flex-flow: row wrap;
+  flex-direction: column;
   justify-content: center;
-  margin-top: 50px;
-  width: 100%;
+}
+
+.wrapper-card-product {
+  display: flex;
+  flex-flow: wrap;
+}
+
+.cart-button {
+  background-color: lightseagreen;
+  border: none;
+  border-radius: 10px;
+  bottom: 100px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  font-size: large;
+  font-weight: 700;
+  height: 50px;
+  position: absolute;
+  right: 50px;
+  width: 200px;
 }
