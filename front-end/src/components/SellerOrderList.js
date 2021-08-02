@@ -3,7 +3,6 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 // import { getAllProducts } from '../services';
 // import { productsAction } from '../redux/actions';
-import '../styles/sellerOrderList.css';
 
 const data = new Date();
 const formatedDate = `${data.getDate()}/${data.getMonth()}/${data.getFullYear()}`;

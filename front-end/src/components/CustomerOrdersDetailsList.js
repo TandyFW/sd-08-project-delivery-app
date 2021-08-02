@@ -5,8 +5,6 @@ import Loader from './Loader';
 import { getNameUserById } from '../services';
 import { getAllOrdesByUserApi } from '../redux/actions';
 
-import '../styles/customerOrderDetails.css';
-
 // import { getOrdersForUserById } from '../services';
 const prefix1 = 'customer_order_details__element-order';
 const prefix2 = 'customer_order_details__';
