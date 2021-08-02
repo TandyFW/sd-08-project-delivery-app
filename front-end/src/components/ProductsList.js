@@ -4,11 +4,10 @@ import Table from './Table';
 import HEADING_LIST_CHECKOUT from '../utils/Lists';
 
 export default function ProductsList() {
-  const { itemsList } = useContext(DeliveryAppContext);
+  const { itemsList, totalPrice } = useContext(DeliveryAppContext);
   const [heading, setHeading] = useState([]);
   const [body, setBody] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [totalPrice, setTotalPrice] = useState(0.00);
 
   const getItensList = () => setBody(itemsList);
 
@@ -22,24 +21,16 @@ export default function ProductsList() {
     }
   };
 
-  const subTotalCalc = () => {
-    const priceList = itemsList.map((item) => item.subtotal);
-    const currentTotal = priceList.reduce((acc, cur) => acc + cur, 0);
-    return setTotalPrice(currentTotal);
-  };
-
   const setLoadingMessage = () => {
     if (!heading.length || !body.length) return setIsLoading(true);
     if (heading.length && body.length) return setIsLoading(false);
   };
 
-  useEffect(() => getItensList(), [itemsList]);
-  useEffect(() => subTotalCalc(), [body]);
+  useEffect(() => getItensList(), [itemsList, getItensList]);
   useEffect(() => setLoadingMessage(), [body, heading]);
   useEffect(() => getLocation(), []);
 
-  console.log(isLoading);
-  // if (isLoading) return <p>Carregando...</p>;
+  if (isLoading) return <p>Carregando...</p>;
   return (
     <div className="products-list-container">
       <h2 className="title-h2">

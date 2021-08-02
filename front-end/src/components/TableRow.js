@@ -1,44 +1,52 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 
 export default function TableRow({ row, tableIndex }) {
   const { itemsList, setItemsList } = useContext(DeliveryAppContext);
 
+  useEffect(() => {
+    const srtList = JSON.stringify(itemsList);
+    return localStorage.setItem('currentItemsList', srtList);
+  }, [itemsList]);
+
   const remove = () => {
-    const currentList = itemsList.filter((item) => item[1] !== row.name);
+    console.log(row.name);
+    const currentList = itemsList.filter((item) => item.name !== row.name);
     setItemsList(currentList);
   };
 
   return (
-    <tr>
+    <tr key={ tableIndex }>
       <td
         className="products-table-cel"
-        key={ tableIndex }
         data-testid={ `customer_checkout__element-order-table-item-number${tableIndex}` }
       >
-        { row.id }
+        { tableIndex + 1 }
       </td>
       <td
         className="products-table-cel"
-        key={ tableIndex }
-        data-testid={ `customer_checkout__element-order-table-name-${tableInde}` }
+        data-testid={ `customer_checkout__element-order-table-name-${tableIndex}` }
       >
         { row.name }
       </td>
       <td
         className="products-table-cel"
-        key={ tableIndex }
         data-testid={ `customer_checkout__element-order-table-quantity-${tableIndex}` }
       >
         { row.quantity }
       </td>
       <td
         className="products-table-cel"
-        key={ tableIndex }
+        data-testid={ `customer_checkout__element-order-table-unit-price-${tableIndex}` }
+      >
+        { (+row.unitaryPrice).toFixed(2) }
+      </td>
+      <td
+        className="products-table-cel"
         data-testid={ `customer_checkout__element-order-table-sub-total-${tableIndex}` }
       >
-        { row.subtotal }
+        { row.itemsPrice }
       </td>
       <td>
         <button
@@ -56,10 +64,10 @@ export default function TableRow({ row, tableIndex }) {
 
 TableRow.propTypes = {
   row: PropTypes.shape({
-    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     quantity: PropTypes.number.isRequired,
-    subtotal: PropTypes.number.isRequired,
+    unitaryPrice: PropTypes.number.isRequired,
+    itemsPrice: PropTypes.string.isRequired,
   }).isRequired,
   tableIndex: PropTypes.number.isRequired,
 };

@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Orders from './pages/Orders';
 import Register from './pages/Register';
 import './App.css';
+import Products from './pages/Products';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
       <Route exact path="/" component={ Follower } />
       <Route exact path="/login" component={ Login } />
       <Route exact path="/register" component={ Register } />
-      {/* <Route exact path="/customer/products" component={Products} /> */}
+      <Route exact path="/customer/products" component={ Products } />
       <Route exact path="/customer/checkout" component={ Checkout } />
       <Route exact path="/customer/orders" component={ Orders } />
       {/* <Route exact path="/customer/orders/:id" component={OrdersDetails} /> */}
