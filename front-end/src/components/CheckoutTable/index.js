@@ -3,7 +3,6 @@ import './styles.css';
 import PropTypes from 'prop-types';
 
 function CheckoutTable({ cart, setCart }) {
-  console.log(cart);
   function handleRemove({ target }) {
     const data = cart.filter((element) => element.id !== Number(target.value));
     setCart(data);

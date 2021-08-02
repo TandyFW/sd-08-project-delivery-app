@@ -3,22 +3,23 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import Context from '../context/Context';
 
+const name = 'Fulana Pereira';
 const dataSellers = [
   {
     id: 1,
-    name: 'Tatiana',
+    name,
   },
   {
     id: 2,
-    name: 'Carmela',
+    name,
   },
   {
     id: 3,
-    name: 'Rita',
+    name,
   },
 ];
 
-function AddressDetails({ cart }) {
+function AddressDetails({ cart, setCart }) {
   const { userData } = useContext(Context);
   const [seller, setSeller] = useState('');
   const [address, setAddress] = useState('');
@@ -45,6 +46,7 @@ function AddressDetails({ cart }) {
     };
     const rawResponse = await fetch('http://localhost:3001/customer/order', myInit);
     const content = await rawResponse.json();
+    setCart([]);
     history.push(`/customer/orders/${content.sale.id}`);
   }
 
@@ -101,6 +103,7 @@ function AddressDetails({ cart }) {
 
 AddressDetails.propTypes = {
   cart: PropTypes.arrayOf(Object).isRequired,
+  setCart: PropTypes.func.isRequired,
 };
 
 export default AddressDetails;

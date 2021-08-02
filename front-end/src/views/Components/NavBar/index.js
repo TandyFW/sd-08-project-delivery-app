@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './styles.css';
+import { useHistory } from 'react-router-dom';
 
 function NavBar(props) {
   const { userType, userName } = props;
+  const history = useHistory();
   let prefix = '';
 
   if (userType === 'customer') {
@@ -24,20 +26,22 @@ function NavBar(props) {
         { userType === 'customer' && (
           <>
             <li>
-              <a
-                href="/customer/products"
+              <button
+                type="button"
+                onClick={ () => history.push('/customer/products') }
                 data-testid={ `${prefix}element-navbar-link-products` }
               >
                 Produtos
-              </a>
+              </button>
             </li>
             <li>
-              <a
-                href="/customer/requests"
+              <button
+                type="button"
+                onClick={ () => history.push('/customer/orders') }
                 data-testid={ `${prefix}element-navbar-link-orders` }
               >
                 Meus pedidos
-              </a>
+              </button>
             </li>
           </>
         )}

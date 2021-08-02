@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,10 +9,8 @@ import Components from './views/Components';
 import Home from './views/Home';
 import Register from './views/Register';
 import CustomerRouts from './views/Customer/Routes';
-import Context from './context/Context';
 
 function Routes() {
-  const { userData } = useContext(Context);
   return (
     <Router>
       <Switch>
@@ -20,9 +18,7 @@ function Routes() {
         <Route path="/login" component={ Login } />
         <Route path="/components" component={ Components } />
         <Route path="/register" component={ Register } />
-        { userData && userData.user && userData.user.role === 'customer' && (
-          <Route path="/customer" component={ CustomerRouts } />
-        )}
+        <Route path="/customer" component={ CustomerRouts } />
       </Switch>
     </Router>
   );

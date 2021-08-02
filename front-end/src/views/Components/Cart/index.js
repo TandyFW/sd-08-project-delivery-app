@@ -20,6 +20,7 @@ const Cart = () => {
 
   return (
     <button
+      className="cart-button"
       type="button"
       onClick={ () => history.push('/customer/checkout') }
       data-testid="customer_products__button-cart"
