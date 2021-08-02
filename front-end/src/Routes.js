@@ -40,7 +40,7 @@ export default () => (
       <SellerOrdersDetails />
     </Route> */}
     <Route exact path="/admin/manage">
-      <Admin />
+      <Admin userRole="administrator" />
     </Route>
   </Switch>
 );

@@ -13,8 +13,11 @@ import
 export default function HeaderAdmin() {
   const history = useHistory();
 
+  const userName = JSON.parse(localStorage.getItem('user')).name;
+
   const logout = () => {
-    localStorage.clear('user');
+    localStorage.removeItem('user');
+    localStorage.removeItem('newUser');
     history.push('/login');
   };
 
@@ -27,7 +30,7 @@ export default function HeaderAdmin() {
         { ' ' }
       </None>
       <NameAdmin>
-        Trybeer Admin
+        { userName }
       </NameAdmin>
       <LogoutButton
         type="button"

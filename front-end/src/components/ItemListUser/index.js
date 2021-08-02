@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Context } from '../../Context';
+// import { Context } from '../../Context';
 // import api from '../../Apis/api1';
 
 import {
@@ -13,14 +13,14 @@ import {
 } from './Styled';
 
 export default function ItemListUser(props) {
-  const { users, setUsers } = useContext(Context);
+  // const { users, setUsers } = useContext(Context);
   const { item, index, name, email, role } = props;
 
-  const removeUser = () => {
-    const updatedUsers = users
-      .filter((user) => (user.id !== item)).map((user) => (user));
-    setUsers(updatedUsers);
-  };
+  // const removeUser = () => {
+  //   const updatedUsers = users
+  //     .filter((user) => (user.id !== item)).map((user) => (user));
+  //   setUsers(updatedUsers);
+  // };
 
   return (
     <Container>
@@ -48,7 +48,7 @@ export default function ItemListUser(props) {
       <DeleteItem
         type="button"
         data-testid={ `admin_manage__element-user-table-remove-${index}` }
-        onClick={ removeUser }
+        // onClick={ removeUser }
       >
         Excluir
       </DeleteItem>

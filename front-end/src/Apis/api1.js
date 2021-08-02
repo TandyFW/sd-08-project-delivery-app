@@ -47,10 +47,9 @@ export default {
       .then((result) => result.data.response);
   },
 
-  getAllUsers: async () => {
-    const res = await axios.get(`${BASEURL}${USERS}`);
-    return res;
-  },
+  getAllUsers: async () => axios.get(
+    `${BASEURL}${USERS}`,
+  ).then((result) => result.data.response),
 
   getAllSellers: async () => axios.get(
     `${BASEURL}${SELLERS}`,

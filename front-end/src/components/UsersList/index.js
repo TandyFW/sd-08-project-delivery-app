@@ -1,6 +1,8 @@
-import React, { useContext } from 'react';
-import { Context } from '../../Context';
+import React from 'react';
+import PropTypes from 'prop-types';
+// import { Context } from '../../Context';
 import ItemListUser from '../ItemListUser';
+// import api from '../../Apis/api1';
 
 import {
   Container,
@@ -9,8 +11,17 @@ import {
   /* InvalidBox, */
 } from './Styled';
 
-export default function Users() {
-  const { users } = useContext(Context);
+export default function Users(props) {
+  const { users } = props;
+  // const [users, setUsers] = useState([]);
+
+  // useEffect(() => {
+  //   const loadUsers = async () => {
+  //     const responseUsers = await api.getAllUsers();
+  //     setUsers(responseUsers);
+  //   };
+  //   loadUsers();
+  // }, []);
 
   return (
     <Container>
@@ -34,3 +45,7 @@ export default function Users() {
     </Container>
   );
 }
+
+Users.propTypes = {
+  users: PropTypes.node.isRequired,
+};
