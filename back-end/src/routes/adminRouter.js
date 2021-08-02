@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { celebrate, Joi, Segments } = require('celebrate');
-const auth = require('../api/middlewares/isAuthenticated');
+const { isAuthenticated, restrictionLevel } = require('../api/middlewares/isAuthenticated');
 const adminController = require('../controllers/adminController');
 
 const adminRouter = Router();
@@ -13,11 +13,11 @@ adminRouter.post('/manage',
     password: Joi.string().min(6).required(),
     role: Joi.string().required(),
   } }),
-  auth,
+  isAuthenticated(restrictionLevel(1)),
   adminController.createUser);
 
 adminRouter.get('/manage',
-  auth,
+isAuthenticated(restrictionLevel(1)),
   adminController.getAllUsers);
 
 module.exports = adminRouter;

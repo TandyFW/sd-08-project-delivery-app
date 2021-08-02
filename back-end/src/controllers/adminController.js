@@ -1,6 +1,6 @@
 const adminService = require('../services/adminUseCase');
 
-exports.createUser = async (req, res) => {
+const createUser = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
     const result = await adminService.createUser({ name, email, password, role });
@@ -12,7 +12,7 @@ exports.createUser = async (req, res) => {
   }
 };
 
-exports.getAllUsers = async (req, res) => {
+const getAllUsers = async (req, res) => {
   try {
     const allUsers = await adminService.getAllUsers();
     res.status(200).json(allUsers);
@@ -21,4 +21,9 @@ exports.getAllUsers = async (req, res) => {
     const status = error.statusCode || 500;
     res.status(status).json(message);
   }
+};
+
+module.exports = {
+  createUser,
+  getAllUsers,
 };
