@@ -36,7 +36,7 @@ const NavBar = ({ userType, userName }) => {
         createScreenData('Meus Pedidos', 'orders', '/customer/orders'),
       ];
     case 'seller':
-      return [createScreenData('Pedidos', '', '/seller/orders')];
+      return [createScreenData('Pedidos', 'orders', '/seller/orders')];
     case 'administrator':
       return [createScreenData('Gerenciar Usuários', '', '/admin/manage')];
     default:

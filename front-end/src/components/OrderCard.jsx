@@ -32,12 +32,6 @@ export default function OrderCard({ order, title }) {
     saleDate,
     status: initialStatus,
     totalPrice,
-    // id,
-    // status,
-    // sale_date: saleDate,
-    // total_price: totalPrice,
-    // delivery_address: deliveryAddress,
-    // delivery_number: deliveryNumber,
   } = order;
 
   const [status, setStatus] = useState(initialStatus);
@@ -51,18 +45,48 @@ export default function OrderCard({ order, title }) {
   }, [socket, id]);
 
   const formatDate = (date) => {
-    // const timesTampDate = Date.parse(date);
     const dateObj = new Date(date);
-
-    // const day = dateObj.getDate();
-    // const month = dateObj.getMonth() + 1;
-    // const year = dateObj.getFullYear();
     return dateObj.toLocaleDateString('pt-br');
   };
 
   const redirectToSaleDetail = (idParam) => {
     history.push(`/${title}/orders/${idParam}`);
   };
+
+  const renderDescription = () => (
+    <Grid item xs={ 12 } sm container>
+      <Grid item xs container direction="column" spacing={ 2 }>
+        <Grid item xs>
+          <Typography
+            data-testid={ `${title}_orders__element-delivery-status-${id}` }
+            variant="subtitle1"
+          >
+            {status}
+          </Typography>
+          <Typography
+            data-testid={ `${title}_orders__element-order-date-${id}` }
+            variant="body2"
+          >
+            {formatDate(saleDate)}
+          </Typography>
+          <Typography
+            data-testid={ `${title}_orders__element-card-address-${id}` }
+            variant="body2"
+            color="textSecondary"
+          >
+            {`${deliveryAddress}, ${deliveryNumber}`}
+          </Typography>
+        </Grid>
+      </Grid>
+      <Grid item>
+        <Typography
+          data-testid={ `${title}_orders__element-card-price-${id}` }
+          variant="subtitle1"
+        >
+          {`R$ ${totalPrice.replace(/\./, ',')}`}
+        </Typography>
+      </Grid>
+    </Grid>);
 
   return (
 
@@ -75,39 +99,7 @@ export default function OrderCard({ order, title }) {
           >
             {`Pedido ${id}`}
           </Grid>
-          <Grid item xs={ 12 } sm container>
-            <Grid item xs container direction="column" spacing={ 2 }>
-              <Grid item xs>
-                <Typography
-                  data-testid={ `${title}_orders__element-delivery-status-${id}` }
-                  variant="subtitle1"
-                >
-                  {status}
-                </Typography>
-                <Typography
-                  data-testid={ `${title}_orders__element-order-date-${id}` }
-                  variant="body2"
-                >
-                  {formatDate(saleDate)}
-                </Typography>
-                <Typography
-                  data-testid={ `${title}_orders__element-card-address-${id}` }
-                  variant="body2"
-                  color="textSecondary"
-                >
-                  {`${deliveryAddress}, ${deliveryNumber}`}
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Typography
-                data-testid={ `${title}_orders__element-card-price-${id}` }
-                variant="subtitle1"
-              >
-                {`R$ ${totalPrice.replace(/\./, ',')}`}
-              </Typography>
-            </Grid>
-          </Grid>
+          {renderDescription()}
         </Grid>
       </Paper>
     </div>
@@ -117,12 +109,6 @@ export default function OrderCard({ order, title }) {
 OrderCard.propTypes = {
   title: PropTypes.string.isRequired,
   order: PropTypes.shape({
-    // id: PropTypes.number,
-    // sale_date: PropTypes.string,
-    // status: PropTypes.string,
-    // total_price: PropTypes.string,
-    // delivery_address: PropTypes.string,
-    // delivery_number: PropTypes.string,
     id: PropTypes.number,
     saleDate: PropTypes.string,
     status: PropTypes.string,
