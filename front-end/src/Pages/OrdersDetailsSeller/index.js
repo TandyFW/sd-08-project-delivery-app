@@ -32,6 +32,13 @@ const OrdersDetailsSeller = ({ match }) => {
   if (!Object.keys(sale).length || !Object.keys(seller).length) return <p />;
   console.log(seller.name);
 
+  const handleClickChangeStatus = () => {
+    setSale({
+      ...sale,
+      status: 'Preparando',
+    });
+  };
+
   return (
     <div>
       <HeaderSeller />
@@ -54,13 +61,14 @@ const OrdersDetailsSeller = ({ match }) => {
       <button
         type="button"
         data-testid="seller_order_details__button-preparing-check"
-        // disabled={}
+        onClick={ handleClickChangeStatus }
+        disabled={ sale.status === 'Em Trânsito' }
       >
         Preparar Pedido
       </button>
       <button
         type="button"
-        // disabled={ sale.status !== 'Em Trânsito' }
+        disabled={ sale.status !== 'Em Trânsito' }
         data-testid="seller_order_details__button-dispatch-check"
       >
         Saiu para Entrega
