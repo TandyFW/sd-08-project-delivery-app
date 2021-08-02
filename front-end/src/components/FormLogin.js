@@ -32,7 +32,7 @@ export default function FormLogin() {
     if (URL.length) setRedirect(true);
   };
 
-  useEffect(() => redirectToggle(), [URL, redirectToggle]);
+  useEffect(() => redirectToggle(), [URL]);
 
   const login = async (e) => {
     e.preventDefault();
