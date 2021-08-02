@@ -27,7 +27,7 @@ const Seller = () => {
 
   useEffect(() => {
     fetchApi();
-  }, []);
+  }, [fetchApi]);
 
   const onClick = (id) => {
     history.push(`/seller/orders/${id}`);
@@ -38,29 +38,6 @@ const Seller = () => {
       <NavBar show user={ user.name } />
       <Container>
         {sale.map((infos, key) => (
-          // <div key={ key }>
-          //   <button
-          //     type="button"
-          //     onClick={ () => onClick(infos.id) }
-          //     data-testid={ `${prefix}-order-id-${infos.id}` }
-          //   >
-          //     {infos.id}
-          //   </button>
-          //   <span data-testid={ `${prefix}-delivery-status-${infos.id}` }>
-          //     {infos.status}
-          //   </span>
-          //   <span data-testid={ `${prefix}-card-price-${infos.id}` }>
-          //     {infos.total_price}
-          //   </span>
-          //   <span data-testid={ `${prefix}-card-address-${infos.id}` }>
-          //     {infos.delivery_address}
-          //   </span>
-          //   <span>{infos.delivery_number}</span>
-          //   <span data-testid={ `${prefix}-order-date-${infos.id}` }>
-          //     {infos.sale_date}
-          //   </span>
-          // </div>
-
           <CardOrder
             key={ key }
             address={ `${infos.delivery_address}, ${infos.delivery_number}` }
