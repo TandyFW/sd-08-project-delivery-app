@@ -1,6 +1,6 @@
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
-const { Sale, SalesProduct, User } = require('../database/models');
+const { Sale, SalesProduct, User, Product } = require('../database/models');
 
 const status = {
   pendente: 'Pendente',
@@ -69,7 +69,7 @@ const registerSale = async (saleDetails, token) => {
 const getAllOrdersByClient = async (token) => {
   const id = await idUser(token);
   const userId = 'user_id';
-  const obj = { };
+  const obj = {};
   obj[userId] = id;
   const resultSale = await Sale.findAll({ where: obj });
   if (!resultSale) return [];
@@ -79,15 +79,32 @@ const getAllOrdersByClient = async (token) => {
 const getAllOrdersBySeller = async (token) => {
   const id = await idUser(token);
   const sellerId = 'seller_id';
-  const obj = { };
+  const obj = {};
   obj[sellerId] = id;
   const resultSale = await Sale.findAll({ where: obj });
   if (!resultSale) return [];
   return resultSale;
 };
 
+const getOrderDetails = async (id) => {
+  try {
+    const resultSaleAndProducts = await Sale.findOne({
+      where: { id },
+      include: [
+        { model: Product, as: 'products', through: { attributes: ['quantity'] } },
+        { model: User, as: 'sellerId', attributes: { exclude: ['password'] } },
+      ],
+    });
+    if (!resultSaleAndProducts) return [];
+    return resultSaleAndProducts;
+  } catch (error) {
+    return { err: { message: `erro: ${error}`, status: 400 } };
+  }
+};
+
 module.exports = {
   registerSale,
   getAllOrdersByClient,
   getAllOrdersBySeller,
+  getOrderDetails,
 };

@@ -15,6 +15,7 @@ export default function SellerOrders() {
   useEffect(() => {
     dispatch(requestAllOrdersSeller());
   }, [dispatch]);
+
   return (
     <div>
       {isLoading ? (

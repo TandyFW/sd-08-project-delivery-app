@@ -19,14 +19,21 @@ const getAllOrdersByClient = rescue(async (req, res, next) => {
 
 const getAllOrdersBySeller = rescue(async (req, res, next) => {
   const token = req.headers.authorization;
-  console.log(token);
   const resulService = await SaleService.getAllOrdersBySeller(token);
   if (resulService.err) return next(resulService);
   res.status(200).json(resulService);
+});
+
+const getOrderDetails = rescue(async (req, res, next) => {
+  const { id } = req.params;
+  const resultService = await SaleService.getOrderDetails(id);
+  if (resultService.err) return next(resultService);
+  res.status(200).json(resultService);
 });
 
 module.exports = {
   registerSale,
   getAllOrdersByClient,
   getAllOrdersBySeller,
+  getOrderDetails,
 };
