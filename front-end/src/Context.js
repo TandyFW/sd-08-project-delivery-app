@@ -30,6 +30,7 @@ const Provider = ({ children }) => {
     setProducts,
     totalPrice,
     setTotalPrice,
+    client,
   };
   return <Context.Provider value={ obj }>{children}</Context.Provider>;
 };

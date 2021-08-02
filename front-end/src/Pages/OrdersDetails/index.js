@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Header, ItemList,
-} from '../../components';
+import { Header, ItemList } from '../../components';
 import api from '../../Apis/api1';
 import { TotalOrder } from '../../components/ProductsList/Styled';
+import { Context } from '../../Context';
 
 const TARGET_LENGTH = 4;
 
@@ -14,6 +13,7 @@ const formatDate = (date) => {
 };
 
 const OrdersDetails = ({ match }) => {
+  const { client } = useContext(Context);
   const { id } = match.params;
   const [sale, setSale] = useState({});
   const [seller, setSeller] = useState({});
@@ -23,32 +23,47 @@ const OrdersDetails = ({ match }) => {
     const getData = async () => {
       const saleData = await api.getSaleById(id, token);
       setSale(saleData.data.response);
-      const sellerData = await api.getUserById(saleData.data.response.seller_id, token);
+      const sellerData = await api.getUserById(
+        saleData.data.response.seller_id,
+        token,
+      );
       setSeller(sellerData.data.response);
     };
     getData();
   }, [id, token]);
 
+  useEffect(() => {
+    client.on(
+      'changeStatus',
+      ({ id: saleId, status }) => saleId === sale.id && setSale({ ...sale, status }),
+    );
+  }, [client, sale]);
+
+  const handleClickChangeStatus = (status) => {
+    setSale({
+      ...sale,
+      status,
+    });
+    const { products, ...updatedSale } = sale;
+    client.emit('changeStatus', {
+      ...updatedSale,
+      status,
+    });
+  };
+
   if (!Object.keys(sale).length || !Object.keys(seller).length) return <p />;
-  console.log(seller.name);
 
   return (
     <div>
       <Header />
       <h3>Detalhes do Pedido</h3>
-      <span
-        data-testid="customer_order_details__element-order-details-label-order-id"
-      >
+      <span data-testid="customer_order_details__element-order-details-label-order-id">
         {sale.id.toString().padStart(TARGET_LENGTH, '0')}
       </span>
-      <span
-        data-testid="customer_order_details__element-order-details-label-seller-name"
-      >
+      <span data-testid="customer_order_details__element-order-details-label-seller-name">
         {seller.name}
       </span>
-      <span
-        data-testid="customer_order_details__element-order-details-label-order-date"
-      >
+      <span data-testid="customer_order_details__element-order-details-label-order-date">
         {formatDate(sale.sale_date)}
       </span>
       <span
@@ -60,6 +75,7 @@ const OrdersDetails = ({ match }) => {
         type="button"
         disabled={ sale.status !== 'Em Trânsito' }
         data-testid="customer_order_details__button-delivery-check"
+        onClick={ () => handleClickChangeStatus('Entregue') }
       >
         Marcar como entregue
       </button>
