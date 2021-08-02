@@ -235,7 +235,7 @@ export default function OrderDetailsComp() {
       Detalhe do Pedido
       <Container>
         {renderDetails()}
-        <Row> {renderTable()} </Row>
+        <Row>{renderTable()}</Row>
       </Container>
     </div>
   );
