@@ -7,7 +7,7 @@ export default function Checkout() {
   return (
     <div>
       <NavBar label="PRODUTOS" text="MEUS PEDIDOS" />
-      <ItemTable />
+      <ItemTable prefix="customer_checkout__" />
       <DeliveryForm />
     </div>
   );

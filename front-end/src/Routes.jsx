@@ -8,6 +8,7 @@ import Management from './pages/Management/Management';
 import CustomerOrders from './pages/CustomerOrders/CustomerOrders';
 import SellerOrders from './pages/SellerOrders/SellerOrders';
 import OrderDetails from './pages/OrderDetails/OrderDetails';
+import SellerOrderDetails from './pages/SellerOrderDetails/SellerOrderDetails';
 
 export default function Routes() {
   return (
@@ -23,6 +24,7 @@ export default function Routes() {
       <Route exact path="/customer/orders/:id" component={ OrderDetails } />
       <Route exact path="/customer/orders" component={ CustomerOrders } />
       <Route exact path="/seller/orders" component={ SellerOrders } />
+      <Route exact path="/seller/orders/:id" component={ SellerOrderDetails } />
     </Switch>
   );
 }

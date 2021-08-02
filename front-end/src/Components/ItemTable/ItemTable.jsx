@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import { getProductsCarrinho } from '../../service/getLocalStorage';
 import { setCarrinho } from '../../service/setLocalStorage';
 import { actionChangeTotalValue } from '../../redux/actions/index.action';
 
-export default function ItemTable() {
+export default function ItemTable({ prefix }) {
   const [getLocalData, setLocalData] = useState(getProductsCarrinho());
   const dispatch = useDispatch();
   const { totalValue } = useSelector((state) => state.productsReducer);
@@ -18,8 +19,6 @@ export default function ItemTable() {
     setLocalData(getProductsCarrinho());
     dispatch(actionChangeTotalValue());
   };
-
-  const prefix = 'customer_checkout__element-order';
 
   return (
     <div>
@@ -36,21 +35,21 @@ export default function ItemTable() {
         {getLocalData
           && getLocalData.map((item, i) => (
             <tr key={ i }>
-              <td data-testid={ `${prefix}-table-item-number-${i}` }>
+              <td data-testid={ `${prefix}element-order-table-item-number-${i}` }>
                 {i + 1}
               </td>
-              <td data-testid={ `${prefix}-table-name-${i}` }>
+              <td data-testid={ `${prefix}element-order-table-name-${i}` }>
                 {item.name}
               </td>
-              <td data-testid={ `${prefix}-table-quantity-${i}` }>
+              <td data-testid={ `${prefix}element-order-table-quantity-${i}` }>
                 {item.quantity}
               </td>
-              <td data-testid={ `${prefix}-table-unit-price-${i}` }>
+              <td data-testid={ `${prefix}element-order-table-unit-price-${i}` }>
                 R$
                 {' '}
                 {Number(item.price).toFixed(2).toString().replace('.', ',')}
               </td>
-              <td data-testid={ `${prefix}-table-sub-total-${i}` }>
+              <td data-testid={ `${prefix}element-order-table-sub-total-${i}` }>
                 R$
                 {' '}
                 {(item.quantity * Number(item.price))
@@ -58,7 +57,7 @@ export default function ItemTable() {
                   .toString()
                   .replace('.', ',')}
               </td>
-              <td data-testid={ `${prefix}-table-remove-${i}` }>
+              <td data-testid={ `${prefix}element-order-table-remove-${i}` }>
                 <button
                   type="button"
                   onClick={ () => removeProductFromCarrinho(item.id) }
@@ -69,7 +68,7 @@ export default function ItemTable() {
             </tr>
           ))}
       </table>
-      <span data-testid="customer_checkout__element-order-total-price">
+      <span data-testid={ `${prefix}element-order-total-price` }>
         Total: R$
         {' '}
         {totalValue.toFixed(2).toString().replace('.', ',')}
@@ -77,3 +76,7 @@ export default function ItemTable() {
     </div>
   );
 }
+
+ItemTable.propTypes = {
+  prefix: PropTypes.string.isRequired,
+};
