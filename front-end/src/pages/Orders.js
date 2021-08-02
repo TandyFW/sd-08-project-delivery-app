@@ -12,10 +12,11 @@ function Orders() {
   const { request, response } = useAxios();
   useEffect(() => request(API[route]), [request, route]);
   return (
-    <Container>
+    <>
       <Header />
-      <Row xs={ 4 } md={ 2 } className="p-4">
-        {response
+      <Container>
+        <Row xs={ 4 } md={ 2 } className="p-4">
+          {response
           && response.data.map((variant, idx) => (
             <Link key={ idx } to={ `/${route}/orders/${variant.id}` }>
               <OrderCard requests={ variant } user={ route }>
@@ -33,8 +34,9 @@ function Orders() {
               </OrderCard>
             </Link>
           ))}
-      </Row>
-    </Container>
+        </Row>
+      </Container>
+    </>
   );
 }
 
