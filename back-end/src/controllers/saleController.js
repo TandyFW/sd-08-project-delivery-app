@@ -17,7 +17,7 @@ const getSaleById = rescue(async (req, res) => {
     const { id } = req.params;
 
     const Sale = await saleServices.getSaleById(id);
-      res.status(OK).json({ sale: Sale });
+      res.status(OK).json(Sale);
 });
 
 module.exports = {

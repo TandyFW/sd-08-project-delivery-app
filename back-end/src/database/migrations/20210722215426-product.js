@@ -23,6 +23,8 @@ module.exports = {
         field: 'url_image',
         defaultValue: '',
       }
+    },{
+      timestamps: false,
     });
   },
   down: async (queryInterface, _Sequelize) => {

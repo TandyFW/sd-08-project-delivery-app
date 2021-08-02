@@ -1,5 +1,6 @@
 const { conflict } = require('@hapi/boom');
-const { Sale, SaleProduct, sequelize, Product } = require('../database/models');
+const { Sale, SaleProduct, sequelize, Product, User } = require('../database/models');
+const formatSaleRes = require('../utils/formatSaleRes');
 
 const createSale = async (sale, t) => {
     const { userId, sellerId, totalPrice,
@@ -52,9 +53,22 @@ const getSales = async () => {
 const getSaleById = async (id) => {
     const sale = await Sale.findOne({
         where: { id },
-        include: [{ model: Product, as: 'sales' }],
-      });
-    return sale;
+        attributes: { 
+          exclude: ['user_id', 'seller_id'],
+        },
+        include: [{ model: Product,
+        as: 'Products',
+        through: { attributes: [] },
+        attributes: { exclude: ['user_id'] },
+        include: [{ model: SaleProduct,
+        attributes: ['quantity'] },
+        ],
+        },
+        { model: User, as: 'customer', attributes: { exclude: ['password'] } }, 
+        { model: User, as: 'seller', attributes: { exclude: ['password'] } }, 
+      ], 
+    }).then(formatSaleRes);
+    return { sales: sale };
 };
 
 module.exports = {
