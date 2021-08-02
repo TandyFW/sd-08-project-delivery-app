@@ -50,9 +50,11 @@ function Login() {
     localStorage.setItem('user', JSON.stringify({
       token: content.token,
       ...content.user }));
-    return setUserData({
-      token: content.token,
-      ...content.user });
+    return setUserData(!content.message
+      ? {
+        token: content.token,
+        ...content.user }
+      : content);
   };
   return (
     <div className="main-wrapper">
