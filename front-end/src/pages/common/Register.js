@@ -1,23 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
 import DeliveryContext from '../../context/DeliveryContext';
 import * as api from '../../services/api';
 
-import Container from '../../components/Container';
 import Input from '../../components/Input/Input';
 import { ButtonPrimary } from '../../components/Input/Button';
-
-const RegisterContainer = styled.div`
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  min-height: 100vh;
-`;
-
-const StyledContainer = styled(Container)`
-  width: 500px;
-`;
+import { RegisterContainer, StyledContainer } from '../../styles/pages/common/Register';
 
 function Register() {
   const [localName, setLocalName] = useState('');

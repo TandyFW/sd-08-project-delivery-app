@@ -6,9 +6,10 @@ const StyledTotalValueTag = styled.button`
   border-radius: 10px;
   bottom: 20px;
   color: white;
+  cursor: pointer;
   font-size: 2rem;
   font-weight: 700;
-  padding: 20px;
+  padding: 10px;
   ${(props) => {
     if (props.absolute) {
       return css`
@@ -20,6 +21,11 @@ const StyledTotalValueTag = styled.button`
     `;
   }}
   right: 20px;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+  }
 `;
 
 export default StyledTotalValueTag;

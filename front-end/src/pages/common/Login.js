@@ -1,23 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
 import * as api from '../../services/api';
 import DeliveryContext from '../../context/DeliveryContext';
-import Container from '../../components/Container';
 import Input from '../../components/Input/Input';
 import { ButtonPrimary, ButtonTertiary } from '../../components/Input/Button';
-
-const LoginContainer = styled.div`
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  min-height: 100vh;
-`;
-
-const StyledContainer = styled(Container)`
-  display: flex;
-  width: 500px;
-`;
+import { LoginContainer, StyledContainer } from '../../styles/pages/common/Login';
 
 function Login() {
   const [localEmail, setLocalEmail] = useState('');

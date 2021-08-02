@@ -8,13 +8,13 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   position: relative;
+  width: 100%;
 `;
 
 export const Image = styled.img`
-  height: 300px;
-  max-width: 300px;
+  max-height: 200px;
   object-fit: contain;
-  width: 300px;
+  width: 100%;
 `;
 
 export const PriceTag = styled.p`
@@ -32,6 +32,7 @@ export const Body = styled.div`
   align-items: center;
   background-color: #eaf1ef;
   display: flex;
+  height: 100%;
   justify-content: center;
   padding: 20px;
   width: 100%;
