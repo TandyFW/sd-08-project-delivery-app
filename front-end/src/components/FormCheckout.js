@@ -9,7 +9,8 @@ const ADDRESS_ID = 'customer_checkout__input-address';
 const NUMBER_ID = 'customer_checkout__input-addressNumber';
 const SUBMIT_ID = 'customer_checkout__button-submit-order';
 
-function FormCheckout({ sellers, products }) {
+function FormCheckout({ values }) {
+  const { sellers, products, totalPrice } = values;
   const [seller, setSeller] = useState(sellers[0].id);
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
@@ -23,7 +24,7 @@ function FormCheckout({ sellers, products }) {
     const productList = products.map(({ id, quantity }) => ({ id, quantity }));
     const newSale = {
       sellerId: seller,
-      totalPrice: 20.58,
+      totalPrice,
       deliveryAddress: address,
       deliveryNumber: number,
       status: 'Pendente',
@@ -72,18 +73,22 @@ function FormCheckout({ sellers, products }) {
 }
 
 FormCheckout.propTypes = {
-  sellers: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-    }),
-  ).isRequired,
-  products: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      quantity: PropTypes.number,
-    }),
-  ).isRequired,
+  values: PropTypes.shape({
+    sellers: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+      }),
+    ).isRequired,
+    products: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        quantity: PropTypes.number,
+      }),
+    ).isRequired,
+    totalPrice: PropTypes.number.isRequired,
+  }).isRequired,
+
 };
 
 export default FormCheckout;

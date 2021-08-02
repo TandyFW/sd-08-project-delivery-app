@@ -3,12 +3,12 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('sales', [{
-      userId: 3,
-      sellerId: 2,
-      totalPrice: 20.7,
-      deliveryAddress: 'Rua Aleatoria E. Duvidosa',
-      deliveryNumber: '+8000',
-      salesDate: '2021-07-23 16:35:54',
+      user_id: 3,
+      seller_id: 2,
+      total_price: 20.7,
+      delivery_address: 'Rua Aleatoria E. Duvidosa',
+      delivery_number: '+8000',
+      sale_date: '2021-07-23 16:35:54',
       status: 'Pendente',
     }], {});
   },
