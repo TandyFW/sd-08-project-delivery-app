@@ -38,24 +38,23 @@ const CardProduct = ({ product }) => {
 
   return (
     <div className="card">
-      <div data-testid={ `customer_products__element-card-price-${id}` }>
+      <div
+        className="card_price"
+        data-testid={ `customer_products__element-card-price-${id}` }
+      >
         {price.replace('.', ',')}
       </div>
-      <div
-        className="card_img"
-      >
-        <img
-          data-testid={ `customer_products__img-card-bg-image-${id}` }
-          src={ urlImage }
-          alt="produto"
-        />
-      </div>
-      <div
+      <img
+        data-testid={ `customer_products__img-card-bg-image-${id}` }
+        src={ urlImage }
+        alt="produto"
+      />
+      <p
         className="card_body"
         data-testid={ `customer_products__element-card-title-${id}` }
       >
         {name}
-      </div>
+      </p>
       <div className="card_foot">
         <button
           type="button"
@@ -65,7 +64,7 @@ const CardProduct = ({ product }) => {
           -
         </button>
         <input
-          type="number"
+          type="text"
           value={ quantity }
           onChange={ (e) => {
             if (e.target.value < 0) {
