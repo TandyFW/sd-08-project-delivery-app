@@ -1,29 +1,7 @@
 import React, { useContext } from 'react';
-import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import CartContext from '../context/CartContext';
-
-const StyledTotalValueTag = styled.button`
-  background-color: ${({ theme }) => theme.colors.primary};
-  border: none;
-  border-radius: 10px;
-  bottom: 20px;
-  color: white;
-  font-size: 2rem;
-  font-weight: 700;
-  padding: 20px;
-  ${(props) => {
-    if (props.absolute) {
-      return css`
-        position: absolute;
-      `;
-    }
-    return css`
-      position: fixed;
-    `;
-  }}
-  right: 20px;
-`;
+import StyledTotalValueTag from '../styles/components/TotalValueTag';
 
 const TotalValueTag = ({ children, testId, ...props }) => {
   const { getCartTotal } = useContext(CartContext);

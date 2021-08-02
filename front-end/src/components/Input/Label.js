@@ -1,31 +1,6 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-
-const StyledLabel = styled.label`
-  align-items: center;
-  display: inline-flex;
-  flex: 1;
-  flex-direction: column;
-  font-size: 1.5rem;
-  justify-content: center;
-
-  span {
-    padding-bottom: 10px;
-    width: 100%;
-
-    ${(props) => {
-    if (props.centered) {
-      return css`
-        text-align: center;
-      `;
-    }
-    return css`
-      padding-left: 20px;
-    `;
-  }}
-  }
-`;
+import StyledLabel from '../../styles/components/Input/Label';
 
 const Label = ({ children, text, ...props }) => (
   <StyledLabel { ...props }>

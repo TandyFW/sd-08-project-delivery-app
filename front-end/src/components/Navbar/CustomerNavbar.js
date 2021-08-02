@@ -1,11 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import Navbar from './Navbar';
-
-const Item = styled(Link)`
-  text-decoration: none;
-`;
+import Item from '../../styles/components/Navbar/CustomerNavbar';
 
 const CustomerNavbar = () => (
   <Navbar>
