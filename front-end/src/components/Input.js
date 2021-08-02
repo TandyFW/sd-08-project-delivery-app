@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Field({ legend, value, onChange }) {
+function Input({ legend, value, onChange, testid }) {
   const handleInput = (event) => {
     const inputValue = event.target.value;
     onChange(inputValue);
@@ -13,17 +13,19 @@ function Field({ legend, value, onChange }) {
       <input
         type="text"
         id={ `${legend}-input` }
+        data-testid={ testid }
         value={ value }
-        onChange={ (e) => handleInput(e) }
+        onChange={ handleInput }
       />
     </>
   );
 }
 
-Field.propTypes = {
+Input.propTypes = {
+  testid: PropTypes.string.isRequired,
   legend: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
-export default Field;
+export default Input;
