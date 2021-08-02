@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { NavBar, ProductsList, ProductsCart } from '../components';
 import { lStorage } from '../utils';
 
-lStorage().cart.remove();
-
 const Products = () => {
   const [subtotal, setSubTotal] = useState(0);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === '/customer/products') lStorage().cart.remove();
+  }, [location.pathname]);
 
   const screens = [
     { name: 'Produtos', testId: 'products' }, { name: 'Meus Pedidos', testId: 'orders' },

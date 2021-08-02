@@ -15,7 +15,13 @@ const getUserById = tcw(async (req, res, next) => {
   res.status(200).json(result);
 });
 
+const getAllSellers = tcw(async (_req, res, _next) => {
+  const { result } = await userService.getAllSellers();
+  res.status(200).json(result);
+});
+
 module.exports = {
   getUserById,
   login,
+  getAllSellers,
 };

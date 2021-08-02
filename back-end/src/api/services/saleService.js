@@ -1,3 +1,4 @@
+const moment = require('moment');
 const { Sale } = require('../../database/models');
 
 const getSaleProducts = async (saleId) => {
@@ -21,7 +22,23 @@ const updateSaleStatus = async (id, updateObj) => {
   return { result: 'Updated!' };
 }; 
 
+const newSale = async (sale) => {
+  const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, productsList } = sale;
+  const newSaleResult = await Sale.create({
+    userId,
+    sellerId,
+    totalPrice,
+    deliveryAddress,
+    deliveryNumber,
+    saleDate: moment().toISOString(),
+    status: 'Pendente',
+    productsList,
+  });
+  return { result: newSaleResult };
+};
+
 module.exports = {
   getSaleProducts,
   updateSaleStatus,
+  newSale,
 };

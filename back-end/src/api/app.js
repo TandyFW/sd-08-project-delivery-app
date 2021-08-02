@@ -31,6 +31,8 @@ app.use(registerByAdminRoute);
 app.use(transactionRoute);
 app.use(productRoute);
 app.use(registerRoute);
+app.use(userRoute);
+app.use(saleRoute);
 app.get('/coffee', (_req, res) => res.status(418).end());
 
 app.use(errorHandler);

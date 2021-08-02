@@ -1,3 +1,17 @@
+function afterCreate() {
+  return (sale) => {
+    const { productsList, id } = sale;
+    const promiseArray = productsList.map((product) => (
+      sale.sequelize.models.SaleProducts.create({
+        saleId: id,
+        productId: product.id,
+        quantity: product.qty,
+      })
+    ));
+    return Promise.all(promiseArray);
+  };
+}
+
 // eslint-disable-next-line max-lines-per-function
 const Sale = (sequelize, DataTypes) => {
   const sale = sequelize.define('Sale', {
@@ -6,13 +20,16 @@ const Sale = (sequelize, DataTypes) => {
     totalPrice: DataTypes.DECIMAL(10, 2),
     deliveryAddress: DataTypes.STRING,
     deliveryNumber: DataTypes.STRING,
-    salesDate: DataTypes.DATE,
+    saleDate: DataTypes.DATE,
     status: DataTypes.STRING,
+    productsList: DataTypes.VIRTUAL,
   },
   {
     timestamps: false,
     tableName: 'sales',
     underscored: true,
+    // https://sequelize.org/v5/manual/hooks.html
+    hooks: { afterCreate: afterCreate() },
   });
   
   sale.associate = (models) => {
