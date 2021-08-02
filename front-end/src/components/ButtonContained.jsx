@@ -3,14 +3,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function ButtonContained(props) {
-  const { type, onClick, datatest, disabled, text } = props;
+  const { type, onClick, data, disabled, text } = props;
 
   return (
     <Button
       variant="contained"
       type={ type }
       onClick={ onClick }
-      datatest-id={ datatest }
+      data-testid={ data }
       disabled={ disabled }
     >
       { text }
@@ -21,7 +21,7 @@ function ButtonContained(props) {
 ButtonContained.propTypes = {
   type: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
-  datatest: PropTypes.string.isRequired,
+  data: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
   text: PropTypes.string.isRequired,
 };

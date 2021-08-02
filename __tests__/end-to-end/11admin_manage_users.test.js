@@ -22,7 +22,7 @@ beforeEach(async () => {
   ).toBeTruthy();
 });
 
-describe(requirement(39), () => {
+describe.only(requirement(39), () => {
   test("O avaliador testará os data-testids referentes aos elementos do formulário de cadastros", async () => {
     await expect(page).toFindElement(adminManagePage.input.name);
     await expect(page).toFindElement(adminManagePage.input.email);
@@ -32,7 +32,7 @@ describe(requirement(39), () => {
   });
 });
 
-describe(requirement(40), () => {
+describe.only(requirement(40), () => {
   const people = [
     {
       ...newUser({
@@ -109,7 +109,7 @@ describe(requirement(40), () => {
   });
 });
 
-describe(requirement(41), () => {
+describe.only(requirement(41), () => {
   const people = createUserForAdm(lengthRules);
 
   test(`O avaliador tentará realizar o fluxo de cadastro com ${people.length} pessoas usuárias, validando-os no banco`, async () => {
@@ -121,7 +121,7 @@ describe(requirement(41), () => {
   });
 });
 
-describe(requirement(42), () => {
+describe.only(requirement(42), () => {
   const testUser = newUser({ passwordLen: lengthRules.password });
   testUser.role = Math.round(Math.random()) ? "seller" : "customer";
 
