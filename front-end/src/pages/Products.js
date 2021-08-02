@@ -47,6 +47,11 @@ function Products() {
 
   if (redirect) return (<Redirect to="/customer/checkout" />);
 
+  const buttonStyle = {
+    position: 'fixed',
+    bottom: '5%',
+  };
+
   return (
     <>
       <Header />
@@ -65,6 +70,7 @@ function Products() {
             data-testid="customer_products__button-cart"
             disabled={ disable }
             onClick={ () => setRedirect(true) }
+            style={ buttonStyle }
           >
             Ver Carrinho: R$
             { ' ' }
