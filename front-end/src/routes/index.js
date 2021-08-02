@@ -5,7 +5,7 @@ import {
   Login,
   Register,
   Products,
-  // Admin,
+  Admin,
   Checkout,
   SellerOrders,
   CustomerOrders,
@@ -20,7 +20,7 @@ function Routes() {
       <Route exact path="/login" component={ Login } />
       <Route exact path="/register" component={ Register } />
       <Route exact path="/customer/products" component={ Products } />
-      {/* <Route exact path="/admin/manage" component={ Admin } /> */}
+      <Route exact path="/admin/manage" component={ Admin } />
       <Route exact path="/customer/checkout" component={ Checkout } />
       <Route exact path="/seller/orders" component={ SellerOrders } />
       <Route exact path="/seller/orders/:id" component={ SellerOrdersDetails } />

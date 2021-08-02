@@ -103,6 +103,24 @@ export async function createUser(name, email, password, role) {
   }
 }
 
+export async function adminCreate({ name, email, password, role }, token) {
+  try {
+    const user = await axios.post(`${URL_BASE}/register`, { name, email, password, role },
+      { headers: { Authorization: `${token.token}` } })
+      .then((response) => response.data);
+    return user;
+  } catch (error) {
+    console.error(error);
+    if (error.response) {
+      return {
+        status: error.response.status,
+        statusText: error.response.statusText,
+        message: error.response.data.message,
+      };
+    }
+  }
+}
+
 export async function login(email, password) {
   try {
     const dataLogin = await axios.post(`${URL_BASE}/login`,
@@ -121,12 +139,11 @@ export async function login(email, password) {
   }
 }
 
-export async function exclude(id) {
-  const accessToken = JSON.parse(localStorage.getItem('user'));
+export async function exclude(id, token) {
   try {
     const result = await axios.delete(`${URL_BASE}/register/${id}`,
       { headers: {
-        Authorization: `${accessToken.token}`,
+        Authorization: `${token}`,
       } })
       .then((response) => response.data);
     return result;

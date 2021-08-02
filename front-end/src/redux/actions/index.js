@@ -28,6 +28,11 @@ export const loginAction = (infoLoginAccess) => ({
   payload: infoLoginAccess,
 });
 
+export const allUsersAction = (payload) => ({
+  type: ALL_USER,
+  payload,
+});
+
 const allUserAction = (allUsers) => ({
   type: ALL_USER,
   payload: allUsers,

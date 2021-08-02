@@ -5,9 +5,7 @@
   justify-content: center;
   margin: 5% auto 0;
   width: 100%;
-
   @include loading-div(420px, 500px, $trybeGreen);
-
   .cardlist-container {
 
     @include flex(flex, row, center, center);
@@ -43,8 +41,6 @@
 
       &:hover {
         border: 1px solid rgb(185, 185, 185);
-        box-shadow: 0 1px 7px 0 rgba(5, 3, 3, 0.2) , 0 1px 2px 0 rgba(0, 0, 0, 0.1);
-        box-shadow: 0 1px 7px 0 rgba(5, 3, 3, 0.2) , 0 1px 2px 0 rgba(0, 0, 0, 0.1);
         box-shadow: 4px 5px 7px 0 rgba(5, 3, 3, 0.2) , 0 1px 2px 0 rgba(0, 0, 0, 0.1);
       }
 
@@ -64,11 +60,9 @@
         font-weight: 500;
         margin: 0;
       }
-
       .quantity-div {
         align-items: center;
         display: flex;
-
         button {
           background-color: $white;
           border: none;
@@ -97,7 +91,6 @@
             }
           }
         }
-
         input {
           font-size: 20px;
           margin: 0 12px;
@@ -144,7 +137,7 @@
   }
 }
 
-@media only screen and ( max-height : 800px ) { //chegando em width 1400
+@media only screen and ( max-height : 800px ) { //chegando em height 800
 
   .products-container {
 
@@ -158,7 +151,7 @@
   }
 }
 
-@media only screen and ( max-height : 650px ) { //chegando em width 1400
+@media only screen and ( max-height : 650px ) { //chegando em heigh 650
 
   .products-container {
 

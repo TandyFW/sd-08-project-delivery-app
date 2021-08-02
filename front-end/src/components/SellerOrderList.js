@@ -6,7 +6,7 @@ import Loader from './Loader';
 // import { productsAction } from '../redux/actions';
 import { getAllOrdesBySellerApi } from '../redux/actions';
 
-import '../styles/sellerOrderList.css';
+// import '../styles/sellerOrderList.css';
 
 // const data = new Date();
 // const formatedDate = `${data.getDate()}/${data.getMonth()}/${data.getFullYear()}`;
@@ -117,12 +117,6 @@ class SellerOrderList extends React.Component {
                   </span>
                 </div>
               </div>
-              <span
-                className="address-div"
-                data-testid={ `${testId}-card-address-${order.id}` }
-              >
-                { order.delivery_address }
-              </span>
             </div>
           </button>
         ))}
@@ -158,3 +152,44 @@ SellerOrderList.propTypes = {
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SellerOrderList);
 // export default SellerOrderList;
+
+// { /* <div className="orderlist-container">
+//         {
+//           orders.map((order, i) => (
+//             <div key={ i } className="order-card">
+//               <div className="order-left">
+//                 <span>Pedido</span>
+//                 <span
+//                   data-testid={ `${testId}-order-id-${order.order_id}` }
+//                 >
+//                   {order.order_id}
+//                 </span>
+//               </div>
+//               <div className="order-right">
+//                 <div className="status-container">
+//                   <div
+//                     id={ order.status }
+//                     data-testid={ `${testId}-delivery-status-${order.order_id}` }
+//                   >
+//                     { order.status }
+//                   </div>
+//                   <div>
+//                     <h4
+//                       data-testid={ `${testId}-order-date-${order.order_id}` }
+//                     >
+//                       { order.date }
+//                     </h4>
+//                     <h4
+//                       data-testid={ `${testId}-card-price-${order.order_id}` }
+//                     >
+//                       { `R$ ${order.price}` }
+//                     </h4>
+//                   </div>
+//                 </div>
+//               </div>
+//               <span
+//                 className="address-div"
+//                 data-testid={ `${testId}-card-address-${order.id}` }
+//               >
+//                 { order.delivery_address }
+//               </span> */ }

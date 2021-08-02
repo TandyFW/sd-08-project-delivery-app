@@ -1,0 +1,174 @@
+.admin-container {
+  margin: 5% auto 0 auto;
+  @include flex(flex, column, center, center);
+  @include loading-div(500px, 500px, $trybeGreen);
+  h4 {
+    text-align: left;
+    width: 1310px;
+    font-weight: 500;
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: $lightBlack;
+  }
+  .admin-form {
+    @include flex(flex, row, space-around, flex-end);
+    position: relative;
+    width: 1300px;
+    height: 100px;
+    border-radius: 3px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 4px 0 rgba(5, 3, 3, 0.2) , 0 2px 1px 0 rgba(0, 0, 0, 0.2);
+    label {
+      @include flex(flex, column, center, flex-start);
+      margin-bottom: 15px;
+      input, select {
+        border: 0.13rem solid rgba(0, 0, 0, 0.75);
+        width: 250px;
+        height: 35px;
+        padding-left: 12px;
+        font-size: 16px;
+        color: $trybeGreen;
+        border-radius: 5px;
+        font-weight: 900;
+      }
+      input {
+        transition: 0.3s;
+        &:focus {
+          outline: none;
+          border-color: $enabledGreen;
+          box-shadow: 0 0px 9px $darkWhite;
+        }
+        &:hover {
+          box-shadow: 0 0px 7px $darkWhite;
+        }
+      }
+      select {
+        background-color: white;
+        height: 42px;
+        &:focus {
+          outline: none;
+          border-color: $enabledGreen;
+          box-shadow: 0 0px 9px $darkWhite;
+        }
+        &:hover {
+          box-shadow: 0 0px 7px $darkWhite;
+        }
+      }
+    }
+    .hidden-span {
+      display: none;
+      position: absolute;
+      font-weight: 500;
+      text-align: center;
+      bottom: -45px;
+      width: 100%;
+      font-size: 18px;
+      color: crimson;
+    }
+    button {
+      background-color: $darkWhite;
+      width: 150px;
+      height: 45px;
+      font-size: 20px;
+      font-weight: 900;
+      border-radius: 7px;
+      border: none;
+      transition: 0.3s;
+      color: $darkWhite;
+      background-color: $trybeGreen;
+      margin-bottom: 15px;
+      &:disabled {
+        background-color: $disabledGreen;
+        box-shadow: 0 0px 0px;
+      }
+      &:hover {
+        transition: 0.3s;
+        background-color: $enabledGreen;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  .admin-table {
+    @include flex(flex, row, center, flex-start);
+    width: 1300px;
+    height: 600px;
+    padding-top: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 1px 4px 1px rgba(5, 3, 3, 0.2) , 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+    border-radius: 3px;
+    table {
+      border-collapse: separate;
+      border-spacing: 0 15px;
+      width: 95%;
+      thead {
+        th {
+          font-size: 18px;
+          font-weight: 500;
+        }
+      }
+      tbody {
+        tr {
+          position: relative;
+          text-align: center;
+          border-radius: 7px;
+          height: 50px;
+          box-shadow: 3px 4px 4px 0 rgba(5, 3, 3, 0.2) , 2px 3px 1px 0 rgba(0, 0, 0, 0.2);
+          td {
+            padding: 0;
+          }
+          button {
+            background-color: $trybeGreen;
+            font-size: 16px;
+            font-weight: 900;
+            border: none;
+            transition: 0.3s;
+            color: $darkWhite;
+            width: 100%;
+            height: 50px;
+            border-top-right-radius: 7px;
+            border-bottom-right-radius: 7px;
+            padding: 0;
+            &:hover {
+              transition: 0.3s;
+              background-color: $enabledGreen;
+            }
+            &:focus {
+              outline: none;
+            }
+          }
+          #index-td, #name-td, #email-td, #role-td {
+            font-size: 17px;
+            font-weight: 500;
+          }
+          #index-td {
+            background-color: $trybeGreen;
+            border-top-left-radius: 7px;
+            border-bottom-left-radius: 7px;
+            color: $darkWhite;
+            font-size: 16px;
+            font-weight: 500;
+          }
+          #name-td {
+            background-color: rgba(253, 253, 253, 0.863);
+          }
+          #email-td {
+            background-color: rgba(253, 253, 253, 0.863);
+            border-left: 2px solid rgba(0, 0, 0, .3);
+          }
+          #role-td {
+            background-color: rgba(253, 253, 253, 0.863);
+            border-left: 2px solid rgba(0, 0, 0, .3);
+          }
+          #button-td {
+            border-top-right-radius: 7px;
+            border-bottom-right-radius: 7px;
+            background-color: $trybeGreen;
+          }
+        }
+      }
+    }
+  }
+}

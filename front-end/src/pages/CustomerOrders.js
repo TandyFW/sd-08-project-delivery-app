@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Header, Loader, CustomerOrdersList } from '../components';
 
-import '../styles/customerOrderList.css';
-
 class CustomerOrders extends React.Component {
   constructor() {
     super();
