@@ -4,10 +4,11 @@ const User = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     password:DataTypes.STRING,
     role: DataTypes.STRING,
-  }, { tableName: 'users', timestamps: false});
+  }, { tableName: 'users', timestamps: false });
 
   User.associate = (models) => {
-    User.hasMany(models.Sales, { foreingKey: 'user_id', foreingKey: 'seller_id', as: 'sales'})
+    User.hasMany(models.Sales, { foreingKey: 'user_id', as: 'user'})
+    User.hasMany(models.Sales, { foreingKey: 'seller_id', as: 'seller'})
   }
 
   return User;

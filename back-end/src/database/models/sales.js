@@ -1,41 +1,22 @@
 const Sales = (sequelize, DataTypes) => {
   const Sales = sequelize.define("Sales", {
-  user_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-    references: {
-      model: 'User',
-      key: 'id'
-    }
-  },
-  seller_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-    references: {
-      model: 'User',
-      key: 'id'
-    }
-  },
-  delivery_address: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  delivery_number : {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  status: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  }
-}, { tableName: 'sales'});
+  userId: DataTypes.INTEGER,
+  sellerId: DataTypes.INTEGER,
+  totalPrice: DataTypes.DECIMAL,
+  deliveryAddress: DataTypes.STRING,
+  deliveryNumber: DataTypes.STRING,
+  status: DataTypes.STRING,
+  saleDate: DataTypes.DATE,
+},
+{
+  tableName: 'sales',
+  timestamps: false,
+  underscored: true,
+});
 
 Sales.associate = (models) => {
-  Sales.belongsTo(models.User, { foreignKey: 'user_id', foreignKey: 'seller_id', as: 'user' });
+  Sales.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' });
+  Sales.belongsTo(models.User, { foreignKey: 'seller_id', as: 'seller' });
 }
 
   return Sales;

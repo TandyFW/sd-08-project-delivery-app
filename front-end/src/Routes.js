@@ -8,6 +8,7 @@ import CustomerCheckout from './pages/CustomerCheckout';
 import CustomerOrders from './pages/CustomerOrders';
 import CartContextProvider from './components/CartContextProvider';
 import OrderContextProvider from './components/OrderContextProvider';
+import CustomerOrderDetails from './pages/CustomerOrderDetails';
 
 function Routes() {
   return (
@@ -26,6 +27,11 @@ function Routes() {
       <Route path="/customer/checkout">
         <CartContextProvider>
           <CustomerCheckout />
+        </CartContextProvider>
+      </Route>
+      <Route path="/customer/orders/:id">
+        <CartContextProvider>
+          <CustomerOrderDetails />
         </CartContextProvider>
       </Route>
       <Route path="/login">
