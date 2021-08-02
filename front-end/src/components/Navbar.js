@@ -6,7 +6,7 @@ const Navbar = ({ name }) => {
   const history = useHistory();
 
   const logout = () => {
-    localStorage.removeItem('user');
+    localStorage.clear();
     history.push('/login');
   };
 

@@ -9,7 +9,6 @@ function TableCheckout() {
   useEffect(() => {
     const products = JSON.parse(localStorage.getItem('carrinho'));
     setCartList(products);
-    console.log(products);
   }, [cart]);
 
   return (
@@ -27,9 +26,9 @@ function TableCheckout() {
         </thead>
         <tbody>
           { cartList.map((product, index) => {
-            const { productId, name, quantity, unitPrice, subTotal } = product;
+            const { id, name, quantity, unitPrice, subTotal } = product;
             return (
-              <tr key={ productId }>
+              <tr key={ id }>
                 <td
                   data-testid={
                     `customer_checkout__element-order-table-item-number-${index}`
@@ -69,7 +68,7 @@ function TableCheckout() {
                     `customer_checkout__element-order-table-remove-${index}`
                   }
                   type="button"
-                  onClick={ () => removeFromCart(productId) }
+                  onClick={ () => removeFromCart(id) }
                 >
                   Remover
                 </button>
