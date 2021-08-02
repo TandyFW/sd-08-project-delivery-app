@@ -6,6 +6,7 @@ import Register from '../pages/Register';
 import Products from '../pages/Products';
 import Checkout from '../pages/Checkout';
 import OrderDetails from '../pages/OrderDetails';
+import SellerOrders from '../pages/SellerOrders';
 
 const Routes = () => (
   <BrowserRouter>
@@ -16,6 +17,7 @@ const Routes = () => (
       <Route path="/customer/products" component={ Products } />
       <Route path="/customer/checkout" component={ Checkout } />
       <Route path="/customer/orders/1" component={ OrderDetails } />
+      <Route path="/seller/orders" component={ SellerOrders } />
       <Route exact path="/" render={ (props) => <Redirect { ...props } to="login" /> } />
     </Switch>
   </BrowserRouter>
