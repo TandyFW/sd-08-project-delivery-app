@@ -20,6 +20,17 @@ const getSale = async (id) => {
   return result.data;
 };
 
+const updateStatus = async (id, status, setFunction) => {
+  const { data } = await api({
+    method: 'put',
+    url: `http://localhost:3001/delivery/sales/${id}`,
+    data: {
+      status,
+    },
+  });
+  setFunction(data);
+};
+
 const CustomerDetails = () => {
   const { id } = useParams();
   const user = JSON.parse(localStorage.getItem('user'));
@@ -65,7 +76,8 @@ const CustomerDetails = () => {
             </section>
             <section className="control-buttons">
               <OrderButton
-                disabled
+                disabled={ sale && sale.status !== 'Em Trânsito' }
+                onClick={ () => updateStatus(id, 'Entregue', setSale) }
                 data-testid={ `${prefix}button-delivery-check` }
                 color={ colors.teal }
               >
