@@ -61,7 +61,7 @@ class AdminUsers extends React.Component {
               <tr
                 className="user"
                 key={ `line-${elem.id}` }
-                data-testid={ `admin_manage__element-user-table-id-${elem.id}` }
+                data-testid={ `admin_manage__element-user-table-item-number-${elem.id}` }
               >
                 <td
                   id="index-td"
