@@ -1,6 +1,6 @@
 const { conflict } = require('@hapi/boom');
-const { Sale, SaleProduct, sequelize, Product, User } = require('../database/models');
 const formatSaleRes = require('../utils/formatSaleRes');
+const { Sale, SaleProduct, sequelize, Product, User } = require('../database/models');
 
 const createSale = async (sale, t) => {
     const { userId, sellerId, totalPrice,
