@@ -100,5 +100,5 @@ export default function FormCheckout() {
       >
         FINALIZAR PEDIDO
       </button>
-    </div>)
+    </div>);
 }
