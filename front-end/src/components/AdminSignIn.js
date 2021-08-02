@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import validator from 'email-validator';
-import { createUser } from '../services';
+import { adminCreate } from '../services';
 import { allUsersAction } from '../redux/actions';
 import AdminSelect from './AdminSelect';
 
@@ -55,7 +55,7 @@ class AdminSignIn extends React.Component {
     const password = document.getElementById('admin-password').value;
     const role = document.getElementById('admin-select').value;
     const dataForCreate = { name, email, password, role };
-    const newUser = await createUser(dataForCreate, token);
+    const newUser = await adminCreate(dataForCreate, token);
     if (newUser && newUser.statusText) {
       const hiddenSpan = document.querySelector('.hidden-span');
       hiddenSpan.style.display = 'inline-block';

@@ -85,12 +85,28 @@ export async function getByRole(role) {
   return users;
 }
 
-export async function createUser({ name, email, password, role }, token) {
+export async function createUser(name, email, password, role) {
   try {
     const user = await axios.post(`${URL_BASE}/register`,
-      { name, email, password, role }, { headers: {
-        Authorization: `${token.token}`,
-      } })
+      { name, email, password, role })
+      .then((response) => response.data);
+    return user;
+  } catch (error) {
+    console.error(error);
+    if (error.response) {
+      return {
+        status: error.response.status,
+        statusText: error.response.statusText,
+        message: error.response.data.message,
+      };
+    }
+  }
+}
+
+export async function adminCreate({ name, email, password, role }, token) {
+  try {
+    const user = await axios.post(`${URL_BASE}/register`, { name, email, password, role },
+      { headers: { Authorization: `${token.token}` } })
       .then((response) => response.data);
     return user;
   } catch (error) {
