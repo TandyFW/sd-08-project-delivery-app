@@ -1,5 +1,19 @@
-const { userService } = require('../services');
 const tcw = require('../utils').tryCatchWrapper;
+const { userService } = require('../services');
+
+const login = tcw(async (req, res, next) => {
+  const { email, password } = req.body;
+  const { result, error } = await userService.validateLogin({ email, password });
+  if (error) return next(error);
+  res.status(200).json(result);
+});
+
+const getUserById = tcw(async (req, res, next) => {
+  const { id } = req.params;
+  const { result, error } = await userService.getUserById(id);
+  if (error) return next(error);
+  res.status(200).json(result);
+});
 
 const getAllSellers = tcw(async (_req, res, _next) => {
   const { result } = await userService.getAllSellers();
@@ -7,5 +21,7 @@ const getAllSellers = tcw(async (_req, res, _next) => {
 });
 
 module.exports = {
+  getUserById,
+  login,
   getAllSellers,
 };

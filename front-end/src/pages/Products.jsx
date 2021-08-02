@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import Components from '../components';
+import { NavBar, ProductsList, ProductsCart } from '../components';
 import { lStorage } from '../utils';
 
 const Products = () => {
@@ -10,10 +10,6 @@ const Products = () => {
   useEffect(() => {
     if (location.pathname === '/customer/products') lStorage().cart.remove();
   }, [location.pathname]);
-
-  const screens = [
-    { name: 'Produtos', testId: 'products' }, { name: 'Meus Pedidos', testId: 'orders' },
-  ];
 
   const sumCart = () => {
     const cart = lStorage().cart.get();
@@ -34,11 +30,11 @@ const Products = () => {
   const userFullName = lStorage().user.get().name;
 
   return (
-    <div>
-      <Components.NavBar screens={ screens } user={ userFullName } />
-      <Components.ProductsCart subtotal={ subtotal } refreshCart={ refreshSubTotal } />
-      <Components.ProductsList refreshCart={ refreshSubTotal } />
-    </div>
+    <>
+      <NavBar userType="customer" userName={ userFullName } />
+      <ProductsCart subtotal={ subtotal } refreshCart={ refreshSubTotal } />
+      <ProductsList refreshCart={ refreshSubTotal } />
+    </>
   );
 };
 

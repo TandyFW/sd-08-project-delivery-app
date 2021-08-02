@@ -40,6 +40,12 @@ const validateRegister = async (registerObj) => {
   return { result: createdUser };
 };
 
+const getUserById = async (id) => {
+  const user = await User.findOne({ where: { id } });
+  if (!user) return { error: { code: 'notFound', message: 'Usuário não encontrado' } };
+  return { result: user };
+};
+
 const getAllSellers = async () => {
   const sellers = await User.findAll({ where: { role: 'seller' } });
   return { result: sellers };
@@ -49,5 +55,6 @@ module.exports = {
   isValidUser,
   validateLogin,
   validateRegister,
+  getUserById,
   getAllSellers,
 };
