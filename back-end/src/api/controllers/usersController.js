@@ -1,4 +1,4 @@
-const { getUsersByRole } = require('../services');
+const { getUsersByRole, getCustomersAndSellersUser, removeUserById } = require('../services');
 
 const getAllCustomers = async (req, res) => {
   const result = await getUsersByRole('customer');
@@ -15,4 +15,17 @@ const getAdmin = async (req, res) => {
   return res.status(200).json({ administrator: result });
 };
 
-module.exports = { getAllCustomers, getAllSellers, getAdmin };
+const getCustomerAndSellers = async (req, res) => {
+  const result = await getCustomersAndSellersUser();
+
+  return res.status(200).json({ user: result });
+};
+
+const removeUser = async (req, res) => {
+  const { id } = req.params;
+  await removeUserById(id);
+
+  return res.status(204).json({ message: 'User deleted!' });
+};
+
+module.exports = { getAllCustomers, getAllSellers, getAdmin, getCustomerAndSellers, removeUser };

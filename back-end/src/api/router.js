@@ -16,6 +16,8 @@ const {
   registerUserValidation,
   tokenValidation,
   orderInfoHandler,
+  registerAdminValidation,
+  tokenAdminValidation,
 } = require('./middlewares');
 
 router.post('/login',
@@ -58,5 +60,20 @@ router.get('/order/:id',
 router.put('/order/:id',
   tokenValidation,
   orderController.updateOrderStatus);
+
+router.post('/admin/register',
+  tokenAdminValidation,
+  emailPasswordDataValidation,
+  userNameDataValidation,
+  registerAdminValidation,
+  registerController.userRegister);
+
+router.get('/admin/users',
+  tokenAdminValidation,
+  usersController.getCustomerAndSellers);
+
+router.delete('/admin/users/:id',
+  tokenAdminValidation,
+  usersController.removeUser);
 
 module.exports = router;
