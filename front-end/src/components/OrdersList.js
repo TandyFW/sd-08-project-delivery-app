@@ -28,6 +28,7 @@ export default function OrdersList() {
 
   useEffect(() => setLoadingMessage(), [user, ordersList]);
 
+  // console.log(isLoading);
   if (isLoading) return <p>Carregando...</p>;
   return (
     <section className="orders-container">

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 import fetchSellers from '../services/fetchSellers';
+import sendOrder from '../services/sendOrder';
 
 export default function FormCheckout() {
   const {
