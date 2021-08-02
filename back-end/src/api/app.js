@@ -12,7 +12,7 @@ app.use(express.static(path.resolve(__dirname, '..', '..', 'public')));
 
 app.use(cors({
   origin: '*',
-  methods: ['GET', 'POST'],
+  methods: ['GET', 'POST', 'PUT'],
 }));
 
 app.use('/', routes);
