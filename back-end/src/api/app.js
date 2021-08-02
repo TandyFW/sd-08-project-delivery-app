@@ -9,7 +9,7 @@ app.use(cors());
 const http = require('http').createServer(app);
 const io = require('socket.io')(http, {
   cors: {
-    methods: ['GET', 'POST'],
+    methods: ['GET', 'POST', 'DELETE', 'UPDATE'],
     origin: 'http://localhost:3000',
   },
 });

@@ -7,6 +7,7 @@ import CustomerProducts from './Pages/CustomerProducts';
 import OrdersDetails from './Pages/OrdersDetails';
 import OrdersDetailsSeller from './Pages/OrdersDetailsSeller';
 import Register from './Pages/Register';
+import Admin from './Pages/Admin';
 
 export default () => (
   <Switch>
@@ -41,8 +42,8 @@ export default () => (
       exact
       component={ OrdersDetailsSeller }
     />
-    {/*   <exact Route path="/admin/manage" >
+    <Route exact path="/admin/manage">
       <Admin />
-    </Route> */}
+    </Route>
   </Switch>
 );

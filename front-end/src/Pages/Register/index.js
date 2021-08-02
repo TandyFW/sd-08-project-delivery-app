@@ -99,9 +99,9 @@ const Register = () => {
             </SubmitButton>
           </FormContainer>
         </ContainerForm>
-      </InnerContainer>
-      {logged === false
+        {logged === false
         && <p data-testid="common_register__element-invalid_register">INVALIDO</p>}
+      </InnerContainer>
     </Container>
   );
 };

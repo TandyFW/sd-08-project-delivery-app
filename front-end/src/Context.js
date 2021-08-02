@@ -7,6 +7,7 @@ export const Context = createContext();
 
 const Provider = ({ children }) => {
   const [products, setProducts] = useState([]);
+  const [users, setUsers] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const client = io('http://localhost:3002');
 
@@ -23,6 +24,14 @@ const Provider = ({ children }) => {
       setProducts(responseProducts.map((product) => ({ ...product, quantity: 0 })));
     };
     loadProducts();
+    const loadUsers = async () => {
+      const responseUsers = await api
+        .getAllUsers()
+        .then((result) => result)
+        .catch((err) => err.message);
+      setUsers(responseUsers);
+    };
+    loadUsers();
   }, []);
 
   const obj = {
@@ -31,6 +40,8 @@ const Provider = ({ children }) => {
     totalPrice,
     setTotalPrice,
     client,
+    users,
+    setUsers,
   };
   return <Context.Provider value={ obj }>{children}</Context.Provider>;
 };
