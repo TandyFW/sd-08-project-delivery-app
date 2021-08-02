@@ -1,3 +1,5 @@
+/*  Middleware para a validação de um token de usuário adminitrador. */
+
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 

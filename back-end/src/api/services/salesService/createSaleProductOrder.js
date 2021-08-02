@@ -1,4 +1,4 @@
-const { salesProduct } = require('../../database/models');
+const { salesProduct } = require('../../../database/models');
 
 module.exports = async ({ saleId, products }) => {
   const result = await salesProduct.bulkCreate(

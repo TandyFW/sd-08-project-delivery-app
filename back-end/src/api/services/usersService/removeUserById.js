@@ -1,4 +1,4 @@
-const { user } = require('../../database/models');
+const { user } = require('../../../database/models');
 
 module.exports = async (id) => {
   const result = await user.destroy({

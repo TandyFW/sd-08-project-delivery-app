@@ -50,6 +50,8 @@ const userCustomerMockDB = {
   role: 'customer'
 };
 
+const userCustomerAndSeller = [userSellerMockDB, userCustomerMockDB];
+
 module.exports = {
   userMockDB,
   userMockDBResponse,
@@ -57,4 +59,5 @@ module.exports = {
   userAdminMockDB,
   userSellerMockDB,
   userCustomerMockDB,
+  userCustomerAndSeller,
 };

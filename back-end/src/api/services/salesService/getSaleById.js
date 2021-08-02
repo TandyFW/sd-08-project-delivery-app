@@ -1,4 +1,4 @@
-const { sale, product, salesProduct } = require('../../database/models');
+const { sale, product, salesProduct } = require('../../../database/models');
 
 module.exports = async (id) => {
   const result = await sale.findOne({

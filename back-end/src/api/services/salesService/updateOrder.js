@@ -1,4 +1,4 @@
-const { sale } = require('../../database/models');
+const { sale } = require('../../../database/models');
 const getSaleById = require('./getSaleById');
 
 module.exports = async (id, status) => {

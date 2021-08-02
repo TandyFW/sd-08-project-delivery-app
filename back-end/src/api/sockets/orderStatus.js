@@ -1,5 +1,4 @@
-const updateOrder = require('../services/updateOrder');
-const getSaleById = require('../services/getSaleById');
+const { updateOrder, getSaleById } = require('../services');
 
 module.exports = (io) => {
   io.on('connection', (socket) => {

@@ -1,7 +1,7 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
 
-const { getOrderById } = require('../../../api/services')
+const { getDetailOrdersByUserId } = require('../../../api/services')
 const { sale } = require('../../../database/models');
 const { saleByIdResponse } = require('../../__mocks__/ordersMocks');
 
@@ -26,7 +26,7 @@ describe('Get order by id service', () => {
     role = 'customer';
     saleId = 1;
 
-    const result = await getOrderById(id, role, saleId);
+    const result = await getDetailOrdersByUserId (id, role, saleId);
 
     expect(result).to.be.equal(saleByIdResponse);
   });
@@ -36,7 +36,7 @@ describe('Get order by id service', () => {
     role = 'seller';
     saleId = 1;
 
-    const result = await getOrderById(id, role, saleId);
+    const result = await getDetailOrdersByUserId (id, role, saleId);
 
     expect(result).to.be.equal(saleByIdResponse);
   });

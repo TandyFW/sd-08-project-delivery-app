@@ -1,3 +1,5 @@
+/*  Middleware para o registro de usuário por um adminitrador. Com o status do usuário (role) definido pelo admin. */
+
 const md5 = require('md5');
 
 const { getUser, registerUser } = require('../services');

@@ -1,3 +1,5 @@
+/*  Middleware para o registro de usuário 'customer'. Com o status do usuário (role) prédefinido. */
+
 const md5 = require('md5');
 
 const { getUser, registerUser } = require('../services');

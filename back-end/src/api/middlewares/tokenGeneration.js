@@ -1,3 +1,5 @@
+/*  Middleware para a geração de um token de usuário. */
+
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 
