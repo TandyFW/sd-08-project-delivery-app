@@ -1,11 +1,13 @@
-/*  Middleware para a validação de um token de usuário. */
+/*  Middleware para a validação de um token de usuário adminitrador. */
 
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 
+const { getUserById } = require('../services');
+
 const secret = fs.readFileSync('jwt.evaluation.key');
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
   const token = req.headers.authorization;
 
   if (!token) {
@@ -16,8 +18,12 @@ module.exports = (req, res, next) => {
   if (!decoded) {
     return res.status(401).json({ message: 'Expired or invalid token' });
   }
+  const validUser = await getUserById(decoded.data.id);
+
+  if (validUser.role !== 'administrator') {
+    return res.status(403).json({ message: 'Unauthorized user' });
+  }
 
   req.tokenData = decoded.data;
-
   next();
 };

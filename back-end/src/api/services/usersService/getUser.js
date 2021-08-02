@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const { user } = require('../../database/models');
+const { user } = require('../../../database/models');
 
 module.exports = async (email, name) => {
   const userName = (name) || '';

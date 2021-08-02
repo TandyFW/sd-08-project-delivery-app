@@ -1,3 +1,5 @@
+// Controller para o registro de usuário - retorna o token e as informações do usuário.
+
 const userRegister = async (req, res) => {
   const { token } = req;
   const { name, email, role } = req.body;
