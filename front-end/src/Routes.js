@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import CustomerProducts from './pages/CustomerProducts';
 import CustomerCheckout from './pages/CustomerCheckout';
 import CartContextProvider from './components/CartContextProvider';
+import CustomerOrderDetails from './pages/CustomerOrderDetails';
 
 function Routes() {
   return (
@@ -19,6 +20,11 @@ function Routes() {
       <Route path="/customer/checkout">
         <CartContextProvider>
           <CustomerCheckout />
+        </CartContextProvider>
+      </Route>
+      <Route path="/customer/orders/:id">
+        <CartContextProvider>
+          <CustomerOrderDetails />
         </CartContextProvider>
       </Route>
       <Route path="/login">

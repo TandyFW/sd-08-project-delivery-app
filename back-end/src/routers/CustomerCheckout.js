@@ -5,6 +5,6 @@ const { inputSelectSellers, findIdUser } = require('../controllers/CustomerCheck
 const CustomerCheckoutRouter = express.Router();
 
 CustomerCheckoutRouter.get('/customer/checkout', inputSelectSellers);
-CustomerCheckoutRouter.post('/customer/checkout', findIdUser);
+CustomerCheckoutRouter.post('/customer/checkout', AuthController, findIdUser);
 
 module.exports = CustomerCheckoutRouter;

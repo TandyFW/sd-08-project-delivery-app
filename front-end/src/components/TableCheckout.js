@@ -62,17 +62,17 @@ function TableCheckout() {
                 >
                   { Number(subTotal).toFixed(2).replace('.', ',') }
                 </td>
-                {/* <td> */}
-                <button
-                  data-testid={
-                    `customer_checkout__element-order-table-remove-${index}`
-                  }
-                  type="button"
-                  onClick={ () => removeFromCart(id) }
-                >
-                  Remover
-                </button>
-                {/* </td> */}
+                <td>
+                  <button
+                    data-testid={
+                      `customer_checkout__element-order-table-remove-${index}`
+                    }
+                    type="button"
+                    onClick={ () => removeFromCart(id) }
+                  >
+                    Remover
+                  </button>
+                </td>
               </tr>
             );
           }) }

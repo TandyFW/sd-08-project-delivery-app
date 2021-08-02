@@ -1,21 +1,35 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
 import axios from 'axios';
+import CartContext from './CartContext';
 
 function InputCheckout({ seller }) {
+  const { total } = useContext(CartContext);
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState(0);
   const [sellerName, setSellerName] = useState('');
+  const history = useHistory();
 
   const handleSell = async (e) => {
     e.preventDefault();
     const nameUser = JSON.parse(localStorage.getItem('user'));
-    await axios.post('http://localhost:3001/customer/checkout', {
-      name: nameUser.name, seller: sellerName, address, number,
-    })
-      .then((data) => data)
+    const cart = JSON.parse(localStorage.getItem('carrinho'));
+    console.log(nameUser.name);
+    await axios.post(
+      'http://localhost:3001/customer/checkout',
+      {
+        name: nameUser.name, seller: sellerName, total, address, number, cart,
+      },
+      {
+        headers: {
+          authorization: nameUser.token,
+        },
+      },
+    )
+      .then(({ data }) => history.push(`/customer/orders/${data}`))
       .catch((err) => console.log(err));
-    console.log(nameUser.name, number, address, sellerName);
   };
 
   const handleAddress = ({ target: { value } }) => {
@@ -27,6 +41,7 @@ function InputCheckout({ seller }) {
   };
 
   const handleSellerName = ({ target: { value } }) => {
+    console.log(value);
     setSellerName(value);
   };
 
@@ -40,17 +55,17 @@ function InputCheckout({ seller }) {
           P. vendedora responsável
         </legend>
         <select
+          data-testid="customer_checkout__select-seller"
           onChange={ handleSellerName }
           id="select-seller"
-          data-testid="customer_checkout__select-seller"
         >
           <option value="default">-</option>
           {seller && seller.map((sellers) => (
             <option
               key={ sellers.name }
-              value={ sellers.name }
+              value={ sellers.id }
             >
-              { sellers.name }
+              { sellers.id }
             </option>))}
         </select>
         <legend

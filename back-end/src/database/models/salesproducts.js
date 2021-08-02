@@ -22,7 +22,7 @@ const SalesProducts = (sequelize, DataTypes) => {
      type: DataTypes.INTEGER,
      allowNull: false,
    },
-  }, { tableName: 'sales_products', timestamps: false});
+  }, { tableName: 'salesProducts', timestamps: false});
 
   SalesProducts.associate = (models) => {
     models.Sales.belongsToMany(models.Products, {

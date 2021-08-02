@@ -37,17 +37,16 @@ module.exports = {
         allowNull: false,
       },
       delivery_number : {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       status: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      createdAt: {
+      sale_date: {
         allowNull: false,
         type: Sequelize.DATE,
-        field: 'sale_date',
       },
     });
   },
