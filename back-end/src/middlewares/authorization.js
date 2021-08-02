@@ -1,19 +1,19 @@
 const { validateToken } = require('../auth/jwt');
 const { status } = require('./status');
 
-const authorization = async (req, res, next) => {
-  const token = req.headers['authorization'];
+const authorizationMid = async (req, res, next) => {
+  const { authorization } = req.headers;
 
-  if (!token) {
+  if (!authorization) {
     return res.status(status.Conflict).json({ message: 'missing auth token' });
   }
 
   try {
-    validateToken(token);
+    validateToken(authorization);
     next();
   } catch (err) {
     return res.status(status.Conflict).json({ message: err.message });
   }
-}
+};
 
-module.exports = authorization;
+module.exports = authorizationMid;
