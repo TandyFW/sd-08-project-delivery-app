@@ -5,12 +5,24 @@ import { getProductsCarrinho } from '../../service/getLocalStorage';
 import { setCarrinho } from '../../service/setLocalStorage';
 import { actionChangeTotalValue } from '../../redux/actions/index.action';
 
-export default function ItemTable({ prefix }) {
-  const [getLocalData, setLocalData] = useState(getProductsCarrinho());
+export default function ItemTable({ prefix, orderProducts }) {
+  const [getLocalData, setLocalData] = useState([]);
+
   const dispatch = useDispatch();
   const { totalValue } = useSelector((state) => state.productsReducer);
-
+  console.log('adfadsf');
   useEffect(() => {
+    if (!orderProducts) {
+      setLocalData(getProductsCarrinho());
+    } else {
+      const productsOrder = orderProducts.map((product) => {
+        const obj = { ...product };
+        obj.quantity = product.SalesProduct.quantity;
+        return obj;
+      });
+      localStorage.setItem('carrinho', JSON.stringify(productsOrder));
+      setLocalData(productsOrder);
+    }
     dispatch(actionChangeTotalValue());
   }, [dispatch]);
 
@@ -30,7 +42,7 @@ export default function ItemTable({ prefix }) {
           <th>Quantidade</th>
           <th>Valor Unitário</th>
           <th>Sub-Total</th>
-          <th>Remover Item</th>
+          {orderProducts ? ('') : (<th>Remover Item</th>)}
         </tr>
         {getLocalData
           && getLocalData.map((item, i) => (
@@ -57,14 +69,18 @@ export default function ItemTable({ prefix }) {
                   .toString()
                   .replace('.', ',')}
               </td>
-              <td data-testid={ `${prefix}element-order-table-remove-${i}` }>
-                <button
-                  type="button"
-                  onClick={ () => removeProductFromCarrinho(item.id) }
-                >
-                  Remover
-                </button>
-              </td>
+              {orderProducts ? (
+                ''
+              ) : (
+                <td data-testid={ `${prefix}element-order-table-remove-${i}` }>
+                  <button
+                    type="button"
+                    onClick={ () => removeProductFromCarrinho(item.id) }
+                  >
+                    Remover
+                  </button>
+                </td>
+              )}
             </tr>
           ))}
       </table>
@@ -79,4 +95,5 @@ export default function ItemTable({ prefix }) {
 
 ItemTable.propTypes = {
   prefix: PropTypes.string.isRequired,
+  orderProducts: PropTypes.arrayOf({}).isRequired,
 };

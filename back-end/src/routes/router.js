@@ -15,5 +15,6 @@ route.post('/register/sale', saleController.registerSale);
 route.get('/get/seller', [auth, userController.getAllSeller]);
 route.get('/client/orders', [auth, saleController.getAllOrdersByClient]);
 route.get('/seller/orders', [auth, saleController.getAllOrdersBySeller]);
+route.get('/order/details/:id', [auth, saleController.getOrderDetails]);
 
 module.exports = route;
