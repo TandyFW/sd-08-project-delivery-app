@@ -4,7 +4,6 @@ import { Col, Container, Row } from 'react-bootstrap';
 import OrderCard from '../components/OrderCard';
 import useAxios from '../hooks/useAxios';
 import { API } from '../service/backendApi';
-import Header from '../components/Header';
 
 function Orders() {
   const [, route] = useLocation().pathname.split('/');
@@ -12,8 +11,6 @@ function Orders() {
   const { request, response } = useAxios();
   useEffect(() => request(API[route]), [request, route]);
   return (
-
-    <>
     <Container>
       <Row xs={ 1 } md={ 2 } className="pt-4">
         {response
@@ -34,9 +31,8 @@ function Orders() {
               </OrderCard>
             </Link>
           ))}
-        </Row>
-      </Container>
-    </>
+      </Row>
+    </Container>
   );
 }
 
