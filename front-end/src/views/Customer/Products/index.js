@@ -9,16 +9,6 @@ import './styles.css';
 const Products = () => {
   const [products, setProducts] = useState([]);
   const { userData } = useContext(Context);
-
-  useEffect(() => {
-    localStorage.setItem('user', JSON.stringify({
-      token: userData.token,
-      name: userData.user.name,
-      email: userData.user.email,
-      role: userData.user.role,
-    }));
-  }, [userData]);
-
   async function getData() {
     const myInit = {
       method: 'GET',
@@ -36,15 +26,20 @@ const Products = () => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [userData]);
 
   return (
-    <div className="card_content">
-      <NavBar userType="customer" userName={ userData.user.name } />
-      {products && products.length > 0 && (
-        products.map((product) => (
-          <CardProduct key={ product.id } product={ product } />
-        )))}
+    <div className="main-wrapper-products">
+      <NavBar
+        userType={ !userData.role ? userData.user.role : userData.role }
+        userName={ !userData.name ? userData.user.name : userData.name }
+      />
+      <div className="wrapper-card-product">
+        {products && products.length > 0 && (
+          products.map((product) => (
+            <CardProduct key={ product.id } product={ product } />
+          )))}
+      </div>
       <Cart />
     </div>
   );
