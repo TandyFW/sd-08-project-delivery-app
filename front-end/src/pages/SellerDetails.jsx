@@ -46,7 +46,7 @@ const SellerDetails = () => {
   }, [sale]);
   return (
     <Container>
-      <NavBar show user={ user.name } />
+      <NavBar user={ user.name } />
       <h4>Detalhe do Pedido</h4>
       {!loading && (
         <DetailsContainer>
@@ -78,7 +78,7 @@ const SellerDetails = () => {
                 disabled={ sale && sale.status !== 'Pendente' }
                 onClick={ () => updateStatus(id, 'Preparando', setSale) }
               >
-                PEPARAR PEDIDO
+                PREPARAR PEDIDO
               </OrderButton>
               <OrderButton
                 disabled={ sale && sale.status !== 'Preparando' }
