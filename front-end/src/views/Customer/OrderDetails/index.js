@@ -22,7 +22,7 @@ function OrderDetails() {
     };
     await fetch(`http://localhost:3001/order/${orderId}`, myInit)
       .then((response) => response.json())
-      .then((data) => setOrderData(...data.sale))
+      .then((data) => setOrderData(data))
       .catch((err) => console.log(err));
   }
   useEffect(() => {
