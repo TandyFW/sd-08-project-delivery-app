@@ -15,16 +15,12 @@ const MIN_PASSWORD_LENGTH = 6;
 function Register() {
   const [user, setUser] = useState(undefined);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const [inputValue, setInputValue] = useState({
-    Nome: '',
-    Email: '',
-    Senha: '',
-  });
+  const [inputValue, setInputValue] = useState({ Nome: '', Email: '', Senha: '' });
+  const { Nome, Email, Senha } = inputValue;
+  const history = useHistory();
 
   const handleClick = async () => {
-    const newUser = await createUser({
-      name: inputValue.Nome, email: inputValue.Email, password: inputValue.Senha,
-    });
+    const newUser = await createUser({ name: Nome, email: Email, password: Senha });
 
     if (newUser) {
       setUser(newUser);
@@ -33,8 +29,6 @@ function Register() {
 
     return !newUser && setShowErrorMessage(true);
   };
-
-  const history = useHistory();
 
   useEffect(() => user && history.push('/customer/products'), [user, history]);
 
@@ -65,7 +59,7 @@ function Register() {
             onChange={ handleChange }
             placeholder="Seu nome"
             type="text"
-            value={ inputValue.Nome }
+            value={ Nome }
           />
           <Input
             id="common_register__input-email"
@@ -73,7 +67,7 @@ function Register() {
             onChange={ handleChange }
             placeholder="seu-email@site.com"
             type="email"
-            value={ inputValue.Email }
+            value={ Email }
           />
           <Input
             id="common_register__input-password"
@@ -81,7 +75,7 @@ function Register() {
             onChange={ handleChange }
             placeholder="***********"
             type="password"
-            value={ inputValue.Senha }
+            value={ Senha }
           />
           <button
             data-testid="common_register__button-register"

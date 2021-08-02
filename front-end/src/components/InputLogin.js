@@ -22,7 +22,6 @@ export default function InputLogin() {
       .then((data) => data)
       .catch((err) => console.log(err));
 
-    console.log(user);
     if (user === undefined) {
       return setRedirected(true);
     }
@@ -48,7 +47,7 @@ export default function InputLogin() {
     if (emailRegex.test(email) && password.length >= NUMBER_SIX) {
       setDisabled(false);
     } else { setDisabled(true); }
-  }, [email, password, setDisabled]);
+  }, [email, password]);
 
   return (
     <div id="page-login">

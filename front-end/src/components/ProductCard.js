@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import CartContext from './CartContext';
 import './ProductCard.css';
 
 const ProductCard = ({ product }) => {
+  console.log('product: ', product);
   const { id, name, price, urlImage } = product;
   const [quantity, setQuantity] = useState(0);
   const { addToCart, removeFromCart } = useContext(CartContext);

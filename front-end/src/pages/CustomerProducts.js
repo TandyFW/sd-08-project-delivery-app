@@ -25,6 +25,7 @@ const CustomerProducts = () => {
       })
       .catch((error) => console.error(error));
   }, [history]);
+  console.log(products);
 
   return (
     <>
@@ -34,7 +35,7 @@ const CustomerProducts = () => {
       <button
         data-testid="customer_products__button-cart"
         type="button"
-        disabled={ total === 0 || !total }
+        disabled={ !total }
         onClick={ () => history.push('/customer/checkout') }
       >
         <span data-testid="customer_products__checkout-bottom-value">

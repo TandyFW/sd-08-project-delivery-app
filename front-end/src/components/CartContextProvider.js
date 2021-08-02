@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+
 import CartContext from './CartContext';
+import { saveState } from '../services/LocalStorage';
 
 const CartContextProvider = ({ children }) => {
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('carrinho')) || []);
@@ -13,18 +15,23 @@ const CartContextProvider = ({ children }) => {
   }, [cart]);
 
   const formatProduct = ({ id, name, quantity, unitPrice }) => ({
-    productId: id,
+    id,
     name,
     quantity,
     unitPrice,
     subTotal: quantity * parseFloat(unitPrice),
   });
 
+  const testando = () => {
+    const cartTest = {};
+    saveState('carrinho', cartTest);
+  };
+
   const addToCart = (obj) => {
     console.log('obj: ', obj);
-    if (cart.some((item) => item.productId === obj.id)) {
+    if (cart.some((item) => item.id === obj.id)) {
       const newCart = cart
-        .map((item) => (item.productId === obj.id
+        .map((item) => (item.id === obj.id
           ? formatProduct(obj) : formatProduct(item)));
       setCart(newCart);
       localStorage.setItem('carrinho', JSON.stringify(newCart));
@@ -36,7 +43,7 @@ const CartContextProvider = ({ children }) => {
   };
 
   const removeFromCart = (id) => {
-    const newCart = cart.filter((item) => item.productId !== id);
+    const newCart = cart.filter((item) => item.id !== id);
     setCart(newCart);
     localStorage.setItem('carrinho', JSON.stringify(newCart));
   };
@@ -46,6 +53,7 @@ const CartContextProvider = ({ children }) => {
     addToCart,
     removeFromCart,
     total,
+    testando,
   };
 
   return (

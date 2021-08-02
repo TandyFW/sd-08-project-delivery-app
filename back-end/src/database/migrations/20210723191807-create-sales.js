@@ -28,30 +28,29 @@ module.exports = {
           key: 'id'
         }
       },
+      total_price: {
+        type: Sequelize.DECIMAL(10, 2),
+        allowNull: false,
+      },
       delivery_address: {
         type: Sequelize.STRING,
         allowNull: false,
       },
       delivery_number : {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       status: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      createdAt: {
+      sale_date: {
         allowNull: false,
         type: Sequelize.DATE,
-        field: 'sale_date',
       },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
     });
   },
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface, _Sequelize) => {
     await queryInterface.dropTable('sales');
   }
 };
