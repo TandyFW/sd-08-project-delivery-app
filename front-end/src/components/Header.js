@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { Navbar, Container, Nav, Button, Row, Col, NavbarBrand } from 'react-bootstrap';
+import {
+  Navbar,
+  Container,
+  Nav,
+  Button,
+  Row,
+  Col,
+  NavbarBrand,
+} from 'react-bootstrap';
 import { Redirect, useLocation } from 'react-router-dom';
 import './Header.css';
 
@@ -32,10 +40,7 @@ export default function Header() {
           md={ { span: 2 } }
           xs={ { span: 12 } }
         >
-          <NavbarBrand
-            className="text-white text-uppercase"
-            href="#home"
-          >
+          <NavbarBrand className="text-white text-uppercase" href="#home">
             Delivery App
           </NavbarBrand>
         </Col>
@@ -59,7 +64,7 @@ export default function Header() {
                   contents.link.split('/')[2]
                 }` }
               >
-                { contents.name }
+                {contents.name}
               </Nav.Link>
             ))}
           </Nav>
@@ -72,18 +77,12 @@ export default function Header() {
         >
           <Navbar.Text
             className="text-white align-middle m-1"
-            data-testid={
-              `${role}_${route}__element-navbar-user-full-name`
-            }
+            data-testid={ `${role}_${route}__element-navbar-user-full-name` }
           >
             {name}
           </Navbar.Text>
         </Col>
-        <Col
-          className="bg-danger p-0"
-          md={ { span: 1 } }
-          xs={ { span: 2 } }
-        >
+        <Col className="bg-danger p-0" md={ { span: 1 } } xs={ { span: 2 } }>
           <Button
             className="extend"
             variant="danger"
