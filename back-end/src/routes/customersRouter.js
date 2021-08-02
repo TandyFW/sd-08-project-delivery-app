@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const customersController = require('../controllers/customersController');
 const orderDetailsController = require('../controllers/orderDetailsController');
+const salesController = require('../controllers/salesController');
 const { isAuthenticated, restrictionLevel } = require('../api/middlewares/isAuthenticated');
 
 const customersRouter = Router();
@@ -18,5 +19,6 @@ customersRouter.put('/orders/:id',
   orderDetailsController.orderStatusUpdate);
 
 customersRouter.get('/products', customersController.getAllProducts);
+customersRouter.post('/checkout', salesController.postSale);
   
 module.exports = customersRouter;

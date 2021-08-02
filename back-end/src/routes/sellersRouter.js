@@ -5,6 +5,7 @@ const { isAuthenticated, restrictionLevel } = require('../api/middlewares/isAuth
 
 const sellersRouter = Router();
 
+sellersRouter.get('/', sellersController.getAllSellers);
 sellersRouter.get('/orders', 
   isAuthenticated(restrictionLevel(2)),
   sellersController.findAll);
