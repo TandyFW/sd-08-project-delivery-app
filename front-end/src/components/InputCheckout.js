@@ -16,12 +16,6 @@ function InputCheckout({ seller }) {
     e.preventDefault();
     const nameUser = JSON.parse(localStorage.getItem('user'));
     const cart = JSON.parse(localStorage.getItem('carrinho'));
-    console.log('username: ', nameUser.name);
-    console.log('sellerName: ', sellerName);
-    console.log('total: ', total);
-    console.log('address: ', address);
-    console.log('number: ', number);
-    console.log('cart: ', cart);
     await axios.post(
       'http://localhost:3001/customer/checkout',
       {
