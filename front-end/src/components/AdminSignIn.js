@@ -60,7 +60,7 @@ class AdminSignIn extends React.Component {
       const hiddenSpan = document.querySelector('.hidden-span');
       hiddenSpan.style.display = 'inline-block';
       hiddenSpan.innerHTML = newUser.message;
-      hiddenSpan.setAttribute('data-testid', 'admin_manage__element-invalid_register');
+      hiddenSpan.setAttribute('data-testid', 'admin_manage__element-invalid-register');
       setTimeout(() => {
         document.querySelector('.hidden-span').style.display = 'none';
       }, spanMaxTime);
