@@ -11,11 +11,13 @@ import {
   CustomerOrders,
   CustomerOrdersDetails,
   SellerOrdersDetails,
+  Socket,
 } from '../pages';
 
 function Routes() {
   return (
     <Switch>
+      <Route exact path="/testsock" component={ Socket } />
       <Route exact path="/" component={ Home } />
       <Route exact path="/login" component={ Login } />
       <Route exact path="/register" component={ Register } />

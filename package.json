@@ -54,5 +54,7 @@
       "__TESTFILE__": true
     }
   },
-  "dependencies": {}
+  "dependencies": {
+    "socket.io": "^4.1.3"
+  }
 }
