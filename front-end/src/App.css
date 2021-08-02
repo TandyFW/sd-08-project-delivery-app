@@ -52,3 +52,19 @@
     transform: rotate(-10deg);
   }
 }
+
+.bgGreen {
+  background: #036b52;
+}
+
+.bgGreenLight {
+  background: #2fc18c;
+}
+
+.bgPurple {
+  background: #421981;
+}
+
+.bgBlue {
+  background: #056cf9;
+}
