@@ -44,7 +44,6 @@ function Products() {
       </ProductsContainer>
       <ProductsTotalValueTag
         onClick={ () => history.push('/customer/checkout') }
-        // testId="customer_products__checkout-bottom-value"
         testId="customer_products__button-cart"
         disabled={ getCartTotal() === 0 }
       >

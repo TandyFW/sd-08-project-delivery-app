@@ -1,49 +1,47 @@
-import STATUS_CODES from '../common/httpStatusCodes';
+import axios from 'axios';
 
 const URL_BASE = 'http://localhost:3001';
 
 export const register = async (name, email, password) => {
-  const options = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, email, password }),
-  };
+  const { data } = await axios({
+    method: 'post',
+    url: `${URL_BASE}/customer`,
+    data: { name, email, password },
+  });
 
-  return fetch(`${URL_BASE}/customer`, options)
-    .then((response) => {
-      if (response.status !== STATUS_CODES.CREATED) {
-        console.log(response.status);
-        throw new Error('Creation error');
-      }
-      return response.json();
-    })
-    .then((data) => data);
+  return data;
 };
 
 export const login = async (email, password) => {
-  const options = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password }),
-  };
+  console.log(email, password);
+  const { data } = await axios({
+    method: 'post',
+    url: `${URL_BASE}/login`,
+    data: { email, password },
+  });
 
-  return fetch(`${URL_BASE}/login`, options)
-    .then((response) => {
-      if (response.status !== STATUS_CODES.OK) {
-        throw new Error('Login error');
-      }
-      return response.json();
-    })
-    .then((data) => data);
+  return data;
 };
 
-export const getProducts = async () => (
-  fetch(`${URL_BASE}/products`)
-    .then((response) => {
-      if (response.status !== STATUS_CODES.OK) {
-        throw new Error('Cant fetch products');
-      }
-      return response.json();
-    })
-    .then((data) => data)
-);
+export const submitOrder = async (orderData, token) => {
+  const { data } = await axios({
+    method: 'post',
+    url: `${URL_BASE}/sales`,
+    data: orderData,
+    headers: {
+      authorization: token,
+    },
+  });
+
+  return data;
+};
+
+export const getProducts = async () => {
+  const { data } = await axios.get(`${URL_BASE}/products`);
+  return data;
+};
+
+export const getSellers = async () => {
+  const { data } = await axios.get(`${URL_BASE}/sellers`);
+  return data;
+};
