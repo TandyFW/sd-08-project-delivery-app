@@ -7,18 +7,22 @@ import './style.css';
 function SellerDetailPage(props) {
   const { userData } = useContext(Context);
   const [order, setOrder] = useState([]);
+  const [orderStatus, setOrderStatus] = useState('Pendente');
+
   console.log('Detalhes', order[0]);
+
   const { match: { params: { id } } } = props;
   console.log(id);
 
   useEffect(() => {
+    const userDataLocal = JSON.parse(localStorage.getItem('user'));
     async function getData() {
       const myInit = {
         method: 'GET',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          Authorization: userData.token,
+          Authorization: userData.token || userDataLocal.token,
         },
       };
       await fetch(`http://localhost:3001/order/${id}`, myInit)
@@ -37,6 +41,10 @@ function SellerDetailPage(props) {
 
   if (!order[0]) return <h1>Sem produtos</h1>;
 
+  function changeOrderStatus() {
+    setOrderStatus('Preparando');
+  }
+
   return (
     <div className="Seller-details-container">
       <div>
@@ -49,9 +57,10 @@ function SellerDetailPage(props) {
         <span
           data-testid="seller_order_details__element-order-details-label-delivery-status"
         >
-          {order[0].status}
+          {orderStatus}
         </span>
         <button
+          onClick={ () => changeOrderStatus() }
           data-testid="seller_order_details__button-preparing-check"
           type="button"
         >
