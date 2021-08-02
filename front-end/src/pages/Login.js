@@ -19,7 +19,19 @@ class Login extends React.Component {
   }
 
   async componentDidMount() {
-    localStorage.clear();
+    const { history } = this.props;
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      if (user.role === 'seller') {
+        history.push('/seller/orders');
+      } else if (user.role === 'customer') {
+        history.push('/customer/products');
+      } else if (user.role === 'administrator') {
+        history.push('/admin/manage');
+      }
+    } else {
+      localStorage.clear();
+    }
   }
 
   componentWillUnmount() {
