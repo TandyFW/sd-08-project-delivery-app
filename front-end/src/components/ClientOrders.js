@@ -34,7 +34,7 @@ export default function ClientOrders() {
             onClick={ () => history.push(`/customer/orders/${obj.id}`) }
             role="button"
             tabIndex="0"
-            onKeyDown={ () => history.push(`/customer/orders/${obj.id}`) }
+            onKeyDown={ console.log('teste') }
             key={ index }
             style={ { backgroundColor: 'white', width: '50%' } }
           >
