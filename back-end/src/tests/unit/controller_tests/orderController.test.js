@@ -2,7 +2,7 @@ const sinon = require('sinon');
 const { expect } = require('chai');
 
 const orderController = require('../../../api/controllers/orderController');
-const services = require('../../../api/services');
+const { sale, user, salesProduct } = require('../../../database/models');
 
 const {
   orderCreateRequest,
@@ -31,17 +31,17 @@ describe('Orders Controller', () => {
       response.status = sinon.stub().returns(response);
       response.json = sinon.stub().returns(orderResponse);
 
-      sinon.stub(services, 'createSaleOrder')
+      sinon.stub(sale, 'create')
         .resolves(saleCreateResponse);
-      sinon.stub(services, 'createSaleProductOrder')
+      sinon.stub(salesProduct, 'bulkCreate')
         .resolves(saleProductCreateResponse);
-      sinon.stub(services, 'getSaleById')
+      sinon.stub(sale, 'findOne')
         .resolves(saleByIdResponse);
     });
     afterEach(() => {
-      services.createSaleOrder.restore();
-      services.createSaleProductOrder.restore();
-      services.getSaleById.restore();
+      sale.create.restore();
+      salesProduct.bulkCreate.restore();
+      sale.findOne.restore();
     });
     it('should return status 201 and a json message', async () => {
       const result = await orderController.createOrder(request, response);
@@ -60,14 +60,14 @@ describe('Orders Controller', () => {
       response.status = sinon.stub().returns(response);
       response.json = sinon.stub().returns(getAllOrdersMockDBResponse);
 
-      sinon.stub(services, 'getUserById')
+      sinon.stub(user, 'findOne')
         .resolves(userCustomerMockDB);
-      sinon.stub(services, 'getAllOrdersByUser')
+      sinon.stub(user, 'findAll')
         .resolves(getAllOrdersMockDB);
     });
     afterEach(() => {
-      services.getUserById.restore();
-      services.getAllOrdersByUser.restore();
+      user.findOne.restore();
+      user.findAll.restore();
     });
     it('should return status 200 and a json message', async () => {
       const result = await orderController.getAllOrders(request, response);
@@ -86,14 +86,14 @@ describe('Orders Controller', () => {
       response.status = sinon.stub().returns(response);
       response.json = sinon.stub().returns(saleByIdResponse);
 
-      sinon.stub(services, 'getUserById')
+      sinon.stub(user, 'findOne')
         .resolves(userCustomerMockDB);
-      sinon.stub(services, 'getOrderById')
+      sinon.stub(sale, 'findAll')
         .resolves(saleByIdResponse);
     });
     afterEach(() => {
-      services.getUserById.restore();
-      services.getOrderById.restore();
+      user.findOne.restore();
+      sale.findAll.restore();
     });
     it('should return status 200 and a json message', async () => {
       const result = await orderController.getOrder(request, response);
@@ -112,11 +112,14 @@ describe('Orders Controller', () => {
       response.status = sinon.stub().returns(response);
       response.json = sinon.stub().returns(updatedOrderStatusResponse);
 
-      sinon.stub(services, 'updateOrder')
+      sinon.stub(sale, 'update')
+        .resolves();
+      sinon.stub(sale, 'findOne')
         .resolves(userCustomerMockDB);
     });
     afterEach(() => {
-      services.updateOrder.restore();
+      sale.update.restore();
+      sale.findOne.restore();
     });
     it('should return status 200 and a json message', async () => {
       const result = await orderController.updateOrderStatus(request, response);

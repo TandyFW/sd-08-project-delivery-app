@@ -44,8 +44,6 @@ describe('User Register validation middleware', () => {
   describe('When register is not created', () => {
     beforeEach(async () => {
       response.status = sinon.stub().returns(response);
-      // sinon.stub(user, 'findOne').resolves(null);
-      // sinon.stub(user, 'create').resolves(userMock);
     });
     afterEach(() => {
       user.findOne.restore();

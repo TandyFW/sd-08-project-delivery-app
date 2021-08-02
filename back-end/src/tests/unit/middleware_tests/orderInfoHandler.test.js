@@ -7,10 +7,6 @@ describe('Order info handler', () => {
   let response = {};
   let request = {};
 
-  beforeEach(() => {
-
-  })
-
   describe('Order info handler middleware', () => {
     it('should call next function', async () => {
       request = { tokenData: { id: 1 }, body: {} };

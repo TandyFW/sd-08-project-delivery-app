@@ -2,12 +2,8 @@ const sinon = require('sinon');
 const { expect } = require('chai');
 
 const usersController = require('../../../api/controllers/usersController');
-const services = require('../../../api/services');
-const {
-  userAdminMockDB,
-  userSellerMockDB,
-  userCustomerMockDB,
-} = require('../../__mocks__/userMock');
+const { user } = require('../../../database/models');
+const { userAdminMockDB, userSellerMockDB, userCustomerMockDB } = require('../../__mocks__/userMock');
 
 describe('Users Controller', () => {
   describe('When get users Admin with success', () => {
@@ -19,11 +15,11 @@ describe('Users Controller', () => {
       response.status = sinon.stub().returns(response);
       response.json = sinon.stub().returns(adminResponse);
 
-      sinon.stub(services, 'getUsersByRole')
+      sinon.stub(user, 'findOne')
         .resolves([userAdminMockDB]);
     });
     afterEach(() => {
-      services.getUsersByRole.restore();
+      user.findOne.restore();
     });
 
     it('should return status 200 and a json message', async () => {
@@ -43,11 +39,11 @@ describe('Users Controller', () => {
       response.status = sinon.stub().returns(response);
       response.json = sinon.stub().returns(sellerResponse);
 
-      sinon.stub(services, 'getUsersByRole')
+      sinon.stub(user, 'findOne')
         .resolves([userSellerMockDB]);
     });
-    after(() => {
-      services.getUsersByRole.restore();
+    afterEach(() => {
+      user.findOne.restore();
     });
 
     it('should return status 200 and a json message', async () => {
@@ -67,11 +63,11 @@ describe('Users Controller', () => {
       response.status = sinon.stub().returns(response);
       response.json = sinon.stub().returns(customerResponse);
 
-      sinon.stub(services, 'getUsersByRole')
+      sinon.stub(user, 'findOne')
         .resolves([userCustomerMockDB]);
     });
-    after(() => {
-      services.getUsersByRole.restore();
+    afterEach(() => {
+      user.findOne.restore();
     });
 
     it('should return status 200 and a json message', async () => {
