@@ -2,24 +2,23 @@ import React, { createContext, useState } from 'react';
 
 import PropTypes from 'prop-types';
 
-const tokenGeneric = 999;
 export const GlobalContext = createContext();
 export function GlobalProvider({ children }) {
-  const tokenLS = localStorage.getItem('user') || tokenGeneric;
+  const ls = JSON.parse(localStorage.getItem('user'));
   const [name, setName] = useState('SEM-NOME');
   const [totalPrice, setTotalPrice] = useState(0);
   const [products, setProducts] = useState([]);
-  const [token, setToken] = useState(tokenLS.token);
+  const [storedLS, setStoredLS] = useState(ls);
   const provide = {
     values: {
       name,
-      token,
+      storedLS,
       totalPrice,
       products,
     },
     functions: {
       setName,
-      setToken,
+      setStoredLS,
       setTotalPrice,
       setProducts,
     },

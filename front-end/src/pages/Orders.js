@@ -8,12 +8,12 @@ import Header from '../components/Header';
 import { GlobalContext } from '../context/GlobalProvider';
 
 function Orders() {
-  const { values: { token } } = useContext(GlobalContext);
+  const { values: { storedLS } } = useContext(GlobalContext);
   const [, route] = useLocation().pathname.split('/');
   const hasSeller = route === 'seller';
   const { request, response } = useAxios();
-  console.log(token);
-  useEffect(() => request(API(token)[route]), [request, route, token]);
+  console.log(storedLS);
+  useEffect(() => request(API(storedLS.token)[route]), [request, route, storedLS]);
   return (
     <>
       <Header />
@@ -24,12 +24,13 @@ function Orders() {
             <Link key={ idx } to={ `/${route}/orders/${variant.id}` }>
               <OrderCard requests={ variant } user={ route }>
                 {hasSeller && (
-                  <Row
-                    data-testid={
-                      `${route}_orders__element-card-address-${variant.address}`
-                    }
-                  >
-                    <Col className="text-center p-4">
+                  <Row>
+                    <Col
+                      className="text-center p-4"
+                      data-testid={
+                        `${route}_orders__element-card-address-${variant.id}`
+                      }
+                    >
                       {variant.deliveryAddress}
                     </Col>
                   </Row>

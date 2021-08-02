@@ -8,7 +8,7 @@ import { GlobalContext } from './GlobalProvider';
 export const LoginContext = createContext();
 export const { Provider, Consumer } = LoginContext;
 export function LoginProvider({ children }) {
-  const { functions: { setToken } } = useContext(GlobalContext);
+  const { values: { storedLS }, functions: { setStoredLS } } = useContext(GlobalContext);
   const {
     request,
     response,
@@ -28,9 +28,13 @@ export function LoginProvider({ children }) {
 
   const history = useHistory();
   if (response) {
-    setToken(response.data.token);
+    setStoredLS(response.data.token);
     localStorage.setItem('user', JSON.stringify(response.data));
     history.push(roleConfig[response.data.role]);
+  }
+
+  if (storedLS) {
+    history.push(roleConfig[storedLS.role]);
   }
 
   const provide = {
