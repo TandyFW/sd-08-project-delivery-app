@@ -25,13 +25,13 @@ const registerUser = async (name, email, password) => {
       role: 'customer',
     });
 
-    const user = { name, email, role: result.dataValues.role };
     const token = JWT(result.dataValues);
+    const user = { name, email, role: result.dataValues.role, token };
 
     return {
       statusCode: 201,
       message: 'Created',
-      json: { user, token },
+      json: { user },
     };
   } catch (error) {
     return { statusCode: 500, message: 'Error in DB' };
