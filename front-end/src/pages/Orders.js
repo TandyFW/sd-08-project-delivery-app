@@ -12,7 +12,7 @@ function Orders() {
   useEffect(() => request(API[route]), [request, route]);
   return (
     <Container>
-      <Row xs={ 4 } md={ 2 } className="p-4">
+      <Row xs={ 1 } md={ 2 } className="pt-4">
         {response
           && response.data.map((variant, idx) => (
             <Link key={ idx } to={ `/${route}/orders/${variant.id}` }>
