@@ -21,7 +21,6 @@ function Login() {
     }
     return true;
   }
-
   useEffect(() => {
     if (userData) {
       localStorage.setItem('user', JSON.stringify({
@@ -73,7 +72,14 @@ function Login() {
     };
     const rawResponse = await fetch('http://localhost:3001/login', myInit);
     const content = await rawResponse.json();
-    return setUserData(content);
+    localStorage.setItem('user', JSON.stringify({
+      token: content.token,
+      ...content.user }));
+    return setUserData(!content.message
+      ? {
+        token: content.token,
+        ...content.user }
+      : content);
   };
   return (
     <div className="main-wrapper">

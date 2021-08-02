@@ -1,3 +1,5 @@
+/* Middleware para validação de usuário no login - coloca na requisação as outras informações do usuário */
+
 const md5 = require('md5');
 
 const { getUser } = require('../services');

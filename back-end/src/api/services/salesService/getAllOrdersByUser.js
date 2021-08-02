@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const { sale } = require('../../database/models');
+const { sale } = require('../../../database/models');
 
 module.exports = async (id, role) => {
   let userId = '';

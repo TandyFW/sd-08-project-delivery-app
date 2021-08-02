@@ -1,3 +1,5 @@
+/*  Middleware para validação de email e password  */
+
 module.exports = (req, res, next) => {
   const { email, password } = req.body;
   const PASSWORD_MIN_LENGTH = 6;

@@ -1,3 +1,5 @@
+/*  Middleware para a validação de nome de usuário para o registro. */
+
 module.exports = (req, res, next) => {
   const { name } = req.body;
   const NAME_MIN_LENGTH = 12;

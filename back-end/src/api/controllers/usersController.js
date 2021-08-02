@@ -1,18 +1,26 @@
-const { getUsersByRole } = require('../services');
+// Controller para a leitura e remoção de usuário.
 
-const getAllCustomers = async (req, res) => {
-  const result = await getUsersByRole('customer');
-  return res.status(200).json({ customers: result });
-};
+const { getUsersByRole, getCustomersAndSellersUser, removeUserById } = require('../services');
 
+// leitura de todos os usuários 'seller'
 const getAllSellers = async (req, res) => {
   const result = await getUsersByRole('seller');
   return res.status(200).json({ sellers: result });
 };
 
-const getAdmin = async (req, res) => {
-  const result = await getUsersByRole('administrator');
-  return res.status(200).json({ administrator: result });
+// leitura de todos os usuários 'customer' e 'seller'
+const getCustomerAndSellers = async (req, res) => {
+  const result = await getCustomersAndSellersUser();
+
+  return res.status(200).json({ user: result });
 };
 
-module.exports = { getAllCustomers, getAllSellers, getAdmin };
+// remove usuários identificado pelo ID no parametro na Url.
+const removeUser = async (req, res) => {
+  const { id } = req.params;
+  await removeUserById(id);
+
+  return res.status(204).json({ message: 'User deleted!' });
+};
+
+module.exports = { getAllSellers, getCustomerAndSellers, removeUser };
