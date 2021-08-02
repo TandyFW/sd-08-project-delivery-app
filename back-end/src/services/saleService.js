@@ -1,4 +1,4 @@
-const { conflict } = require('@hapi/boom');
+const { badRequest } = require('@hapi/boom');
 const formatSaleRes = require('../utils/formatSaleRes');
 const { Sale, SaleProduct, sequelize, Product, User } = require('../database/models');
 
@@ -36,18 +36,31 @@ const saveSale = async (sale) => {
         }, { transaction: t });
 
         await t.commit();
+        return saleId;
     } catch (err) {
         await t.rollback();
-        throw conflict(err);
+        throw badRequest(err);
     }
 };
 
 const getSales = async () => {
-    const sales = await Sale.findAll({
-        attributes: ['status', 'total_price', 'sale_date'],
-      });
-
-      return sales;
+    const allSales = await Sale.findAll({ attributes: ['id',
+    'sale_date', 'status', 'total_price', 'delivery_address', 'delivery_number'],
+        include: [
+            { model: User,
+                as: 'user',
+                attributes: ['id', 'name', 'email', 'role'] },
+            { model: User, 
+                as: 'seller',
+                attributes: ['id', 'name', 'email', 'role'] },
+            { model: SaleProduct,
+                as: 'sales_products',
+                include: [{ model: Product, 
+                    as: 'product',
+                    attributes: ['id', 'name'] }],
+                attributes: ['quantity'] }],
+    });
+    return { sales: allSales };
 };
 
 const getSaleById = async (id) => {

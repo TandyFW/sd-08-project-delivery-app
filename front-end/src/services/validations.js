@@ -11,3 +11,5 @@ const MAX_LENGHT_NAME = 12;
 export const nameVerify = (name) => (
   name.length >= MAX_LENGHT_NAME && name.length > 0
 );
+
+export const minProductVerify = (count) => count === 0;

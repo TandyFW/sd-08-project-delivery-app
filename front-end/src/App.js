@@ -7,6 +7,8 @@ import Products from './Pages/Products';
 import Provider from './context/Provider';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
+import Checkout from './Pages/Checkout';
+
 import theme from './theme';
 
 function App() {
@@ -21,6 +23,7 @@ function App() {
           <Route exact path="/login" component={ Login } />
           <Route exact path="/register" component={ Register } />
           <Route exact path="/customer/products" component={ Products } />
+          <Route exact path="/customer/checkout" component={ Checkout } />
         </Switch>
       </ThemeProvider>
     </Provider>
