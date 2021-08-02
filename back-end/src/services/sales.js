@@ -4,13 +4,16 @@ const SaleSchema = require('../schemas/sale');
 
 const getAllSales = async () => Sale.findAll();
 
-const getItemTotalPrice = async (id) => {
-  const { price, quantity } = await ProductServices.findById(id);
-  return price * quantity;
+const getItemPrice = async (id) => {
+  const { price } = await ProductServices.findById(id);
+  return price;
 };
 
 const getTotalPrice = async (data) => {
-  const pricesPromises = data.map(({ id }) => getItemTotalPrice(id));
+  const pricesPromises = data.map(async ({ id, quantity }) => {
+    const price = await getItemPrice(id);
+    return price * quantity;
+  });
   const prices = await Promise.all(pricesPromises);
   return prices.reduce((acc, cur) => acc + cur, 0);
 };

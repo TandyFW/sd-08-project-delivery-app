@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.INTEGER,
     }
-  }, { tableName: 'sales_products' });
+  }, { tableName: 'salesProducts' });
 
   return SalesProducts;
 };
