@@ -36,12 +36,12 @@ class SellerOrderList extends React.Component {
     const { allOrdes } = this.props;
     // orderId -= 1;
     // console.log(orderId);
-    console.log(allOrdes);
+    // console.log(allOrdes);
     if (allOrdes) {
       allOrdes.forEach((ordes) => {
         const dateArray = ordes.sale_date.split('T')[0].split('-');
         ordes.date = `${dateArray[2]}/${dateArray[1]}/${dateArray[0]}`;
-        console.log(ordes.date);
+        // console.log(ordes.date);
         // const dateISO = Date.parse(ordes.sale_date);
         // console.log(dateISO);
         // console.log(dateISO.getDay());
@@ -60,7 +60,7 @@ class SellerOrderList extends React.Component {
       //   address: 'rua i',
       // };
       // console.log(OrderDetails);
-      console.log(allOrdes[0].sale_date);
+      // console.log(allOrdes[0].sale_date);
       this.setState((state) => ({ ...state,
         orders: allOrdes,
         // OrderDetails,

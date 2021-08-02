@@ -58,15 +58,15 @@ class CustomerOrdersDetailsList extends React.Component {
   async setAllOrdesInState(orderId) {
     const { allOrdes } = this.props;
     orderId -= 1;
-    console.log(orderId);
-    console.log(allOrdes);
+    // console.log(orderId);
+    // console.log(allOrdes);
     if (allOrdes) {
       const { id, status, productId } = allOrdes[orderId];
       const sellerName = await getNameUserById(allOrdes[orderId].seller_id);
       const dateArray = allOrdes[orderId].sale_date.split('T')[0].split('-');
       const date = `${dateArray[2]}/${dateArray[1]}/${dateArray[0]}`;
-      console.log(typeof allOrdes[orderId].seller_id);
-      console.log(sellerName);
+      // console.log(typeof allOrdes[orderId].seller_id);
+      // console.log(sellerName);
       const OrderDetails = {
         oderId: id,
         sellerName,
@@ -75,7 +75,7 @@ class CustomerOrdersDetailsList extends React.Component {
         totalPrice: allOrdes[orderId].total_price,
         purchasedProducts: productId,
       };
-      console.log(OrderDetails);
+      // console.log(OrderDetails);
       this.setState((state) => ({ ...state,
         orders: allOrdes,
         OrderDetails,

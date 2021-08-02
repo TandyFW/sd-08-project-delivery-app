@@ -8,7 +8,7 @@ const createOrder = rescue(async (req, res, _next) => {
   const status = 'Pendente';
   const { data, stateCart } = req.body;
   const { sellerId, totalPrice, deliveryAddress, deliveryNumber } = data;
-  console.log(sellerId, totalPrice, deliveryAddress, deliveryNumber);
+  // console.log(sellerId, totalPrice, deliveryAddress, deliveryNumber);
   const result = await orderServices.createOrder({
     userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, salesDate, stateCart, status });
 
@@ -17,7 +17,7 @@ const createOrder = rescue(async (req, res, _next) => {
 
 const getAllOrdersByUserId = rescue(async (req, res, next) => {
   const { id } = req.dataUser;
-  console.log(id);
+  // console.log(id);
   const result = await orderServices.getAllOrdersByUserId(id);
   if (result.error) return next(result);
   res.status(success.OK).json({ orders: result });
@@ -33,8 +33,8 @@ const getAllOrdersBySellerId = rescue(async (req, res, next) => {
 const getOrdersByUserById = rescue(async (req, res, next) => {
   const { orderId } = req.params;
   const { id } = req.dataUser;
-  console.log(id);
-  console.log(orderId);
+  // console.log(id);
+  // console.log(orderId);
   const result = await orderServices.getOrdersByUserById(id, orderId);
   if (result.error) return next(result);
   res.status(success.OK).json({ orders: result });
@@ -43,7 +43,7 @@ const getOrdersByUserById = rescue(async (req, res, next) => {
 const getOrdersBySellerById = rescue(async (req, res, next) => {
   const { orderId } = req.params;
   const { id } = req.dataUser;
-  console.log(orderId);
+  // console.log(orderId);
   const result = await orderServices.getOrdersBySellerById(id, orderId);
   if (result.error) return next(result);
   res.status(success.OK).json({ orders: result });

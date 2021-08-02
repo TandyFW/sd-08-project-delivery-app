@@ -24,7 +24,7 @@ class CustomerOrdersList extends React.Component {
 
   setAllOrdesInState() {
     const { allOrdes } = this.props;
-    console.log(allOrdes);
+    // console.log(allOrdes);
     if (allOrdes) {
       this.setState((state) => ({ ...state,
         orders: allOrdes,
@@ -33,7 +33,7 @@ class CustomerOrdersList extends React.Component {
   }
 
   render() {
-    const { history } = this.props;
+    // const { history } = this.props;
     // console.log(history);
     // const { stateProducts } = this.props;
     // const { state } = this;
@@ -43,25 +43,21 @@ class CustomerOrdersList extends React.Component {
     }
     const { orders } = this.state;
     return (
-      <div className="cardlist-container">
+      <div>
         {
           orders.map((order, i) => (
-            <div key={ i } className="customerOrderlist-container">
-              <button
-                key={ i }
-                // className="sellerOrderlist-container"
-                type="button"
-                onClick={ () => history.push(`/customer/orders/${order.id}`) }
+            <div key={ i }>
+              {/* <div > */}
+              {/* <h4>Pedido</h4> */}
+              <a
+                href={ `/customer/orders/${order.id}` }
+                // onClick={ () => history.push(`/customer/orders/${order.id}`) }
+                data-testid={ `${testId}element-order-id-${order.id}` }
               >
-                <h4>Pedido</h4>
-                <div
-                  data-testid={ `${testId}element-order-id-${order.id}` }
-                >
-                  {order.id}
-                </div>
-              </button>
+                {`Pedido ${order.id}` }
+                {/* </div> */}
+              </a>
               <div
-                className={ order.status }
                 data-testid={ `${testId}element-delivery-status-${order.id}` }
               >
                 { order.status }
@@ -103,7 +99,7 @@ const mapStateToProps = (state) => ({
 // });
 
 CustomerOrdersList.propTypes = {
-  history: PropTypes.shape().isRequired,
+  // history: PropTypes.shape().isRequired,
   getAllOrdesByUser: PropTypes.func.isRequired,
   allOrdes: PropTypes.arrayOf(PropTypes.object).isRequired,
 //   dispatchProducts: PropTypes.func.isRequired,

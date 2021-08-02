@@ -15,7 +15,7 @@ class AdminUsers extends React.Component {
   shouldComponentUpdate() { // nao excluir
     const { props } = this;
     if (props.newUsers) {
-      console.log('shouldComponentUpdate', props.newUsers);
+      // console.log('shouldComponentUpdate', props.newUsers);
     }
     return true;
   }

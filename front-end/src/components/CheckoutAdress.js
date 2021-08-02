@@ -34,7 +34,7 @@ class CheckoutAdress extends React.Component {
       sellerId };
     const result = await createSaler(data, stateCart);
     const { id } = result.newOrder;
-    console.log(result);
+    // console.log(result);
     localStorage.removeItem('totalPrice');
     localStorage.removeItem('cart');
     history.push(`/customer/orders/${id}`);
@@ -42,8 +42,8 @@ class CheckoutAdress extends React.Component {
 
   render() {
     const { state } = this;
-    const { props } = this;
-    console.log(props.history);
+    // const { props } = this;
+    // console.log(props.history);
     // console.log(state.sellers);
     return (
       <div className="checkout-adress-container">

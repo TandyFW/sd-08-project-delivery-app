@@ -22,7 +22,7 @@ const createOrder = async (dataForCreate) => {
     [salesDateSnake]: salesDate,
     status,
   };
-  console.log(dataForModel);
+  // console.log(dataForModel);
   const result = await sale.create(dataForModel);
    stateCart.forEach((async (productItem) => {
       await salesProducts.create({ [saleIdSnacke]: result.id,

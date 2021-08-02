@@ -32,7 +32,7 @@ class UserTable extends React.Component {
   async exclude(id) {
     const { users } = this.state;
     const excludeResult = await exclude(id);
-    console.log(excludeResult);
+    // console.log(excludeResult);
     if (!excludeResult.status) {
       const results = users.filter((item) => item.id !== id);
       this.setState({ users: results });
