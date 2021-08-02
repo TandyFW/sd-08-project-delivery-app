@@ -25,6 +25,9 @@ const options = {
     timestamps: false,
   },
   logging: false,
+  define: {
+    timestamps: false
+}
 };
 
 module.exports = {

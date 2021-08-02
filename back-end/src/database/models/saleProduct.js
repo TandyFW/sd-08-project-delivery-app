@@ -22,12 +22,6 @@ const SaleProduct = (sequelize, DataTypes) => {
     tableName: 'sales_products',
   });
 
-  saleProduct.associate = (models) => {
-    saleProduct.belongsTo(models.Sale,
-      { foreignKey: 'saleId', as: 'sale', allowNull: false });
-    saleProduct.belongsTo(models.Product,
-      { foreignKey: 'productId', as: 'product', allowNull: false });    
-  };
 
   return saleProduct;
 };

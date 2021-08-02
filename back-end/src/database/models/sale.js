@@ -9,12 +9,10 @@ const Sale = (sequelize, DataTypes) => {
     userId: { 
       type: DataTypes.INTEGER,
       allowNull: false,
-      field: 'user_id',
     },
     sellerId: { 
       type: DataTypes.INTEGER,
       allowNull: false,
-      field: 'seller_id',
     },
     totalPrice: { 
       type: DataTypes.DECIMAL,
@@ -43,16 +41,26 @@ const Sale = (sequelize, DataTypes) => {
   },
   {
     timestamps: false,
-    tableName: 'sales'
+    tableName: 'sales',
+    underscored: true
   });
 
   sale.associate = (models) => {
-    sale.belongsTo(models.User,
-      { foreignKey: 'userId', as: 'user', allowNull: false });
-    sale.belongsTo(models.User,
-      { foreignKey: 'sellerId', as: 'seller', allowNull: false });
-    sale.hasMany(models.SaleProduct,
-      { foreignKey: 'sale_id', as: 'sales_products', allowNull: false });
+
+    sale.belongsTo(models.User, {
+      foreignKey: 'user_id',
+      as: 'customer'
+    })
+
+    sale.belongsTo(models.User, {
+      foreignKey: 'seller_id',
+      as: 'seller'
+    })
+    sale.belongsToMany(models.Product, { through: 'sales_products', attributes: [] , as: 'Products'});
+    sale.hasMany(models.SaleProduct, {
+      as: 'sales'
+    });
+
   };
   
   return sale;
