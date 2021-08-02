@@ -33,7 +33,7 @@ class CustomerOrdersList extends React.Component {
   }
 
   render() {
-    // const { history } = this.props;
+    const { history } = this.props;
     // console.log(history);
     // const { stateProducts } = this.props;
     // const { state } = this;
@@ -49,14 +49,15 @@ class CustomerOrdersList extends React.Component {
             <div key={ i }>
               {/* <div > */}
               {/* <h4>Pedido</h4> */}
-              <a
-                href={ `/customer/orders/${order.id}` }
-                // onClick={ () => history.push(`/customer/orders/${order.id}`) }
+              <button
+                type="button"
+                // href={ `/customer/orders/${order.id}` }
+                onClick={ () => history.push(`/customer/orders/${order.id}`) }
                 data-testid={ `${testId}element-order-id-${order.id}` }
               >
                 {`Pedido ${order.id}` }
-                {/* </div> */}
-              </a>
+                {/* </button> */}
+              </button>
               <div
                 data-testid={ `${testId}element-delivery-status-${order.id}` }
               >
@@ -99,7 +100,7 @@ const mapStateToProps = (state) => ({
 // });
 
 CustomerOrdersList.propTypes = {
-  // history: PropTypes.shape().isRequired,
+  history: PropTypes.shape().isRequired,
   getAllOrdesByUser: PropTypes.func.isRequired,
   allOrdes: PropTypes.arrayOf(PropTypes.object).isRequired,
 //   dispatchProducts: PropTypes.func.isRequired,

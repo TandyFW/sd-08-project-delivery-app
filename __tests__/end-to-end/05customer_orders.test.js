@@ -70,7 +70,7 @@ describe(requirement(22), () => {
 
 describe(requirement(23), () => {
   test("O avaliador ira testar se os dados associados aos data-testids dos dez primeiros itens batem com os do banco de dados", async () => {
-    console.log( 'teste da turama ',orderList);
+    console.log( 'teste da turama ', orderList);
     for (const { id, status, sale_date: saleDate, total_price: totalPrice } of orderList) {
       await expect(page).toGetTextFromElement(
         customerOrdersPage.element.card.orderId + `[data-testid$='-${id}']`,
