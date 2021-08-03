@@ -5,11 +5,11 @@ const { isAuthenticated, restrictionLevel } = require('../api/middlewares/isAuth
 const orderDetailsRouter = Router();
 
 orderDetailsRouter.get('/:id',
-  isAuthenticated(restrictionLevel(2)),
+  isAuthenticated(restrictionLevel(3)),
   orderDetailsController.orderDetails);
 
 orderDetailsRouter.put('/:id',
-  isAuthenticated(restrictionLevel(2)),
+  isAuthenticated(restrictionLevel(3)),
   orderDetailsController.orderStatusUpdate);
 
 module.exports = orderDetailsRouter;
