@@ -51,9 +51,7 @@ export default function ProductCard(props) {
   };
 
   const imgStyle = {
-    height: '5px',
-    width: '5px',
-    // height: '12rem',
+    height: '100%',
   };
 
   return (
