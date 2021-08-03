@@ -3,12 +3,12 @@ import Proptypes from 'prop-types';
 import { ListGroup, Row, Card, Col } from 'react-bootstrap';
 
 export default function OrderCard(props) {
-  const { requests: { id, totalPrice, salesDate, status }, user, children } = props;
+  const { requests: { id, totalPrice, saleDate, status }, user, children } = props;
 
   const price = new Intl.NumberFormat('BRL', {
     style: 'currency', currency: 'BRL',
   }).format(totalPrice);
-  const date = new Date(salesDate).toLocaleDateString();
+  const date = new Date(saleDate).toLocaleDateString();
   return (
     <Card className="m-2">
       <Row>

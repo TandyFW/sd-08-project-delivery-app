@@ -39,7 +39,7 @@ export default function OrderDetailsComp() {
       try {
         const result = await axios.get(`http://localhost:3001/${roleUser}/orders/${id}`, configAxios);
         setOrder(result.data.result.products);
-        const data = new Date(result.data.result.salesDate);
+        const data = new Date(result.data.result.saleDate);
         const daForm = (`${data.getDate()}/${data.getMonth() + 1}/${data.getFullYear()}`);
         setSaleDate(daForm);
         setStatus(result.data.result.status);
