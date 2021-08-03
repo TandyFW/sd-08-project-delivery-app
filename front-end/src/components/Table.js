@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import TableRow from './TableRow';
 
 export default function Table({ heading, body }) {
+  const ARRAY_SIZE = 5;
   return (
     <table className="products-table">
       <thead>
@@ -23,6 +24,7 @@ export default function Table({ heading, body }) {
             row={ row }
             tableIndex={ index }
             key={ index }
+            showRemove={ heading.length > ARRAY_SIZE }
           />
         ))}
       </tbody>

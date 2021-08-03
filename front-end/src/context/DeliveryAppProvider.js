@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import DeliveryAppContext from './DeliveryAppContext';
 import fetchProducts from '../services/fetchProducts';
+import fetchSellers from '../services/fetchSellers';
 
 function DeliveryAppProvider({ children }) {
   const [itemsList, setItemsList] = useState([]);
@@ -12,6 +13,7 @@ function DeliveryAppProvider({ children }) {
   const [sellerId, setSellerId] = useState(0);
   const [userId, setUserId] = useState(0);
   const [sellers, setSellers] = useState([]);
+  const [orderStatus, setOrderStatus] = useState('');
 
   const getRoute = () => {
     const currentRoute = localStorage.getItem('route');
@@ -74,6 +76,8 @@ function DeliveryAppProvider({ children }) {
         setUserId,
         sellers,
         setSellers,
+        orderStatus,
+        setOrderStatus,
       } }
     >
       {children}

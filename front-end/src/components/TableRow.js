@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 
-export default function TableRow({ row, tableIndex }) {
+export default function TableRow({ row, tableIndex, showRemove }) {
   const { itemsList, setItemsList } = useContext(DeliveryAppContext);
 
   useEffect(() => {
@@ -48,16 +48,19 @@ export default function TableRow({ row, tableIndex }) {
       >
         { row.itemsPrice }
       </td>
-      <td>
-        <button
-          type="button"
-          className="btn-remove"
-          onClick={ remove }
-          data-testid={ `customer_checkout__element-order-table-remove-${tableIndex}` }
-        >
-          Remover
-        </button>
-      </td>
+      {showRemove
+      && (
+        <td>
+          <button
+            type="button"
+            className="btn-remove"
+            onClick={ remove }
+            data-testid={ `customer_checkout__element-order-table-remove-${tableIndex}` }
+          >
+            Remover
+          </button>
+        </td>
+      )}
     </tr>
   );
 }
@@ -70,4 +73,5 @@ TableRow.propTypes = {
     itemsPrice: PropTypes.string.isRequired,
   }).isRequired,
   tableIndex: PropTypes.number.isRequired,
+  showRemove: PropTypes.bool.isRequired,
 };
