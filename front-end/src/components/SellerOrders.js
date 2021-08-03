@@ -35,7 +35,7 @@ export default function SellerOrders() {
             tabIndex="0"
             onKeyDown={ () => history.push(`/seller/orders/${obj.id}`) }
             key={ index }
-            style={ { backgroundColor: 'white', width: '50%' } }
+            className="card-order"
           >
             <p data-testid={ `seller_orders__element-order-id-${obj.id}` }>
               {`Pedido ${index + 1}`}
@@ -44,7 +44,7 @@ export default function SellerOrders() {
               {`Status: ${obj.status}`}
             </p>
             <p data-testid={ `seller_products__element-order-date-${obj.id}` }>
-              {obj.saleDate}
+              {new Date(obj.saleDate).toLocaleDateString()}
             </p>
             <p
               data-testid={ `seller_orders__element-card-price-${obj.id}` }
