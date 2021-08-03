@@ -21,6 +21,7 @@ function Routes() {
         <Route path="/register" component={ Register } />
         <Route path="/customer" component={ CustomerRouts } />
         <Route path="/seller/orders" component={ SellerOrders } />
+        <Route path="/seller/orders/:id" component={ SellerOrders } />
       </Switch>
     </Router>
   );
