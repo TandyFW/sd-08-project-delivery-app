@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import SellerDetailTable from '../../components/SellerDetailTable';
 import Context from '../../context/Context';
 import './style.css';
+import NavBar from '../Components/NavBar';
 
 function SellerDetailPage(props) {
   const { userData } = useContext(Context);
   const [order, setOrder] = useState({});
   // const [orderStatus, setOrderStatus] = useState('Pendente');
+  const datatest = 'seller_order_details__element-order-details-label-delivery-status';
 
   console.log('Detalhes', order);
 
@@ -46,37 +48,42 @@ function SellerDetailPage(props) {
   }
 
   return (
-    <div className="Seller-details-container">
-      <div>
-        <span data-testid="seller_order_details__element-order-details-label-order-id">
-          {order.id}
-        </span>
-        <span data-testid="seller_order_details__element-order-details-label-order-date">
-          { formatDate(order.saleDate) }
-        </span>
-        <span
-          data-testid="seller_order_details__element-order-details-label-delivery-status"
-        >
-          {order.status}
-        </span>
-        <button
-          onClick={ () => changeOrderStatus() }
-          data-testid="seller_order_details__button-preparing-check"
-          type="button"
-        >
-          PREPARAR PEDIDO
-        </button
-        >
-        <button
-          data-testid="seller_order_details__button-dispatch-check"
-          type="button"
-          disabled={ ['Pendente', 'Em Trânsito', 'Entregue'].includes(order.status) }
-        >
-          SAIU PARA ENTREGA
-        </button
-        >
+    <div>
+      <NavBar userType="customer" userName={ userData.name } />
+      <div className="Seller-details-container">
+        <div>
+          <span data-testid="seller_order_details__element-order-details-label-order-id">
+            {order.id}
+          </span>
+          <span
+            data-testid="seller_order_details__element-order-details-label-order-date"
+          >
+            { formatDate(order.saleDate) }
+          </span>
+          <span
+            data-testid={ datatest }
+          >
+            {order.status}
+          </span>
+          <button
+            onClick={ () => changeOrderStatus() }
+            data-testid="seller_order_details__button-preparing-check"
+            type="button"
+          >
+            PREPARAR PEDIDO
+          </button
+          >
+          <button
+            data-testid="seller_order_details__button-dispatch-check"
+            type="button"
+            disabled={ ['Pendente', 'Em Trânsito', 'Entregue'].includes(order.status) }
+          >
+            SAIU PARA ENTREGA
+          </button
+          >
+        </div>
+        <SellerDetailTable order={ order } />
       </div>
-      <SellerDetailTable order={ order } />
     </div>
   );
 }
