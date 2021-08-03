@@ -1,17 +1,25 @@
 import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import socketIOClient from 'socket.io-client';
 import SellerDetailTable from '../../components/SellerDetailTable';
 import Context from '../../context/Context';
 import './style.css';
 import NavBar from '../Components/NavBar';
 
+const ENDPOINT = 'http://localhost:3001';
+
 function SellerDetailPage(props) {
   const { userData } = useContext(Context);
   const [order, setOrder] = useState({});
   // const [orderStatus, setOrderStatus] = useState('Pendente');
+  const [status, setStatus] = useState();
   const datatest = 'seller_order_details__element-order-details-label-delivery-status';
+  const emtransito = 'Em Trânsito';
+
+  const socket = socketIOClient(ENDPOINT);
 
   console.log('Detalhes', order);
+  console.log('Status socket', status);
 
   const { match: { params: { id } } } = props;
   console.log(id);
@@ -35,6 +43,17 @@ function SellerDetailPage(props) {
     getData();
   }, [id, userData.token]);
 
+  useEffect(() => {
+    socket.emit('setOrderStatus', { id, status: '' });
+    socket.on('getUpdatedStatus', (statusFromBrack) => {
+      setStatus(statusFromBrack);
+    });
+  }, [socket, id]);
+
+  function changeOrderStatus(newStatus) {
+    socket.emit('setOrderStatus', { id, status: newStatus });
+  }
+
   function formatDate(fullDate) {
     const date = fullDate.split('T');
     const dateSplited = date[0].split('-');
@@ -42,10 +61,6 @@ function SellerDetailPage(props) {
   }
 
   if (Object.keys(order).length === 0) return <h1>Loading...</h1>;
-
-  function changeOrderStatus() {
-    setOrderStatus('Preparando');
-  }
 
   return (
     <div>
@@ -63,20 +78,22 @@ function SellerDetailPage(props) {
           <span
             data-testid={ datatest }
           >
-            {order.status}
+            {status}
           </span>
           <button
-            onClick={ () => changeOrderStatus() }
+            onClick={ () => changeOrderStatus('Preparando') }
             data-testid="seller_order_details__button-preparing-check"
             type="button"
+            disabled={ ['Preparando', emtransito, 'Entregue'].includes(status) }
           >
             PREPARAR PEDIDO
           </button
           >
           <button
+            onClick={ () => changeOrderStatus(emtransito) }
             data-testid="seller_order_details__button-dispatch-check"
             type="button"
-            disabled={ ['Pendente', 'Em Trânsito', 'Entregue'].includes(order.status) }
+            disabled={ ['Pendente', emtransito, 'Entregue'].includes(status) }
           >
             SAIU PARA ENTREGA
           </button
