@@ -12,7 +12,7 @@ export default function OrdersList() {
   const getPageUser = () => setUser(route);
 
   const getOrders = async () => {
-    const data = await fetchOrders();
+    const data = await fetchOrders(user);
     setOrdersList(data);
   };
 
@@ -28,7 +28,6 @@ export default function OrdersList() {
 
   useEffect(() => setLoadingMessage(), [user, ordersList]);
 
-  // console.log(isLoading);
   if (isLoading) return <p>Carregando...</p>;
   return (
     <section className="orders-container">
@@ -60,6 +59,14 @@ export default function OrdersList() {
               >
                 { order.totalPrice }
               </div>
+              {user === 'seller'
+              && (
+                <div className="order-card-address">
+                  <p data-testid={ `seller_orders__element-card-address-${id}` }>
+                    { `${order.deliveryAddress},${order.deliveryNumber}` }
+                  </p>
+                </div>
+              )}
             </div>
           </Link>
         </div>

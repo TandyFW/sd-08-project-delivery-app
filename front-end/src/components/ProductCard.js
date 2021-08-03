@@ -67,7 +67,7 @@ export default function ProductCard({ data }) {
           className="card-price"
           data-testid={ `customer_products__element-card-price-${id}` }
         >
-          { `R$ ${price}` }
+          { price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }
         </p>
       </div>
       <img

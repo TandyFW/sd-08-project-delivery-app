@@ -18,7 +18,7 @@ export default function TableRow({ row, tableIndex, showRemove }) {
     if (showRemove) {
       setRowQuantity(+row.quantity);
       setRowUnitaryPrice(+(+row.unitaryPrice).toFixed(2));
-      setRowSubtotal((+(+row.unitaryPrice).toFixed(2)) * (+row.quantity));
+      return setRowSubtotal((+(+row.unitaryPrice).toFixed(2)) * (+row.quantity));
     }
 
     setRowQuantity(+row.salesProducts.quantity);
