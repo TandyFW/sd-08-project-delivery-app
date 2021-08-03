@@ -10,6 +10,7 @@ export default function FormCheckout() {
     totalPrice,
     itemsList,
     sellers,
+    user,
   } = useContext(DeliveryAppContext);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
@@ -23,7 +24,7 @@ export default function FormCheckout() {
       deliveryAddress,
       deliveryNumber,
       productsList: itemsList,
-    });
+    }, user.token);
   };
 
   const selectSeller = () => {
