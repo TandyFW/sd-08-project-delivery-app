@@ -10,11 +10,12 @@ import {
 } from '../../styles/components/Navbar/Navbar';
 
 const Navbar = ({ className, children }) => {
-  const { name } = useContext(UserContext);
+  const { name, logout } = useContext(UserContext);
   const history = useHistory();
 
   const handleExit = () => {
     localStorage.clear();
+    logout();
     history.push('/login');
   };
 

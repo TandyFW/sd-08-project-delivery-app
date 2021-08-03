@@ -25,7 +25,7 @@ const Checkout = () => {
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
   const [sellers, setSellers] = useState([]);
-  const { cart, products } = useContext(CartContext);
+  const { cart, products, clearCart } = useContext(CartContext);
   const history = useHistory();
 
   const fetchSellers = async () => {
@@ -58,6 +58,7 @@ const Checkout = () => {
         deliveryNumber,
       }, token);
 
+      clearCart();
       history.push(`/customer/orders/${saleId}`);
     } catch (error) {
       console.log(error);
