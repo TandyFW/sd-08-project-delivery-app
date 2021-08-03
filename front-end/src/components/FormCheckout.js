@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import Input from './Input';
+import Socket from '../service/socketConfig';
 
 const SELECT_ID = 'customer_checkout__select-seller';
 const ADDRESS_ID = 'customer_checkout__input-address';
@@ -39,7 +40,11 @@ function FormCheckout({ sellers, products }) {
       url: 'http://127.0.0.1:3001/customer/checkout',
       headers: { authorization: token },
       data: newSale,
-    }).then(({ data: { id } }) => history.push(`/customer/orders/${id}`));
+    }).then(({ data: { id } }) => {
+      history.push(`/customer/orders/${id}`);
+      const socket = Socket(token);
+      socket.emit('server');
+    });
   }
 
   return (
