@@ -14,6 +14,7 @@ function DeliveryAppProvider({ children }) {
   const [userId, setUserId] = useState(0);
   const [sellers, setSellers] = useState([]);
   const [orderStatus, setOrderStatus] = useState('');
+  const [user, setUser] = useState({});
 
   const getRoute = () => {
     const currentRoute = localStorage.getItem('route');
@@ -59,6 +60,28 @@ function DeliveryAppProvider({ children }) {
     rescueStorageList();
   }, []);
 
+  const setStorage = () => {
+    const { name, email, role, token } = user;
+
+    const storge = {
+      name,
+      email,
+      role,
+      token,
+    };
+
+    localStorage.setItem('user', JSON.stringify(storge));
+  };
+
+  const getUserId = () => {
+    setUserId(user.id);
+  };
+
+  useEffect(() => {
+    setStorage();
+    getUserId();
+  }, [user]);
+
   return (
     <DeliveryAppContext.Provider
       value={ {
@@ -78,6 +101,8 @@ function DeliveryAppProvider({ children }) {
         setSellers,
         orderStatus,
         setOrderStatus,
+        user,
+        setUser,
       } }
     >
       {children}

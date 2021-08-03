@@ -1,10 +1,12 @@
 import md5 from 'md5';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import DeliveryAppContext from '../context/DeliveryAppContext';
 import fetchUser from '../services/fetchUser';
 import emailVerify from '../utils/functions';
 
 export default function FormLogin() {
+  const { setUser } = useContext(DeliveryAppContext);
   const [isValid, setIsValid] = useState(false);
   const [currentEmail, setCurrentEmail] = useState('');
   const [encryptPassword, setEncryptPassword] = useState('');
@@ -37,9 +39,11 @@ export default function FormLogin() {
   const login = async (e) => {
     e.preventDefault();
     const user = await fetchUser(currentEmail, encryptPassword);
+
     if (user) {
+      setUser(user);
       setShowMessage(false);
-      switch (user.user.role) {
+      switch (user.role) {
       case 'customer':
         return setURL('/customer/products');
       case 'seller':
