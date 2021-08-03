@@ -52,8 +52,26 @@ const updateSale = async ({ id, status }) => {
   }
 };
 
+const getDetailedSale = async (id) => (
+  Sale.findByPk(id, {
+    attributes: ['id', 'totalPrice', 'status', 'saleDate'],
+    include: [
+      {
+        association: 'seller',
+        attributes: ['name'],
+      },
+      {
+        association: 'products',
+        attributes: ['id', 'name', 'price'],
+        through: { attributes: ['quantity'] },
+      },
+    ],
+  })
+);
+
 module.exports = {
   getAllSales,
   createSale,
   updateSale,
+  getDetailedSale,
 };
