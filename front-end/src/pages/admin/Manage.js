@@ -14,16 +14,16 @@ import {
 } from '../../styles/pages/customer/Checkout';
 
 const Manage = () => {
-  const [selectedRole, setSelectedRole] = useState();
+  const [selectedRole, setSelectedRole] = useState('seller');
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [showWarning, setShowWarning] = useState(false);
 
   const roles = [
-    { id: 1, name: 'Vendedor', value: 'seller' },
-    { id: 2, name: 'Cliente', value: 'customer' },
-    { id: 3, name: 'Administrador', value: 'administrator' },
+    { id: 'seller', name: 'Vendedor' },
+    { id: 'customer', name: 'Cliente' },
+    { id: 'administrator', name: 'Administrador' },
   ];
 
   const isDisabled = () => {
@@ -37,14 +37,14 @@ const Manage = () => {
   };
 
   async function handleClick() {
+    console.log(selectedRole);
     try {
-      const role = roles.find((element) => element.id === selectedRole);
       const { token } = JSON.parse(localStorage.getItem('user'));
       const response = await api.newUser({
         name: userName,
         email: userEmail,
         password: userPassword,
-        role: role.value,
+        role: selectedRole,
         token,
       });
       console.log(response);
@@ -86,7 +86,7 @@ const Manage = () => {
               options={ roles }
               data-testid="admin_manage__select-role"
               value={ selectedRole }
-              onChange={ ({ target }) => setSelectedRole(Number(target.value)) }
+              onChange={ ({ target }) => setSelectedRole(target.value) }
             />
           </CheckoutLabel>
           <ButtonPrimary
