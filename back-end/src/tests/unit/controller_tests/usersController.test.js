@@ -6,9 +6,10 @@ const { user } = require('../../../database/models');
 const { userCustomerAndSeller, userSellerMockDB } = require('../../__mocks__/userMock');
 
 describe('Users Controller', () => {
+  let response = {};
+  let request = {};
+
   describe('When get users Seller', () => {
-    const response = {};
-    const request = {};
     const sellerResponse = { sellers: [userSellerMockDB] }
 
     before(() => {
@@ -20,6 +21,8 @@ describe('Users Controller', () => {
     });
     afterEach(() => {
       user.findOne.restore();
+      response = {};
+      request = {};
     });
 
     it('should return status 200 and a json message', async () => {
@@ -30,9 +33,7 @@ describe('Users Controller', () => {
     });
   });
 
-  describe('When get users Customer and Seller', () => {
-    const response = {};
-    const request = {};
+  describe('When get all users Customer and Seller', () => {
     const userDBResponse = { user: userCustomerAndSeller }
 
     before(() => {
@@ -44,6 +45,8 @@ describe('Users Controller', () => {
     });
     afterEach(() => {
       user.findAll.restore();
+      response = {};
+      request = {};
     });
 
     it('should return status 200 and a json message', async () => {
@@ -51,6 +54,46 @@ describe('Users Controller', () => {
 
       expect(response.status.calledWith(200)).to.be.equal(true);
       expect(result).to.be.equal(userDBResponse);
+    });
+  });
+
+  describe('When remove a user by admin', () => {
+    let removeDBResponse;
+
+    afterEach(() => {
+      user.destroy.restore();
+      response = {};
+      request = {};
+    });
+
+    it('should return status 204 and a json message when success', async () => {
+      request = { params: { id: 4 } };
+      removeDBResponse = { message: 'User 4 deleted!' };
+      response.status = sinon.stub().returns(response);
+      response.json = sinon.stub().returns(removeDBResponse);
+
+      sinon.stub(user, 'destroy')
+        .resolves(1);
+
+      const result = await usersController.removeUser(request, response);
+
+      expect(response.status.calledWith(204)).to.be.equal(true);
+      expect(result).to.be.equal(removeDBResponse);
+    });
+
+    it('should return status 500 and a json message when fails', async () => {
+      request = { params: { id: 4 } };
+      removeDBResponse = { message: 'User not deleted!' };
+      response.status = sinon.stub().returns(response);
+      response.json = sinon.stub().returns(removeDBResponse);
+
+      sinon.stub(user, 'destroy')
+        .resolves(0);
+
+      const result = await usersController.removeUser(request, response);
+
+      expect(response.status.calledWith(500)).to.be.equal(true);
+      expect(result).to.be.equal(removeDBResponse);
     });
   });
 

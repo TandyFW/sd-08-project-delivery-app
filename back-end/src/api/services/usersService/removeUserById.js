@@ -5,5 +5,11 @@ module.exports = async (id) => {
     where: { id },
   });
 
-  return result;
+  const message = { ok: false, message: 'User not deleted!' };
+  if (result !== 0) {
+    message.message = `User ${id} deleted!`;
+    message.ok = true;
+  }
+
+  return message;
 };
