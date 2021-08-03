@@ -37,7 +37,7 @@ export default function TableRow({ row, tableIndex, showRemove }) {
     <tr key={ tableIndex }>
       <td
         className="products-table-cel"
-        data-testid={ `customer_checkout__element-order-table-item-number${tableIndex}` }
+        data-testid={ `customer_checkout__element-order-table-item-number-${tableIndex}` }
       >
         { tableIndex + 1 }
       </td>

@@ -23,7 +23,7 @@ const sendOrder = async ({
       },
     });
 
-    return true;
+    return saleId;
   } catch (error) {
     console.log(err);
     return false;

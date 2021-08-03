@@ -1,7 +1,9 @@
 const axios = require('axios');
 
 const fetchOrders = () => {
-  const orders = axios.get('http://localhost:3001/orders')
+  const orders = axios.post('http://localhost:3001/orders', {
+    idUser,
+  })
     .then((response) => {
       const { data } = response;
       return data;
