@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Navbar,
   Container,
@@ -8,18 +8,22 @@ import {
   Col,
   NavbarBrand,
 } from 'react-bootstrap';
-import { Redirect, useLocation } from 'react-router-dom';
+import { Redirect, useLocation, Link } from 'react-router-dom';
+import { GlobalContext } from '../context/GlobalProvider';
 import './Header.css';
 
 export default function Header() {
   const [redirect, setRedirect] = useState(false);
   const [, role, route] = useLocation().pathname.split('/');
-  if (redirect) return <Redirect to="/login" />;
-
+  const {
+    functions: { setStoredLS },
+  } = useContext(GlobalContext);
   const obj = localStorage.getItem('user');
 
+  if (redirect) return <Redirect to="/login" />;
   const logout = () => {
     localStorage.clear();
+    setStoredLS(null);
     setRedirect(true);
   };
 
@@ -59,12 +63,13 @@ export default function Header() {
               <Nav.Link
                 key={ idx }
                 eventKey={ contents.link }
-                href={ contents.link }
-                data-testid={ `${role}_${route}__element-navbar-link-${
+                data-testid={ `customer_products__element-navbar-link-${
                   contents.link.split('/')[2]
                 }` }
               >
-                {contents.name}
+                <Link to={ contents.link }>
+                  {contents.name}
+                </Link>
               </Nav.Link>
             ))}
           </Nav>
@@ -77,7 +82,7 @@ export default function Header() {
         >
           <Navbar.Text
             className="text-white align-middle m-1"
-            data-testid={ `${role}_${route}__element-navbar-user-full-name` }
+            data-testid="customer_products__element-navbar-user-full-name"
           >
             {name}
           </Navbar.Text>
@@ -87,7 +92,7 @@ export default function Header() {
             className="extend"
             variant="danger"
             onClick={ logout }
-            data-testid={ `${role}_${route}__element-navbar-link-logout` }
+            data-testid="customer_products__element-navbar-link-logout"
           >
             Sair
           </Button>

@@ -50,8 +50,12 @@ export default function ProductCard(props) {
   };
 
   const imgStyle = {
+<<<<<<< HEAD
     width: '5px',
     height: '5px',
+=======
+    height: '100%',
+>>>>>>> c6641851008509f8122524bb9b095a4467ee0023
   };
 
   return (
