@@ -9,6 +9,7 @@ import Components from './views/Components';
 import Home from './views/Home';
 import Register from './views/Register';
 import CustomerRouts from './views/Customer/Routes';
+import SellerOrders from './views/Seller';
 
 function Routes() {
   return (
@@ -19,6 +20,7 @@ function Routes() {
         <Route path="/components" component={ Components } />
         <Route path="/register" component={ Register } />
         <Route path="/customer" component={ CustomerRouts } />
+        <Route path="/seller/orders" component={ SellerOrders } />
       </Switch>
     </Router>
   );
