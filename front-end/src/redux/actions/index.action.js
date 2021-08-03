@@ -12,6 +12,7 @@ export const CHANGE_TOTAL_VALUE = 'CHANGE_TOTAL_VALUE';
 export const SAVE_USERS = 'SAVE_USERS';
 export const SAVE_ORDERS = 'SAVE_ORDERS';
 export const REQUEST_ORDERS_SELLER = 'REQUEST_ORDERS_SELLER';
+export const STATUS_CHANGE = 'STATUS_CHANGE';
 
 export const storeEmail = (email) => ({
   type: STORE_EMAIL,
@@ -140,3 +141,10 @@ export const requestAllOrdersSeller = () => async (dispatch) => {
     dispatch(actionIsLoading(false));
   }
 };
+
+export const changeStatus = (status) => ({
+  type: STATUS_CHANGE,
+  payload: {
+    status,
+  },
+});

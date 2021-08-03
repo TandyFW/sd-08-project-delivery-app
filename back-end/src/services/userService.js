@@ -40,7 +40,6 @@ const registerClient = async (name, email, password, role) => {
   const roleToRegister = role || 'customer';
   const nameAlredyExists = await User.findOne({ where: { email } });
   const emailAlredyExists = await User.findOne({ where: { name } });
-  console.log('name:', !(nameAlredyExists && emailAlredyExists));
   if (nameAlredyExists || emailAlredyExists) return userErrors.emailOrNameAlreadyExists;
   const passwordMd5 = md5(password);
   await User.create({

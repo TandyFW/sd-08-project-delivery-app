@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import NavBar from '../../Components/NavBar/NavBar';
 import ItemTable from '../../Components/ItemTable/ItemTable';
 import { getUserInfo } from '../../service/getLocalStorage';
+import { pedidoEntregue } from '../../socket/Socket';
 
 export default function OrderDetails() {
   const [isLoading, setLoading] = useState(true);
@@ -13,10 +14,11 @@ export default function OrderDetails() {
   const { id } = useParams();
   const path = `http://localhost:3001/order/details/${id}`;
   const [orderDetailsInfos, setOrderDetailsInfos] = useState({});
-  const [buttonDelivered, setButtonDelivered] = useState(true);
+  const [statusOrders, setstatusOrders] = useState('');
 
-  const delivered = () => {
-    setButtonDelivered(true);
+  const delivered = async () => {
+    const result = await pedidoEntregue(orderDetailsInfos.id);
+    setstatusOrders(result);
   };
 
   const formataDate = () => {
@@ -42,6 +44,7 @@ export default function OrderDetails() {
       const { products, sellerId } = response.data;
       setOrderProducts(products);
       setSellerInfos(sellerId);
+      setstatusOrders(response.data.status);
       setOrderDetailsInfos(response.data);
       setLoading(false);
     } catch (e) {
@@ -80,12 +83,12 @@ export default function OrderDetails() {
           <h3
             data-testid={ `${prefix}element-order-details-label-delivery-status` }
           >
-            {orderDetailsInfos.status}
+            {statusOrders}
           </h3>
           <button
             type="button"
             data-testid={ `${prefix}button-delivery-check` }
-            disabled={ buttonDelivered }
+            disabled={ statusOrders !== 'Em Trânsito' }
             onClick={ delivered }
           >
             Marcar Como Entregue
