@@ -10,7 +10,7 @@ const AdminManage = () => {
 
   return (
     <div>
-      <NavBar userType="admin" userName={ userData.user.name } />
+      <NavBar userType="admin" userName={ userData.name } />
       <Form />
     </div>
   );

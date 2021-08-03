@@ -21,20 +21,10 @@ function Login() {
     }
     return true;
   }
-  useEffect(() => {
-    if (userData) {
-      localStorage.setItem('user', JSON.stringify({
-        token: userData.token,
-        name: userData.user.name,
-        email: userData.user.email,
-        role: userData.user.role,
-      }));
-    }
-  }, [userData]);
 
   useEffect(() => {
     if (userData && userData.token) {
-      const { user: { role } } = userData;
+      const { role } = userData;
       switch (role) {
       case 'customer':
         history.push('/customer/products');

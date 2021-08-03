@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from 'react';
-import Error from '../../../../components/error';
 import Context from '../../../../context/Context';
 
 const Form = () => {
@@ -39,7 +38,7 @@ const Form = () => {
       },
       body: JSON.stringify({ name, email, password, role }),
     };
-    await fetch('http://localhost:3001/register', myInit)
+    await fetch('http://localhost:3001/admin/register', myInit)
       .then((response) => response.json())
       .then((data) => setCadUser(data))
       .catch((err) => {
@@ -115,8 +114,8 @@ const Form = () => {
           CADASTRAR
         </button>
         {cadUser && cadUser.message
-        && <Error
-          testid="admin_manage__element-invalid_register"
+        && <div
+          data-testid="admin_manage__element-invalid-register"
           message={ cadUser.message }
         />}
       </form>

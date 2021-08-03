@@ -10,6 +10,7 @@ import Components from './views/Components';
 import Home from './views/Home';
 import Register from './views/Register';
 import CustomerRouts from './views/Customer/Routes';
+import AdminRouts from './views/Admin/Routes';
 
 function Routes() {
   return (
