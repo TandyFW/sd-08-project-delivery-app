@@ -3,7 +3,7 @@ const ProductServices = require('./products');
 const SaleSchema = require('../schemas/sale');
 
 const getAllSales = async () => Sale.findAll({
-  attributes: ['id', 'status', 'saleDate', 'totalPrice'],
+  attributes: ['id', 'status', 'saleDate', 'totalPrice', 'deliveryAddress'],
 });
 
 const getItemPrice = async (id) => {
