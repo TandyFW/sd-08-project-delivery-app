@@ -12,15 +12,15 @@ const RequestStatusTag = styled.div`
 
   ${(props) => {
     switch (props.status) {
-    case 'delivered':
+    case 'Entregue':
       return css`
         background-color: rgba(0, 204, 155, 0.75);
       `;
-    case 'preparing':
+    case 'Preparando':
       return css`
         background-color: rgba(102, 204, 0, 0.75);
       `;
-    case 'pending':
+    case 'Pendente':
       return css`
         background-color: rgba(204, 184, 0, 0.75);
       `;

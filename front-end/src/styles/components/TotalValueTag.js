@@ -4,7 +4,7 @@ const StyledTotalValueTag = styled.button`
   background-color: ${({ theme }) => theme.colors.primary};
   border: none;
   border-radius: 10px;
-  bottom: 20px;
+  bottom: 10px;
   color: white;
   cursor: pointer;
   font-size: 2rem;
@@ -20,7 +20,7 @@ const StyledTotalValueTag = styled.button`
       position: fixed;
     `;
   }}
-  right: 20px;
+  right: 10px;
 
   &:disabled {
     cursor: not-allowed;

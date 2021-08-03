@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { DeliveryProvider } from './context/DeliveryContext';
+import { DeliveryProvider } from './context/UserContext';
 import { CartProvider } from './context/CartContext';
 import App from './App';
 

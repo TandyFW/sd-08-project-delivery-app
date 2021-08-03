@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import DeliveryContext from '../../context/DeliveryContext';
+import UserContext from '../../context/UserContext';
 import {
   StyledNavbar,
   Username,
@@ -10,7 +10,7 @@ import {
 } from '../../styles/components/Navbar/Navbar';
 
 const Navbar = ({ className, children }) => {
-  const { name } = useContext(DeliveryContext);
+  const { name } = useContext(UserContext);
   const history = useHistory();
 
   const handleExit = () => {

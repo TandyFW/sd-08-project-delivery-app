@@ -1,13 +1,13 @@
 import React, { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
 
-const DeliveryContext = createContext();
+const UserContext = createContext();
 
 export function DeliveryProvider({ children }) {
-  const [name, setName] = useState('name');
-  const [email, setEmail] = useState('email');
-  const [role, setRole] = useState('role');
-  const [token, setToken] = useState('token');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [role, setRole] = useState('');
+  const [token, setToken] = useState('');
 
   const contextValue = {
     name,
@@ -21,9 +21,9 @@ export function DeliveryProvider({ children }) {
   };
 
   return (
-    <DeliveryContext.Provider value={ contextValue }>
+    <UserContext.Provider value={ contextValue }>
       { children }
-    </DeliveryContext.Provider>
+    </UserContext.Provider>
   );
 }
 
@@ -34,4 +34,4 @@ DeliveryProvider.propTypes = {
   ]).isRequired,
 };
 
-export default DeliveryContext;
+export default UserContext;

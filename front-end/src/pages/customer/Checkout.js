@@ -30,6 +30,9 @@ const Checkout = () => {
 
   const fetchSellers = async () => {
     const result = await api.getSellers();
+    if (result.length > 0) {
+      setSelectedSeller(result[0].id);
+    }
     setSellers(result);
   };
 

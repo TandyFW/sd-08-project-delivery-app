@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as api from '../../services/api';
-import DeliveryContext from '../../context/DeliveryContext';
+import UserContext from '../../context/UserContext';
 import Input from '../../components/Input/Input';
 import { ButtonPrimary, ButtonTertiary } from '../../components/Input/Button';
 import { LoginContainer, StyledContainer } from '../../styles/pages/common/Login';
@@ -10,7 +10,7 @@ function Login() {
   const [localEmail, setLocalEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showWarning, setShowWarning] = useState(false);
-  const { setName, setEmail, setRole, setToken } = useContext(DeliveryContext);
+  const { setName, setEmail, setRole, setToken } = useContext(UserContext);
 
   const history = useHistory();
 

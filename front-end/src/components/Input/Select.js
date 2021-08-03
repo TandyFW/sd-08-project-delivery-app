@@ -12,7 +12,7 @@ const Select = ({ options, ...props }) => (
 );
 
 Select.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  options: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Select;

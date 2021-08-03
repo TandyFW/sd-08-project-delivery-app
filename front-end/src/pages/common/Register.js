@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import DeliveryContext from '../../context/DeliveryContext';
+import UserContext from '../../context/UserContext';
 import * as api from '../../services/api';
 
 import Input from '../../components/Input/Input';
@@ -13,7 +13,7 @@ function Register() {
   const [password, setPassword] = useState('');
   const [showWarning, setShowWarning] = useState(false);
   const { setName, setEmail,
-    setRole, setToken } = useContext(DeliveryContext);
+    setRole, setToken } = useContext(UserContext);
 
   const history = useHistory();
 

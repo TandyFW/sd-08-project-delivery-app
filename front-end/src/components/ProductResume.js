@@ -12,10 +12,9 @@ import {
   RemoveButton,
 } from '../styles/components/ProductResume';
 
-const ProductResume = ({ testId, index, product, removable }) => {
+const ProductResume = ({ testId, index, product, quantity, removable }) => {
   const { id, name, price } = product;
-  const { cart, removeCartItem } = useContext(CartContext);
-  const quantity = cart[product.id];
+  const { removeCartItem } = useContext(CartContext);
 
   const renderRemoveButton = () => (
     <RemoveButton
@@ -69,6 +68,7 @@ ProductResume.propTypes = {
   product: productType.isRequired,
   index: PropTypes.number.isRequired,
   testId: PropTypes.string,
+  quantity: PropTypes.number.isRequired,
 };
 
 export default ProductResume;

@@ -13,7 +13,6 @@ export const register = async (name, email, password) => {
 };
 
 export const login = async (email, password) => {
-  console.log(email, password);
   const { data } = await axios({
     method: 'post',
     url: `${URL_BASE}/login`,
@@ -43,5 +42,10 @@ export const getProducts = async () => {
 
 export const getSellers = async () => {
   const { data } = await axios.get(`${URL_BASE}/sellers`);
+  return data;
+};
+
+export const getOrder = async (id) => {
+  const { data } = await axios.get(`${URL_BASE}/sales/${id}`);
   return data;
 };
