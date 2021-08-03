@@ -78,7 +78,7 @@ const products = [
 function Products() {
   const { cart: { set } } = useContext(Context);
   useEffect(() => {
-    set(products.map(({ id, price }) => ({ id, price, quantity: 0 })));
+    set(products.map(({ id, price, name }) => ({ id, price, name, quantity: 0 })));
   }, []);
 
   return (

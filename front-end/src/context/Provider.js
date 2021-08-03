@@ -26,7 +26,7 @@ function Provider({ children }) {
     // ));
     const newCart = cart.map((item) => {
       if (item.id === product.id) {
-        item = { ...product, price: item.price };
+        item = { ...product, name: item.name, price: item.price };
       }
       return item;
     });
