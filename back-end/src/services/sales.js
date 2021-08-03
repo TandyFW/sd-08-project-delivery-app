@@ -2,7 +2,9 @@ const { Sale, sequelize } = require('../database/models');
 const ProductServices = require('./products');
 const SaleSchema = require('../schemas/sale');
 
-const getAllSales = async () => Sale.findAll();
+const getAllSales = async () => Sale.findAll({
+  attributes: ["id", "status", "saleDate", "totalPrice"]
+});
 
 const getItemPrice = async (id) => {
   const { price } = await ProductServices.findById(id);
