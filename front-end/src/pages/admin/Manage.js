@@ -1,0 +1,113 @@
+import React, { useContext, useEffect, useState } from 'react';
+import AdminNavbar from '../../components/Navbar/AdminNavbar';
+import ListContainer from '../../components/List/ListContainer';
+import {
+  Container,
+  CheckoutLabel,
+  Section,
+  FormContainer,
+  Title,
+} from '../../styles/pages/customer/Checkout';
+
+const Manage = () => { 
+  const [selectedRole, setSelectedRole] = useState();
+  const [userName, setUserName] = useState();
+  const [userEmail, setUserEmail] = useState();
+  const [userPassword, setUserPassword] = useState();
+  const [showWarning, setShowWarning] = useState(false);
+  
+  const roles = [
+    { id: 1, name: 'Vendedor', value: 'seller' },
+    { id: 2, name: 'Cliente', value: 'customer' }, 
+    { id: 3, name: 'Administrador', value: 'administrator' },
+  ];
+
+  const isDisabled = () => {
+    const validEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    const SEIS = 6;
+    const DOZE = 12;
+    return !validEmail.test(userEmail)
+      || userPassword.length < SEIS
+      || userName.length < DOZE
+      || selectedRole !== '';
+  };
+
+  async function handleClick() {
+    try {
+      const role = roles.find((element) => element.id = selectedRole);
+      const { token } = JSON.parse(localStorage.getItem('user'));
+      const response = await api.newUser({
+        name: userName,
+        email: userEmail,
+        password: userPassword,
+        role: role.value,
+        token,
+      })
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+      setShowWarning(true);
+    }
+  }
+  
+  const renderForm = () => (
+    <Section>
+      <Title>Cadastrar novo usuario</Title>
+      <ListContainer>
+        <FormContainer>
+        <CheckoutLabel text="Nome">
+            <Input
+              data-testid="admin_manage__input-name"
+              value={ userName }
+              onChange={ ({ target }) => setUserName(target.value) }
+            />
+          </CheckoutLabel>
+          <CheckoutLabel text="Email">
+            <Input
+              data-testid="admin_manage__input-email"
+              value={ userEmail }
+              onChange={ ({ target }) => setUserEmail(target.value) }
+            />
+          </CheckoutLabel>
+          <CheckoutLabel text="Senha">
+            <Input
+              type="password"
+              data-testid="admin_manage__input-password"
+              value={ userPassword }
+              onChange={ ({ target }) => setUserPassword(target.value) }
+            />
+          </CheckoutLabel>
+          <CheckoutLabel text="Tipo">
+            <Select
+              options={ roles }
+              data-testid="admin_manage__select-role"
+              value={ selectedRole }
+              onChange={ ({ target }) => setSelectedRole(Number(target.value)) }
+            />
+          </CheckoutLabel>
+          <ButtonPrimary
+            type="button"
+            data-testid="common_register__button-register"
+            disabled={ isDisabled() }
+            onClick={ handleClick }
+          >
+            CADASTRAR
+        </ButtonPrimary>
+        </FormContainer>
+        { showWarning
+          && <p data-testid="admin_manage__element-invalid-register">Deu ruim!</p> }
+      </ListContainer>
+    </Section>
+  );
+  
+  return (
+    <>
+      <AdminNavbar />
+      <Container>
+        { renderForm() }
+      </Container>
+    </>
+   );
+}
+
+export default Manage;

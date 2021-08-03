@@ -54,3 +54,16 @@ export const getOrders = async () => {
   const { data } = await axios.get(`${URL_BASE}/sales`);
   return data;
 };
+
+export const newUser = async ({ name, email, password, role, token}) => {
+  const { data } = await axios({
+    method: 'post',
+    url: `${URL_BASE}/admin`,
+    data: { name, email, password, role },
+    headers: {
+      authorization: token,
+    },
+  });
+
+  return data;
+}
