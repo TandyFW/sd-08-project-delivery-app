@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import DeliveryAppContext from './DeliveryAppContext';
 import fetchProducts from '../services/fetchProducts';
+import fetchSellers from '../services/fetchSellers';
 
 function DeliveryAppProvider({ children }) {
   const [itemsList, setItemsList] = useState([]);
@@ -11,6 +12,9 @@ function DeliveryAppProvider({ children }) {
   const [totalPrice, setTotalPrice] = useState(0);
   const [sellerId, setSellerId] = useState(0);
   const [userId, setUserId] = useState(0);
+  const [sellers, setSellers] = useState([]);
+  const [orderStatus, setOrderStatus] = useState('');
+  const [user, setUser] = useState({});
 
   const getRoute = () => {
     const currentRoute = localStorage.getItem('route');
@@ -42,13 +46,41 @@ function DeliveryAppProvider({ children }) {
     setTotalPrice(currentTotalPrice);
   };
 
+  const getSellers = async () => {
+    const data = await fetchSellers();
+    return setSellers(data);
+  };
+
   useEffect(() => getTotalPrice(), [itemsList]);
 
   useEffect(() => {
-    getRoute();
-    rescueStorageList();
     getCardList();
+    getRoute();
+    getSellers();
+    rescueStorageList();
   }, []);
+
+  const setStorage = () => {
+    const { name, email, role, token } = user;
+
+    const storge = {
+      name,
+      email,
+      role,
+      token,
+    };
+
+    localStorage.setItem('user', JSON.stringify(storge));
+  };
+
+  const getUserId = () => {
+    setUserId(user.id);
+  };
+
+  useEffect(() => {
+    setStorage();
+    getUserId();
+  }, [user]);
 
   return (
     <DeliveryAppContext.Provider
@@ -65,6 +97,12 @@ function DeliveryAppProvider({ children }) {
         setSellerId,
         userId,
         setUserId,
+        sellers,
+        setSellers,
+        orderStatus,
+        setOrderStatus,
+        user,
+        setUser,
       } }
     >
       {children}

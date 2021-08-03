@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 import Table from './Table';
-import HEADING_LIST_CHECKOUT from '../utils/Lists';
+import { HEADING_LIST_CHECKOUT } from '../utils/Lists';
 
 export default function ProductsList() {
   const { itemsList, totalPrice } = useContext(DeliveryAppContext);
