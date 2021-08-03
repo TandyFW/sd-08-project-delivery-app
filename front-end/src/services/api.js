@@ -44,11 +44,11 @@ export const registerRequest = (user, setUsrExists, history) => (
 
 export const getProducts = (token) => requestApi('/product', 'GET', {}, token);
 
-export const postSale = async (seller,
+export const postSale = async (sellerId,
   user, { deliveryAddress, deliveryNumber }, products) => {
   const data = {
     userId: user.id,
-    sellerId: seller.id,
+    sellerId,
     totalPrice: products
       .reduce((acc, { count, price }) => acc + Number(count * price), 0)
       .toFixed(2),

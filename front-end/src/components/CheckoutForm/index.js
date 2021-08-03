@@ -15,7 +15,7 @@ function CheckoutForm() {
   const history = useHistory();
 
   const [sellers, setSellers] = useState([]);
-  const [seller, setSeller] = useState('');
+  const [seller, setSeller] = useState(0);
   const [address, setAddress] = useState('');
   const [addressNumber, setAddressNumber] = useState('');
 
@@ -38,15 +38,12 @@ function CheckoutForm() {
 
   const finishOrder = () => {
     const userData = JSON.parse(localStorage.getItem('user'));
-    console.log('user data', userData);
-    const sellerData = JSON.parse(seller);
-    console.log('seller data', sellerData);
 
     const addressData = {
       deliveryAddress: address,
       deliveryNumber: addressNumber,
     };
-    postSale(sellerData, userData, addressData, cart)
+    postSale(seller, userData, addressData, cart)
       .then(({ saleId }) => {
         history.push(`/customer/orders/${saleId}`);
       })
@@ -66,13 +63,13 @@ function CheckoutForm() {
             onChange={ ({ target: { value } }) => { setSeller(value); } }
             data-testid="customer_checkout__select-seller"
           >
-            <option value="" disabled>
-              P.Vendedora Responsável
+            <option>
+              Vendedor
             </option>
             { sellers.map((thisSeller, i) => (
               <option
                 key={ i }
-                value={ JSON.stringify(thisSeller) }
+                value={ thisSeller.id }
               >
                 {thisSeller.name}
               </option>))}
