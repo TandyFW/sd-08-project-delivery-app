@@ -19,7 +19,7 @@ export default function OrderCard(props) {
           { id }
         </Col>
         <Col
-          data-testid={ `${user}_orders__element-order-status-${id}` }
+          data-testid={ `${user}_orders__element-delivery-status-${id}` }
           className="text-center p-4"
         >
           { status }

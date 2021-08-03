@@ -22,16 +22,16 @@ export default function OrderDetailsComp() {
   const [status, setStatus] = useState('');
   const history = useHistory();
   const urlText = history.location.pathname;
+  let totalValues = 0;
   const id = urlText.split('s/')[1];
   const roleUser = urlText.split('/')[1];
-  let accTotalPriceValue = 0;
   const tokenUser = JSON.parse(localStorage.getItem('user')).token;
   const configAxios = {
     headers: { Authorization: tokenUser },
   };
   const prefix = {
     customer: 'customer_order_details__',
-    seller: 'seller_orders__',
+    seller: 'seller_order_details__',
   };
 
   useEffect(() => {
@@ -39,9 +39,8 @@ export default function OrderDetailsComp() {
       try {
         const result = await axios.get(`http://localhost:3001/${roleUser}/orders/${id}`, configAxios);
         setOrder(result.data.result.products);
-        const data = new Date(result.data.result.saleDate);
-        const daForm = (`${data.getDate()}/${data.getMonth() + 1}/${data.getFullYear()}`);
-        setSaleDate(daForm);
+        const data = new Date(result.data.result.saleDate).toLocaleDateString('pt-br');
+        setSaleDate(data);
         setStatus(result.data.result.status);
         setSeller(result.data.user.name);
         setLoading(false);
@@ -50,18 +49,17 @@ export default function OrderDetailsComp() {
       }
     }
     requestOrderById();
-  }, [id, loading, status, roleUser]);
+  }, [id, loading, status, roleUser, configAxios]);
 
-  const accTotalPrice = (value) => {
-    accTotalPriceValue = value + accTotalPriceValue;
+  const totalValue = (value) => {
+    totalValues = parseFloat(value) + parseFloat(totalValues);
     return null;
   };
 
   const conditionUser = () => {
     if (roleUser === 'seller') return false;
     return (
-      <Col data-testid={ `${prefix[roleUser]}element-order-details-label-order-date` }>
-        P. Vend:
+      <Col data-testid={ `${prefix[roleUser]}element-order-details-label-seller-name` }>
         { ' ' }
         {seller}
       </Col>
@@ -134,7 +132,7 @@ export default function OrderDetailsComp() {
       { conditionUser() }
       <Col
         className="font-weight-bold rounded bg-secondary text-black"
-        data-testid={ `${prefix[roleUser]}element-order-details-label-seller-name` }
+        data-testid={ `${prefix[roleUser]}element-order-details-label-order-date` }
       >
         {saleDate}
 
@@ -152,19 +150,19 @@ export default function OrderDetailsComp() {
     </Row>
   );
 
-  const renderTable = () => {
-    const result = order.map((elem, index) => (
-      <Table striped bordered hover size="lg" key={ elem.id }>
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Descrição</th>
-            <th>Quantidade</th>
-            <th>Valor Unitário</th>
-            <th>Sub-Total</th>
-          </tr>
-        </thead>
-        <tbody>
+  const renderTable = () => (
+    <Table striped bordered hover size="lg">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Descrição</th>
+          <th>Quantidade</th>
+          <th>Valor Unitário</th>
+          <th>Sub-Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        { order.map((elem, index) => (
           <tr key={ index }>
             <td
               data-testid={
@@ -192,7 +190,7 @@ export default function OrderDetailsComp() {
             >
               R$
               {' '}
-              {elem.price}
+              {elem.price.replace('.', ',')}
             </td>
             <td
               className="subtotal"
@@ -202,33 +200,29 @@ export default function OrderDetailsComp() {
             >
               R$
               {' '}
-              {(elem.salesProducts.quantity * elem.price).toFixed(2)}
+              {(elem.salesProducts.quantity * elem.price).toFixed(2).replace('.', ',')}
             </td>
+            {
+              totalValue(parseFloat(elem.salesProducts.quantity * elem.price).toFixed(2))
+            }
           </tr>
-          {
-            accTotalPrice(parseFloat(elem.salesProducts.quantity * elem.price).toFixed(2))
-          }
-        </tbody>
-        <tbody>
-          <tr>
-            <td
-              className="justify"
-              data-testid={ `${prefix[roleUser]}element-order-total-price` }
-            >
-              Total: R$
-              { ' ' }
-              { parseFloat(accTotalPriceValue).toFixed(2) }
-            </td>
-          </tr>
-        </tbody>
-      </Table>
-    ));
-    return result;
-  };
-
-  const renderError = () => (
-    <span>{error}</span>
+        ))}
+      </tbody>
+      <tbody>
+        <tr>
+          Total R$:
+          <td
+            className="justify"
+            data-testid={ `${prefix[roleUser]}element-order-total-price` }
+          >
+            { totalValues.toFixed(2).replace('.', ',') }
+          </td>
+        </tr>
+      </tbody>
+    </Table>
   );
+
+  const renderError = () => <span>{error}</span>;
 
   const render = () => (
     <div>
