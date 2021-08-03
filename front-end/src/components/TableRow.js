@@ -9,8 +9,8 @@ export default function TableRow({ row, tableIndex, showRemove }) {
   const [rowSubtotal, setRowSubtotal] = useState(0);
 
   const remove = () => {
-    console.log(row.name);
     const currentList = itemsList.filter((item) => item.name !== row.name);
+
     setItemsList(currentList);
   };
 
@@ -85,6 +85,7 @@ export default function TableRow({ row, tableIndex, showRemove }) {
 
 TableRow.propTypes = {
   row: PropTypes.shape({
+    id: PropTypes.number,
     name: PropTypes.string,
     quantity: PropTypes.number,
     unitaryPrice: PropTypes.number,
@@ -96,4 +97,5 @@ TableRow.propTypes = {
   }).isRequired,
   tableIndex: PropTypes.number.isRequired,
   showRemove: PropTypes.bool.isRequired,
+
 };

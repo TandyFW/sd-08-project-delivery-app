@@ -42,7 +42,7 @@ export default function ProductsList() {
           className="total-price-order"
           data-testid="customer_checkout__element-order-total-price"
         >
-          { `Total: R$ ${totalPrice}` }
+          { totalPrice.replace('.', ',') }
         </p>
       </div>
     </div>
