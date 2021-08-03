@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import DeliveryAppContext from '../context/DeliveryAppContext';
-import fetchSellers from '../services/fetchSellers';
 import sendOrder from '../services/sendOrder';
 
 export default function FormCheckout() {
@@ -10,15 +9,10 @@ export default function FormCheckout() {
     userId,
     totalPrice,
     itemsList,
+    sellers,
   } = useContext(DeliveryAppContext);
-  const [sellers, setSellers] = useState([]);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
-
-  const getSellers = async () => {
-    const data = await fetchSellers();
-    return setSellers(data);
-  };
 
   const submitOrder = (e) => {
     e.preventDefault();
@@ -37,8 +31,6 @@ export default function FormCheckout() {
     console.log(currentSellerId);
     setSellerId(currentSellerId);
   };
-
-  useEffect(() => getSellers(), []);
 
   return (
     <div className="form-checkout-container">
