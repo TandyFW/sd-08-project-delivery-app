@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
 import { Button } from '@material-ui/core/';
 import { getSaleById } from '../../services/api';
 import { logout } from '../../services/auth';
