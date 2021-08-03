@@ -1,7 +1,10 @@
 import { Grid } from '@material-ui/core';
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+
+import CartButton from '../../components/buttons/CartButton';
 import ProductCard from '../../components/cards/productCard';
 import NavBar from '../../components/NavBar';
+import Context from '../../context/Context';
 
 const products = [
   {
@@ -73,6 +76,11 @@ const products = [
 ];
 
 function Products() {
+  const { cart: { set } } = useContext(Context);
+  useEffect(() => {
+    set(products.map(({ id, price }) => ({ id, price, quantity: 0 })));
+  }, []);
+
   return (
     <>
       <NavBar />
@@ -92,7 +100,7 @@ function Products() {
           />
         ))}
       </Grid>
-
+      <CartButton />
     </>
   );
 }
