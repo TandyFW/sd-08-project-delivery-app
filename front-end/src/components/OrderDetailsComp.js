@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import Table from 'react-bootstrap/Table';
-import Container from 'react-bootstrap/Container';
-import { Button } from 'react-bootstrap';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { Table, Container, Button, Row, Col } from 'react-bootstrap';
+import Socket from '../service/socketConfig';
 import '../styles/orderDetails.css';
 import {
   orderNumber,
@@ -26,6 +23,7 @@ export default function OrderDetailsComp() {
   const id = urlText.split('s/')[1];
   const roleUser = urlText.split('/')[1];
   const tokenUser = JSON.parse(localStorage.getItem('user')).token;
+  const socket = Socket(tokenUser);
   const configAxios = {
     headers: { Authorization: tokenUser },
   };
@@ -44,6 +42,7 @@ export default function OrderDetailsComp() {
         setStatus(result.data.result.status);
         setSeller(result.data.user.name);
         setLoading(false);
+        socket.emit('newOrder', 'bla');
       } catch (err) {
         setError('Not Found!');
       }
@@ -72,6 +71,7 @@ export default function OrderDetailsComp() {
         status: value,
       }, configAxios);
       setStatus(value);
+      socket.emit('updateOrder', 'bla2');
     } catch (e) {
       console.log(e);
     }

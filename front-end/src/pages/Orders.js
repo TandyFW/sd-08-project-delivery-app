@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Col, Container, Row } from 'react-bootstrap';
 import OrderCard from '../components/OrderCard';
@@ -12,15 +12,28 @@ function Orders() {
   const { token } = JSON.parse(localStorage.getItem('user'));
   const hasSeller = route === 'seller';
   const { request, response } = useAxios();
+  const [bla, setBla] = useState('');
+  const [bla2, setBla2] = useState('');
   const socket = Socket(token);
 
-  useEffect(() => request(API(token)[route]), [request, route, token]);
-  useEffect(() => {
-    socket.on('server', (server) => {
-      console.log(server);
-    });
-    socket.emit('server');
+  useEffect(() => request(API(token)[route]), [request, route, token, bla, bla2]);
+
+  // useEffect(() => {
+  //   socket.on('newOrder', (string) => {
+  //     setBla(string);
+  //   });
+  //   socket.on('updateOrder', (string) => {
+  //     setBla2(string);
+  //   });
+  // }, [socket]);
+
+  socket.on('newOrder', (string) => {
+    setBla(string);
   });
+  socket.on('updateOrder', (string) => {
+    setBla2(string);
+  });
+
   return (
     <>
       <Header />
