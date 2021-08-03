@@ -23,7 +23,7 @@ export default function Header() {
   if (redirect) return <Redirect to="/login" />;
   const logout = () => {
     localStorage.clear();
-    setStoredLS(null);
+    setStoredLS(false);
     setRedirect(true);
   };
 
