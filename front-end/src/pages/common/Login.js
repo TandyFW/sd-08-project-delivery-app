@@ -8,6 +8,7 @@ import { LoginContainer, StyledContainer } from '../../styles/pages/common/Login
 
 const getDestination = (role) => {
   if (role === 'seller') return '/seller/orders';
+  if (role === 'administrator') return '/admin/manage';
   return '/customer/products';
 };
 

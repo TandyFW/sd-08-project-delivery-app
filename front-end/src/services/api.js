@@ -55,7 +55,7 @@ export const getOrders = async () => {
   return data;
 };
 
-export const newUser = async ({ name, email, password, role, token}) => {
+export const newUser = async ({ name, email, password, role, token }) => {
   const { data } = await axios({
     method: 'post',
     url: `${URL_BASE}/admin`,
@@ -66,4 +66,4 @@ export const newUser = async ({ name, email, password, role, token}) => {
   });
 
   return data;
-}
+};

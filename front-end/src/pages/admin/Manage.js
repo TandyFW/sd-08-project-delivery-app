@@ -1,6 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import * as api from '../../services/api';
 import AdminNavbar from '../../components/Navbar/AdminNavbar';
 import ListContainer from '../../components/List/ListContainer';
+import Input from '../../components/Input/Input';
+import Select from '../../components/Input/Select';
+import { ButtonPrimary } from '../../components/Input/Button';
 import {
   Container,
   CheckoutLabel,
@@ -9,16 +13,16 @@ import {
   Title,
 } from '../../styles/pages/customer/Checkout';
 
-const Manage = () => { 
+const Manage = () => {
   const [selectedRole, setSelectedRole] = useState();
-  const [userName, setUserName] = useState();
-  const [userEmail, setUserEmail] = useState();
-  const [userPassword, setUserPassword] = useState();
+  const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const [userPassword, setUserPassword] = useState('');
   const [showWarning, setShowWarning] = useState(false);
-  
+
   const roles = [
     { id: 1, name: 'Vendedor', value: 'seller' },
-    { id: 2, name: 'Cliente', value: 'customer' }, 
+    { id: 2, name: 'Cliente', value: 'customer' },
     { id: 3, name: 'Administrador', value: 'administrator' },
   ];
 
@@ -27,14 +31,14 @@ const Manage = () => {
     const SEIS = 6;
     const DOZE = 12;
     return !validEmail.test(userEmail)
-      || userPassword.length < SEIS
-      || userName.length < DOZE
-      || selectedRole !== '';
+    || userPassword.length < SEIS
+    || userName.length < DOZE
+    || selectedRole === '';
   };
 
   async function handleClick() {
     try {
-      const role = roles.find((element) => element.id = selectedRole);
+      const role = roles.find((element) => element.id === selectedRole);
       const { token } = JSON.parse(localStorage.getItem('user'));
       const response = await api.newUser({
         name: userName,
@@ -42,20 +46,20 @@ const Manage = () => {
         password: userPassword,
         role: role.value,
         token,
-      })
+      });
       console.log(response);
     } catch (error) {
       console.log(error);
       setShowWarning(true);
     }
   }
-  
+
   const renderForm = () => (
     <Section>
       <Title>Cadastrar novo usuario</Title>
       <ListContainer>
         <FormContainer>
-        <CheckoutLabel text="Nome">
+          <CheckoutLabel text="Nome">
             <Input
               data-testid="admin_manage__input-name"
               value={ userName }
@@ -87,19 +91,19 @@ const Manage = () => {
           </CheckoutLabel>
           <ButtonPrimary
             type="button"
-            data-testid="common_register__button-register"
+            data-testid="admin_manage__button-register"
             disabled={ isDisabled() }
             onClick={ handleClick }
           >
             CADASTRAR
-        </ButtonPrimary>
+          </ButtonPrimary>
         </FormContainer>
         { showWarning
           && <p data-testid="admin_manage__element-invalid-register">Deu ruim!</p> }
       </ListContainer>
     </Section>
   );
-  
+
   return (
     <>
       <AdminNavbar />
@@ -107,7 +111,7 @@ const Manage = () => {
         { renderForm() }
       </Container>
     </>
-   );
-}
+  );
+};
 
 export default Manage;
