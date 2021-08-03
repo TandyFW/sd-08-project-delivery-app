@@ -1,15 +1,16 @@
 header {
   background-color: #f3f3f3;
-  border: 1px solid #e7e7e7;
   display: flex;
+  height: 50px;
   margin: 0;
   overflow: hidden;
   width: 100%;
 }
 
 ul {
+  align-items: center;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   list-style-type: none;
   width: 100%;
 }
@@ -35,4 +36,13 @@ li a {
 
 li a:hover {
   background-color: #fff9d5;
+}
+
+button {
+  background-color: lightseagreen;
+  border: none;
+  border-radius: 3px;
+  font-size: large;
+  height: 50px;
+  width: 125px;
 }
