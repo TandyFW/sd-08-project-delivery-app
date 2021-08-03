@@ -2,7 +2,9 @@
 // import Process from "./process/process";
 import socketClient from 'socket.io-client';
 import React from 'react';
-const SOCKET_PORT = process.env.SOCKET_PORT || 3002;
+
+const SOCKETport = 3002;
+const SOCKET_PORT = process.env.SOCKET_PORT || SOCKETport;
 // import Home from './Home';
 // import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 // import "./App.scss";
