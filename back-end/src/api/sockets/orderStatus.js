@@ -10,6 +10,7 @@ module.exports = (io) => {
       }
 
       const data = await getSaleById(id);
+      console.log(data.status);
       io.emit('getUpdatedStatus', data.status);
     });
 
