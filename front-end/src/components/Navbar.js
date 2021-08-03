@@ -2,6 +2,8 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import '../styles/Navbar.css';
+
 const Navbar = ({ name }) => {
   const history = useHistory();
 
@@ -12,7 +14,7 @@ const Navbar = ({ name }) => {
 
   return (
     <header>
-      <nav>
+      <nav className="navbar">
         <ul>
           <li>
             <Link

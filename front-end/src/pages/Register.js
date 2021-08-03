@@ -19,6 +19,12 @@ function Register() {
   const { Nome, Email, Senha } = inputValue;
   const history = useHistory();
 
+  useEffect(() => user && history.push('/customer/products'), [user, history]);
+
+  const handleChange = ({ target }) => {
+    setInputValue({ ...inputValue, [target.name]: target.value });
+  };
+
   const handleClick = async () => {
     const newUser = await createUser({ name: Nome, email: Email, password: Senha });
 
@@ -28,12 +34,6 @@ function Register() {
     }
 
     return !newUser && setShowErrorMessage(true);
-  };
-
-  useEffect(() => user && history.push('/customer/products'), [user, history]);
-
-  const handleChange = ({ target }) => {
-    setInputValue({ ...inputValue, [target.name]: target.value });
   };
 
   const isRegisterValid = () => {

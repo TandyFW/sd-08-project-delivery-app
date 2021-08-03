@@ -6,10 +6,10 @@
   box-shadow: 3px 3px 10px;
   display: flex;
   flex-direction: column;
-  height: 50vh;
+  height: 400px;
   justify-content: space-around;
   overflow: hidden;
-  width: 20vw;
+  width: 300px;
 }
 
 .register-container header {
@@ -20,11 +20,11 @@
 
 .register-container img {
   margin: 13px;
-  width: 15%;
+  width: 50px;
 }
 
 .register-container h1 {
-  font-size: 2rem;
+  font-size: 24px;
   margin: 20px 0;
 }
 
@@ -50,9 +50,9 @@
   border: 1px solid var(--gray-100);
   border-radius: 5px;
   box-shadow: 2px 2px 7px var(--gray-500);
-  font-size: 1.3rem;
+  font-size: 18px;
   margin: 5px;
-  padding: 3.5%;
+  padding: 10px;
   width: 95%;
 }
 
@@ -63,7 +63,7 @@
   box-shadow: 4px 4px 10px var(--gray-500);
   color: var(--white);
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 20px;
   font-weight: 700;
   margin-top: 15px;
   padding: 12px;

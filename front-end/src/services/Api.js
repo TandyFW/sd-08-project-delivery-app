@@ -9,4 +9,15 @@ export const createUser = async (userInfo) => {
   }
 };
 
-export const teste = async () => axios.get('https://randomuser.me/api/');
+export const fetchSaleById = async (id, token) => {
+  try {
+    const { data } = await axios.get(`http://localhost:3001/customer/orders/${id}`, {
+      headers: {
+        authorization: token,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};

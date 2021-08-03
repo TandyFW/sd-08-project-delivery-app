@@ -14,6 +14,7 @@ function Routes() {
   return (
     <Switch>
       <Route path="/register" component={ Register } />
+      <Route path="/customer/orders/:id" component={ CustomerOrderDetails } />
       <Route path="/customer/orders">
         <OrderContextProvider>
           <CustomerOrders />
@@ -27,11 +28,6 @@ function Routes() {
       <Route path="/customer/checkout">
         <CartContextProvider>
           <CustomerCheckout />
-        </CartContextProvider>
-      </Route>
-      <Route path="/customer/orders/:id">
-        <CartContextProvider>
-          <CustomerOrderDetails />
         </CartContextProvider>
       </Route>
       <Route path="/login">

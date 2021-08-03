@@ -1,8 +1,8 @@
 // https://adrianarlett.gitbooks.io/idiomatic-redux-by-dan-abramov/content/supplying-the-initial-state.html
 
-export const loadState = () => {
+export const loadState = (state) => {
   try {
-    const serializedState = localStorage.getItem('state');
+    const serializedState = localStorage.getItem(state);
     if (serializedState === null) {
       return undefined;
     }
