@@ -1,9 +1,11 @@
+const moment = require('moment');
+
 const sale = (sequelize, DataTypes) => {
   const SaleTable = sequelize.define("sale", {
     totalPrice: DataTypes.DECIMAL,
     deliveryAddress: DataTypes.STRING,
     deliveryNumber: DataTypes.STRING,
-    saleDate: DataTypes.DATE,
+    saleDate: { type: DataTypes.DATE, defaultValue: moment.utc().format('L') },
     status: DataTypes.STRING,
   }, { 
     timestamps: false,

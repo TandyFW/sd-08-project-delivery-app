@@ -43,7 +43,6 @@ function Checkout() {
         value={ selectedSellers }
         onChange={ ({ target }) => setSelectedSellers(target.value) }
       />
-      {/* <option value={ sellers }>{ sellers }</option> */}
       <InputLabel htmlFor="address-input">Endereço</InputLabel>
       <input
         id="address-input"
