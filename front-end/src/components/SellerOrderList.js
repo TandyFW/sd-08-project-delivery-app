@@ -73,13 +73,6 @@ class SellerOrderList extends React.Component {
         isLoading: false }));
     }
   }
-  // useEffect( () => {
-
-  //   socket.on('satate', result);
-  //   return () => {
-  //     setState({state: result})
-  //   }
-  // }, [socket]);
 
   render() {
     const { history } = this.props;
