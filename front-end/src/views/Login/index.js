@@ -12,6 +12,7 @@ function Login() {
   const refEmail = useRef();
   const refPass = useRef();
   const FIFTY = 50;
+
   function checkInputs() {
     const PASSWORD_MIN_LENGTH = 6;
     const re = /.+@[A-z]+[.]com/;
@@ -20,9 +21,23 @@ function Login() {
     }
     return true;
   }
+
   useEffect(() => {
-    if (userData.token) {
-      history.push('/customer/products');
+    if (userData && userData.token) {
+      const { role } = userData;
+      switch (role) {
+      case 'customer':
+        history.push('/customer/products');
+        break;
+      case 'seller':
+        history.push('/seller/orders');
+        break;
+      case 'administrator':
+        history.push('/admin/manage');
+        break;
+      default:
+        break;
+      }
     }
     refEmail.current.innerHTML = refEmail.current.innerText
       .split('')
@@ -101,7 +116,7 @@ function Login() {
         >
           Ainda não tenho conta
         </button>
-        {userData.message
+        {userData && userData.message
         && <Error
           testid="common_login__element-invalid-email"
           message={ userData.message }

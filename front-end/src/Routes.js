@@ -4,11 +4,13 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
+
 import Login from './views/Login/index';
 import Components from './views/Components';
 import Home from './views/Home';
 import Register from './views/Register';
 import CustomerRouts from './views/Customer/Routes';
+import AdminRouts from './views/Admin/Routes';
 
 function Routes() {
   return (
@@ -19,6 +21,7 @@ function Routes() {
         <Route path="/components" component={ Components } />
         <Route path="/register" component={ Register } />
         <Route path="/customer" component={ CustomerRouts } />
+        <Route path="/admin" component={ AdminRouts } />
       </Switch>
     </Router>
   );
