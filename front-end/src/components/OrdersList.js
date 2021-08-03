@@ -13,6 +13,7 @@ export default function OrdersList() {
 
   const getOrders = async () => {
     const data = await fetchOrders();
+    console.log(data);
     setOrdersList(data);
   };
 

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import DeliveryAppContext from './DeliveryAppContext';
 import fetchProducts from '../services/fetchProducts';
+import fetchSellers from '../services/fetchSellers';
 
 function DeliveryAppProvider({ children }) {
   const [itemsList, setItemsList] = useState([]);

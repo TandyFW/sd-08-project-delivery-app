@@ -7,7 +7,6 @@ const findOrders = async (id) => {
       attributes: ['id', 'totalPrice', 'status', 'salesDate'],
     });
     
-    console.log(result);
     return {
       statusCode: 200,
       json: result,
