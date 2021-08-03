@@ -26,9 +26,15 @@ if (!userFields) {
 return userFields;
 };
 
+const findSellers = async () => {
+  const sellers = await user.findAll({ where: { role: 'seller' } });
+  return sellers;
+};
+
 module.exports = {
 registerUser,
 findUserByEmail,
 findUserByName,
 loginUser,
+findSellers,
 };
