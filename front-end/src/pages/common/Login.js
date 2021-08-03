@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import * as api from '../../services/api';
 import UserContext from '../../context/UserContext';
 import Input from '../../components/Input/Input';
@@ -10,9 +10,12 @@ function Login() {
   const [localEmail, setLocalEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showWarning, setShowWarning] = useState(false);
-  const { setName, setEmail, setRole, setToken } = useContext(UserContext);
+  const { setName, setEmail, setRole,
+    setToken, token } = useContext(UserContext);
 
   const history = useHistory();
+
+  console.log(token);
 
   const isDisabled = () => {
     const validEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
@@ -22,18 +25,25 @@ function Login() {
 
   async function handleClick() {
     try {
-      const { name, email, role, token } = await api.login(localEmail, password);
-      localStorage.setItem('user', JSON.stringify({ name, email, role, token }));
+      const { name, email, role,
+        token: jwtToken } = await api.login(localEmail, password);
+
+      localStorage.setItem('user',
+        JSON.stringify({ name, email, role, token: jwtToken }));
+
       setName(name);
       setEmail(email);
       setRole(role);
       setToken(token);
+
       history.push('/customer/products');
     } catch (error) {
       console.log(error);
       setShowWarning(true);
     }
   }
+
+  if (token) return <Redirect to="/customer/products" />;
 
   return (
     <LoginContainer>

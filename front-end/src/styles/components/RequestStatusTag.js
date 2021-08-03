@@ -7,7 +7,7 @@ const RequestStatusTag = styled.div`
   font-weight: 700;
   justify-content: center;
   padding: 20px;
-  text-transform: uppercase;
+  text-transform: capitalize;
   width: 150px;
 
   ${(props) => {

@@ -20,7 +20,7 @@ function OrderDetails() {
   const [order, setOrder] = useState();
 
   useEffect(() => {
-    api.getOrder(id).then((result) => {
+    api.getOrderById(id).then((result) => {
       setOrder(result);
     });
   }, [id]);

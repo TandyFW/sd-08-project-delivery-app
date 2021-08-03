@@ -45,7 +45,12 @@ export const getSellers = async () => {
   return data;
 };
 
-export const getOrder = async (id) => {
+export const getOrderById = async (id) => {
   const { data } = await axios.get(`${URL_BASE}/sales/${id}`);
+  return data;
+};
+
+export const getOrders = async () => {
+  const { data } = await axios.get(`${URL_BASE}/sales`);
   return data;
 };

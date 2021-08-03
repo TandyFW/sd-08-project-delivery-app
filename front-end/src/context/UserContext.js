@@ -7,7 +7,10 @@ export function DeliveryProvider({ children }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('');
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return user && user.token ? user.token : '';
+  });
 
   const contextValue = {
     name,
