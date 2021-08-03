@@ -6,16 +6,19 @@ import Input from '../../components/Input/Input';
 import { ButtonPrimary, ButtonTertiary } from '../../components/Input/Button';
 import { LoginContainer, StyledContainer } from '../../styles/pages/common/Login';
 
+const getDestination = (role) => {
+  if (role === 'seller') return '/seller/orders';
+  return '/customer/products';
+};
+
 function Login() {
   const [localEmail, setLocalEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showWarning, setShowWarning] = useState(false);
   const { setName, setEmail, setRole,
-    setToken, token } = useContext(UserContext);
+    setToken, token, role } = useContext(UserContext);
 
   const history = useHistory();
-
-  console.log(token);
 
   const isDisabled = () => {
     const validEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
@@ -25,25 +28,27 @@ function Login() {
 
   async function handleClick() {
     try {
-      const { name, email, role,
-        token: jwtToken } = await api.login(localEmail, password);
+      const { name, email, token: jwtToken,
+        role: userRole } = await api.login(localEmail, password);
 
-      localStorage.setItem('user',
-        JSON.stringify({ name, email, role, token: jwtToken }));
+      localStorage.setItem('user', JSON.stringify({
+        name,
+        email,
+        role: userRole,
+        token: jwtToken,
+      }));
 
       setName(name);
       setEmail(email);
-      setRole(role);
-      setToken(token);
-
-      history.push('/customer/products');
+      setRole(userRole);
+      setToken(jwtToken);
     } catch (error) {
       console.log(error);
       setShowWarning(true);
     }
   }
 
-  if (token) return <Redirect to="/customer/products" />;
+  if (token && role) return <Redirect to={ getDestination(role) } />;
 
   return (
     <LoginContainer>

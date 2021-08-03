@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import CustomerNavbar from '../../components/Navbar/CustomerNavbar';
 import RequestCard from '../../components/Card/RequestCard';
+import SellerNavbar from '../../components/Navbar/SellerNavbar';
 import OrdersContainer from '../../styles/pages/customer/Orders';
 import * as api from '../../services/api';
 
-function Sales() {
+function SellerOrders() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
@@ -12,17 +12,19 @@ function Sales() {
   }, []);
 
   return (
-    <>
-      <CustomerNavbar />
+    <div>
+      <SellerNavbar />
       <OrdersContainer>
         { orders.map((order) => (<RequestCard
-          order={ order }
           key={ order.id }
-          testId="customer_orders"
+          order={ order }
+          testId="seller_orders"
+          destination={ `/seller/orders/${order.id}` }
+          showAddress
         />)) }
       </OrdersContainer>
-    </>
+    </div>
   );
 }
 
-export default Sales;
+export default SellerOrders;

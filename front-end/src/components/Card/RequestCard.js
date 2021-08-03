@@ -15,9 +15,15 @@ import {
 
 const ID_LENGTH = 4;
 
-const RequestCard = ({ order, showAddress, testId }) => {
+const RequestCard = ({ order, destination, showAddress, testId }) => {
   const history = useHistory();
-  const { id, status, saleDate, totalPrice } = order;
+  const { id, status, saleDate, totalPrice, deliveryAddress } = order;
+
+  const renderAddress = () => (
+    <Address data-testid={ `${testId}__element-card-address-${id}` }>
+      { deliveryAddress }
+    </Address>
+  );
 
   const renderPriceData = () => (
     <PriceDataWrapper>
@@ -36,7 +42,7 @@ const RequestCard = ({ order, showAddress, testId }) => {
   );
 
   return (
-    <Wrapper onClick={ () => history.push(`/customer/orders/${id}`) }>
+    <Wrapper onClick={ () => history.push(destination) }>
       <OrderWrapper>
         <OrderLabel>Pedido</OrderLabel>
         <p data-testid={ `${testId}__element-order-id-${id}` }>
@@ -53,7 +59,7 @@ const RequestCard = ({ order, showAddress, testId }) => {
           </RequestStatusTag>
           { renderPriceData() }
         </Body>
-        { showAddress && <Address>Meu endereço</Address> }
+        { showAddress && renderAddress() }
       </BodyWrapper>
     </Wrapper>
   );
@@ -69,9 +75,11 @@ RequestCard.propTypes = {
     status: PropTypes.string,
     saleDate: PropTypes.string,
     totalPrice: PropTypes.string,
+    deliveryAddress: PropTypes.string,
   }).isRequired,
   showAddress: PropTypes.bool,
   testId: PropTypes.string.isRequired,
+  destination: PropTypes.string.isRequired,
 };
 
 export default RequestCard;

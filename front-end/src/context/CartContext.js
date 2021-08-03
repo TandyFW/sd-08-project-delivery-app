@@ -34,6 +34,10 @@ export function CartProvider({ children }) {
     }, 0)
   );
 
+  const clearCart = () => {
+    setCart({});
+  };
+
   const contextValue = {
     products,
     setProducts,
@@ -43,6 +47,7 @@ export function CartProvider({ children }) {
     decCartQuantity,
     getCartTotal,
     removeCartItem,
+    clearCart,
   };
 
   return (
