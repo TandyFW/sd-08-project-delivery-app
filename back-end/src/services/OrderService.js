@@ -1,4 +1,4 @@
-const { Sales, User, SalesProducts, Products } = require('../database/models');
+const { Sales, User } = require('../database/models');
 
 const getUserOrders = async (userId) => {
   const userOrders = await Sales.findAll({ where: { userId } });
