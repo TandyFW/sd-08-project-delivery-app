@@ -31,7 +31,7 @@ export default function OrderDetailsComp() {
   };
   const prefix = {
     customer: 'customer_order_details__',
-    seller: 'seller_orders__',
+    seller: 'seller_order_details__',
   };
 
   useEffect(() => {
