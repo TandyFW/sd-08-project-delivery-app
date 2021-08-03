@@ -1,10 +1,12 @@
 import md5 from 'md5';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
+import DeliveryAppContext from '../context/DeliveryAppContext';
 import UserRegister from '../services/UserRegister';
 import emailVerify from '../utils/functions';
 
 export default function FormRegister() {
+  const { setUser } = useContext(DeliveryAppContext);
   const [isValid, setIsValid] = useState(false);
   const [currentName, setCurrentName] = useState('');
   const [currentEmail, setCurrentEmail] = useState('');
@@ -46,6 +48,7 @@ export default function FormRegister() {
       const newRegister = await UserRegister(currentName, currentEmail, encryptPassword);
 
       if (newRegister) {
+        setUser(newRegister.user);
         setShowMessage(false);
         setRedirect(true);
       }

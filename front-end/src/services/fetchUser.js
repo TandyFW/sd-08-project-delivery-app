@@ -7,10 +7,9 @@ const fetchUser = async (email, password) => {
       email,
       password,
     });
-
     const { data } = user;
 
-    return data;
+    return data.user;
   } catch (error) {
     console.log(error);
   }
