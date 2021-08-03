@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const reqquireHttp = require('http');
-const socket = require('socket.io');
+const socketIo = require('socket.io');
 const { loginRoute, registerRoute, productsRoute, orderRoute } = require('./routes');
 const handleError = require('../middlewares/errorHandler');
 
@@ -10,7 +10,7 @@ const SOCKET_PORT = process.env.SOCKET_PORT || 3002;
 const app = express();
 app.use(express());
 const http = reqquireHttp.createServer(app);
-const io = socket(http, {
+const io = socketIo(http, {
     cors: {
       origin: '*', // url aceita pelo cors
       methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos aceitos pela url
