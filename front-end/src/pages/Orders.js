@@ -20,24 +20,24 @@ function Orders() {
       <Container>
         <Row xs={ 1 } md={ 2 } className="pt-4">
           {response
-          && response.data.map((variant, idx) => (
-            <Link key={ idx } to={ `/${route}/orders/${variant.id}` }>
-              <OrderCard requests={ variant } user={ route }>
-                {hasSeller && (
-                  <Row>
-                    <Col
-                      className="text-center p-4"
-                      data-testid={
-                        `${route}_orders__element-card-address-${variant.id}`
-                      }
-                    >
-                      {variant.deliveryAddress}
-                    </Col>
-                  </Row>
-                )}
-              </OrderCard>
-            </Link>
-          ))}
+            && response.data.map((variant, idx) => (
+              <Link key={ idx } to={ `/${route}/orders/${variant.id}` }>
+                <OrderCard requests={ variant } user={ route }>
+                  {hasSeller && (
+                    <Row>
+                      <Col
+                        className="text-center p-4"
+                        data-testid={
+                          `${route}_orders__element-card-address-${variant.id}`
+                        }
+                      >
+                        {variant.deliveryAddress}
+                      </Col>
+                    </Row>
+                  )}
+                </OrderCard>
+              </Link>
+            ))}
         </Row>
       </Container>
     </>

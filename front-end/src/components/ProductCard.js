@@ -45,11 +45,13 @@ export default function ProductCard(props) {
   };
 
   const cardStyle = {
-    width: '18rem',
+    width: '5rem',
+    height: '5rem',
   };
 
   const imgStyle = {
-    height: '100%',
+    width: '5px',
+    height: '5px',
   };
 
   return (
