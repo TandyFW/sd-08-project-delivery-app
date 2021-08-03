@@ -60,7 +60,6 @@ export default function OrderDetailsComp() {
     if (roleUser === 'seller') return false;
     return (
       <Col data-testid={ `${prefix[roleUser]}element-order-details-label-seller-name` }>
-        P. Vend:
         { ' ' }
         {seller}
       </Col>
