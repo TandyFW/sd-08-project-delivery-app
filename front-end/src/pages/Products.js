@@ -21,11 +21,8 @@ export default function Products() {
     setLoading(true);
     getData('http://localhost:3001/products')
       .then((data) => {
-        // console.log('retorno API', data);
         setProducts(data);
       });
-    // console.log('dado mockado', mockProducts.products)
-    // setProducts(mockProducts.products); // dados mockados
     setLoading(false);
   }, []);
 

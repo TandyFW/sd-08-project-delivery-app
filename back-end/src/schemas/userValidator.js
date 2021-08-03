@@ -1,35 +1,33 @@
 const { user } = require('../database/models');
 
 const validateName = async (name) => {
-    const data = await user.findOne({
-        where: { name },
-    })
-    .then((res) => res)
-    .catch((err) => err);
-    console.log(data);
-     if (data !== null) {
- return {
-         message: 'Usuario já registrado',
-         code: 409,
-     }; 
+const data = await user.findOne({
+where: { name },
+})
+.then((res) => res)
+.catch((err) => err);
+if (data !== null) {
+return {
+message: 'Usuario já registrado',
+code: 409,
+};
 }
-     return {};
+return {};
 };
 
 const validateEmail = async (email) => {
-    const data = await user.findOne({
-        where: { email },
-    })
-    .then((res) => res)
-    .catch((err) => err);
-    console.log(data);
-     if (data !== null) {
- return {
-         message: 'Usuario já registrado',
-         code: 409,
-     }; 
+const data = await user.findOne({
+where: { email },
+})
+.then((res) => res)
+.catch((err) => err);
+if (data !== null) {
+return {
+message: 'Usuario já registrado',
+code: 409,
+};
 }
-     return {};
+return {};
 };
 
 const validateCreation = async (name, email) => {
@@ -41,5 +39,5 @@ return {};
 };
 
 module.exports = {
-    validateCreation,
+validateCreation,
 };

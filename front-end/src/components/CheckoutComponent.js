@@ -60,14 +60,12 @@ export default function Checkout() {
   };
 
   useEffect(() => {
-    // console.log('o carrinho', Object.values(cart).map(item=> item.subTotal))
     if (cart.length === 0) return setTotalValue(0);
     if (cart.length !== 0) {
       return setTotalValue(Object.values(cart)
         .map((item) => +item.subTotal).reduce((acc, tt) => acc + tt).toFixed(2)
         .replace(/\./g, ','));
     }
-    // console.log(totalValue)
   }, [cart]);
 
   useEffect(() => {
@@ -77,7 +75,6 @@ export default function Checkout() {
         setSellers(res);
         setUser(res.find((item) => item.name === userName).id);
         setSellerId(res.find((item) => item.name === dropDownValue).id);
-        console.log(res);
       });
     setloading(false);
   }, []);

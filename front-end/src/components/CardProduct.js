@@ -13,9 +13,6 @@ export default function CardProduct({ item }) {
   const { cart, setCart } = useContext(appContext);
   const [quantity, setQuantity] = useState(0);
 
-  const number = 25.65;
-  console.log(number.toLocaleString('pt-BR'));
-
   const updateCart = () => {
     // condição para garantir que o carrinho esteja limpo dos produtos com quantidade 0
     if (quantity === 0) {

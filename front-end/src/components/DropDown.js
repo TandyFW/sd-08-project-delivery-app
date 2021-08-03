@@ -21,7 +21,6 @@ export default function DropDown({ selectClass, value, change, state, testId }) 
             {' '}
           </option>))}
 
-      {console.log('state', state.map((item) => item.name))}
     </select>
   );
 }

@@ -54,7 +54,6 @@ const Login = () => {
     e.preventDefault();
     await sendLogin('http://localhost:3001/login', loginEmail, loginPassword)
       .then((res) => {
-        console.log(res);
         setUserInfo(res.data.user);
         saveUserInLocalStorage(res.data.user);
       })

@@ -12,7 +12,6 @@ const getAllSalesUser = async (req, res) => {
         { model: user, as: 'seller', attributes: { exclude: ['id'] } },
       ],
     });
-    console.log(data);
     return res.status(200).json(data);
   } catch (err) {
     return res.status(500).json({ message: messageError, err });
@@ -27,7 +26,6 @@ const getAllSalesProducts = async (req, res) => {
         { model: product, as: 'products', through: { attributes: [] } },
       ],
     });
-    console.log(data);
     return res.status(200).json(data);
   } catch (err) {
     return res.status(500).json({ message: messageError, err });
