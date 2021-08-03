@@ -11,6 +11,7 @@ function DeliveryAppProvider({ children }) {
   const [totalPrice, setTotalPrice] = useState(0);
   const [sellerId, setSellerId] = useState(0);
   const [userId, setUserId] = useState(0);
+  const [sellers, setSellers] = useState([]);
 
   const getRoute = () => {
     const currentRoute = localStorage.getItem('route');
@@ -42,12 +43,18 @@ function DeliveryAppProvider({ children }) {
     setTotalPrice(currentTotalPrice);
   };
 
+  const getSellers = async () => {
+    const data = await fetchSellers();
+    return setSellers(data);
+  };
+
   useEffect(() => getTotalPrice(), [itemsList]);
 
   useEffect(() => {
-    getRoute();
-    rescueStorageList();
     getCardList();
+    getRoute();
+    getSellers();
+    rescueStorageList();
   }, []);
 
   return (
@@ -65,6 +72,8 @@ function DeliveryAppProvider({ children }) {
         setSellerId,
         userId,
         setUserId,
+        sellers,
+        setSellers,
       } }
     >
       {children}
