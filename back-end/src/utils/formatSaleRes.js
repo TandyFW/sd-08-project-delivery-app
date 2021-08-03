@@ -1,5 +1,5 @@
 module.exports = (item) => {
-  console.log(item);
+  if (!item) return null;
   item.dataValues.Products.forEach((x) => {
     const products = x;
     products.dataValues.SaleProducts.forEach((y) => {

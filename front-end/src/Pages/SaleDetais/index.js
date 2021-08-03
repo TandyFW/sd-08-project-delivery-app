@@ -11,7 +11,7 @@ import { clientHeaderLinks } from '../../services/HeaderButtons';
 function SaleDetails({ match: { params: { id } } }) {
   const history = useHistory();
 
-  const [sale, setSale] = useState({});
+  const [_sale, setSale] = useState({});
 
   useEffect(() => {
     const { token } = JSON.parse(localStorage.getItem('user')) || '';
