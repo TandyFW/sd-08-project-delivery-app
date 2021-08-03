@@ -39,18 +39,18 @@
 module.exports = {
     ets,
 };
-                    // console.log('vendedor ', sellerId, ' usuario ', userId, ' estado ', state);
-                    // // console.log('Stado não validado ');
-                    // console.log(listUser, listUser[indexSeller].code, listUser[indexUser].code);
-                    // socket.on('inDelivery', () => {
-                        
-                        // });
-                        // socket.on('delivered', () => {
-                            
-                            // });
-                            //   Pendente - Criado
-                            //   Preparando - Vendedor muda
-                            //   Em Trânsito - Vendedor muda 
-                            //   Entregue - Cliente muda 
+// console.log('vendedor ', sellerId, ' usuario ', userId, ' estado ', state);
+// // console.log('Stado não validado ');
+// console.log(listUser, listUser[indexSeller].code, listUser[indexUser].code);
+// socket.on('inDelivery', () => {
+    
+// });
+// socket.on('delivered', () => {
+    
+// });
+//   Pendente - Criado
+//   Preparando - Vendedor muda
+//   Em Trânsito - Vendedor muda 
+//   Entregue - Cliente muda 
 
-                            // { (sockt.id): id_do_banco  } { id: soccket }
+// { (sockt.id): id_do_banco  } { id: soccket }
