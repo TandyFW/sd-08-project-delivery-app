@@ -141,7 +141,7 @@ describe(requirement(42), () => {
   });
 });
 
-describe.only(requirement(43), () => {
+describe(requirement(43), () => {
   const people = createUserForAdm(lengthRules);
 
   test(`O avaliador testará os data-testids referentes aos elementos da tabela de pessoas usuárias`, async () => {
