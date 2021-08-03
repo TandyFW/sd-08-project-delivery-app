@@ -62,7 +62,7 @@ export default function OrderTable({ products, testIds, remove }) {
         </TableHead>
         <TableBody>
           {products
-            .map(({ price, name, count, id }, index) => (
+            .map(({ price, name, quantity, id }, index) => (
               <StyledTableRow key={ index }>
                 <StyledTableCell
                   component="th"
@@ -81,7 +81,7 @@ export default function OrderTable({ products, testIds, remove }) {
                   align="right"
                   data-testid={ `${testIds.quantity}${index}` }
                 >
-                  {count}
+                  {quantity}
                 </StyledTableCell>
                 <StyledTableCell
                   align="right"
@@ -100,7 +100,7 @@ export default function OrderTable({ products, testIds, remove }) {
                   <span
                     data-testid={ `${testIds.subTotal}${index}` }
                   >
-                    {(count * price).toFixed(2).replace('.', ',')}
+                    {(quantity * price).toFixed(2).replace('.', ',')}
                   </span>
                 </StyledTableCell>
                 {remove && (

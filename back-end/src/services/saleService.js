@@ -27,13 +27,9 @@ const saveSale = async (sale) => {
     const t = await sequelize.transaction();
     try {
     const saleId = await createSale(sale, t);
-     sale.products.forEach(async ({ id: productId, quantity }) => {
-           await SaleProduct.create({
-                saleId,
-                productId,
-                quantity,            
-            });
-        }, { transaction: t });
+    const products = sale.products
+      .map(({id: productId, quantity}) => ({ saleId, productId, quantity }));
+    await SaleProduct.bulkCreate(products, { transaction: t });
 
         await t.commit();
         return saleId;
