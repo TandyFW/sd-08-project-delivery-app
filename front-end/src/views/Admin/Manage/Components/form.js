@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import Context from '../../../../context/Context';
+import './styles.css';
 
 const Form = () => {
   const [password, setPassword] = useState('');
@@ -53,8 +54,9 @@ const Form = () => {
   };
 
   return (
-    <div style={ { marginTop: '50px', marginLeft: '50px' } }>
-      <form>
+    <div className="main-wrapper-adm">
+      <h2>Cadastrar novo usuário</h2>
+      <div className="input-wrapper-adm">
         <label htmlFor="name">
           Nome
           <input
@@ -106,6 +108,8 @@ const Form = () => {
           </select>
         </label>
         <button
+          id="botao"
+          name="botao"
           data-testid="admin_manage__button-register"
           type="button"
           disabled={ error }
@@ -118,7 +122,7 @@ const Form = () => {
           data-testid="admin_manage__element-invalid-register"
           message={ cadUser.message }
         />}
-      </form>
+      </div>
     </div>
   );
 };
