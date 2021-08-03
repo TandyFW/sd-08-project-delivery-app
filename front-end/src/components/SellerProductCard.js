@@ -40,7 +40,7 @@ function SellerProductCard() {
               </li>
               <li
                 data-testid={`seller_orders__element-order-date-${ data.id }`}
-              >{ (data.saleDate) }</li>
+              >{ data.saleDate }</li>
               <li
                 data-testid={`seller_orders__element-card-price-${ data.id }`}
               >
