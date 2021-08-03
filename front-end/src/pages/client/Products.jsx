@@ -1,12 +1,13 @@
 import { Grid } from '@material-ui/core';
-import React, { useContext, useEffect } from 'react';
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
 
 import CartButton from '../../components/buttons/CartButton';
 import ProductCard from '../../components/cards/productCard';
 import NavBar from '../../components/NavBar';
 import Context from '../../context/Context';
 
-const products = [
+/* const products = [
   {
     id: 1,
     name: 'Skol Lata 250ml',
@@ -73,12 +74,26 @@ const products = [
     price: '3.49',
     urlImage: 'http://localhost:3001/images/stella_artois_275ml.jpg',
   },
-];
+]; */
 
 function Products() {
+  const [products, setProducts] = useState([]);
+
   const { cart: { set } } = useContext(Context);
   useEffect(() => {
-    set(products.map(({ id, price }) => ({ id, price, quantity: 0 })));
+    set(products.map(({ id, price, name }) => ({ id, price, name, quantity: 0 })));
+  }, []);
+
+  const fetchProducts = async () => {
+    const { data } = await axios({
+      method: 'GET',
+      url: 'http://localhost:3001/http://localhost:3001/products',
+    });
+    return setProducts(data);
+  };
+
+  useEffect(() => {
+    fetchProducts();
   }, []);
 
   return (
