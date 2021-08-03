@@ -8,7 +8,7 @@ function NavbarSeller({ nome }) {
   const handleLogout = () => {
     localStorage.clear();
     history.push('/login');
-  }
+  };
 
   return (
     <header>
@@ -17,9 +17,12 @@ function NavbarSeller({ nome }) {
           <li>Pedidos</li>
           <li>{ nome }</li>
           <button
-            data-testid='customer_products__element-navbar-link-logout'
+            type='button'
+            data-testid="customer_products__element-navbar-link-logout"
             onClick={ handleLogout }
-          >Sair</button>
+          >
+            Sair
+          </button>
         </ul>
       </nav>
     </header>
@@ -27,7 +30,7 @@ function NavbarSeller({ nome }) {
 }
 
 NavbarSeller.propTypes = {
-  nome: PropType.string,
+  nome: PropType.string.isRequired,
 };
 
 export default NavbarSeller;
