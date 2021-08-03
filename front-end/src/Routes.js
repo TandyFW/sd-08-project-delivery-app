@@ -14,7 +14,6 @@ import SellerOrders from './views/Seller';
 import SellerDetailPage from './views/SellerDetail';
 import AdminRouts from './views/Admin/Routes';
 
-
 function Routes() {
   return (
     <Router>
