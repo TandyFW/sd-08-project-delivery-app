@@ -29,7 +29,7 @@ function Login() {
         headers: { 'Content-Type': 'application/json' },
         data: { email, password },
       });
-      console.log(loggedUser);
+      console.log('usuario logado', loggedUser);
       const { redirectPath, ...userInfos } = loggedUser.data;
       localStorage.setItem('user', JSON.stringify(userInfos));
       setRedirect(redirectPath);
