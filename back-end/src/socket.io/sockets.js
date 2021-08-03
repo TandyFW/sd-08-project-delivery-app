@@ -20,7 +20,7 @@
     }
                     
  const ets = (socket) => {
-    const listUser = [];
+    let listUser = [];
     console.log(`Usuário conectado. ID: ${socket.id} `);
     socket.on('ping', () => {
         console.log(`${socket.id} emitiu um ping!`);
@@ -33,7 +33,7 @@
     socket.on('disconnect', () => {
         const index = listUser.findIndex((user) => user.socketId === socket.id);
         console.log('O usuario ', listUser[index].id, ' foi embora');
-        listUser=listUser.slice(index, 1);
+        listUser = listUser.slice(index, 1);
     });
 };
 module.exports = {
