@@ -11,11 +11,6 @@ function SellerProductCard() {
   useEffect(async () => {
     const product = await axios.post('http://localhost:3001/seller/orders', {
       name: userStorage.name,
-    },
-    {
-      headers: {
-        authorization: token,
-      },
     })
       .then((data) => data.data)
       .catch((err) => console.log(err));
