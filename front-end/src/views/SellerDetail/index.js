@@ -8,7 +8,7 @@ import NavBar from '../Components/NavBar';
 function SellerDetailPage(props) {
   const { userData } = useContext(Context);
   const [order, setOrder] = useState({});
-  // const [orderStatus, setOrderStatus] = useState('Pendente');
+  const [orderStatus, setOrderStatus] = useState('Pendente');
   const datatest = 'seller_order_details__element-order-details-label-delivery-status';
 
   console.log('Detalhes', order);
@@ -63,7 +63,7 @@ function SellerDetailPage(props) {
           <span
             data-testid={ datatest }
           >
-            {order.status}
+            {orderStatus}
           </span>
           <button
             onClick={ () => changeOrderStatus() }
