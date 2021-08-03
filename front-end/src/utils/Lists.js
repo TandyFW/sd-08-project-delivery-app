@@ -7,4 +7,15 @@ const HEADING_LIST_CHECKOUT = [
   'Remover Item',
 ];
 
-export default HEADING_LIST_CHECKOUT;
+const HEADING_LIST_DETAILS = [
+  'Item',
+  'Descrição',
+  'Quantidade',
+  'Valor Unitário',
+  'Sub-total',
+];
+
+export {
+  HEADING_LIST_CHECKOUT,
+  HEADING_LIST_DETAILS,
+};

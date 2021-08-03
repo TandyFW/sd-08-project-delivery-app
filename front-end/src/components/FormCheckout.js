@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 import sendOrder from '../services/sendOrder';
 
@@ -14,11 +14,11 @@ export default function FormCheckout() {
   } = useContext(DeliveryAppContext);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
-  const [saleId, setSaleId] = useState(0);
+  // const [saleId, setSaleId] = useState(0);
 
-  const submitOrder = (e) => {
+  const submitOrder = async (e) => {
     e.preventDefault();
-    const currentSaleId = sendOrder({
+    const currentSaleId = await sendOrder({
       userId,
       sellerId,
       totalPrice,
@@ -27,7 +27,8 @@ export default function FormCheckout() {
       productsList: itemsList,
     });
 
-    setSaleId(currentSaleId);
+    window.location.href = `http://localhost:3000/customer/orders/${currentSaleId}`;
+    // setSaleId(currentSaleId);
   };
 
   const selectSeller = () => {
@@ -95,7 +96,7 @@ export default function FormCheckout() {
         onClick={ (e) => submitOrder(e) }
         data-testid="customer_checkout__button-submit-order"
       >
-        <Link to={ `/customer/orders/${saleId}` }>FINALIZAR PEDIDO</Link>
+        FINALIZAR PEDIDO
       </button>
     </div>);
 }

@@ -1,14 +1,12 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 
-export default function TableRow({ row, tableIndex }) {
+export default function TableRow({ row, tableIndex, showRemove }) {
   const { itemsList, setItemsList } = useContext(DeliveryAppContext);
-
-  useEffect(() => {
-    const srtList = JSON.stringify(itemsList);
-    return localStorage.setItem('currentItemsList', srtList);
-  }, [itemsList]);
+  const [rowQuantity, setRowQuantity] = useState(0);
+  const [rowUnitaryPrice, setRowUnitaryPrice] = useState(0);
+  const [rowSubtotal, setRowSubtotal] = useState(0);
 
   const remove = () => {
     console.log(row.name);
@@ -16,11 +14,30 @@ export default function TableRow({ row, tableIndex }) {
     setItemsList(currentList);
   };
 
+  const componentSettings = () => {
+    if (showRemove) {
+      setRowQuantity(+row.quantity);
+      setRowUnitaryPrice(+(+row.unitaryPrice).toFixed(2));
+      return setRowSubtotal((+(+row.unitaryPrice).toFixed(2)) * (+row.quantity));
+    }
+
+    setRowQuantity(+row.salesProducts.quantity);
+    setRowUnitaryPrice(+(+row.price).toFixed(2));
+    setRowSubtotal((+(+row.price).toFixed(2)) * (+row.salesProducts.quantity));
+  };
+
+  useEffect(() => {
+    const srtList = JSON.stringify(itemsList);
+    return localStorage.setItem('currentItemsList', srtList);
+  }, [itemsList]);
+
+  useEffect(() => componentSettings(), []);
+
   return (
     <tr key={ tableIndex }>
       <td
         className="products-table-cel"
-        data-testid={ `customer_checkout__element-order-table-item-number${tableIndex}` }
+        data-testid={ `customer_checkout__element-order-table-item-number-${tableIndex}` }
       >
         { tableIndex + 1 }
       </td>
@@ -34,40 +51,49 @@ export default function TableRow({ row, tableIndex }) {
         className="products-table-cel"
         data-testid={ `customer_checkout__element-order-table-quantity-${tableIndex}` }
       >
-        { row.quantity }
+        { rowQuantity }
       </td>
       <td
         className="products-table-cel"
         data-testid={ `customer_checkout__element-order-table-unit-price-${tableIndex}` }
       >
-        { (+row.unitaryPrice).toFixed(2) }
+        { rowUnitaryPrice
+          .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }
       </td>
       <td
         className="products-table-cel"
         data-testid={ `customer_checkout__element-order-table-sub-total-${tableIndex}` }
       >
-        { row.itemsPrice }
+        { rowSubtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }
       </td>
-      <td>
-        <button
-          type="button"
-          className="btn-remove"
-          onClick={ remove }
-          data-testid={ `customer_checkout__element-order-table-remove-${tableIndex}` }
-        >
-          Remover
-        </button>
-      </td>
+      {showRemove
+      && (
+        <td>
+          <button
+            type="button"
+            className="btn-remove"
+            onClick={ remove }
+            data-testid={ `customer_checkout__element-order-table-remove-${tableIndex}` }
+          >
+            Remover
+          </button>
+        </td>
+      )}
     </tr>
   );
 }
 
 TableRow.propTypes = {
   row: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    quantity: PropTypes.number.isRequired,
-    unitaryPrice: PropTypes.number.isRequired,
-    itemsPrice: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    quantity: PropTypes.number,
+    unitaryPrice: PropTypes.number,
+    itemsPrice: PropTypes.string,
+    price: PropTypes.string,
+    salesProducts: PropTypes.shape({
+      quantity: PropTypes.number,
+    }),
   }).isRequired,
   tableIndex: PropTypes.number.isRequired,
+  showRemove: PropTypes.bool.isRequired,
 };

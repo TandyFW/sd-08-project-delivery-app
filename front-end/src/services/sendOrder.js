@@ -18,7 +18,7 @@ const sendOrder = async ({
       productsList,
     });
 
-    return saleId;
+    return saleId.data;
   } catch (error) {
     console.log(err);
     return false;
