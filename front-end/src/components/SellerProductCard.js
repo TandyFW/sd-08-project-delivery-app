@@ -27,7 +27,7 @@ function SellerProductCard() {
             onClick={() => history.push(`/seller/orders/${ data.id }`)}
             key={ index }
           >
-            <ul>
+            <ul style={{listStyleType: 'none'}}>
               <li
                 data-testid={`seller_orders__element-order-id-${ data.id }`}
               >
