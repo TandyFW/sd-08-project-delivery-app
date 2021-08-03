@@ -11,6 +11,11 @@ function SellerProductCard() {
   useEffect(async () => {
       const product = await axios.post('http://localhost:3001/seller/orders', {
         name: userStorage.name,
+      },
+      {
+        headers: {
+          authorization: token,
+        }
       })
         .then((data) => data.data)
         .catch((err) => console.log(err));
@@ -40,7 +45,7 @@ function SellerProductCard() {
               </li>
               <li
                 data-testid={`seller_orders__element-order-date-${ data.id }`}
-              >{ (data.saleDate) }</li>
+              >{ data.saleDate }</li>
               <li
                 data-testid={`seller_orders__element-card-price-${ data.id }`}
               >
