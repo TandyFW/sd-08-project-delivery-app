@@ -18,8 +18,6 @@ const {
   customersRouter,
   registerRouter,
   adminRouter,
-  orderDetailsRouter,
-  sellerOrdersDetailsRouter,
   sellersRouter,
 } = require('../routes');
 
@@ -34,8 +32,6 @@ app.use('/seller', sellersRouter);
 app.use('/customer', customersRouter);
 app.use('/register', registerRouter);
 app.use('/admin', adminRouter);
-app.use('/customer/orders', orderDetailsRouter);
-app.use('/seller/orders', sellerOrdersDetailsRouter);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 
