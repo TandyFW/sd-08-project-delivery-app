@@ -12,7 +12,7 @@ const login = async (req, res) => {
 try {
 const { email, password } = req.body;
 const loginUser = await userService.loginUser({ email, password });
-// console.log(loginUser.toJSON());
+console.log('user', loginUser.toJSON());
 const { id, password: pass, ...infos } = loginUser.toJSON();
 const token = createToken(infos);
 console.log('Test', rolePath[infos.role]);

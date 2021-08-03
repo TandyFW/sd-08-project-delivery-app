@@ -3,11 +3,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function InputAdmin(props) {
-  const { label, datatest, onChange } = props;
+  const { label, data, onChange } = props;
   return (
     <TextField
       id="standard-basic"
-      datatest-id={ datatest }
+      inputProps={ { 'data-testid': data } }
       label={ label }
       onChange={ onChange }
     />
@@ -16,7 +16,7 @@ function InputAdmin(props) {
 
 InputAdmin.propTypes = {
   label: PropTypes.string.isRequired,
-  datatest: PropTypes.string.isRequired,
+  data: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 
