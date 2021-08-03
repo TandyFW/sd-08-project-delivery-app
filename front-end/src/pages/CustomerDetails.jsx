@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import io from 'socket.io-client';
 import { useParams } from 'react-router-dom';
 import ListItem from '../components/ListItem';
 import NavBar from '../components/NavBar';
@@ -14,10 +15,16 @@ import {
 } from '../styles/pages/SellerDetails.styled';
 
 const prefix = 'customer_order_details__';
+let socket;
 
 const getSale = async (id) => {
   const result = await api.get(`/delivery/sales/${id}`);
   return result.data;
+};
+
+const socketStatus = async (func, status) => {
+  await func(true);
+  return status;
 };
 
 const updateStatus = async (id, status, setFunction) => {
@@ -29,6 +36,7 @@ const updateStatus = async (id, status, setFunction) => {
     },
   });
   setFunction(data);
+  socket.emit('statusUpdate', { status, position: id });
 };
 
 const CustomerDetails = () => {
@@ -36,16 +44,28 @@ const CustomerDetails = () => {
   const user = JSON.parse(localStorage.getItem('user'));
   const [sale, setSale] = useState({});
   const [loading, setLoading] = useState(true);
+  const socketEndPoint = 'http://localhost:3002';
+
   useEffect(() => {
+    socket = io(socketEndPoint);
     getSale(id)
       .then((response) => setSale(response))
       .then(() => setLoading(false));
   }, [id]);
+
+  useEffect(() => {
+    socket.on('statusUpdate', (status) => {
+      socketStatus(setLoading, status)
+        .then((statusUpdated) => setSale({ ...sale, status: statusUpdated }))
+        .then(() => setLoading(false));
+    });
+  }, [sale]);
+
   return (
     <Container>
       <NavBar user={ user.name } />
       <h4>Detalhe do Pedido</h4>
-      {!loading && (
+      {!loading && sale && (
         <DetailsContainer>
           <DetailsBar color={ colors.whitesmoke }>
             <section className="info-order">
@@ -53,25 +73,25 @@ const CustomerDetails = () => {
               <LabelInfo
                 data-testid={ `${prefix}element-order-details-label-order-id` }
               >
-                {sale.id}
+                {sale && sale.id}
               </LabelInfo>
               <span>VENDEDOR:</span>
               <LabelInfo
                 data-testid={ `${prefix}element-order-details-label-seller-name` }
               >
-                {sale.seller.name}
+                {sale && sale.seller.name}
               </LabelInfo>
               <LabelInfo
                 data-testid={ `${prefix}element-order-details-label-order-date` }
                 color={ colors.white }
               >
-                {new Date(sale.sale_date).toLocaleString('pt-br').split(' ')[0]}
+                {sale && new Date(sale.sale_date).toLocaleString('pt-br').split(' ')[0]}
               </LabelInfo>
               <LabelInfo
                 data-testid={ `${prefix}element-order-details-label-delivery-status` }
                 color={ colors.goldenrod }
               >
-                {sale.status}
+                {sale && sale.status}
               </LabelInfo>
             </section>
             <section className="control-buttons">
@@ -92,7 +112,7 @@ const CustomerDetails = () => {
             <span>Valor Unitário</span>
             <span>Sub-total</span>
           </ListHeader>
-          {sale.products.map((product, index) => (
+          {sale && sale.products.map((product, index) => (
             <ListItem
               key={ index + 1 }
               prefix={ prefix }
@@ -108,7 +128,7 @@ const CustomerDetails = () => {
           <div className="total-order">
             <strong>TOTAL: R$</strong>
             <LabelInfo data-testid={ `${prefix}element-order-total-price` }>
-              {sale.total_price.replace('.', ',')}
+              {sale && sale.total_price.replace('.', ',')}
             </LabelInfo>
           </div>
         </DetailsContainer>

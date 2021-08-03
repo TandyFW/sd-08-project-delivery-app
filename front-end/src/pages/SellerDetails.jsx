@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import io from 'socket.io-client';
 import { useParams } from 'react-router-dom';
 import ListItem from '../components/ListItem';
 import NavBar from '../components/NavBar';
@@ -14,10 +15,16 @@ import {
 } from '../styles/pages/SellerDetails.styled';
 
 const prefix = 'seller_order_details__';
+let socket;
 
 const getSale = async (id) => {
   const result = await api.get(`/delivery/sales/${id}`);
   return result.data;
+};
+
+const socketStatus = async (func, status) => {
+  await func(true);
+  return status;
 };
 
 const updateStatus = async (id, status, setFunction) => {
@@ -29,6 +36,7 @@ const updateStatus = async (id, status, setFunction) => {
     },
   });
   setFunction(data);
+  socket.emit('statusUpdate', { status, position: id });
 };
 
 const SellerDetails = () => {
@@ -36,14 +44,25 @@ const SellerDetails = () => {
   const user = JSON.parse(localStorage.getItem('user'));
   const [sale, setSale] = useState({});
   const [loading, setLoading] = useState(true);
+  const socketEndPoint = 'http://localhost:3002';
+
   useEffect(() => {
+    socket = io(socketEndPoint);
     getSale(id)
       .then((response) => setSale(response))
       .then(() => setLoading(false));
   }, [id]);
+
   useEffect(() => {
-    console.log('sale atualizado');
+    socket.on('statusUpdate', (status) => {
+      socketStatus(setLoading, status)
+        .then((statusUpdated) => setSale({ ...sale, status: statusUpdated }))
+        .then(() => setLoading(false));
+    });
   }, [sale]);
+
+  useEffect(() => {}, [sale]);
+
   return (
     <Container>
       <NavBar user={ user.name } />
@@ -75,13 +94,13 @@ const SellerDetails = () => {
               <OrderButton
                 data-testid={ `${prefix}button-preparing-check` }
                 color={ colors.mediumseagreen }
-                disabled={ sale && sale.status !== 'Pendente' }
+                disabled={ sale.status !== 'Pendente' }
                 onClick={ () => updateStatus(id, 'Preparando', setSale) }
               >
                 PREPARAR PEDIDO
               </OrderButton>
               <OrderButton
-                disabled={ sale && sale.status !== 'Preparando' }
+                disabled={ sale.status !== 'Preparando' }
                 onClick={ () => updateStatus(id, 'Em Trânsito', setSale) }
                 data-testid={ `${prefix}button-dispatch-check` }
                 color={ colors.teal }

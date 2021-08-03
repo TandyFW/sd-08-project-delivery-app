@@ -1,9 +1,11 @@
+require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
-// const socket = require('socket.io');
+const socketio = require('socket.io');
+const http = require('http');
 
 const port = process.env.PORT || 3001;
-// const socketPort = 3002;
+const socketPort = process.env.SOCKET_PORT || 3002;
 const app = require('./app');
 const routes = require('./router/routes');
 
@@ -17,13 +19,25 @@ app.use('/delivery', routes);
 
 app.listen(port, () => console.log(`Api rodando na porta ${port}`));
 
-// const server = app.listen(socketPort,
-//   () => console.log(`Socket aberto na porta ${socketPort}`));
+const server = http.createServer(app);
 
-// io = socket(server);
+const io = socketio(server, {
+  cors: {
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST'],
+  }
+});
 
-// io.on('connection', (socket) => {
-//   console.log(`Usuário de ID ${socket.id} logou.`);
+io.on('connection', (socket) => {
+  console.log(`Usuário de ID ${socket.id} logou.`);
+  
+  socket.on('statusUpdate', ({ status, position }) => {
+    socket.broadcast.emit('statusUpdate', status);
+    socket.broadcast.emit('orders', { status, position });
+  });
+  
+  socket.on('disconnect', () => console.log(`Usuário ${socket.id} desconectou.`));
+});
 
-//   socket.on('disconnect', () => console.log(`Usuário ${socket.id} desconectou.`));
-// });
+server.listen(socketPort, 'localhost',
+  () => console.log(`Socket aberto na porta ${socketPort}`));
