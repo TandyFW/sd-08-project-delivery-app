@@ -12,12 +12,12 @@ return res.status(status.Conflict).json({ message: error.message });
 };
 
 const getSellers = async (_req, res) => {
-	try {
-		const sellers = await userService.findSellers();
-		return res.status(status.OK).json(sellers);
-	} catch (error) {
-		return res.status(status.NotFound).json({ message: 'Error' });
-	}
+try {
+const sellers = await userService.findSellers();
+return res.status(status.OK).json(sellers);
+} catch (error) {
+return res.status(status.NotFound).json({ message: 'Error' });
+}
 };
 
 module.exports = { register, getSellers };
