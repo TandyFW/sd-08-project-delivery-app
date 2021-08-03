@@ -5,7 +5,8 @@ import Loader from './Loader';
 // import { getAllProducts } from '../services';
 // import { productsAction } from '../redux/actions';
 import { getAllOrdesBySellerApi } from '../redux/actions';
-
+// import { stateText } from '../services/socket';
+// import { socket } from '../redux/socket';
 // import '../styles/sellerOrderList.css';
 
 // const data = new Date();
@@ -20,6 +21,7 @@ class SellerOrderList extends React.Component {
       OrderDetails: {},
       orders: [],
       isLoading: true,
+      state: '',
     };
     this.setAllOrdesInState = this.setAllOrdesInState.bind(this);
   }
@@ -31,6 +33,10 @@ class SellerOrderList extends React.Component {
     await getAllOrdesByUser();
     this.setAllOrdesInState();
   }
+
+  // handeSocket((result)=>{
+  //   this.setState({state: result})
+  // });
 
   async setAllOrdesInState() {
     const { allOrdes } = this.props;
@@ -67,6 +73,13 @@ class SellerOrderList extends React.Component {
         isLoading: false }));
     }
   }
+  // useEffect( () => {
+
+  //   socket.on('satate', result);
+  //   return () => {
+  //     setState({state: result})
+  //   }
+  // }, [socket]);
 
   render() {
     const { history } = this.props;

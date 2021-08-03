@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import validator from 'email-validator';
 import { login } from '../services';
 import { loginAction } from '../redux/actions';
+import { hello } from '../services/socket';
 
 const MIN_LENGTH_PASSWORD = 6;
 const MAX_VIEW_SPAN_FIVE_SECONDS = 5000;
@@ -67,7 +68,7 @@ class Login extends React.Component {
 
     if (infoLoginAccess.token) {
       setDataLoginStore(infoLoginAccess);
-
+      hello(infoLoginAccess.id);
       if (infoLoginAccess.role === 'seller') {
         history.push('/seller/orders');
       } else if (infoLoginAccess.role === 'customer') {

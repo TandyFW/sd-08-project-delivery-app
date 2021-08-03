@@ -5,6 +5,7 @@ import validator from 'email-validator';
 import { Loader } from '../components';
 import { createUser, login } from '../services';
 import { loginAction } from '../redux/actions';
+import { hello } from '../services/socket';
 
 const SECOND_HALF = 1500;
 const MAX_TIME_SPAM_TEN_SECONDS = 10000;
@@ -82,6 +83,7 @@ class Register extends React.Component {
 
     if (user) {
       const infoLoginAccess = await login(email, pass);
+      hello(id);
       localStorage.setItem('user', JSON.stringify(infoLoginAccess));
       setDataLoginStore(infoLoginAccess);
     }

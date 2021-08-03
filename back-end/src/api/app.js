@@ -3,6 +3,7 @@ const path = require('path');
 const cors = require('cors');
 const reqquireHttp = require('http');
 const socketIo = require('socket.io');
+const sock = require('../socket.io/sockets');
 const { loginRoute, registerRoute, productsRoute, orderRoute } = require('./routes');
 const handleError = require('../middlewares/errorHandler');
 
@@ -28,10 +29,7 @@ app.use(handleError);
 app.all('*', (_req, res) => res.status(404).json({ message: 'Not Found' }));
 
 io.on('connection', (socket) => {
-    console.log(`Usuário conectado. ID: ${socket.id} `);
-    socket.on('ping', () => {
-        console.log(`${socket.id} emitiu um ping!`);
-    });
+    sock.ets(socket);
 });
 io.listen(SOCKET_PORT);
 module.exports = app;
