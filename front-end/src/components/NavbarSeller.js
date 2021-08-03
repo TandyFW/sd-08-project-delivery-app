@@ -17,7 +17,7 @@ function NavbarSeller({ nome }) {
           <li>Pedidos</li>
           <li>{ nome }</li>
           <button
-            type='button'
+            type="button"
             data-testid="customer_products__element-navbar-link-logout"
             onClick={ handleLogout }
           >
