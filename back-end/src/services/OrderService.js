@@ -6,10 +6,16 @@ const getUserOrders = async (userId) => {
 };
 
 const getOrderById = async (id) => {
-  const order = await Sales.findByPk(id, { include: [
-    { model: User, as: 'seller', attributes: ['name'] },
-    { model: Products, as: 'products', through: { attributes: ['quantity'] } },
-  ] });
+  // const order = await Sales.findByPk(id, { include: [
+  //   { model: User, as: 'seller', attributes: ['name'] },
+  //   { model: Products, as: 'products', through: { attributes: [] } },
+  // ] });
+
+  const order = await Sales.findOne({ where: { id },
+    include: [
+      { model: Products, as: 'products' },
+    ] });
+
   return order;
   // const products = await SalesProducts.findAll({
   //   where: { saleId: id },
