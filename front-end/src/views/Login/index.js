@@ -21,8 +21,21 @@ function Login() {
     return true;
   }
   useEffect(() => {
-    if (userData.token) {
-      history.push('/customer/products');
+    if (userData && userData.token) {
+      const { role } = userData;
+      switch (role) {
+      case 'customer':
+        history.push('/customer/products');
+        break;
+      case 'seller':
+        history.push('/seller/orders');
+        break;
+      case 'administrator':
+        history.push('/admin/manage');
+        break;
+      default:
+        break;
+      }
     }
     refEmail.current.innerHTML = refEmail.current.innerText
       .split('')
