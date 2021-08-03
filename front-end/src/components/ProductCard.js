@@ -49,7 +49,7 @@ export default function ProductCard(props) {
   };
 
   const imgStyle = {
-    height: '12rem',
+    height: '100%',
   };
 
   return (
