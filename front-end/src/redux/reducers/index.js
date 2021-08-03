@@ -7,7 +7,7 @@ import ordesReducer from './ordes';
 const rootReducer = combineReducers({ productReducer,
   userReducer,
   ordesReducer,
-  processReducer,
+  // processReducer,
 });
 
 export default rootReducer;

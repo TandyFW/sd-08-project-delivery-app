@@ -7,7 +7,7 @@ export const ALL_USER = 'ALL_USER';
 export const USER = 'USER';
 export const ORDES = 'ORDES';
 export const ALL_ORDES = 'ALL_ORDES';
-export const PROCESS = 'PROCESS';
+// export const PROCESS = 'PROCESS';
 
 export const productsAction = (array) => ({
   type: PROD_LIST,
@@ -61,11 +61,11 @@ export const getAllOrdesBySellerApi = () => async (dispatch) => {
   dispatch(allOrdesAction(orders));
 };
 
-export const process = (encrypt, text, cypher) => ({
-  type: PROCESS,
-  payload: {
-    encrypt,
-    text,
-    cypher,
-  },
-});
+// export const process = (encrypt, text, cypher) => ({
+//   type: PROCESS,
+//   payload: {
+//     encrypt,
+//     text,
+//     cypher,
+//   },
+// });
