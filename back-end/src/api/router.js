@@ -93,7 +93,7 @@ router.get('/admin/users',
   tokenAdminValidation,
   usersController.getCustomerAndSellers);
 
-//DELETE /admin/users/:id -> para a remoção de um usuário por um Admin.
+// DELETE /admin/users/:id -> para a remoção de um usuário por um Admin.
 // Usa o token JWT de 'Authorization', para validar se é um administrador.
 router.delete('/admin/users/:id',
   tokenAdminValidation,
