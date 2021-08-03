@@ -25,6 +25,12 @@ export default function InputLogin() {
     if (user === undefined) {
       return setRedirected(true);
     }
+    if (user.data.role === 'seller') {
+      localStorage.setItem('user', JSON.stringify(user.data));
+      setRedirected(false);
+      history.push('/seller/orders');
+      return;
+    }
     if (user.statusText === 'OK') {
       localStorage.setItem('user', JSON.stringify(user.data));
       setRedirected(false);

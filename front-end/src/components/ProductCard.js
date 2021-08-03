@@ -4,7 +4,6 @@ import CartContext from './CartContext';
 import './ProductCard.css';
 
 const ProductCard = ({ product }) => {
-  console.log('product: ', product);
   const { id, name, price, urlImage } = product;
   const [quantity, setQuantity] = useState(0);
   const { addToCart, removeFromCart } = useContext(CartContext);
