@@ -2,11 +2,10 @@ import styled from 'styled-components';
 
 export const Container = styled.ul`
   display: flex;
-  justify-content: center;
+  justify-content: center;;
 `;
 export const ContainerItem = styled.div`
   background-color: #3FBF7F;
-  border-radius: 6px 0 0 6px;
   padding: 10px;
   color: black;
   width: 25px;
@@ -15,50 +14,39 @@ export const ContainerItem = styled.div`
   font-size: 18px;
   text-align: center;
 `;
-export const ContainerDescription = styled.div`
+export const ContainerName = styled.div`
   background-color: #EFEFF0;
   padding: 10px;
   color: black;
-  width: 550px;
+  width: 300px;
   margin-bottom: 15px;
   font-size: 18px;
 `;
-export const ContainerQuantity = styled.div`
+export const ContainerEmail = styled.div`
   background-color: #216844;
   padding: 10px;
   color: white;
-  width: 60px;
+  width: 300px;
   margin-bottom: 15px;
   font-size: 18px;
   font-weight: bold;
   text-align: center;
 `;
-export const ContainerUnitValue = styled.div`
+export const ContainerType = styled.div`
   background-color: #7033AC;
   padding: 10px;
   color: white;
-  width: 60px;
-  margin-bottom: 15px;
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
-`;
-export const ContainerTotalValue = styled.div`
-  background-color: #319CCD;
-  padding: 10px;
-  color: white;
-  width: 60px;
+  width: 200px;
   margin-bottom: 15px;
   font-size: 18px;
   font-weight: bold;
   text-align: center;
 `;
 export const DeleteItem = styled.button`
-  background-color: #6CCF9E;
-  border-radius: 0 6px 5px 0;
+  background-color: #319CCD;
   padding: 10px;
   color: white;
-  width: 20%;
+  width: 120px;
   border: none;
   outline: none;
   font-weight: bold;
@@ -67,7 +55,7 @@ export const DeleteItem = styled.button`
   transition: 0.2s ease all;
   font-size: 18px;
   &:hover {
-    background-color: #3FBF7F;
+    background-color: #5AAFD7;
     color: white;
   }
 `;

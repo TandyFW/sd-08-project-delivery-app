@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Header, ItemList } from '../../components';
+import { HeaderSeller, ItemListOrderSeller } from '../../components';
 import api from '../../Apis/api1';
 import { TotalOrder } from '../../components/ProductsList/Styled';
 import { Context } from '../../Context';
@@ -12,9 +12,9 @@ const formatDate = (date) => {
   return `${day.padStart(2, '0')}/${month.padStart(2, '0')}/${year}`;
 };
 
-const OrdersDetails = ({ match }) => {
-  const { client } = useContext(Context);
+const OrdersDetailsSeller = ({ match }) => {
   const { id } = match.params;
+  const { client } = useContext(Context);
   const [sale, setSale] = useState({});
   const [seller, setSeller] = useState({});
   const { token } = JSON.parse(localStorage.getItem('user'));
@@ -39,6 +39,8 @@ const OrdersDetails = ({ match }) => {
     );
   }, [client, sale]);
 
+  if (!Object.keys(sale).length || !Object.keys(seller).length) return <p />;
+
   const handleClickChangeStatus = (status) => {
     setSale({
       ...sale,
@@ -51,53 +53,56 @@ const OrdersDetails = ({ match }) => {
     });
   };
 
-  if (!Object.keys(sale).length || !Object.keys(seller).length) return <p />;
-
   return (
     <div>
-      <Header />
+      <HeaderSeller />
       <h3>Detalhes do Pedido</h3>
-      <span data-testid="customer_order_details__element-order-details-label-order-id">
+      <span data-testid="seller_order_details__element-order-details-label-order-id">
         {sale.id.toString().padStart(TARGET_LENGTH, '0')}
       </span>
-      <span data-testid="customer_order_details__element-order-details-label-seller-name">
-        {seller.name}
-      </span>
-      <span data-testid="customer_order_details__element-order-details-label-order-date">
+      <span data-testid="seller_order_details__element-order-details-label-order-date">
         {formatDate(sale.sale_date)}
       </span>
       <span
-        data-testid="customer_order_details__element-order-details-label-delivery-status"
+        data-testid="seller_order_details__element-order-details-label-delivery-status"
       >
         {sale.status}
       </span>
       <button
         type="button"
-        disabled={ sale.status !== 'Em Trânsito' }
-        data-testid="customer_order_details__button-delivery-check"
-        onClick={ () => handleClickChangeStatus('Entregue') }
+        data-testid="seller_order_details__button-preparing-check"
+        onClick={ () => handleClickChangeStatus('Preparando') }
+        disabled={ sale.status !== 'Pendente' }
       >
-        Marcar como entregue
+        Preparar Pedido
+      </button>
+      <button
+        type="button"
+        disabled={ sale.status !== 'Preparando' }
+        onClick={ () => handleClickChangeStatus('Em Trânsito') }
+        data-testid="seller_order_details__button-dispatch-check"
+      >
+        Saiu para Entrega
       </button>
       <div>
         {sale.products.length > 0 ? (
           sale.products.map((item, index) => (
-            <ItemList
+            <ItemListOrderSeller
               key={ index }
               item={ item.id }
               description={ item.name }
               quantity={ item.salesProduct.quantity }
               unitaryValue={ item.price }
               index={ index }
-              dataTestId="customer_order_details"
+              dataTestId="seller_order_details"
             />
           ))
         ) : (
-          <h2>Não há produtos no carrinho</h2>
+          <h2>Não há pedidos a entregar</h2>
         )}
         <TotalOrder>
           Total: R$
-          <span data-testid="customer_order_details__element-order-total-price">
+          <span data-testid="seller_order_details__element-order-total-price">
             {sale.total_price.replace(/\./, ',')}
           </span>
         </TotalOrder>
@@ -106,8 +111,8 @@ const OrdersDetails = ({ match }) => {
   );
 };
 
-export default OrdersDetails;
+export default OrdersDetailsSeller;
 
-OrdersDetails.propTypes = {
+OrdersDetailsSeller.propTypes = {
   match: PropTypes.objectOf(PropTypes.any).isRequired,
 };

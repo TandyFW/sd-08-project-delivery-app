@@ -33,8 +33,33 @@ const register = async (name, email, password) => {
   return { token, name: result.name, email: result.email, role: result.role };
 };
 
+const adminRegister = async (name, email, password, role) => {
+  const [validUser] = await user.findAll({
+    where: {
+      [Op.or]: [{ email }, { name }],
+    },
+  });
+  if (validUser) return { error: 409, message: 'Usuário existente' };
+  const newPass = hashTransformation(password);
+  const result = await user.create({
+    name,
+    email,
+    password: newPass,
+    role,
+  });
+  console.log(result.id)
+  return {
+    id: result.id,
+    name: result.name,
+    email: result.email,
+    role: result.role,
+  };
+};
+
 const getAllUsers = async () => {
-  const response = await user.findAll();
+  const response = await user.findAll({
+    where: { role: ['seller', 'customer'] },
+  });
   return response;
 };
 
@@ -48,10 +73,19 @@ const getUserById = async (id) => {
   return response;
 };
 
+const deleteUser = async (id) => {
+  const userId = await user.findOne({ where: { id } });
+  if (!userId) throw new Error('Product does not exist');
+  const response = await user.destroy({ where: { id } });
+  return response;
+};
+
 module.exports = {
   login,
   register,
+  adminRegister,
   getAllUsers,
   getAllSellers,
   getUserById,
+  deleteUser,
 };

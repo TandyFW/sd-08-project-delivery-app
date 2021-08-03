@@ -18,16 +18,16 @@ import {
 } from './Styled';
 import api from '../../Apis/api1';
 
-const redirectLoggedUser = (user, history) => {
-  if (user.role === 'customer') return history.push('/customer/products');
-  if (user.role === 'seller') return history.push('/seller/orders');
-  if (user.role === 'administrator') return history.push('/admin/manage');
+const redirectLoggedUser = (role, history) => {
+  if (role === 'customer') return history.push('/customer/products');
+  if (role === 'seller') return history.push('/seller/orders');
+  if (role === 'administrator') return history.push('/admin/manage');
 };
 
 const Login = () => {
   const history = useHistory();
   const user = JSON.parse(localStorage.getItem('user'));
-  if (user) redirectLoggedUser(user, history);
+  if (user) redirectLoggedUser(user.role, history);
 
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
@@ -57,9 +57,7 @@ const Login = () => {
       setLogged(false);
     } else {
       setLogged(true);
-      if (result.data.role === 'customer') return history.push('/customer/products');
-      if (result.data.role === 'seller') return history.push('/seller/orders');
-      return history.push('/admin/manage');
+      return redirectLoggedUser(result.data.role, history);
     }
   };
 
