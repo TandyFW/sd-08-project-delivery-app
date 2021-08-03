@@ -10,6 +10,7 @@ import Home from './views/Home';
 import Register from './views/Register';
 import CustomerRouts from './views/Customer/Routes';
 import SellerOrders from './views/Seller';
+import SellerDetailPage from './views/SellerDetail';
 
 function Routes() {
   return (
@@ -20,8 +21,8 @@ function Routes() {
         <Route path="/components" component={ Components } />
         <Route path="/register" component={ Register } />
         <Route path="/customer" component={ CustomerRouts } />
+        <Route exact path="/seller/orders/:id" component={ SellerDetailPage } />
         <Route path="/seller/orders" component={ SellerOrders } />
-        <Route path="/seller/orders/:id" component={ SellerOrders } />
       </Switch>
     </Router>
   );
