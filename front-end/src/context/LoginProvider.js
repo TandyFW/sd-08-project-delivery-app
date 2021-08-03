@@ -28,7 +28,7 @@ export function LoginProvider({ children }) {
 
   const history = useHistory();
   if (response) {
-    setStoredLS(response.data.token);
+    setStoredLS(response.data);
     localStorage.setItem('user', JSON.stringify(response.data));
     history.push(roleConfig[response.data.role]);
   }
