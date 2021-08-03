@@ -9,7 +9,6 @@ const CustomerCheckoutRouter = require('../routers/CustomerCheckout');
 const SellerProducts = require('../routers/SellerProducts');
 const CustomerOrdersRouter = require('../routers/CustomerOrdersRouter');
 
-
 const app = express();
 app.use(cors({
   origin: '*',
