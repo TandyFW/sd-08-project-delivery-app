@@ -6,4 +6,10 @@ const getAllUserOrders = async (req, res) => {
   return res.status(200).json(orders);
 };
 
-module.exports = { getAllUserOrders };
+const getOrderById = async (req, res) => {
+  const { id } = req.params;
+  const order = await OrderService.getOrderById(id);
+  return res.status(200).json(order);
+};
+
+module.exports = { getAllUserOrders, getOrderById };
