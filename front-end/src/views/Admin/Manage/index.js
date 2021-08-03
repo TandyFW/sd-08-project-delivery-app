@@ -3,7 +3,6 @@ import Context from '../../../context/Context';
 
 import NavBar from '../../Components/NavBar';
 import Form from './Components/form';
-import './styles.css';
 
 const AdminManage = () => {
   const { userData } = useContext(Context);
