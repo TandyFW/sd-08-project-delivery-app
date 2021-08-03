@@ -20,7 +20,7 @@ module.exports = {
         primaryKey: true,
         field: "user_id",
       },
-      selleId: {
+      sellerId: {
         type: Sequelize.INTEGER,
         references: {
           model: "users",
