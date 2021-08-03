@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TableRow from './TableRow';
 
-export default function Table({ heading, body }) {
+export default function Table({ heading, body = [] }) {
   const ARRAY_SIZE = 5;
+
+  if (!body) return <p>Carregando ...</p>;
   return (
     <table className="products-table">
       <thead>
