@@ -8,6 +8,7 @@ const status = {
   emTransito: 'Em Trânsito',
   entregue: 'Entregue',
 };
+
 const idUser = async (token) => {
   const JWT_SECRET = fs
     .readFileSync('jwt.evaluation.key', { encoding: 'utf-8' })
@@ -91,7 +92,11 @@ const getOrderDetails = async (id) => {
     const resultSaleAndProducts = await Sale.findOne({
       where: { id },
       include: [
-        { model: Product, as: 'products', through: { attributes: ['quantity'] } },
+        {
+          model: Product,
+          as: 'products',
+          through: { attributes: ['quantity'] },
+        },
         { model: User, as: 'sellerId', attributes: { exclude: ['password'] } },
       ],
     });
@@ -102,9 +107,18 @@ const getOrderDetails = async (id) => {
   }
 };
 
+const changeOrderStatus = async (id, orderStatus) => {
+  try {
+    await Sale.update({ status: orderStatus }, { where: { id } });
+  } catch (error) {
+    console.log('error changeOrderStatus', error);
+  }
+};
+
 module.exports = {
   registerSale,
   getAllOrdersByClient,
   getAllOrdersBySeller,
   getOrderDetails,
+  changeOrderStatus,
 };
