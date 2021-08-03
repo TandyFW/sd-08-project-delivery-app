@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import CartContext from './CartContext';
-import { saveState } from '../services/LocalStorage';
 
 const CartContextProvider = ({ children }) => {
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('carrinho')) || []);
@@ -22,13 +21,7 @@ const CartContextProvider = ({ children }) => {
     subTotal: quantity * parseFloat(unitPrice),
   });
 
-  const testando = () => {
-    const cartTest = {};
-    saveState('carrinho', cartTest);
-  };
-
   const addToCart = (obj) => {
-    console.log('obj: ', obj);
     if (cart.some((item) => item.id === obj.id)) {
       const newCart = cart
         .map((item) => (item.id === obj.id
@@ -53,7 +46,6 @@ const CartContextProvider = ({ children }) => {
     addToCart,
     removeFromCart,
     total,
-    testando,
   };
 
   return (

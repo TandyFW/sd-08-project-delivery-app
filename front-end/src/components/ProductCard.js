@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import CartContext from './CartContext';
-import './ProductCard.css';
+import '../styles/ProductCard.css';
 
 const ProductCard = ({ product }) => {
   const { id, name, price, urlImage } = product;

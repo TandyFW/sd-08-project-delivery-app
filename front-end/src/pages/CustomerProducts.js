@@ -5,6 +5,8 @@ import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
 import CartContext from '../components/CartContext';
 
+import '../styles/CustomerProducts.css';
+
 const CustomerProducts = () => {
   const [user, setUser] = useState({});
   const [products, setProducts] = useState([]);
@@ -30,8 +32,10 @@ const CustomerProducts = () => {
   return (
     <>
       <Navbar name={ user.name } />
-      { products
-        .map((product) => <ProductCard key={ product.id } product={ product } />) }
+      <div className="product-list">
+        { products
+          .map((product) => <ProductCard key={ product.id } product={ product } />) }
+      </div>
       <button
         data-testid="customer_products__button-cart"
         type="button"

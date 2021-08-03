@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import './CustomerOrderCard.css';
+import '../styles/CustomerOrderCard.css';
 
 const CustomerOrderCard = ({ order }) => {
   const { id, status, saleDate, totalPrice } = order;
@@ -31,7 +31,7 @@ const CustomerOrderCard = ({ order }) => {
           <p
             data-testid={ `customer_orders__element-card-price-${id}` }
           >
-            {totalPrice}
+            {totalPrice.replace('.', ',')}
           </p>
         </div>
       </div>

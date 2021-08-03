@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import CustomerOrderCard from '../components/CustomerOrderCard';
 import OrderContext from '../components/OrderContext';
-import './CustomerOrders.css';
+import '../styles/CustomerOrders.css';
 
 const CustomerOrders = () => {
   const [user, setUser] = useState({});
