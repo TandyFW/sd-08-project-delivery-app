@@ -11,8 +11,7 @@ const ENDPOINT = 'http://localhost:3001';
 function SellerDetailPage(props) {
   const { userData } = useContext(Context);
   const [order, setOrder] = useState({});
-  // eslint-disable-next-line no-unused-vars
-  const [orderStatus, setOrderStatus] = useState('Pendente');
+  // const [orderStatus, setOrderStatus] = useState('Pendente');
   const [status, setStatus] = useState();
   const datatest = 'seller_order_details__element-order-details-label-delivery-status';
   const emtransito = 'Em Trânsito';
