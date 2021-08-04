@@ -6,10 +6,7 @@ import { HEADING_LIST_CHECKOUT } from '../utils/Lists';
 export default function ProductsList() {
   const { itemsList, totalPrice } = useContext(DeliveryAppContext);
   const [heading, setHeading] = useState([]);
-  const [body, setBody] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  const getItensList = () => setBody(itemsList);
 
   const getLocation = () => {
     const currentLocation = window.location.pathname;
@@ -22,12 +19,11 @@ export default function ProductsList() {
   };
 
   const setLoadingMessage = () => {
-    if (!heading.length || !body.length) return setIsLoading(true);
-    if (heading.length && body.length) return setIsLoading(false);
+    if (!heading.length || !itemsList.length) return setIsLoading(true);
+    if (heading.length && itemsList.length) return setIsLoading(false);
   };
 
-  useEffect(() => getItensList(), [itemsList, getItensList]);
-  useEffect(() => setLoadingMessage(), [body, heading]);
+  useEffect(() => setLoadingMessage(), [itemsList, heading]);
   useEffect(() => getLocation(), []);
 
   if (isLoading) return <p>Carregando...</p>;
@@ -36,14 +32,13 @@ export default function ProductsList() {
       <h2 className="title-h2">
         Finalizar Pedido
       </h2>
-      <Table heading={ heading } body={ body } />
-      <div className="total-container">
-        <p
-          className="total-price-order"
-          data-testid="customer_checkout__element-order-total-price"
-        >
-          { `Total: R$ ${totalPrice}` }
-        </p>
+      <Table heading={ heading } body={ itemsList } />
+      <p>`Total: R$ </p>
+      <div
+        className="total-price-order"
+        data-testid="customer_checkout__element-order-total-price"
+      >
+        { totalPrice.replace('.', ',') }
       </div>
     </div>
   );

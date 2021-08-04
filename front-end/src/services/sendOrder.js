@@ -9,7 +9,7 @@ const sendOrder = async ({
   productsList,
 }) => {
   try {
-    await axios.post('http://localhost:3001/sales', {
+    const orderId = await axios.post('http://localhost:3001/sales', {
       userId,
       sellerId,
       totalPrice,
@@ -18,8 +18,8 @@ const sendOrder = async ({
       productsList,
     });
 
-    return true;
-  } catch (error) {
+    return orderId;
+  } catch (err) {
     console.log(err);
     return false;
   }

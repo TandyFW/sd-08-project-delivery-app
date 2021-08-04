@@ -47,7 +47,7 @@ export default function FormLogin() {
       case 'customer':
         return setURL('/customer/products');
       case 'seller':
-        return setURL('/seller/products');
+        return setURL('/seller/orders');
       case 'admin':
         return setURL('/admin/manage');
       default:

@@ -11,7 +11,8 @@ const transaction = async (Sale) => {
       status: 'Pendente',
     }, { transaction: t });
 
-    const novoArray = Sale.array.map((product) => ({ ...product, saleId: result.dataValues.id }));
+    const novoArray = Sale.productsList
+      .map((product) => ({ ...product, saleId: result.dataValues.id }));
   
     await salesProducts.bulkCreate(novoArray,
     { transaction: t });
@@ -25,10 +26,10 @@ const transaction = async (Sale) => {
 const creatCheckout = async (Sale) => {
   try {
     const result = await transaction(Sale);
-
+    
     return {
       statusCode: 200,
-      json: result,
+      json: result.dataValues.id,
     };
   } catch (error) {
     console.log(error);

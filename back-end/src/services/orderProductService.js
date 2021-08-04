@@ -4,7 +4,7 @@ const findOrdersById = async (id) => {
   try {
     const result = await sales.findAll({ where: { id },
       include: [{ model: products, as: 'products', through: { attributes: ['quantity'] } }],
-      attributes: ['id', 'status', 'salesDate'],
+      attributes: ['id', 'status', 'salesDate', 'totalPrice'],
     });
     
     return {
