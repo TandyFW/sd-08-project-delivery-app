@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Container, Content, UpContent, BotContent } from './styled';
 
 const Modal = ({ data, setVisible }) => {
-  console.log(data);
   useLayoutEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {

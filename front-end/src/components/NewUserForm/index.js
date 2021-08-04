@@ -44,7 +44,6 @@ export default function NewUserForm() {
       setLogged(true);
     }
   };
-  console.log(users);
   useEffect(() => {
     const PASSLENGHT = 6;
     const NAMELENGTH = 12;

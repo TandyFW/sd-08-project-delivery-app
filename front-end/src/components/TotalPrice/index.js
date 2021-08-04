@@ -17,7 +17,6 @@ export default function TotalPrice() {
     return total;
   }, 0);
   setTotalPrice(totalValue);
-  console.log(selectedProducts);
   return (
     <PriceTag
       data-testid="customer_products__button-cart"

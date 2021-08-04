@@ -15,6 +15,8 @@ import {
   RegisterButton,
   LoginLabel,
   PassLabel,
+  InvalidBox,
+  LoginGif,
 } from './Styled';
 import api from '../../Apis/api1';
 
@@ -33,6 +35,7 @@ const Login = () => {
   const [pass, setPass] = useState('');
   const [valid, setValid] = useState(true);
   const [logged, setLogged] = useState(true);
+  const [toRedirect, setToRedirect] = useState(false);
 
   useEffect(() => {
     const PASSLENGHT = 6;
@@ -44,21 +47,27 @@ const Login = () => {
     }
   }, [email, pass]);
 
-  const submitHandler = async (e) => {
-    const STATUSOK = 200;
+  const submitHandler = (e) => {
     e.preventDefault();
-    const result = await api.loginFetch(email, pass)
-      .then((data) => {
-        localStorage.setItem('user', JSON.stringify(data.data));
-        return data;
-      })
-      .catch((err) => err.message);
-    if (result.status !== STATUSOK) {
-      setLogged(false);
-    } else {
-      setLogged(true);
-      return redirectLoggedUser(result.data.role, history);
-    }
+    const TIME_OUT = 5250;
+    const STATUSOK = 200;
+    setToRedirect(true);
+    setTimeout(async () => {
+      const result = await api
+        .loginFetch(email, pass)
+        .then((data) => {
+          localStorage.setItem('user', JSON.stringify(data.data));
+          return data;
+        })
+        .catch((err) => err.message);
+      if (result.status !== STATUSOK) {
+        setLogged(false);
+        setToRedirect(false);
+      } else {
+        setLogged(true);
+        redirectLoggedUser(result.data.role, history);
+      }
+    }, TIME_OUT);
   };
 
   return (
@@ -66,15 +75,11 @@ const Login = () => {
       <InnerContainer>
         <AreaImage>
           <ProfileImage src="https://i.pinimg.com/originals/bd/d4/8a/bdd48a385d53511c6248594eedb3560d.png" />
-          <AppName>
-            ASDSAD
-          </AppName>
+          <AppName>TryJuice</AppName>
         </AreaImage>
         <ContainerForm>
           <FormContainer onSubmit={ submitHandler }>
-            <LoginLabel>
-              Login:
-            </LoginLabel>
+            <LoginLabel>Login:</LoginLabel>
             <LoginInput
               type="text"
               onChange={ ({ target }) => setEmail(target.value) }
@@ -82,9 +87,7 @@ const Login = () => {
               placeholder="email@trybeer.com"
               name="email"
             />
-            <PassLabel>
-              Password:
-            </PassLabel>
+            <PassLabel>Password:</PassLabel>
             <PasswordInput
               type="password"
               onChange={ ({ target }) => setPass(target.value) }
@@ -96,7 +99,6 @@ const Login = () => {
               type="submit"
               disabled={ valid }
               data-testid="common_login__button-login"
-
             >
               Send
             </SubmitButton>
@@ -107,10 +109,14 @@ const Login = () => {
               Ainda não tem conta?
             </RegisterButton>
           </FormContainer>
-          {logged === false
-          && <p data-testid="common_login__element-invalid-email">aa</p>}
+          {!logged && (
+            <InvalidBox data-testid="common_login__element-invalid-email">
+              Login e/ou email inválidos
+            </InvalidBox>
+          )}
         </ContainerForm>
       </InnerContainer>
+      {toRedirect && <LoginGif src="https://acegif.com/wp-content/gif/beer-62.gif" />}
     </Container>
   );
 };

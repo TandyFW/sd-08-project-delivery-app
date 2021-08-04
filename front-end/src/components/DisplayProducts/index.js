@@ -9,7 +9,6 @@ export default function DisplayProducts() {
   const { products } = useContext(Context);
   const [data, setData] = useState();
   const [visible, setVisible] = useState(false);
-  console.log(data, setData);
 
   return (
     <div>

@@ -14,6 +14,7 @@ import { Container,
   NameLabel,
   PassLabel,
   ContainerForm,
+  LoginGif,
 } from './styled';
 
 const Register = () => {
@@ -23,22 +24,7 @@ const Register = () => {
   const [name, setName] = useState('');
   const [valid, setValid] = useState(true);
   const [logged, setLogged] = useState(true);
-
-  const submitHandler = async (e) => {
-    const CREATED = 201;
-    e.preventDefault();
-    const result = await api.registerFetch(name, email, pass).then((data) => {
-      localStorage.setItem('user', JSON.stringify(data.data));
-      return data;
-    })
-      .catch((err) => err.message);
-    if (result.status !== CREATED) {
-      setLogged(false);
-    } else {
-      setLogged(true);
-      history.push('/customer/products');
-    }
-  };
+  const [toRedirect, setToRedirect] = useState(false);
 
   useEffect(() => {
     const PASSLENGHT = 6;
@@ -50,6 +36,28 @@ const Register = () => {
       setValid(true);
     }
   }, [email, name.length, pass]);
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    const CREATED = 201;
+    const TIME_OUT = 5250;
+    setToRedirect(true);
+    setTimeout(async () => {
+      const result = await api.registerFetch(name, email, pass).then((data) => {
+        localStorage.setItem('user', JSON.stringify(data.data));
+        return data;
+      })
+        .catch((err) => err.message);
+      if (result.status !== CREATED) {
+        setLogged(false);
+        setToRedirect(false);
+      } else {
+        setLogged(true);
+        history.push('/customer/products');
+      }
+    }, TIME_OUT);
+  };
+
   return (
     <Container>
       <InnerContainer>
@@ -102,6 +110,7 @@ const Register = () => {
         {logged === false
         && <p data-testid="common_register__element-invalid_register">INVALIDO</p>}
       </InnerContainer>
+      {toRedirect && <LoginGif src="https://acegif.com/wp-content/gif/beer-62.gif" />}
     </Container>
   );
 };
