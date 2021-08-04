@@ -44,7 +44,7 @@ const createSale = async (saleData, userId) => {
   });
 };
 
-const updateSale = async ({ id, status }) => {
+const updateSale = async (id, status) => {
   try {
     await Sale.update({ status }, { where: { id } });
     const response = await Sale.findOne({ where: { id } });
