@@ -15,9 +15,13 @@ import {
   TotalValue,
 } from '../../styles/pages/customer/CustomerOrderDetails';
 
-function OrderDetails() {
+function CustomerOrderDetails() {
   const { id } = useParams();
   const [order, setOrder] = useState();
+
+  const updateOrderStatus = (newStatus) => {
+    setOrder({ ...order, status: newStatus });
+  };
 
   useEffect(() => {
     api.getOrderById(id).then((result) => {
@@ -51,6 +55,7 @@ function OrderDetails() {
             <ProductListStatus
               testId="customer_order_details"
               order={ orderData }
+              updateOrderStatus={ updateOrderStatus }
             />
             <ProductListHeader />
             <ProductResumeContainer>
@@ -71,4 +76,4 @@ function OrderDetails() {
   );
 }
 
-export default OrderDetails;
+export default CustomerOrderDetails;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   StyledProductListHeader,
@@ -17,20 +17,23 @@ const ProductListStatus = ({ order, testId, handleSetStatus }) => {
   const { id, saleDate, status } = order;
 
   const handlePreparing = () => {
-    io.once('refreshOrder', (newStatus) => {
-      console.log(newStatus);
-      handleSetStatus(newStatus);
-    });
     io.emit('prepareOrder', id);
   };
 
   const handleDispatch = () => {
-    io.once('refreshOrder', (newStatus) => {
+    io.emit('dispatchOrder', id);
+  };
+
+  useEffect(() => {
+    io.on('refreshOrder', (newStatus) => {
       console.log(newStatus);
       handleSetStatus(newStatus);
     });
-    io.emit('dispatchOrder', id);
-  };
+
+    return () => {
+      io.removeAllListeners('refreshOrder');
+    };
+  }, [handleSetStatus]);
 
   return (
     <StyledProductListHeader>
@@ -50,14 +53,14 @@ const ProductListStatus = ({ order, testId, handleSetStatus }) => {
       <ListButtonSecondary
         data-testid={ `${testId}__button-preparing-check` }
         onClick={ handlePreparing }
-        disabled={ status === 'Preparando' }
+        disabled={ status !== 'Pendente' }
       >
         Preparar pedido
       </ListButtonSecondary>
       <ListButtonPrimary
         data-testid={ `${testId}__button-dispatch-check` }
         onClick={ handleDispatch }
-        disabled={ ['Pendente', 'Em Trânsito'].includes(status) }
+        disabled={ status !== 'Preparando' }
       >
         Saiu para entrega
       </ListButtonPrimary>
