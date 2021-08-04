@@ -7,32 +7,8 @@ import { getAllOrdesByUserApi } from '../redux/actions';
 
 import '../styles/customerOrderDetails.css';
 
-// import { getOrdersForUserById } from '../services';
 const prefix1 = 'customer_order_details__element-order';
 const prefix2 = 'customer_order_details__';
-// const newDate = new Date();
-// const formatDate = `${newDate.getDate()}/${newDate.getMonth()}/${newDate.getFullYear()}`;
-// const OrderDetails = {
-//   oderId: 1,
-//   sellerName: 'prof xavier',
-//   date: formatDate,
-//   status: 'entregue',
-//   totalPrice: 49.05,
-//   purchasedProducts: [
-//     { id: 11,
-//       name: 'Skol Lata 250ml',
-//       quantity: 3,
-//       price: 2.2 },
-//     { id: 22,
-//       name: 'Heineken 600ml',
-//       quantity: 4,
-//       price: 7.5 },
-//     { id: 33,
-//       name: 'Antarctica Pilsen 300ml',
-//       quantity: 5,
-//       price: 2.49 },
-//   ],
-// };
 
 class CustomerOrdersDetailsList extends React.Component {
   constructor(props) {
@@ -58,15 +34,11 @@ class CustomerOrdersDetailsList extends React.Component {
   async setAllOrdesInState(orderId) {
     const { allOrdes } = this.props;
     orderId -= 1;
-    // console.log(orderId);
-    // console.log(allOrdes);
     if (allOrdes) {
       const { id, status, productId } = allOrdes[orderId];
       const sellerName = await getNameUserById(allOrdes[orderId].seller_id);
       const dateArray = allOrdes[orderId].sale_date.split('T')[0].split('-');
       const date = `${dateArray[2]}/${dateArray[1]}/${dateArray[0]}`;
-      // console.log(typeof allOrdes[orderId].seller_id);
-      // console.log(sellerName);
       const OrderDetails = {
         oderId: id,
         sellerName,
@@ -75,7 +47,6 @@ class CustomerOrdersDetailsList extends React.Component {
         totalPrice: allOrdes[orderId].total_price,
         purchasedProducts: productId,
       };
-      // console.log(OrderDetails);
       this.setState((state) => ({ ...state,
         orders: allOrdes,
         OrderDetails,
@@ -84,16 +55,13 @@ class CustomerOrdersDetailsList extends React.Component {
   }
 
   render() {
-    // const { history } = this.props;
-    // console.log(history);
-    // const { stateProducts } = this.props;
     const { isLoading } = this.state;
     if (isLoading) {
       return <Loader />;
     }
     const { OrderDetails, isDelivered } = this.state;
     return (
-      <div className="customerOrdersDetailsList-div">
+      <div className="cust-orders_details-container">
         <table className="customerOrdersDetailsList-table">
           <tr>
             <td
@@ -179,30 +147,17 @@ class CustomerOrdersDetailsList extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  // dispatchProducts: (array) => dispatch(productsAction(array)),
-  // dispatchCart: (array) => dispatch(cartAction(array)),
   getAllOrdesByUser: () => dispatch(getAllOrdesByUserApi()),
-  // setAllUserStore: () => dispatch(getAllUsersApi()),
 });
 
 const mapStateToProps = (state) => ({
   allOrdes: state.ordesReducer.allOrdes,
 });
 
-// const mapStateToProps = (state) => ({
-//   stateProducts: state.products.products,
-//   stateCart: state.products.cart,
-// });
-
 CustomerOrdersDetailsList.propTypes = {
   history: PropTypes.shape().isRequired,
   getAllOrdesByUser: PropTypes.func.isRequired,
   allOrdes: PropTypes.arrayOf(PropTypes.object).isRequired,
-//   dispatchProducts: PropTypes.func.isRequired,
-//   dispatchCart: PropTypes.func.isRequired,
-//   stateProducts: PropTypes.arrayOf(PropTypes.object).isRequired,
-//   stateCart: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CustomerOrdersDetailsList);
-// export default CustomerOrdersDetailsList;

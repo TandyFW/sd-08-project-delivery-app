@@ -25,18 +25,20 @@ code {
 
 @import './login.scss';
 
-@import './register.scss';
+@import './customer/register.scss';
 
 @import './header.scss';
 
-@import './products.scss';
+@import './customer/products.scss';
 
-@import './cart.scss';
+@import './customer/cart.scss';
 
-@import './checkout.scss';
+@import './customer/checkout.scss';
 
 @import './admin.scss';
 
-@import './orders.scss';
+@import './seller_orders.scss';
 
-@import './cust_orders'
+@import './customer/cust_orders';
+
+@import './customer/cust_orders_details';

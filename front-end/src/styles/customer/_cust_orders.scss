@@ -1,0 +1,95 @@
+.cust-orders-mastercontainer {
+  @include flex(flex, column, flex-start, center );
+  @include loading-div(500px, 500px, $trybeGreen);
+  .customer-orders-container {
+    @include flex(flex, row, center, center);
+    position: relative;
+    top: calc(8vh + 55px);
+    flex-wrap: wrap;
+    width: 90%;
+    max-width: 1300px;
+    .order-card {
+      @include flex(flex, row, space-between, center);
+      width: 500px;
+      height: 110px;
+      margin: 10px;
+      border-top: 1px solid rgba(0, 0, 0, 0.2);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      box-shadow: 0 2px 5px 0 rgba(5, 3, 3, 0.2) , 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+      .order-left {
+        @include flex(flex, column, center, center);
+        width: 30%;
+        height: 100%;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        border-right: 1px solid rgba(0, 0, 0, .2);
+        button {
+          @include flex(flex, column, center, center);
+          width: 100%;
+          height: 100%;
+          border-top-left-radius: 5px;
+          border-bottom-left-radius: 5px;
+          border: none;
+          background-color: $trybeGreen;
+          &:hover {
+            transition: .3s;
+            background-color: $enabledGreen;
+          }
+          span {
+            font-weight: 500;
+            color: $darkWhite;
+            font-size: 20px;
+            padding-top: 5px;
+            font-weight: 500;
+          }
+        }
+      }
+      .order-right {
+        @include flex(flex, column, center, flex-end);
+        width: 70%;
+        height: 100%;
+        .status-container {
+          @include flex(flex, row, space-around, center);
+          width: 100%;
+          height: 85%;
+        }
+        h4 {
+          text-align: center;
+          margin-right: 15px;
+          font-size: 16px;
+          background-color: $trybeGreen;
+          padding: 6px;
+          border-radius: 4px;
+          color: $darkWhite;
+          border: 1px solid rgba(0, 0, 0, 0.2);
+        }
+        #Pendente, #Entregue, #Preparando {
+          @include flex(flex, column, center, center);
+          font-size: 20px;
+          font-weight: 500;
+          width: 150px;
+          height: 100px;
+          border: 1px solid rgba(0, 0, 0, 0.3);
+          border-radius: 4px;
+        }
+        #Pendente {
+          background-color: $blue;
+          color: $darkWhite;
+        }
+        #Entregue {
+          background-color: $sucess;
+        }
+        #Preparando {
+          background-color: $libreyellow;
+        }
+      }
+    }
+  }
+}
+
+// @media only screen and ( max-width: 1200px ) { //chegando em heigh 650
+//   .cust-orders-mastercontainer {
+//     margin: 10% auto 0 auto; 
+//   }
+// }

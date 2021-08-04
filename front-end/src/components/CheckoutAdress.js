@@ -9,6 +9,7 @@ class CheckoutAdress extends React.Component {
     this.state = {
       sellers: {},
     };
+    this.sendOrder = this.sendOrder.bind(this);
   }
 
   componentDidMount() {
@@ -26,11 +27,10 @@ class CheckoutAdress extends React.Component {
     const totalPrice = parseFloat(localStorage.getItem('totalPrice')).toFixed(2);
     const deliveryAddress = document.getElementById('adress').value;
     const deliveryNumber = document.getElementById('number').value;
-    console.log(deliveryAddress, deliveryNumber, sellerId, totalPrice)
     const { stateCart } = this.props;
     const data = { sellerId, totalPrice, deliveryAddress, deliveryNumber };
     const result = await createSaler(data, stateCart);
-    if(result) {
+    if (result) {
       const { id } = result.newOrder;
       localStorage.removeItem('totalPrice');
       localStorage.removeItem('cart');
@@ -76,7 +76,7 @@ class CheckoutAdress extends React.Component {
         <button
           type="button"
           data-testid="customer_checkout__button-submit-order"
-          onClick={ this.sendOrder() }
+          onClick={ this.sendOrder }
         >
           Finalizar Pedido
         </button>

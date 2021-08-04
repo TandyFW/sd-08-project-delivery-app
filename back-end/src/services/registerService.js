@@ -70,7 +70,7 @@ const getByEmail = async (email) => {
 
 const getByRole = async (role) => {
   const sellers = await user.findAll({ where: { role }, 
-    attributes: { exclude: ['password'] } 
+    attributes: { exclude: ['password'] },
   });
   return sellers;
 };

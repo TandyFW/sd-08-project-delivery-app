@@ -1,0 +1,13 @@
+.cust-orders_details-mastercontainer {
+  @include flex(flex, column, flex-start, center );
+  @include loading-div(500px, 500px, $trybeGreen);
+  .cust-orders_details-container {
+    @include flex(flex, row, center, center);
+    position: relative;
+    top: calc(8vh + 55px);
+    flex-wrap: wrap;
+    width: 90%;
+    max-width: 1300px;
+    background-color: red;
+  }
+}

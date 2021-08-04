@@ -25,6 +25,10 @@ class CustomerOrdersList extends React.Component {
   setAllOrdesInState() {
     const { allOrdes } = this.props;
     if (allOrdes) {
+      allOrdes.forEach((elem) => {
+        const date = elem.sale_date.split('T')[0].split('-');
+        elem.sale_date = `${date[2]}/${date[1]}/${date[0]}`;
+      });
       this.setState((state) => ({ ...state,
         orders: allOrdes,
         isLoading: false }));
@@ -33,6 +37,7 @@ class CustomerOrdersList extends React.Component {
 
   render() {
     const { isLoading } = this.state;
+    const { history } = this.props;
     if (isLoading) {
       return <Loader />;
     }
@@ -42,27 +47,39 @@ class CustomerOrdersList extends React.Component {
         {
           orders.map((order, i) => (
             <div key={ i } className="order-card">
-              <a
-                href={ `/customer/orders/${order.id}` }
-                data-testid={ `${testId}element-order-id-${order.id}` }
-              >
-                {`Pedido ${order.id}` }
-              </a>
-              <div
-                data-testid={ `${testId}element-delivery-status-${order.id}` }
-              >
-                { order.status }
+              <div className="order-left">
+                <button
+                  type="button"
+                  onClick={ () => history.push(`/customer/orders/${order.id}`) }
+                >
+                  <span>Pedido</span>
+                  <span
+                    data-testid={ `${testId}-order-id-${order.id}` }
+                  >
+                    {order.id}
+                  </span>
+                </button>
               </div>
-              <div>
-                <div
-                  data-testid={ `${testId}element-order-date-${order.id}` }
-                >
-                  { order.sale_date }
-                </div>
-                <div
-                  data-testid={ `${testId}element-card-price-${order.id}` }
-                >
-                  { `R$ ${order.total_price}` }
+              <div className="order-right">
+                <div className="status-container">
+                  <div
+                    id={ order.status }
+                    data-testid={ `${testId}element-delivery-status-${order.order_id}` }
+                  >
+                    { order.status }
+                  </div>
+                  <div>
+                    <h4
+                      data-testid={ `${testId}element-order-date-${order.order_id}` }
+                    >
+                      { order.sale_date }
+                    </h4>
+                    <h4
+                      data-testid={ `${testId}element-card-price-${order.order_id}` }
+                    >
+                      { `R$ ${order.total_price}` }
+                    </h4>
+                  </div>
                 </div>
               </div>
             </div>
@@ -82,6 +99,7 @@ const mapStateToProps = (state) => ({
 });
 
 CustomerOrdersList.propTypes = {
+  history: PropTypes.shape().isRequired,
   getAllOrdesByUser: PropTypes.func.isRequired,
   allOrdes: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

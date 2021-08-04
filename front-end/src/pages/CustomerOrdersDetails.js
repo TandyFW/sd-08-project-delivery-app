@@ -21,7 +21,7 @@ class CustomerOrdersDetails extends React.Component {
     const { history } = this.props;
     const { loading } = this.state;
     return (
-      <div className="products-container">
+      <div className="cust-orders_details-mastercontainer">
         <Header history={ history } />
         {loading
           ? (
