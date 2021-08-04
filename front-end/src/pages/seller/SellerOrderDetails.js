@@ -25,6 +25,10 @@ function OrderDetails() {
     });
   }, [id]);
 
+  const handleSetStatus = (newStatus) => {
+    setOrder({ ...order, status: newStatus });
+  };
+
   if (!order) return <p>Loading</p>;
 
   const { products = [], id: orderId, seller: { name },
@@ -51,6 +55,7 @@ function OrderDetails() {
             <SellerProductListStatus
               testId="seller_order_details"
               order={ orderData }
+              handleSetStatus={ handleSetStatus }
             />
             <ProductListHeader />
             <ProductResumeContainer>

@@ -44,6 +44,7 @@ export const StatusTag = styled(RequestStatusTag)`
   font-size: 1.4rem;
   padding: 5px 20px;
   text-transform: capitalize;
+  width: auto;
 `;
 
 export const ListButtonPrimary = styled(ButtonPrimary)`

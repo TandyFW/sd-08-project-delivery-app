@@ -9,11 +9,29 @@ import {
   ListButtonSecondary,
   Spacer,
 } from '../styles/components/ProductListStatus';
+import io from '../sockets';
 
 const ID_LENGTH = 4;
 
-const ProductListStatus = ({ order, testId }) => {
+const ProductListStatus = ({ order, testId, handleSetStatus }) => {
   const { id, saleDate, status } = order;
+
+  const handlePreparing = () => {
+    io.once('refreshOrder', (newStatus) => {
+      console.log(newStatus);
+      handleSetStatus(newStatus);
+    });
+    io.emit('prepareOrder', id);
+  };
+
+  const handleDispatch = () => {
+    io.once('refreshOrder', (newStatus) => {
+      console.log(newStatus);
+      handleSetStatus(newStatus);
+    });
+    io.emit('dispatchOrder', id);
+  };
+
   return (
     <StyledProductListHeader>
       <Item data-testid={ `${testId}__element-order-details-label-order-id` }>
@@ -31,12 +49,15 @@ const ProductListStatus = ({ order, testId }) => {
       <Spacer />
       <ListButtonSecondary
         data-testid={ `${testId}__button-preparing-check` }
+        onClick={ handlePreparing }
+        disabled={ status === 'Preparando' }
       >
         Preparar pedido
       </ListButtonSecondary>
       <ListButtonPrimary
         data-testid={ `${testId}__button-dispatch-check` }
-        disabled
+        onClick={ handleDispatch }
+        disabled={ ['Pendente', 'Em Trânsito'].includes(status) }
       >
         Saiu para entrega
       </ListButtonPrimary>
@@ -51,6 +72,7 @@ ProductListStatus.propTypes = {
     status: PropTypes.string,
   }).isRequired,
   testId: PropTypes.string.isRequired,
+  handleSetStatus: PropTypes.func.isRequired,
 };
 
 export default ProductListStatus;
