@@ -48,6 +48,11 @@ export default function ProductCard({ data }) {
     }
   };
 
+  const chaceQuantity = () => {
+    const newQuantity = document.querySelector(`#inputProduct${id}`);
+    setQuantity(newQuantity.value);
+  };
+
   useEffect(() => {
     if (quantity > 0) {
       return updateProductList();
@@ -63,18 +68,19 @@ export default function ProductCard({ data }) {
   return (
     <section className="products-card">
       <div className="card-price-container">
+        R$
         <p
           className="card-price"
           data-testid={ `customer_products__element-card-price-${id}` }
         >
-          { price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }
+          { `${price.replace('.', ',')}` }
         </p>
       </div>
       <img
         src={ urlImage }
         alt={ name }
         className="card-img"
-        data-testid={ `customer_products__element-card-bg-image-${id}` }
+        data-testid={ `customer_products__img-card-bg-image-${id}` }
       />
       <div className="card-footer">
         <p
@@ -93,12 +99,14 @@ export default function ProductCard({ data }) {
           >
             -
           </button>
-          <p
+          <input
+            id={ `inputProduct${id}` }
             className="card-display-quantity"
             data-testid={ `customer_products__input-card-quantity-${id}` }
-          >
-            { quantity }
-          </p>
+            value={ quantity }
+            onChange={ chaceQuantity }
+            type="number"
+          />
           <button
             type="button"
             onClick={ incrementItem }
