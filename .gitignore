@@ -298,6 +298,6 @@ back-end/.env
 **/coverage
 **/.nyc_output
 
-package-lock.json
-front-end/package-lock.json
-back-end/package-lock.json
+# package-lock.json
+# front-end/package-lock.json
+# back-end/package-lock.json
