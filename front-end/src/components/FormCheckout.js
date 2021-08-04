@@ -11,6 +11,7 @@ export default function FormCheckout() {
     totalPrice,
     itemsList,
     sellers,
+    user,
   } = useContext(DeliveryAppContext);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
@@ -18,6 +19,8 @@ export default function FormCheckout() {
 
   const submitOrder = async (e) => {
     e.preventDefault();
+    console.log('FRANCO PEDIU');
+    console.log({ user });
     const currentSaleId = await sendOrder({
       userId,
       sellerId,
@@ -25,7 +28,7 @@ export default function FormCheckout() {
       deliveryAddress,
       deliveryNumber,
       productsList: itemsList,
-    });
+    }, user.token);
 
     window.location.href = `http://localhost:3000/customer/orders/${currentSaleId}`;
     // setSaleId(currentSaleId);

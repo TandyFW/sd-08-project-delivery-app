@@ -26,7 +26,7 @@ export default function Table({ heading, body = [] }) {
             className="products-table-row"
             row={ row }
             tableIndex={ index }
-            key={ index }
+            key={ row.productId }
             showRemove={ heading.length > ARRAY_SIZE }
           />
         ))}

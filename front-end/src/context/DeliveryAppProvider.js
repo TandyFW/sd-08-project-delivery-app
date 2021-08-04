@@ -17,8 +17,7 @@ function DeliveryAppProvider({ children }) {
   const [user, setUser] = useState({});
 
   const getRoute = () => {
-    const currentRoute = localStorage.getItem('route');
-    console.log('getRoute');
+    const currentRoute = user.role;
     setRoute(currentRoute);
   };
 
@@ -26,7 +25,7 @@ function DeliveryAppProvider({ children }) {
   //   console.log('rescueStorageList');
   //   console.log(itemsList);
   //   if (!itemsList.length) {
-  //     // const storageList = JSON.parse(localStorage.getItem('currentItemsList'));
+  //     const storageList = JSON.parse(localStorage.getItem('currentItemsList'));
   //     console.log('if');
   //     if (storageList !== null) return setItemsList(storageList);
   //   }
@@ -39,11 +38,14 @@ function DeliveryAppProvider({ children }) {
   };
 
   const getTotalPrice = () => {
-    console.log('getTotalPrice');
-    const priceList = itemsList.map((item) => +item.itemsPrice);
-    const currentTotalPrice = priceList.reduce((cur, acc) => acc + cur, 0).toFixed(2);
-    console.log(currentTotalPrice);
-    setTotalPrice(currentTotalPrice);
+    if (itemsList.length) {
+      // console.log('getTotalPrice');
+      const priceList = itemsList.map((item) => +item.itemsPrice);
+      const currentTotalPrice = priceList.reduce((cur, acc) => acc + cur, 0).toFixed(2);
+      // console.log(currentTotalPrice);
+      return setTotalPrice(currentTotalPrice);
+    }
+    setTotalPrice('0.00');
   };
 
   const getSellers = async () => {
@@ -55,7 +57,6 @@ function DeliveryAppProvider({ children }) {
 
   useEffect(() => {
     getCardList();
-    getRoute();
     getSellers();
     // rescueStorageList();
   }, []);
@@ -80,6 +81,7 @@ function DeliveryAppProvider({ children }) {
   useEffect(() => {
     setStorage();
     getUserId();
+    getRoute();
   }, [user]);
 
   return (

@@ -7,6 +7,11 @@ export default function ProductCard({ data }) {
   const { id, price, urlImage, name } = data;
   const [quantity, setQuantity] = useState(0);
 
+  const noZero = (list) => {
+    const clearZero = list.filter((item) => item.quantity !== 0);
+    setItemsList(clearZero);
+  };
+
   const updateProductList = () => {
     const currentList = itemsList.filter((item) => item.quantity !== 0);
     if (currentList.length) {
@@ -22,18 +27,20 @@ export default function ProductCard({ data }) {
           itemsPrice: (+price * quantity).toFixed(2),
         },
       ];
-      return setItemsList(updatedList);
+      return noZero(updatedList);
     }
-    setItemsList([
-      ...currentList,
-      {
-        productId: id,
-        name,
-        quantity,
-        unitaryPrice: +price,
-        itemsPrice: (+price * quantity).toFixed(2),
-      },
-    ]);
+    if (quantity > 0) {
+      return noZero([
+        ...currentList,
+        {
+          productId: id,
+          name,
+          quantity,
+          unitaryPrice: +price,
+          itemsPrice: (+price * quantity).toFixed(2),
+        },
+      ]);
+    }
   };
 
   const incrementItem = () => {
@@ -45,6 +52,8 @@ export default function ProductCard({ data }) {
     if (quantity > 0) {
       const newQuantity = quantity - 1;
       setQuantity(newQuantity);
+    } else if (quantity === 0) {
+      setQuantity(0);
     }
   };
 
@@ -53,17 +62,14 @@ export default function ProductCard({ data }) {
     setQuantity(newQuantity.value);
   };
 
-  useEffect(() => {
-    if (quantity > 0) {
-      return updateProductList();
-    }
-  }, [quantity]);
-  useEffect(() => {
-    if (quantity > 0) {
-      return localStorage.setItem('currentItemsList', JSON.stringify(itemsList));
-    }
-  },
-  [itemsList, quantity]);
+  useEffect(() => updateProductList(), [quantity]);
+
+  // useEffect(() => {
+  //   if (quantity > 0) {
+  //     return localStorage.setItem('currentItemsList', JSON.stringify(itemsList));
+  //   }
+  // },
+  // [itemsList, quantity]);
 
   return (
     <section className="products-card">
