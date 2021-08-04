@@ -1,13 +1,17 @@
 const axios = require('axios');
 
-const sendOrder = async ({
-  userId,
-  sellerId,
-  totalPrice,
-  deliveryAddress,
-  deliveryNumber,
-  productsList,
-}) => {
+const sendOrder = async (
+  {
+    userId,
+    sellerId,
+    totalPrice,
+    deliveryAddress,
+    deliveryNumber,
+    productsList,
+  },
+  token,
+) => {
+  console.log({ token });
   try {
     const orderId = await axios.post('http://localhost:3001/sales', {
       userId,
@@ -16,7 +20,11 @@ const sendOrder = async ({
       deliveryAddress,
       deliveryNumber,
       productsList,
-    });
+    },
+    {
+      headers: {
+        Authorization: token,
+      } });
 
     return orderId;
   } catch (err) {

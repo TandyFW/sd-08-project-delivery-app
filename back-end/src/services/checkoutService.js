@@ -28,7 +28,7 @@ const creatCheckout = async (Sale) => {
     const result = await transaction(Sale);
     
     return {
-      statusCode: 200,
+      statusCode: 201,
       json: result.dataValues.id,
     };
   } catch (error) {

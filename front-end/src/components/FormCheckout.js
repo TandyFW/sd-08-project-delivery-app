@@ -17,9 +17,11 @@ export default function FormCheckout() {
   const [deliveryNumber, setDeliveryNumber] = useState('');
   const [saleId, setSaleId] = useState(0);
 
-  const submitOrder = (e) => {
+  const submitOrder = async (e) => {
     e.preventDefault();
-    const currentSaleId = sendOrder({
+    console.log('FRANCO PEDIU');
+    console.log({ user });
+    const currentSaleId = await sendOrder({
       userId,
       sellerId,
       totalPrice,
