@@ -28,6 +28,7 @@ const socketStatus = async (func, status) => {
 };
 
 const updateStatus = async (id, status, setFunction) => {
+  socket.emit('statusUpdate', { status, position: id });
   const { data } = await api({
     method: 'put',
     url: `http://localhost:3001/delivery/sales/${id}`,
@@ -36,7 +37,6 @@ const updateStatus = async (id, status, setFunction) => {
     },
   });
   setFunction(data);
-  socket.emit('statusUpdate', { status, position: id });
 };
 
 const SellerDetails = () => {

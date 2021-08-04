@@ -35,7 +35,7 @@ const Seller = () => {
 
   return (
     <>
-      <NavBar show user={ user.name } />
+      <NavBar user={ user.name } show />
       <Container>
         {sale.map((infos, key) => (
           <CardOrder
