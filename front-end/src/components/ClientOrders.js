@@ -15,7 +15,7 @@ export default function ClientOrders() {
   useEffect(() => {
     const email = getUserEmail();
     setLoading(true);
-    requestUser('http://localhost:3001/orders', email)
+    requestUser('http://localhost:3001/orders/all', email)
       .then((data) => {
         setUserSales(data.data);
       });
@@ -48,7 +48,7 @@ export default function ClientOrders() {
               {`Status: ${obj.status}`}
             </p>
             <p data-testid={ `customer_orders__element-order-date-${obj.id}` }>
-              {new Date(obj.saleDate).toLocaleDateString()}
+              {new Date(obj.saleDate).toLocaleDateString('pt-BR')}
             </p>
             <p
               data-testid={ `customer_orders__element-card-price-${obj.id}` }
