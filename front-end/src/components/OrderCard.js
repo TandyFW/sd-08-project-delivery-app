@@ -8,7 +8,7 @@ export default function OrderCard(props) {
   const price = new Intl.NumberFormat('BRL', {
     style: 'currency', currency: 'BRL',
   }).format(totalPrice);
-  const date = new Date(saleDate).toLocaleDateString();
+  const date = new Date(saleDate).toLocaleDateString('pt-BR');
   return (
     <Card className="m-2">
       <Row>
