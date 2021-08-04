@@ -7,6 +7,7 @@ const RegisterRouter = require('../routers/RegisterRouter');
 const CustomerRouter = require('../routers/CustomerRouter');
 const CustomerCheckoutRouter = require('../routers/CustomerCheckout');
 const SellerProducts = require('../routers/SellerProducts');
+const UserRouter = require('../routers/UserRouter');
 const CustomerOrdersRouter = require('../routers/CustomerOrdersRouter');
 
 const app = express();
@@ -21,6 +22,7 @@ app.use(RegisterRouter);
 app.use(CustomerRouter);
 app.use(CustomerCheckoutRouter);
 app.use(SellerProducts);
+app.use(UserRouter);
 app.use(CustomerOrdersRouter);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
