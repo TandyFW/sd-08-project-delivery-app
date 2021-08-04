@@ -29,7 +29,6 @@ export default function FormCheckout() {
     }, user.token);
 
     window.location.href = `http://localhost:3000/customer/orders/${idSale}`;
-    // setSaleId(currentSaleId);
   };
 
   const selectSeller = () => {
