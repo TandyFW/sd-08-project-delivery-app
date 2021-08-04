@@ -16,7 +16,7 @@ export default function Header() {
 
   return (
     <header>
-      <div>
+      <div className="div-header">
         <Button
           testId="customer_products__element-navbar-link-products"
           name="Produtos"
@@ -32,7 +32,7 @@ export default function Header() {
           onClick={ () => history.push('/customer/orders') }
         />
       </div>
-      <div>
+      <div className="div-header">
         <Button
           testId="customer_products__element-navbar-user-full-name"
           name={ getUserName() }

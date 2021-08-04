@@ -2,15 +2,20 @@ header {
   background-color: gray;
   display: flex;
   height: 60px;
+  justify-content: space-between;
+}
+
+.div-header {
+  width: 50ch;
 }
 
 .link-button {
   height: 100%;
-  width: 150px;
+  width: 30%;
 }
 
 .link-user {
   background-color: green;
   height: 100%;
-  width: 672px;
+  width: 70%;
 }
