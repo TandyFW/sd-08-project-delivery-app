@@ -11,7 +11,7 @@ class CustomerOrders extends React.Component {
 
   async componentDidMount() {
     // verificar se o usuario está autenticado
-    const Loading = 1500;
+    const Loading =  10;
     setTimeout(() => {
       this.setState({ loading: false });
     }, Loading);

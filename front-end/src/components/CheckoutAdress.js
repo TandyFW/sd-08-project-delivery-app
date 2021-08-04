@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getByRole, createSaler } from '../services';
-import { make } from '../services/socket';
+// import { make } from '../services/socket';
 
 const userSnake = 'user_id'; // Miau para quem fez essa regra =)
 
@@ -37,8 +37,8 @@ class CheckoutAdress extends React.Component {
       sellerId };
     const result = await createSaler(data, stateCart);
     const { id } = result.newOrder;
-    // console.log(result);
-    make(sellerId, result.newOrder[userSnake], 'Pendete');
+    console.log(result.newOrder[userSnake]);
+    // make(sellerId, result.newOrder[userSnake], 'Pendete');
     localStorage.removeItem('totalPrice');
     localStorage.removeItem('cart');
     history.push(`/customer/orders/${id}`);
