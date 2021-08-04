@@ -20,8 +20,21 @@ const getAllSellers = tcw(async (_req, res, _next) => {
   res.status(200).json(result);
 });
 
+const getAllUsers = tcw(async (_req, res, _next) => {
+  const { result } = await userService.getAllUsers();
+  res.status(200).json(result);
+});
+
+const removeUser = tcw(async (req, res, _next) => {
+  const { id } = req.params;
+  const { result } = await userService.removeUser(id);
+  res.status(200).json(result);
+});
+
 module.exports = {
   getUserById,
   login,
   getAllSellers,
+  getAllUsers,
+  removeUser,
 };

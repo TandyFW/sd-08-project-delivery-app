@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { isValidUserForRegistration, lStorage, request } from '../utils';
-import TransitionAlerts from './TransitionAlerts';
-import { useGroupState } from '../hooks';
+import { isValidUserForRegistration, lStorage, request } from '../../utils';
+import TransitionAlerts from '../TransitionAlerts';
+import { useGroupState } from '../../hooks';
+import { Context } from '../../context';
 
 const useStyles = makeStyles((theme) => ({
   selectEmpty: {
@@ -27,6 +28,7 @@ const TWO_AND_A_HALF_SECONDS = 2500;
 
 export default function RegistrationByManager() {
   const classes = useStyles();
+  const { oscillator } = useContext(Context);
 
   const { role, name, email, password, isDisabled, message, open } = useGroupState({
     role: 'seller',
@@ -83,6 +85,7 @@ export default function RegistrationByManager() {
       message.set({ text: userObj.message, severity: 'warning' });
     } else {
       resetFields();
+      oscillator.set(!oscillator.value);
       message.set({ text: 'Usuário cadastrado com sucesso', severity: 'success' });
     }
   };

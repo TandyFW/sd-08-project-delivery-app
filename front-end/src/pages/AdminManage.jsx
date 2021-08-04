@@ -1,5 +1,6 @@
 import React from 'react';
 import { RegistrationByManager, NavBar } from '../components';
+import UserTable from '../components/AdminComponents/UserTable';
 import { lStorage } from '../utils';
 
 const AdminManage = () => {
@@ -8,6 +9,7 @@ const AdminManage = () => {
     <>
       <NavBar userType="administrator" userName={ name } />
       <RegistrationByManager />
+      <UserTable />
     </>
   );
 };

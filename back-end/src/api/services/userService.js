@@ -51,10 +51,24 @@ const getAllSellers = async () => {
   return { result: sellers };
 };
 
+const getAllUsers = async () => {
+  const users = await User.findAll();
+  return { result: users };
+};
+
+const removeUser = async (id) => {
+  const users = await User.destroy({
+    where: { id },
+   });
+  return { result: users };
+};
+
 module.exports = {
   isValidUser,
   validateLogin,
   validateRegister,
   getUserById,
+  getAllUsers,
   getAllSellers,
+  removeUser,
 };
