@@ -32,6 +32,12 @@ export default function OrderDetailsComp() {
     seller: 'seller_order_details__',
   };
 
+  socket.on('updateOrder', (obj) => {
+    if (obj.role !== roleUser) {
+      setStatus(obj.status);
+    }
+  });
+
   useEffect(() => {
     async function requestOrderById() {
       try {
@@ -42,7 +48,7 @@ export default function OrderDetailsComp() {
         setStatus(result.data.result.status);
         setSeller(result.data.user.name);
         setLoading(false);
-        socket.emit('newOrder', 'bla');
+        socket.emit('newOrder', result.data);
       } catch (err) {
         setError('Not Found!');
       }
@@ -71,7 +77,7 @@ export default function OrderDetailsComp() {
         status: value,
       }, configAxios);
       setStatus(value);
-      socket.emit('updateOrder', 'bla2');
+      socket.emit('updateOrder', { id, status: value, role: roleUser });
     } catch (e) {
       console.log(e);
     }
