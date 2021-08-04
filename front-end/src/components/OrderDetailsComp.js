@@ -59,7 +59,6 @@ export default function OrderDetailsComp() {
     totalValues = parseFloat(value) + parseFloat(totalValues);
     return null;
   };
-
   const conditionUser = () => {
     if (roleUser === 'seller') return false;
     return (
@@ -69,7 +68,6 @@ export default function OrderDetailsComp() {
       </Col>
     );
   };
-
   const requestStatus = async (value) => {
     try {
       await axios.put(`http://localhost:3001/${roleUser}/orders/${id}`, {
@@ -80,7 +78,6 @@ export default function OrderDetailsComp() {
       console.log(e);
     }
   };
-
   const conditionUserButton = () => {
     if (roleUser === 'seller') {
       return (
@@ -125,20 +122,34 @@ export default function OrderDetailsComp() {
       </Col>
     );
   };
-
   const renderDetails = () => (
     <>
       <Table size="lg" responsive>
         <thead className="text-center">
           <tr>
-            <th>
+            <th
+              data-testid={ `${prefix[roleUser]}element-order-details-label-order-id` }
+            >
               PEDIDO:
               { ' ' }
               {id.padStart(orderNumber(id), '0')}
             </th>
-            <th>{ conditionUser() }</th>
-            <th>{saleDate}</th>
-            <th className={ deliveryStatus.get(status) }>{status}</th>
+            <th>
+              { conditionUser() }
+            </th>
+            <th
+              data-testid={ `${prefix[roleUser]}element-order-details-label-order-date` }
+            >
+              {saleDate}
+            </th>
+            <th
+              className={ deliveryStatus.get(status) }
+              data-testid={
+                `${prefix[roleUser]}element-order-details-label-delivery-status`
+              }
+            >
+              {status}
+            </th>
           </tr>
         </thead>
       </Table>
@@ -147,7 +158,6 @@ export default function OrderDetailsComp() {
       </div>
     </>
   );
-
   const renderTable = () => (
     <Table striped bordered hover size="lg" responsive>
       <thead className="text-center">
@@ -219,9 +229,7 @@ export default function OrderDetailsComp() {
       </tfoot>
     </Table>
   );
-
   const renderError = () => <span>{error}</span>;
-
   const render = () => (
     <>
       <h4>Detalhe do Pedido</h4>
@@ -229,7 +237,6 @@ export default function OrderDetailsComp() {
       <Row>{renderTable()}</Row>
     </>
   );
-
   return (
     <div>
       { loading ? renderError() : render() }
