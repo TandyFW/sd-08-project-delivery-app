@@ -36,7 +36,7 @@ const OrdersTable = ({ orders, loading, thounsand, dataTestBegin, disable }) => 
                   `${dataTestBegin}element-order-details-label-order-date`
                 }
               >
-                {new Date(item.saleDate).toLocaleDateString("pt-BR")}
+                {new Date(item.saleDate).toLocaleDateString('pt-BR')}
               </th>
               {'  '}
               <th
