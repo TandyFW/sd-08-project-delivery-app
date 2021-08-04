@@ -22,10 +22,10 @@ const getSale = async (id) => {
   return result.data;
 };
 
-const socketStatus = async (func, status) => {
-  await func(true);
-  return status;
-};
+// const socketStatus = async (func, status) => {
+//   await func(true);
+//   return status;
+// };
 
 const updateStatus = async (id, status, setFunction) => {
   const { data } = await api({
@@ -53,12 +53,19 @@ const SellerDetails = () => {
       .then(() => setLoading(false));
   }, [id]);
 
+  // useEffect(() => {
+  //   console.log('socket on');
+  //   socket.on('statusUpdate', (status) => {
+  //     socketStatus(setLoading, status)
+  //       .then((statusUpdated) => setSale({ ...sale, status: statusUpdated }))
+  //       .then(() => setLoading(false));
+  //   });
+  // }, [sale]);
+
   useEffect(() => {
     console.log('socket on');
     socket.on('statusUpdate', (status) => {
-      socketStatus(setLoading, status)
-        .then((statusUpdated) => setSale({ ...sale, status: statusUpdated }))
-        .then(() => setLoading(false));
+      setSale({ ...sale, status });
     });
   }, [sale]);
 
@@ -66,7 +73,7 @@ const SellerDetails = () => {
     <Container>
       <NavBar user={ user.name } />
       <h4>Detalhe do Pedido</h4>
-      {!loading && (
+      {!loading && sale.seller && (
         <DetailsContainer>
           <DetailsBar color={ colors.whitesmoke }>
             <section className="info-order">
