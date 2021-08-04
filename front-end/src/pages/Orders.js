@@ -12,7 +12,6 @@ function Orders() {
   const [, route] = useLocation().pathname.split('/');
   const hasSeller = route === 'seller';
   const { request, response } = useAxios();
-  console.log(storedLS);
   useEffect(() => request(API(storedLS.token)[route]), [request, route, storedLS]);
   return (
     <>

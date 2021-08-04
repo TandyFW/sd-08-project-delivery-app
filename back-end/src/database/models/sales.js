@@ -3,11 +3,12 @@ const sale = (sequelize, DataTypes) => {
     totalPrice: DataTypes.DECIMAL,
     deliveryAddress: DataTypes.STRING,
     deliveryNumber: DataTypes.STRING,
-    salesDate: DataTypes.DATE,
+    saleDate: DataTypes.DATE,
     status: DataTypes.STRING,
   }, {
+    underscored: true,
     timestamps: true,
-    createdAt: 'salesDate',
+    createdAt: 'saleDate',
     updatedAt: false,
   });
 

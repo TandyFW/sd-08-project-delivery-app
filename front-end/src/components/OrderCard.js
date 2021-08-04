@@ -3,7 +3,7 @@ import Proptypes from 'prop-types';
 import { ListGroup, Row, Card, Col } from 'react-bootstrap';
 
 export default function OrderCard(props) {
-  const { requests: { id, totalPrice, salesDate, status }, user, children } = props;
+  const { requests: { id, totalPrice, saleDate, status }, user, children } = props;
 
   const deliveryStatus = new Map([
     ['Pendente', 'bg-warning text-dark rounded'],
@@ -15,7 +15,7 @@ export default function OrderCard(props) {
   const price = new Intl.NumberFormat('BRL', {
     style: 'currency', currency: 'BRL',
   }).format(totalPrice);
-  const date = new Date(salesDate).toLocaleDateString();
+  const date = new Date(saleDate).toLocaleDateString();
   return (
     <Card style={ { width: '21rem' } } className="m-2">
       <Row>
@@ -34,11 +34,14 @@ export default function OrderCard(props) {
         </Col>
         <Col>
           <ListGroup variant="flush">
-            <ListGroup.Item className="text-center">
+            <ListGroup.Item
+              data-testid={ `${user}_orders__element-order-date-${id}` }
+              className="text-center"
+            >
               { date }
             </ListGroup.Item>
             <ListGroup.Item
-              data-testid={ `${user}_orders__element-price-id-${id}` }
+              data-testid={ `${user}_orders__element-card-price-${id}` }
               className="text-center"
             >
               { price }
