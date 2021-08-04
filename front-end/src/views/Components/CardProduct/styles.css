@@ -10,6 +10,18 @@
   width: 200px;
 }
 
+.card_price {
+  background-color: rgba(242, 255, 252, 0.75);
+  border-radius: 5px;
+  font-size: large;
+  font-weight: 700;
+  left: 120px;
+  position: relative;
+  text-align: center;
+  top: 5px;
+  width: 75px;
+}
+
 .card p {
   text-align: center;
 }
@@ -30,7 +42,7 @@
 
 .card_bottom {
   align-items: center;
-  background-color: lightgray;
+  background-color: #eaf1ef;
   display: flex;
   flex-direction: column;
 }
@@ -61,16 +73,6 @@
   font-weight: 700;
   height: 20px;
   width: 30px;
-}
-
-.card_price {
-  background-color: rgba(226, 10, 21, 0.4);
-  border-radius: 5px;
-  left: 150px;
-  position: relative;
-  text-align: center;
-  top: 5px;
-  width: 40px;
 }
 
 button:active {

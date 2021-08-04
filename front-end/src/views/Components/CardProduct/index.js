@@ -42,7 +42,7 @@ const CardProduct = ({ product }) => {
         className="card_price"
         data-testid={ `customer_products__element-card-price-${id}` }
       >
-        {price.replace('.', ',')}
+        { `R$ ${price.replace('.', ',')}` }
       </div>
       <div className="card_image">
         <img
