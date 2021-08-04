@@ -31,6 +31,13 @@ export default function OrderDetailsComp() {
     seller: 'seller_order_details__',
   };
 
+  const deliveryStatus = new Map([
+    ['Pendente', 'bg-warning text-dark rounded'],
+    ['Preparando', 'bg-info text-white rounded'],
+    ['Em transito', 'bg-warning text-dark rounded'],
+    ['Entregue', 'bg-success text-white rounded'],
+  ]);
+
   useEffect(() => {
     async function requestOrderById() {
       try {
@@ -78,63 +85,71 @@ export default function OrderDetailsComp() {
     if (roleUser === 'seller') {
       return (
         <>
-          <Button
-            type="submit"
-            variant="success"
-            size="sm"
-            data-testid={ `${prefix[roleUser]}button-preparing-check` }
-            onClick={ () => requestStatus('Preparando') }
-            disabled={ disableButtonPrepar(status) }
-          >
-            PREPARAR PEDIDO
-          </Button>
-          <Button
-            type="submit"
-            variant="success"
-            size="sm"
-            data-testid={ `${prefix[roleUser]}button-dispatch-check` }
-            onClick={ () => requestStatus('Em Trânsito') }
-            disabled={ disableButtonDelivery(status) }
-          >
-            SAIU PARA ENTREGA
-          </Button>
+          <Col className="d-grid gap-2" md={ { span: 6 } }>
+            <Button
+              type="submit"
+              variant="success"
+              data-testid={ `${prefix[roleUser]}button-preparing-check` }
+              onClick={ () => requestStatus('Preparando') }
+              disabled={ disableButtonPrepar(status) }
+            >
+              PREPARAR PEDIDO
+            </Button>
+          </Col>
+          <Col className="d-grid gap-2" md={ { span: 6 } }>
+            <Button
+              type="submit"
+              variant="success"
+              data-testid={ `${prefix[roleUser]}button-dispatch-check` }
+              onClick={ () => requestStatus('Em Trânsito') }
+              disabled={ disableButtonDelivery(status) }
+            >
+              SAIU PARA ENTREGA
+            </Button>
+          </Col>
         </>
       );
     }
     return (
-      <Button
-        type="submit"
-        variant="success"
-        size="sm"
-        data-testid={ `${prefix[roleUser]}button-delivery-check` }
-        onClick={ () => requestStatus('Entregue') }
-        disabled={ disableButton(status) }
-      >
-        MARCAR COMO ENTREGUE
-      </Button>
+      <Col>
+        <Button
+          type="submit"
+          variant="success"
+          size="sm"
+          data-testid={ `${prefix[roleUser]}button-delivery-check` }
+          onClick={ () => requestStatus('Entregue') }
+          disabled={ disableButton(status) }
+        >
+          MARCAR COMO ENTREGUE
+        </Button>
+      </Col>
     );
   };
 
   const renderDetails = () => (
-    <Table size="lg">
-      <thead className="text-center">
-        <tr>
-          <th>
-            PEDIDO:
-            { ' ' }
-            {id.padStart(orderNumber(id), '0')}
-          </th>
-          <th>{ conditionUser() }</th>
-          <th>{saleDate}</th>
-          <th>{status}</th>
-          <th>{ conditionUserButton() }</th>
-        </tr>
-      </thead>
-    </Table>
+    <>
+      <Table size="lg" responsive>
+        <thead className="text-center">
+          <tr>
+            <th>
+              PEDIDO:
+              { ' ' }
+              {id.padStart(orderNumber(id), '0')}
+            </th>
+            <th>{ conditionUser() }</th>
+            <th>{saleDate}</th>
+            <th className={ deliveryStatus.get(status) }>{status}</th>
+          </tr>
+        </thead>
+      </Table>
+      <div className="d-flex pb-4">
+        { conditionUserButton() }
+      </div>
+    </>
   );
 
   const renderTable = () => (
-    <Table striped bordered hover size="lg">
+    <Table striped bordered hover size="lg" responsive>
       <thead className="text-center">
         <tr>
           <th>Item</th>
