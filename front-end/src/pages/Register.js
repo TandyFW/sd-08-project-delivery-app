@@ -1,11 +1,17 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import RegisterUser from '../components/RegisterUser';
 
 function Register() {
   return (
     <Container>
-      <RegisterUser />
+      <Row
+        className="mt-5 justify-content-center"
+      >
+        <Col className="col" md={ { span: 6 } }>
+          <RegisterUser />
+        </Col>
+      </Row>
     </Container>
   );
 }

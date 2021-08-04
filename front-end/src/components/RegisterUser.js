@@ -8,6 +8,7 @@ export default function SignUpSide() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
   const [loginError, setLoginError] = useState(null);
   const history = useHistory();
 
@@ -21,15 +22,18 @@ export default function SignUpSide() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await axios.post('http://localhost:3001/register', {
         name,
         password,
         email,
       });
+      setLoading(false);
       localStorage.setItem('user', JSON.stringify(response.data));
       history.push('/customer/products');
     } catch (err) {
+      setLoading(false);
       setLoginError(err);
       console.log(err);
       console.log(loginError);
@@ -85,7 +89,16 @@ export default function SignUpSide() {
             size="sm"
             role="status"
             aria-hidden="true"
+            className={ loading ? 'visible' : 'invisible' }
           />
+        </Button>
+        <Button
+          variant="secondary"
+          type="button"
+          size="lg"
+          onClick={ () => history.push('/') }
+        >
+          Cancelar
         </Button>
         <span
           className={ loginError ? 'visible' : 'invisible' }
