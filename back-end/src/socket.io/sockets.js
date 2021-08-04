@@ -1,39 +1,45 @@
  function socket2(socket, listUser) {
     socket.on('make', (buyData) => {
         const { sellerId, userId, state } = buyData;
-        const indexSeller = listUser.findIndex((user) => user.id === sellerId);
-        const indexUser = listUser.findIndex((user) => user.id === userId);
+        console.log('vendedor ', sellerId, ' usuario ', userId, ' estado ', state);
+        console.log(listUser, listUser[sellerId], listUser[userId]);
         switch (state) {
             case 'Pendente':
-                socket.to(listUser[indexSeller].code).emit('state', 'Pendente'); break;
+                console.log('Pendente', listUser[sellerId])
+                socket.to(listUser[sellerId]).emit('state', 'Pendente'); break;
             case 'Preparando':
-                socket.to(listUser[indexUser].code).emit('state', 'Preparando'); break;
+                console.log('Preparando', listUser[userId])
+                socket.to(listUser[userId]).emit('state', 'Preparando'); break;
             case 'Em Trânsito':
-                socket.to(listUser[indexUser].code).emit('state', 'Em Trânsito'); break;
+                console.log('Em Trânsito', listUser[userId])
+                socket.to(listUser[userId]).emit('state', 'Em Trânsito'); break;
             case 'Entregue':
-                socket.to(listUser[indexSeller].code).emit('state', 'Entregue'); break;
+                console.log('Entregue', listUser[sellerId])
+                socket.to(listUser[sellerId]).emit('state', 'Entregue'); break;
             default:
-                socket.to(listUser[indexSeller].code).emit('state', 'erro');
-                socket.to(listUser[indexUser].code).emit('state', 'erro'); break;
+                console.log('erro', listUser[sellerId])
+                socket.to(listUser[sellerId]).emit('state', 'erro');
+                socket.to(listUser[userId]).emit('state', 'erro'); break;
             }
         });
     }
                     
+let listUser = {};
  const ets = (socket) => {
-    let listUser = [];
     console.log(`Usuário conectado. ID: ${socket.id} `);
     socket.on('ping', () => {
         console.log(`${socket.id} emitiu um ping!`);
     });
     socket.on('hello', (id) => {
         console.log('O usuario ', id, 'chegou');
-        listUser.push({ code: socket.id, id });
+        listUser[id]= socket.id ; 
+        // { 3:OBXXZ2_gE-dkW5uaAAAF  }
     });
     socket2(socket, listUser);
     socket.on('disconnect', () => {
-        const index = listUser.findIndex((user) => user.socketId === socket.id);
-        console.log('O usuario ', listUser[index].id, ' foi embora');
-        listUser = listUser.slice(index, 1);
+        // const index = listUser.findIndex((user) => user.socketId === socket.id);
+        // console.log('O usuario ', listUser[index].id, ' foi embora');
+        // listUser = listUser.slice(index, 1);
     });
 };
 module.exports = {

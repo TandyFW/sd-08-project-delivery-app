@@ -35,7 +35,7 @@ class Sockets extends React.Component {
         <button
           type="button"
           onClick={ () => socket.emit('make', {
-            sellerId: '2', userId: '3', state: 'Pendente' }) }
+            sellerId: 2, userId: 3, state: 'Pendente' }) }
         >
           Pendente
 
@@ -43,7 +43,7 @@ class Sockets extends React.Component {
         <button
           type="button"
           onClick={ () => socket.emit('make', {
-            sellerId: '2', userId: '3', state: 'Preparando' }) }
+            sellerId: 2, userId: 3, state: 'Preparando' }) }
         >
           Preparando
 
@@ -51,7 +51,7 @@ class Sockets extends React.Component {
         <button
           type="button"
           onClick={ () => socket.emit('make', {
-            sellerId: '2', userId: '3', state: 'Em Trânsito' }) }
+            sellerId: 2, userId: 3, state: 'Em Trânsito' }) }
         >
           Em Trânsito
 
@@ -59,7 +59,7 @@ class Sockets extends React.Component {
         <button
           type="button"
           onClick={ () => socket.emit('make', {
-            sellerId: '2', userId: '3', state: 'Entregue' }) }
+            sellerId: 2, userId: 3, state: 'Entregue' }) }
         >
           Entregue
 
