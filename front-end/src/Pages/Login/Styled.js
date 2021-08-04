@@ -5,6 +5,10 @@ export const Container = styled.div`
   display: flex;
   height: 100vh;
   justify-content: center;
+  background: url("https://w7.pngwing.com/pngs/469/1014/png-transparent-pilsner-glass-illustration-pint-glass-beer-drawing-table-glass-color-fresco-watercolor-painting-glass-wine-glass.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  
 `;
 export const InnerContainer = styled.div`
   display: flex;

@@ -1,0 +1,15 @@
+#buttonDiv {
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+#cardContainer {
+  transform: translateX(50%);
+  width: 50%;
+}
+
+#cardContainer img {
+  height: 300px;
+  width: 200px;
+}

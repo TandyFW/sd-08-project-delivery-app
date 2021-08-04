@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Context } from '../../Context';
+import './style.css';
 
 export default function ProductCard(props) {
   const {
@@ -41,22 +42,26 @@ export default function ProductCard(props) {
       quantity: target.value,
     });
   };
+  const handleModal = () => {
+    props.setData({ id, name, price, urlImage });
+    props.setVisible(true);
+  };
 
   return (
-    <div>
+    <div id="cardContainer">
       <div>
         <span>R$ </span>
-        <span
-          data-testid={ `customer_products__element-card-price-${id}` }
-        >
+        <span data-testid={ `customer_products__element-card-price-${id}` }>
           {price.replace(/\./, ',')}
         </span>
       </div>
-      <img
-        alt="Movie Cover"
-        data-testid={ `customer_products__img-card-bg-image-${id}` }
-        src={ urlImage }
-      />
+      <button id="buttonDiv" type="button" onClick={ handleModal }>
+        <img
+          alt="Movie Cover"
+          data-testid={ `customer_products__img-card-bg-image-${id}` }
+          src={ urlImage }
+        />
+      </button>
       <div>
         <h4 data-testid={ `customer_products__element-card-title-${id}` }>
           {name}
@@ -93,4 +98,6 @@ ProductCard.propTypes = {
     price: PropTypes.string,
     urlImage: PropTypes.string,
   }).isRequired,
+  setData: PropTypes.func.isRequired,
+  setVisible: PropTypes.func.isRequired,
 };
