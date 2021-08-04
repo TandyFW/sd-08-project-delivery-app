@@ -36,7 +36,7 @@ class AdminSignIn extends React.Component {
       }
     }
     if (name === 'name') {
-      const MIN_LENGTH_NAME = 12;
+      const MIN_LENGTH_NAME = 11;
       if (value.length > MIN_LENGTH_NAME) {
         this.setState({ name: true });
       } else {
