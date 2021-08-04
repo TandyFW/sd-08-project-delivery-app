@@ -8,11 +8,12 @@ import {
   Col,
   NavbarBrand,
 } from 'react-bootstrap';
-import { Redirect, useLocation, Link } from 'react-router-dom';
+import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import { GlobalContext } from '../context/GlobalProvider';
 import './Header.css';
 
 export default function Header() {
+  const history = useHistory();
   const [redirect, setRedirect] = useState(false);
   const [, role, route] = useLocation().pathname.split('/');
   const {
@@ -66,10 +67,9 @@ export default function Header() {
                 data-testid={ `customer_products__element-navbar-link-${
                   contents.link.split('/')[2]
                 }` }
+                onClick={ () => history.push(contents.link) }
               >
-                <Link to={ contents.link }>
-                  {contents.name}
-                </Link>
+                {contents.name}
               </Nav.Link>
             ))}
           </Nav>
