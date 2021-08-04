@@ -1,12 +1,33 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
+import React, { useEffect, useState } from 'react';
+import socketIOClient from 'socket.io-client';
 import PropTypes from 'prop-types';
 
 const testIdData = {
   deliveryStatus: 'customer_order_details__element-order-details-label-delivery-status',
 };
 
+const ENDPOINT = 'http://localhost:3001';
+
 function StatusNav({ orderData }) {
+  const { id, saleDate } = orderData;
+  const [status, setStatus] = useState();
+  const socket = socketIOClient(ENDPOINT);
   const TEN = 10;
+
+  console.log('console', orderData);
+
+  useEffect(() => {
+    socket.emit('setOrderStatus', { id, status: '' });
+    socket.on('getUpdatedStatus', (statusFromBrack) => {
+      setStatus(statusFromBrack);
+    });
+  }, [socket, id]);
+
+  function changeOrderStatus(newStatus) {
+    socket.emit('setOrderStatus', { id, status: newStatus });
+  }
+
   return (
     orderData
       ? (
@@ -14,7 +35,7 @@ function StatusNav({ orderData }) {
           <p
             data-testid="customer_order_details__element-order-details-label-order-id"
           >
-            {`ID DO PEDIDO: ${orderData.id}`}
+            {`ID DO PEDIDO: ${id}`}
           </p>
           <p
             data-testid="customer_order_details__element-order-details-label-seller-name"
@@ -24,18 +45,19 @@ function StatusNav({ orderData }) {
           <p
             data-testid="customer_order_details__element-order-details-label-order-date"
           >
-            {orderData.saleDate
-              ? orderData.saleDate.slice(0, TEN).split('-').reverse().join('/') : null}
+            {saleDate
+              ? saleDate.slice(0, TEN).split('-').reverse().join('/') : null}
           </p>
           <p
             data-testid={ testIdData.deliveryStatus }
           >
-            {`STATUS: ${orderData.status}`}
+            {status}
           </p>
           <button
+            onClick={ () => changeOrderStatus('Entregue') }
             type="button"
             data-testid="customer_order_details__button-delivery-check"
-            disabled
+            disabled={ !['Em Trânsito'].includes(status) }
           >
             MARCAR COMO ENTREGUE
           </button>
@@ -46,7 +68,16 @@ function StatusNav({ orderData }) {
 }
 
 StatusNav.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
   orderData: PropTypes.arrayOf(Object).isRequired,
 };
+
+// StatusNav.propTypes = {
+//   orderData: PropTypes.arrayOf(Object).isRequired,
+// };
 
 export default StatusNav;

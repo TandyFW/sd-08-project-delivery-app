@@ -1,8 +1,11 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
+import socketIOClient from 'socket.io-client';
 import { useHistory } from 'react-router-dom';
 import './styles.css';
 import Error from '../../components/error';
 import Context from '../../context/Context';
+
+const ENDPOINT = 'http://localhost:3001';
 
 function Login() {
   const { setUserData, userData } = useContext(Context);
@@ -12,6 +15,7 @@ function Login() {
   const refEmail = useRef();
   const refPass = useRef();
   const FIFTY = 50;
+  // const socket = socketIOClient(ENDPOINT);
 
   function checkInputs() {
     const PASSWORD_MIN_LENGTH = 6;
@@ -22,9 +26,11 @@ function Login() {
     return true;
   }
 
+  const socket = socketIOClient(ENDPOINT);
   useEffect(() => {
     if (userData && userData.token) {
       const { role } = userData;
+
       switch (role) {
       case 'customer':
         history.push('/customer/products');
@@ -49,7 +55,7 @@ function Login() {
       .map((letter, index) => `<span style="transition-delay:${index * FIFTY}ms">
       ${letter}</span>`)
       .join('');
-  }, [history, userData]);
+  }, [history, userData, socket]);
 
   const handleSubmit = async () => {
     const myInit = {
