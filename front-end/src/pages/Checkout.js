@@ -68,7 +68,7 @@ function Checkout() {
         {
           loading
             ? loadingPage()
-            : <FormCheckout sellers={ sellers } products={ products } />
+            : <FormCheckout values={ { sellers, products, totalPrice } } />
         }
         <p data-testid={ TOTAL_PRICE_ID }>
           {totalPrice.toFixed(2).toString().replace('.', ',')}
