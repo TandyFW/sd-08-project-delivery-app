@@ -8,7 +8,7 @@ export default function TableRow({ row, tableIndex, showRemove }) {
   const [rowUnitaryPrice, setRowUnitaryPrice] = useState(0);
   const [rowSubtotal, setRowSubtotal] = useState(0);
 
-  console.log(row);
+  // console.log(row);
 
   const remove = () => {
     console.log(row.name);
@@ -32,7 +32,7 @@ export default function TableRow({ row, tableIndex, showRemove }) {
 
   useEffect(() => {
     const srtList = JSON.stringify(itemsList);
-    console.log(srtList);
+    // console.log(srtList);
     return localStorage.setItem('currentItemsList', srtList);
   }, [itemsList]);
 

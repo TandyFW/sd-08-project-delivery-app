@@ -64,7 +64,7 @@ export default function FormLogin() {
           Email:
           <input
             type="email"
-            maxLength="30"
+            maxLength="100"
             placeholder="Digite aqui seu email"
             className="email-input"
             onKeyUp={ validation }

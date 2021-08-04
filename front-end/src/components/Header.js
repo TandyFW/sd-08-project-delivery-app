@@ -18,7 +18,7 @@ export default function Header() {
           <Link to="/customer/products">
             <button
               type="button"
-              data-teste-id={ `${ITEM1}` }
+              data-testid={ `${ITEM1}` }
             >
               PRODUTOS
             </button>
@@ -28,7 +28,7 @@ export default function Header() {
           <Link to={ `/${route}/orders` }>
             <button
               type="button"
-              data-teste-id={ `${ITEM2}` }
+              data-testid={ `${ITEM2}` }
             >
               MEUS PEDIDOS
             </button>
@@ -37,16 +37,16 @@ export default function Header() {
         && (
           <button
             type="button"
-            data-teste-id={ `${ITEM1}` }
+            data-testid={ `${ITEM1}` }
           >
             GERENCIAR USUÁRIOS
           </button>)}
-      <h3 data-teste-id={ `${NICK}` }>{ user.name }</h3>
+      <h3 data-testid={ `${NICK}` }>{ user.name }</h3>
       <Link to="/">
         <button
           type="button"
           onClick={ clear }
-          data-teste-id={ `${SAIR}` }
+          data-testid={ `${SAIR}` }
         >
           SAIR
         </button>
