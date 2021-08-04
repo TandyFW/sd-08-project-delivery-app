@@ -3,7 +3,7 @@ import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 import UserRegister from '../services/UserRegister';
-import emailVerify from '../utils/functions';
+import { emailVerify } from '../utils/functions';
 
 export default function FormRegister() {
   const { setUser } = useContext(DeliveryAppContext);
@@ -77,7 +77,7 @@ export default function FormRegister() {
           Email:
           <input
             type="email"
-            maxLength="50"
+            maxLength="100"
             placeholder="Digite aqui seu email"
             className="email-input"
             onKeyUp={ validation }

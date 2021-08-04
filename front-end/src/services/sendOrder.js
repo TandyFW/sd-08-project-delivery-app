@@ -1,25 +1,33 @@
 const axios = require('axios');
 
-const sendOrder = async ({
-  userId,
-  sellerId,
-  totalPrice,
-  deliveryAddress,
-  deliveryNumber,
-  productsList,
-}) => {
+const sendOrder = async (
+  {
+    userId,
+    sellerId,
+    totalPrice,
+    deliveryAddress,
+    deliveryNumber,
+    productsList,
+  },
+  token,
+) => {
+  console.log({ token });
   try {
-    await axios.post('http://localhost:3001/sales', {
+    const orderId = await axios.post('http://localhost:3001/sales', {
       userId,
       sellerId,
       totalPrice,
       deliveryAddress,
       deliveryNumber,
       productsList,
-    });
+    },
+    {
+      headers: {
+        Authorization: token,
+      } });
 
-    return true;
-  } catch (error) {
+    return orderId;
+  } catch (err) {
     console.log(err);
     return false;
   }

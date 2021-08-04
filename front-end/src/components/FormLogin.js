@@ -3,7 +3,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 import fetchUser from '../services/fetchUser';
-import emailVerify from '../utils/functions';
+import { emailVerify } from '../utils/functions';
 
 export default function FormLogin() {
   const { setUser } = useContext(DeliveryAppContext);
@@ -47,7 +47,7 @@ export default function FormLogin() {
       case 'customer':
         return setURL('/customer/products');
       case 'seller':
-        return setURL('/seller/products');
+        return setURL('/seller/orders');
       case 'admin':
         return setURL('/admin/manage');
       default:
@@ -64,7 +64,7 @@ export default function FormLogin() {
           Email:
           <input
             type="email"
-            maxLength="30"
+            maxLength="100"
             placeholder="Digite aqui seu email"
             className="email-input"
             onKeyUp={ validation }
