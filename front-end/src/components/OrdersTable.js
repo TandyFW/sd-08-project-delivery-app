@@ -3,15 +3,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from './Button';
 
-const OrdersTable = ({ orders, loading, thounsand, dataTestBegin }) => (
+const OrdersTable = ({ orders, loading, thounsand, dataTestBegin, disable }) => (
   <div>
-    <div className='OrdersTable'>
+    <div className="OrdersTable">
       {loading ? <p>Carregando</p> : orders.map((item) => (
         <table key={ item.id }>
-          <thead >
+          <thead>
             <tr>
               <th
-                date-testid={ `${dataTestBegin}__element-order-details-label-order-id` }
+                data-testid={
+                  `${dataTestBegin}element-order-details-label-order-id`
+                }
               >
                 Pedido
                 {(item.id * thounsand)
@@ -22,7 +24,7 @@ const OrdersTable = ({ orders, loading, thounsand, dataTestBegin }) => (
               </th>
               <th
                 data-testid={
-                  `${dataTestBegin}__element-order-details-label-seller-name`
+                  `${dataTestBegin}element-order-details-label-seller-name`
                 }
               >
                 Pessoa Vend:
@@ -31,7 +33,7 @@ const OrdersTable = ({ orders, loading, thounsand, dataTestBegin }) => (
               {'  '}
               <th
                 data-testid={
-                  `${dataTestBegin}__element-order-details-label-order-date`
+                  `${dataTestBegin}element-order-details-label-order-date`
                 }
               >
                 {new Date(item.saleDate).toLocaleDateString()}
@@ -39,7 +41,7 @@ const OrdersTable = ({ orders, loading, thounsand, dataTestBegin }) => (
               {'  '}
               <th
                 data-testid={
-                  `${dataTestBegin}__element-order-details-label-delivery-status`
+                  `${dataTestBegin}element-order-details-label-delivery-status`
                 }
               >
                 {item.status }
@@ -49,6 +51,7 @@ const OrdersTable = ({ orders, loading, thounsand, dataTestBegin }) => (
                 <Button
                   name="MARCAR COMO ENTREGUE"
                   testId="customer_order_details__button-delivery-check"
+                  disable={ disable }
                 />
               </th>
             </tr>
@@ -57,7 +60,7 @@ const OrdersTable = ({ orders, loading, thounsand, dataTestBegin }) => (
         </table>
       ))}
     </div>
-    <table className='OrdersData'>
+    <table className="OrdersData">
       <thead>
         <tr>
           <th>Item</th>
@@ -124,7 +127,7 @@ const OrdersTable = ({ orders, loading, thounsand, dataTestBegin }) => (
             Total: R$
             {' '}
             {loading ? <p>Carregando</p>
-              : orders.map((item) => item.totalPrice)}
+              : orders.map((item) => item.totalPrice.replace(/\./, ','))}
           </h1>
         </div>
       </tbody>
@@ -137,6 +140,7 @@ OrdersTable.propTypes = {
   loading: PropTypes.string.isRequired,
   thounsand: PropTypes.string.isRequired,
   dataTestBegin: PropTypes.string.isRequired,
+  disable: PropTypes.string.isRequired,
 };
 
 export default OrdersTable;

@@ -7,6 +7,7 @@ import { sendData } from '../services/apiRequest';
 
 export default function DetailOrders() {
   const [loading, setLoading] = useState(false);
+  const [disable] = useState(true);
   const [currentSell, setCurrentSell] = useState([]);
 
   const { id } = useParams();
@@ -32,7 +33,8 @@ export default function DetailOrders() {
         orders={ currentSell }
         loading={ loading }
         thounsand={ thounsand }
-        dataTestBegin="customer_order_details__element-order-details"
+        disable={ disable }
+        dataTestBegin="customer_order_details__"
       />
       {loading ? <p>Carregando</p> : console.log(currentSell) }
     </div>
