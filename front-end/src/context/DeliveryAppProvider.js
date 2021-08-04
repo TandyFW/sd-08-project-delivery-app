@@ -17,21 +17,21 @@ function DeliveryAppProvider({ children }) {
   const [user, setUser] = useState({});
 
   const getRoute = () => {
-    const currentRoute = localStorage.getItem('route');
+    const currentRoute = JSON.parse(localStorage.getItem('user')).role;
     console.log('getRoute');
     setRoute(currentRoute);
   };
 
-  const rescueStorageList = () => {
-    console.log('rescueStorageList');
-    console.log(itemsList);
-    if (!itemsList.length) {
-      const storageList = JSON.parse(localStorage.getItem('currentItemsList'));
-      console.log('if');
-      if (storageList !== null) return setItemsList(storageList);
-    }
-    console.log(itemsList);
-  };
+  // const rescueStorageList = () => {
+  //   console.log('rescueStorageList');
+  //   console.log(itemsList);
+  //   if (!itemsList.length) {
+  //     const storageList = JSON.parse(localStorage.getItem('currentItemsList'));
+  //     console.log('if');
+  //     if (storageList !== null) return setItemsList(storageList);
+  //   }
+  //   console.log(itemsList);
+  // };
 
   const getCardList = async () => {
     const data = await fetchProducts();
@@ -57,7 +57,7 @@ function DeliveryAppProvider({ children }) {
     getCardList();
     getRoute();
     getSellers();
-    rescueStorageList();
+    // rescueStorageList();
   }, []);
 
   const setStorage = () => {
