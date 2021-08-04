@@ -3,4 +3,9 @@ const emailVerify = (email) => {
   return EMAIL_REGEX.test(email);
 };
 
-export default emailVerify;
+const clearStorage = () => localStorage.clear();
+
+export {
+  emailVerify,
+  clearStorage,
+};

@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 
 const ITEM1 = 'customer_products__element-navbar-link-products';
@@ -8,24 +9,30 @@ const SAIR = 'customer_products__element-navbar-link-logout';
 export default function Header() {
   const { user, route } = useContext(DeliveryAppContext);
 
+  const clear = () => localStorage.clear();
+
   return (
     <header>
       {route === 'customer'
         && (
-          <button
-            type="button"
-            data-teste-id={ `${ITEM1}` }
-          >
-            PRODUTOS
-          </button>)}
+          <Link to="/customer/products">
+            <button
+              type="button"
+              data-teste-id={ `${ITEM1}` }
+            >
+              PRODUTOS
+            </button>
+          </Link>)}
       {route !== 'admin'
         && (
-          <button
-            type="button"
-            data-teste-id={ `${ITEM2}` }
-          >
-            MEUS PEDIDOS
-          </button>)}
+          <Link to={ `/${route}/orders` }>
+            <button
+              type="button"
+              data-teste-id={ `${ITEM2}` }
+            >
+              MEUS PEDIDOS
+            </button>
+          </Link>)}
       {route === 'admin'
         && (
           <button
@@ -35,7 +42,15 @@ export default function Header() {
             GERENCIAR USUÁRIOS
           </button>)}
       <h3 data-teste-id={ `${NICK}` }>{ user.name }</h3>
-      <button type="button" data-teste-id={ `${SAIR}` }>SAIR</button>
+      <Link to="/">
+        <button
+          type="button"
+          onClick={ clear }
+          data-teste-id={ `${SAIR}` }
+        >
+          SAIR
+        </button>
+      </Link>
     </header>
   );
 }

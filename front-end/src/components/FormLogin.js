@@ -3,7 +3,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 import fetchUser from '../services/fetchUser';
-import emailVerify from '../utils/functions';
+import { emailVerify } from '../utils/functions';
 
 export default function FormLogin() {
   const { setUser } = useContext(DeliveryAppContext);
