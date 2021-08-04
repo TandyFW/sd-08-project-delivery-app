@@ -83,7 +83,7 @@ class Register extends React.Component {
 
     if (user) {
       const infoLoginAccess = await login(email, pass);
-      hello(id);
+      hello(infoLoginAccess.id);
       localStorage.setItem('user', JSON.stringify(infoLoginAccess));
       setDataLoginStore(infoLoginAccess);
     }

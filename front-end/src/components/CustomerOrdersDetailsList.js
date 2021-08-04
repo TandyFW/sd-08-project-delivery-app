@@ -4,35 +4,15 @@ import PropTypes from 'prop-types';
 import Loader from './Loader';
 import { getNameUserById } from '../services';
 import { getAllOrdesByUserApi } from '../redux/actions';
+import { status } from '../services/socket';
+
 
 import '../styles/customerOrderDetails.css';
 
 // import { getOrdersForUserById } from '../services';
 const prefix1 = 'customer_order_details__element-order';
 const prefix2 = 'customer_order_details__';
-// const newDate = new Date();
-// const formatDate = `${newDate.getDate()}/${newDate.getMonth()}/${newDate.getFullYear()}`;
-// const OrderDetails = {
-//   oderId: 1,
-//   sellerName: 'prof xavier',
-//   date: formatDate,
-//   status: 'entregue',
-//   totalPrice: 49.05,
-//   purchasedProducts: [
-//     { id: 11,
-//       name: 'Skol Lata 250ml',
-//       quantity: 3,
-//       price: 2.2 },
-//     { id: 22,
-//       name: 'Heineken 600ml',
-//       quantity: 4,
-//       price: 7.5 },
-//     { id: 33,
-//       name: 'Antarctica Pilsen 300ml',
-//       quantity: 5,
-//       price: 2.49 },
-//   ],
-// };
+
 
 class CustomerOrdersDetailsList extends React.Component {
   constructor(props) {
@@ -42,6 +22,7 @@ class CustomerOrdersDetailsList extends React.Component {
       orders: [],
       isLoading: true,
       isDelivered: false,
+      status: '',
     };
     this.setAllOrdesInState = this.setAllOrdesInState.bind(this);
   }
@@ -53,6 +34,11 @@ class CustomerOrdersDetailsList extends React.Component {
     const orderId = history.location.pathname.slice(NOT_MAGIC);
     await getAllOrdesByUser();
     this.setAllOrdesInState(orderId);
+  }
+  
+  status()
+  state(state) {
+    this.
   }
 
   async setAllOrdesInState(orderId) {
@@ -79,7 +65,9 @@ class CustomerOrdersDetailsList extends React.Component {
       this.setState((state) => ({ ...state,
         orders: allOrdes,
         OrderDetails,
-        isLoading: false }));
+        isLoading: false,
+        status,
+      }));
     }
   }
 

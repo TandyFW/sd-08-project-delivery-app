@@ -6,34 +6,12 @@ import { getNameUserById } from '../services';
 import { getAllOrdesBySellerApi } from '../redux/actions';
 
 import '../styles/customerOrderDetails.css';
+import { make } from '../services/socket';
 // const testId = 'seller_orders__element';
 
 // import { getOrdersForUserById } from '../services';
 const prefix1 = 'seller_order_details__element-order';
 const prefix2 = 'seller_order_details__';
-// const newDate = new Date();
-// const formatDate = `${newDate.getDate()}/${newDate.getMonth()}/${newDate.getFullYear()}`;
-// const OrderDetails = {
-//   oderId: 1,
-//   sellerName: 'prof xavier',
-//   date: formatDate,
-//   status: 'entregue',
-//   totalPrice: 49.05,
-//   purchasedProducts: [
-//     { id: 11,
-//       name: 'Skol Lata 250ml',
-//       quantity: 3,
-//       price: 2.2 },
-//     { id: 22,
-//       name: 'Heineken 600ml',
-//       quantity: 4,
-//       price: 7.5 },
-//     { id: 33,
-//       name: 'Antarctica Pilsen 300ml',
-//       quantity: 5,
-//       price: 2.49 },
-//   ],
-// };
 
 class SellerOrdersDetailsList extends React.Component {
   constructor(props) {
@@ -44,8 +22,12 @@ class SellerOrdersDetailsList extends React.Component {
       isLoading: true,
       isRequest: false,
       isDelivered: false,
+      sellerId: 0,
+      userId: 0,
     };
     this.setAllOrdesInState = this.setAllOrdesInState.bind(this);
+    this.request = this.request.bind(this);
+    this.deliver = this.deliver.bind(this);
   }
 
   // const OrderDetails ={};
@@ -63,7 +45,7 @@ class SellerOrdersDetailsList extends React.Component {
     // console.log(orderId);
     // console.log(allOrdes);
     if (allOrdes) {
-      const { id, status, productId } = allOrdes[orderId];
+      const { id, status, productId, userId, sellerId } = allOrdes[orderId];
       const sellerName = await getNameUserById(allOrdes[orderId].user_id);
       const dateArray = allOrdes[orderId].sale_date.split('T')[0].split('-');
       const date = `${dateArray[2]}/${dateArray[1]}/${dateArray[0]}`;
@@ -82,16 +64,23 @@ class SellerOrdersDetailsList extends React.Component {
         orders: allOrdes,
         OrderDetails,
         isLoading: false,
-        isRequest: true }));
+        isRequest: true,
+        userId,
+        sellerId,
+      }));
     }
   }
 
   request() {
+    const { userId, sellerId } = this.state;
+    make(userId, sellerId, 'Preparando');
     this.setState({ isDelivered: true });
   }
 
   deliver() {
-    // this.setState({ isRequest: false });
+    const { userId, sellerId } = this.state;
+    make(userId, sellerId, 'Em transito');
+    this.setState({ isDelivered: false, isRequest: false });
   }
 
   render() {

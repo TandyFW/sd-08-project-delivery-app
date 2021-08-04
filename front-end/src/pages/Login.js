@@ -22,6 +22,8 @@ class Login extends React.Component {
   async componentDidMount() {
     const { history } = this.props;
     const user = JSON.parse(localStorage.getItem('user'));
+    console.log(user);
+    hello(user.id);
     if (user) {
       if (user.role === 'seller') {
         history.push('/seller/orders');
