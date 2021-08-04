@@ -80,19 +80,19 @@ const createSale = async (req, res) => {
 const getSalesByUser = async (req, res) => {
   const { email } = req.body;
   try {
-    const { id, role } = await user.findOne({
+    const { id } = await user.findOne({
       where: { email },
     });
-    if (role === 'customer') {
+    // if (role === 'customer') {
       const data = await sale.findAll({
         where: { userId: id },
       });
       res.status(200).json(data);
-    }
-    const data = await sale.findAll({
-      where: { sellerId: id },
-    });
-    return res.status(200).json(data);
+    // }
+    // const data = await sale.findAll({
+    //   where: { sellerId: id },
+    // });
+    // return res.status(200).json(data);
   } catch (err) {
     return res.status(500).json({ message: messageError, err: err.message });
   }
