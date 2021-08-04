@@ -1,7 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Context } from '../../Context';
-import './style.css';
+import {
+  CardContainer,
+  CardPrice,
+  ImageContainer,
+  ProductData,
+  ProductName,
+  QuantityControl,
+  QuantityInput,
+} from './Styled';
 
 export default function ProductCard(props) {
   const {
@@ -42,52 +50,51 @@ export default function ProductCard(props) {
       quantity: target.value,
     });
   };
+
   const handleModal = () => {
     props.setData({ id, name, price, urlImage });
     props.setVisible(true);
   };
 
   return (
-    <div id="cardContainer">
-      <div>
-        <span>R$ </span>
-        <span data-testid={ `customer_products__element-card-price-${id}` }>
-          {price.replace(/\./, ',')}
-        </span>
-      </div>
-      <button id="buttonDiv" type="button" onClick={ handleModal }>
+    <CardContainer>
+      <ProductName data-testid={ `customer_products__element-card-title-${id}` }>
+        {name}
+      </ProductName>
+      <ImageContainer type="button" onClick={ handleModal }>
         <img
           alt="Movie Cover"
           data-testid={ `customer_products__img-card-bg-image-${id}` }
           src={ urlImage }
         />
-      </button>
-      <div>
-        <h4 data-testid={ `customer_products__element-card-title-${id}` }>
-          {name}
-        </h4>
-        <button
+      </ImageContainer>
+      <CardPrice data-testid={ `customer_products__element-card-price-${id}` }>
+        {price.replace(/\./, ',')}
+      </CardPrice>
+      <ProductData>
+
+        <QuantityControl
           data-testid={ `customer_products__button-card-rm-item-${id}` }
           type="button"
           onClick={ decrementItem }
         >
           -
-        </button>
-        <input
+        </QuantityControl>
+        <QuantityInput
           data-testid={ `customer_products__input-card-quantity-${id}` }
           placeholder="0"
           value={ productData.quantity }
           onChange={ handleQuantityChange }
         />
-        <button
+        <QuantityControl
           data-testid={ `customer_products__button-card-add-item-${id}` }
           type="button"
           onClick={ incrementItem }
         >
           +
-        </button>
-      </div>
-    </div>
+        </QuantityControl>
+      </ProductData>
+    </CardContainer>
   );
 }
 
