@@ -26,11 +26,14 @@ export default function OrderCard(props) {
         </Col>
         <Col>
           <ListGroup variant="flush">
-            <ListGroup.Item className="text-center">
+            <ListGroup.Item
+              data-testid={ `${user}_orders__element-order-date-${id}` }
+              className="text-center"
+            >
               { date }
             </ListGroup.Item>
             <ListGroup.Item
-              data-testid={ `${user}_orders__element-price-id-${id}` }
+              data-testid={ `${user}_orders__element-card-price-${id}` }
               className="text-center"
             >
               { price }
