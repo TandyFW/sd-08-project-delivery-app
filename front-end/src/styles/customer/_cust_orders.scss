@@ -2,15 +2,14 @@
   @include flex(flex, column, flex-start, center );
   @include loading-div(500px, 500px, $trybeGreen);
   .customer-orders-container {
-    @include flex(flex, row, center, center);
+    @include flex(flex, row, flex-start, center);
     position: relative;
     top: calc(8vh + 55px);
     flex-wrap: wrap;
-    width: 90%;
     max-width: 1300px;
     .order-card {
       @include flex(flex, row, space-between, center);
-      width: 500px;
+      width: 550px;
       height: 110px;
       margin: 10px;
       border-top: 1px solid rgba(0, 0, 0, 0.2);
@@ -52,7 +51,6 @@
         .status-container {
           @include flex(flex, row, space-around, center);
           width: 100%;
-          height: 85%;
         }
         h4 {
           text-align: center;
@@ -69,7 +67,7 @@
           font-size: 20px;
           font-weight: 500;
           width: 150px;
-          height: 100px;
+          height: 85px;
           border: 1px solid rgba(0, 0, 0, 0.3);
           border-radius: 4px;
         }

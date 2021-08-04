@@ -5,7 +5,6 @@ import Loader from './Loader';
 import { getNameUserById } from '../services';
 import { getAllOrdesBySellerApi } from '../redux/actions';
 
-import '../styles/customerOrderDetails.css';
 // const testId = 'seller_orders__element';
 
 // import { getOrdersForUserById } from '../services';

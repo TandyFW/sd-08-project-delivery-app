@@ -5,8 +5,6 @@ import Loader from './Loader';
 import { getNameUserById } from '../services';
 import { getAllOrdesByUserApi } from '../redux/actions';
 
-import '../styles/customerOrderDetails.css';
-
 const prefix1 = 'customer_order_details__element-order';
 const prefix2 = 'customer_order_details__';
 
@@ -55,6 +53,7 @@ class CustomerOrdersDetailsList extends React.Component {
   }
 
   render() {
+    const { history } = this.props;
     const { isLoading } = this.state;
     if (isLoading) {
       return <Loader />;
@@ -62,24 +61,28 @@ class CustomerOrdersDetailsList extends React.Component {
     const { OrderDetails, isDelivered } = this.state;
     return (
       <div className="cust-orders_details-container">
-        <table className="customerOrdersDetailsList-table">
+        <table className="cust-orders_details-orders-info">
           <tr>
             <td
+              id="cust-orders_details-id"
               data-testid={ `${prefix1}-details-label-order-id` }
             >
               { `Pedido ${OrderDetails.oderId}` }
             </td>
             <td
+              id="cust-orders_details-name"
               data-testid={ `${prefix1}-details-label-seller-name` }
             >
               { `P. Vend: ${OrderDetails.sellerName}` }
             </td>
             <td
               data-testid={ `${prefix1}-details-label-order-date` }
+              id="cust-orders_details-date"
             >
               { OrderDetails.date }
             </td>
             <td
+              id={ `${OrderDetails.status}` }
               data-testid={ `${prefix1}-details-label-delivery-status` }
             >
               { (OrderDetails.status) }
@@ -90,57 +93,76 @@ class CustomerOrdersDetailsList extends React.Component {
                 type="button"
                 data-testid={ `${prefix2}button-delivery-check` }
               >
-                MARCAR COMO ENTREGUE
+                Marcar como Entregue
               </button>
             </td>
           </tr>
         </table>
-        <table className="text-center product-table">
-          <tr>
-            <td>Item</td>
-            <td>Descrição</td>
-            <td>Quantidade</td>
-            <td>Valor Unitário</td>
-            <td>Sub-total</td>
-          </tr>
-          {
-            OrderDetails.purchasedProducts.map((product, i) => (
-              <tr key={ i }>
-                <td
-                  data-testid={ `${prefix1}-table-item-number-${product.id}` }
-                >
-                  { product.id }
-                </td>
-                <td
-                  className="text-left"
-                  data-testid={ `${prefix1}-table-name-${product.id}` }
-                >
-                  { product.name }
-                </td>
-                <td
-                  data-testid={ `${prefix1}-table-quantity-${product.id}` }
-                >
-                  { product.salesProducts.quantity }
-                </td>
-                <td
-                  data-testid={ `${prefix1}-table-unit-price-${product.id}` }
-                >
-                  { `R$ ${product.price}` }
-                </td>
-                <td
-                  data-testid={ `${prefix1}-table-sub-total-${product.id}` }
-                >
-                  { `R$ ${(product.price * product.salesProducts.quantity).toFixed(2)}` }
-                </td>
-              </tr>
-            ))
-          }
+        <table className="cust-orders_details-cart">
+          <thead>
+            <tr>
+              <td>Item</td>
+              <td>Descrição</td>
+              <td>Quantidade</td>
+              <td>Valor Unitário</td>
+              <td>Sub-total</td>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              OrderDetails.purchasedProducts.map((product, i) => (
+                <tr key={ i }>
+                  <td
+                    id="index-td"
+                    data-testid={
+                      `${prefix1}-table-item-number-${product.id}`
+                    }
+                  >
+                    { i + 1 }
+                  </td>
+                  <td
+                    id="name-td"
+                    data-testid={ `${prefix1}-table-name-${product.id}` }
+                  >
+                    { product.name }
+                  </td>
+                  <td
+                    id="quantity-td"
+                    data-testid={ `${prefix1}-table-quantity-${product.id}` }
+                  >
+                    { product.salesProducts.quantity }
+                  </td>
+                  <td
+                    id="unitprice-td"
+                    data-testid={ `${prefix1}-table-unit-price-${product.id}` }
+                  >
+                    { `R$ ${product.price}` }
+                  </td>
+                  <td
+                    id="totalprice-td"
+                    data-testid={ `${prefix1}-table-sub-total-${product.id}` }
+                  >
+                    {`R$ ${(product.price * product.salesProducts.quantity)
+                      .toFixed(2)}` }
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
         </table>
         <h2
+          className="cust-orders_details-totalprice bottom_info"
           data-testid={ `${prefix2}element-order-total-price` }
         >
-          { `${OrderDetails.totalPrice.replace('.', ',')}` }
+          { `R$ ${OrderDetails.totalPrice.replace('.', ',')}` }
         </h2>
+        <button
+          type="button"
+          className="cust-orders_details-back bottom_info"
+          onClick={ () => history.push('/customer/orders') }
+        >
+          Back
+        </button>
       </div>
     );
   }
