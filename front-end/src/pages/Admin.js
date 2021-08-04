@@ -19,7 +19,7 @@ class Admin extends React.Component {
       dispatchUsers(users.registers);
     }
     const Loading = 10;
-    // const Loading =  10;
+    // const Loading = 10;
     setTimeout(() => {
       this.setState({ loading: false });
     }, Loading);

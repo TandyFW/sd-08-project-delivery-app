@@ -107,7 +107,7 @@ class CheckoutCart extends React.Component {
         <div>
           <div className="checkout-totalprice">
             <span data-testid="customer_checkout__element-order-total-price">
-              { `Total: ${LSprice.replace('.', ',')}`}
+              { `${LSprice.replace('.', ',')}`}
             </span>
           </div>
         </div>

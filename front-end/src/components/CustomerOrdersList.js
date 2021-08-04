@@ -24,8 +24,12 @@ class CustomerOrdersList extends React.Component {
 
   setAllOrdesInState() {
     const { allOrdes } = this.props;
-    // console.log(allOrdes);
     if (allOrdes) {
+      allOrdes.forEach((ordes) => {
+        const dateArray = ordes.sale_date.split('T')[0].split('-');
+        ordes.date = `${dateArray[2]}/${dateArray[1]}/${dateArray[0]}`;
+      });
+      console.log(allOrdes);
       this.setState((state) => ({ ...state,
         orders: allOrdes,
         isLoading: false }));
@@ -33,7 +37,7 @@ class CustomerOrdersList extends React.Component {
   }
 
   render() {
-    const { history } = this.props;
+    // const { history } = this.props;
     // console.log(history);
     // const { stateProducts } = this.props;
     // const { state } = this;
@@ -49,15 +53,14 @@ class CustomerOrdersList extends React.Component {
             <div key={ i }>
               {/* <div > */}
               {/* <h4>Pedido</h4> */}
-              <button
-                type="button"
-                // href={ `/customer/orders/${order.id}` }
-                onClick={ () => history.push(`/customer/orders/${order.id}`) }
+              <a
+                href={ `/customer/orders/${order.id}` }
+                // onClick={ () => history.push(`/customer/orders/${order.id}`) }
                 data-testid={ `${testId}element-order-id-${order.id}` }
               >
                 {`Pedido ${order.id}` }
-                {/* </button> */}
-              </button>
+                {/* </div> */}
+              </a>
               <div
                 data-testid={ `${testId}element-delivery-status-${order.id}` }
               >
@@ -67,12 +70,12 @@ class CustomerOrdersList extends React.Component {
                 <div
                   data-testid={ `${testId}element-order-date-${order.id}` }
                 >
-                  { order.sale_date }
+                  { order.date }
                 </div>
                 <div
                   data-testid={ `${testId}element-card-price-${order.id}` }
                 >
-                  { `R$ ${order.total_price}` }
+                  { `${order.total_price.replace('.', ',')}` }
                 </div>
               </div>
             </div>
@@ -100,7 +103,7 @@ const mapStateToProps = (state) => ({
 // });
 
 CustomerOrdersList.propTypes = {
-  history: PropTypes.shape().isRequired,
+  // history: PropTypes.shape().isRequired,
   getAllOrdesByUser: PropTypes.func.isRequired,
   allOrdes: PropTypes.arrayOf(PropTypes.object).isRequired,
 //   dispatchProducts: PropTypes.func.isRequired,

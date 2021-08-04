@@ -7,7 +7,7 @@ import { createUser, login } from '../services';
 import { loginAction } from '../redux/actions';
 // import { hello } from '../services/socket';
 
-const SECOND_HALF = 1500;
+const SECOND_HALF = 10;
 const MAX_TIME_SPAM_TEN_SECONDS = 10000;
 const MIN_LENGTH_NAME = 13;
 const MIN_LENGTH_PASSWORD = 6;
