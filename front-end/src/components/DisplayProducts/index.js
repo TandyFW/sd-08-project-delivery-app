@@ -3,7 +3,7 @@ import ProductCard from '../ProductCard';
 import { Context } from '../../Context';
 import TotalPrice from '../TotalPrice';
 import Modal from '../Modal';
-import './style.css';
+import ProductsContainer from './styled';
 
 export default function DisplayProducts() {
   const { products } = useContext(Context);
@@ -12,7 +12,7 @@ export default function DisplayProducts() {
 
   return (
     <div>
-      <div id="gridContainer">
+      <ProductsContainer id="gridContainer">
         {
           products.map((product) => (
             <ProductCard
@@ -23,7 +23,7 @@ export default function DisplayProducts() {
             />
           ))
         }
-      </div>
+      </ProductsContainer>
       <TotalPrice />
       {visible && <Modal setVisible={ setVisible } data={ data } />}
 

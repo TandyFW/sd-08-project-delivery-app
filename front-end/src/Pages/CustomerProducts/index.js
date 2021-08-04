@@ -3,12 +3,13 @@ import {
   Header,
   DisplayProducts,
 } from '../../components';
+import ProductsCustomer from './Styled';
 
 const CustomerProducts = () => (
-  <div>
+  <ProductsCustomer>
     <Header />
     <DisplayProducts />
-  </div>
+  </ProductsCustomer>
 );
 
 export default CustomerProducts;

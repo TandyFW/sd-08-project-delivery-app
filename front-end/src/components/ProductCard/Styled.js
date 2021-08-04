@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const CardContainer = styled.div`
   box-sizing: border-box;
-  border: 2px solid #764526;
   width: 80%;
+  justify-self: center;
   height: 500px;
   display: flex;
   flex-direction: column;
@@ -15,6 +15,11 @@ export const CardContainer = styled.div`
 
   * {
     box-sizing: border-box;
+  }
+
+  &:hover {
+    transition: 0.2s;
+    box-shadow: 3px 3px 5px 3px rgba(0, 0, 0, 0.2);
   }
 `;
 
