@@ -35,7 +35,7 @@ export default function FormCheckout() {
 
   const selectSeller = () => {
     const currentSellerId = document.querySelector('#checkoutSeller').value;
-    console.log(currentSellerId);
+    // console.log(currentSellerId);
     setSellerId(currentSellerId);
   };
 

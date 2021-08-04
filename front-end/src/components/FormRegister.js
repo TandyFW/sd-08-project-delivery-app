@@ -77,7 +77,7 @@ export default function FormRegister() {
           Email:
           <input
             type="email"
-            maxLength="50"
+            maxLength="100"
             placeholder="Digite aqui seu email"
             className="email-input"
             onKeyUp={ validation }
