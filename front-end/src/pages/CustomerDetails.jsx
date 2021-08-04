@@ -63,6 +63,10 @@ const CustomerDetails = () => {
   }, [sale]);
 
   // useEffect(() => {
+  //   console.log('sale updated');
+  // }, [sale]);
+
+  // useEffect(() => {
   //   socket.on('statusUpdate', (status) => {
   //     setSale({ ...sale, status });
   //   });
