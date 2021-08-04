@@ -11,7 +11,6 @@ const sendOrder = async (
   },
   token,
 ) => {
-  console.log({ token });
   try {
     const orderId = await axios.post('http://localhost:3001/sales', {
       userId,
@@ -24,11 +23,11 @@ const sendOrder = async (
     {
       headers: {
         Authorization: token,
-      } });
+      },
+    });
 
-    return orderId;
+    return orderId.data;
   } catch (err) {
-    console.log(err);
     return false;
   }
 };

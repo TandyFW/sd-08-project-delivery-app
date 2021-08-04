@@ -19,9 +19,7 @@ export default function FormCheckout() {
 
   const submitOrder = async (e) => {
     e.preventDefault();
-    console.log('FRANCO PEDIU');
-    console.log({ user });
-    const currentSaleId = await sendOrder({
+    const idSale = await sendOrder({
       userId,
       sellerId,
       totalPrice,
@@ -30,7 +28,7 @@ export default function FormCheckout() {
       productsList: itemsList,
     }, user.token);
 
-    window.location.href = `http://localhost:3000/customer/orders/${currentSaleId}`;
+    window.location.href = `http://localhost:3000/customer/orders/${idSale}`;
     // setSaleId(currentSaleId);
   };
 

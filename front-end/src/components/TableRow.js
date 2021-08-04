@@ -20,7 +20,6 @@ export default function TableRow({ row, tableIndex, showRemove }) {
 
   const componentSettings = () => {
     if (showRemove) {
-      console.log(showRemove);
       setRowQuantity(+row.quantity);
       setRowUnitaryPrice(+(+row.unitaryPrice).toFixed(2));
       return setRowSubtotal((+(+row.unitaryPrice).toFixed(2)) * (+row.quantity));
@@ -80,7 +79,7 @@ export default function TableRow({ row, tableIndex, showRemove }) {
             className="btn-remove"
             onClick={ remove }
             data-testid={
-              `customer_checkout__element-order-table-remove-${row.productId}`
+              `customer_checkout__element-order-table-remove-${tableIndex}`
             }
           >
             Remover
