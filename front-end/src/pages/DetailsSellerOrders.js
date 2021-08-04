@@ -3,12 +3,11 @@ import React from 'react';
 
 import Header from '../components/Header';
 
-export default function DetailOrders() {
+export default function DetailsSellerOrders() {
   return (
-
-    <div>
+    <>
       <Header />
-    </div>
-
+      <div>Details Seller Orders</div>
+    </>
   );
 }
