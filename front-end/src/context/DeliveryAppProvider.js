@@ -18,19 +18,19 @@ function DeliveryAppProvider({ children }) {
 
   const getRoute = () => {
     const currentRoute = localStorage.getItem('route');
-    console.log('getRoute');
+    // console.log('getRoute');
     setRoute(currentRoute);
   };
 
   const rescueStorageList = () => {
-    console.log('rescueStorageList');
-    console.log(itemsList);
+    // console.log('rescueStorageList');
+    // console.log(itemsList);
     if (!itemsList.length) {
       const storageList = JSON.parse(localStorage.getItem('currentItemsList'));
       console.log('if');
       if (storageList !== null) return setItemsList(storageList);
     }
-    console.log(itemsList);
+    // console.log(itemsList);
   };
 
   const getCardList = async () => {
@@ -39,10 +39,10 @@ function DeliveryAppProvider({ children }) {
   };
 
   const getTotalPrice = () => {
-    console.log('getTotalPrice');
+    // console.log('getTotalPrice');
     const priceList = itemsList.map((item) => +item.itemsPrice);
     const currentTotalPrice = priceList.reduce((cur, acc) => acc + cur, 0).toFixed(2);
-    console.log(currentTotalPrice);
+    // console.log(currentTotalPrice);
     setTotalPrice(currentTotalPrice);
   };
 

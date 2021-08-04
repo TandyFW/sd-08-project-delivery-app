@@ -28,6 +28,7 @@ export default function TableRow({ row, tableIndex, showRemove }) {
 
   useEffect(() => {
     const srtList = JSON.stringify(itemsList);
+    console.log(srtList);
     return localStorage.setItem('currentItemsList', srtList);
   }, [itemsList]);
 
