@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import api from '../../Apis/api1';
 import { OrderCard, Header, HeaderSeller } from '../../components';
-import OrderCardContainer from './Styled';
+import { OrderCardContainer, OrdersPage } from './Styled';
 import { Context } from '../../Context';
 
 const getOrders = (token, userRole, setOrders) => api
@@ -22,7 +22,7 @@ const Orders = ({ userRole }) => {
   }, [client, orders, token, userRole]);
 
   return (
-    <main>
+    <OrdersPage>
       {userRole === 'customer' ? <Header /> : <HeaderSeller />}
       <OrderCardContainer>
         {!!orders.length
@@ -34,7 +34,7 @@ const Orders = ({ userRole }) => {
             />
           ))}
       </OrderCardContainer>
-    </main>
+    </OrdersPage>
   );
 };
 
