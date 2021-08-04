@@ -7,7 +7,7 @@ deliveryAddress,
 deliveryNumber,
 userId,
 sellerId,
-status: 'PENDENTE',
+status: 'Pendente',
 });
 return saleCreated;
 };

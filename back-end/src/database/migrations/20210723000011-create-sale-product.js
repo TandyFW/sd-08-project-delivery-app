@@ -8,6 +8,7 @@ module.exports = {
         allowNull: false,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
+        field: 'sale_id',
         references: {
         model: 'sales',
         key: 'id'
@@ -19,6 +20,7 @@ module.exports = {
       allowNull: false,
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
+      field: 'product_id',
       references: {
       model: 'products',
       key: 'id'

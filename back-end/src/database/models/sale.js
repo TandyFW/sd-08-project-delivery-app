@@ -5,12 +5,13 @@ const sale = (sequelize, DataTypes) => {
     totalPrice: DataTypes.DECIMAL,
     deliveryAddress: DataTypes.STRING,
     deliveryNumber: DataTypes.STRING,
-    saleDate: { type: DataTypes.DATE, defaultValue: new Date() },
+    saleDate: DataTypes.DATE,
     status: DataTypes.STRING,
   }, { 
-    timestamps: false,
+    createdAt: 'saleDate',
+    updatedAt: false,
     // para indicar que as referências de campos e tabelas são em snake_case 
-    // underscored: true
+    underscored: true
   });
 
   SaleTable.associate = (models) => {

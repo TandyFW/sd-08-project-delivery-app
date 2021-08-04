@@ -14,16 +14,16 @@ const saleProduct = (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
       as: 'products',
       through: SaleProductTable,
-      foreignKey: 'sale_id',
-      otherKey: 'product_id',
+      foreignKey: 'saleId',
+      otherKey: 'productId',
     });
 
     models.product.belongsToMany(models.sale, {
       onDelete: 'CASCADE',
       as: 'sales',
       through: SaleProductTable,
-      foreignKey: 'product_id',
-      otherKey: 'sale_id',
+      foreignKey: 'productId',
+      otherKey: 'saleId',
     });
   };
 
