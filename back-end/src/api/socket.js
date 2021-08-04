@@ -1,6 +1,6 @@
 const emTransito = 'Em Trânsito';
 
-function socket2(socket, listUser) {
+function flow(socket, listUser) {
   socket.on('make', ({ sellerId, userId, state }) => {
     console.log('vendedor ', sellerId, ' usuario ', userId, ' estado ', state);
     console.log(listUser, listUser[sellerId], listUser[userId]);
@@ -33,7 +33,7 @@ const delivery = (io) => {
       console.log('O Usuário', id, 'chegou');
       listUser[id] = socket.id;
     });
-    socket2(socket, listUser);
+    flow(socket, listUser);
     socket.on('disconnect', () => {});
   });
 };
