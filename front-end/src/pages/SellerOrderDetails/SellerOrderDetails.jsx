@@ -5,6 +5,7 @@ import moment from 'moment';
 import NavBar from '../../Components/NavBar/NavBar';
 import ItemTable from '../../Components/ItemTable/ItemTable';
 import { getUserInfo } from '../../service/getLocalStorage';
+import { pedidoSendoPreparado, pedidoEmTransito } from '../../socket/Socket';
 
 export default function SellerOrderDetails() {
   const [isLoading, setLoading] = useState(true);
@@ -12,7 +13,8 @@ export default function SellerOrderDetails() {
   const { id } = useParams();
   const path = `http://localhost:3001/order/details/${id}`;
   const [orderDetailsInfos, setOrderDetailsInfos] = useState({});
-  const [buttonDelivered, setButtonDelivered] = useState(true);
+  const [statusOrders, setstatusOrders] = useState('');
+  // const { status } = useSelector((state) => state.status);
 
   const formataDate = () => {
     moment.locale();
@@ -35,8 +37,7 @@ export default function SellerOrderDetails() {
         },
       });
       const { products } = response.data;
-      console.log('aquiii', response.data);
-      setButtonDelivered(true);
+      setstatusOrders(response.data.status);
       setOrderProducts(products);
       setOrderDetailsInfos(response.data);
       setLoading(false);
@@ -51,6 +52,17 @@ export default function SellerOrderDetails() {
   }, []);
 
   const prefix = 'seller_order_details__';
+
+  const onClickPrepararPedido = async () => {
+    const statusOrder = await pedidoSendoPreparado(orderDetailsInfos.id);
+    setstatusOrders(statusOrder);
+  };
+
+  const onClickSaiuParaEntrega = async () => {
+    // emitir socket para mudar status em transito
+    const statusOrder = await pedidoEmTransito(orderDetailsInfos.id);
+    setstatusOrders(statusOrder);
+  };
 
   return (
     <div>
@@ -71,15 +83,21 @@ export default function SellerOrderDetails() {
           <h3
             data-testid={ `${prefix}element-order-details-label-delivery-status` }
           >
-            {orderDetailsInfos.status}
+            {statusOrders}
           </h3>
-          <button type="button" data-testid={ `${prefix}button-preparing-check` }>
+          <button
+            type="button"
+            data-testid={ `${prefix}button-preparing-check` }
+            onClick={ onClickPrepararPedido }
+            disabled={ statusOrders !== 'Pendente' }
+          >
             Preparar Pedido
           </button>
           <button
             type="button"
             data-testid={ `${prefix}button-dispatch-check` }
-            disabled={ buttonDelivered }
+            disabled={ statusOrders !== 'Preparando' }
+            onClick={ onClickSaiuParaEntrega }
           >
             Saiu Para Entrega
           </button>
