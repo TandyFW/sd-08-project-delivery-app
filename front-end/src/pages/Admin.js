@@ -18,8 +18,8 @@ class Admin extends React.Component {
       localStorage.setItem('allUsers', JSON.stringify(users.registers));
       dispatchUsers(users.registers);
     }
-    const Loading = 500;
-    // const Loading = 1500;
+    const Loading = 10;
+    // const Loading = 10;
     setTimeout(() => {
       this.setState({ loading: false });
     }, Loading);

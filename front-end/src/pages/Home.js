@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Loader } from '../components';
 
-const SECOND_HALF = 1500;
+const SECOND_HALF = 10;
 
 const Home = ({ history }) => {
   useEffect(() => {
