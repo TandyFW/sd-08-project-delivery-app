@@ -1,36 +1,3 @@
-<<<<<<< HEAD
-function socket2(socket, listUser) {
-  socket.on('make', (buyData) => {
-    const { sellerId, userId, state } = buyData;
-    console.log('vendedor ', sellerId, ' usuario ', userId, ' estado ', state);
-    console.log(listUser, listUser[sellerId], listUser[userId]);
-    switch (state) {
-      case 'Pendente':
-        console.log('Pendente', listUser[sellerId]);
-        socket.to(listUser[sellerId]).emit('state', 'Pendente');
-        break;
-      case 'Preparando':
-        console.log('Preparando', listUser[userId]);
-        socket.to(listUser[userId]).emit('state', 'Preparando');
-        break;
-      case 'Em Trânsito':
-        console.log('Em Trânsito', listUser[userId]);
-        socket.to(listUser[userId]).emit('state', 'Em Trânsito');
-        break;
-      case 'Entregue':
-        console.log('Entregue', listUser[sellerId]);
-        socket.to(listUser[sellerId]).emit('state', 'Entregue');
-        break;
-      default:
-        console.log('erro', listUser[sellerId]);
-        socket.to(listUser[sellerId]).emit('state', 'erro');
-        socket.to(listUser[userId]).emit('state', 'erro');
-        break;
-    }
-  });
-}
-
-=======
 const emTransito = 'Em Trânsito';
 
 function flow(socket, listUser) {
@@ -54,7 +21,6 @@ function flow(socket, listUser) {
   });
 }
 
->>>>>>> 819f36eebf9d94350f7211243fd398d72b8b123a
 const listUser = {};
 
 const delivery = (io) => {
@@ -64,17 +30,10 @@ const delivery = (io) => {
       console.log(`${socket.id} emitiu um ping!`);
     });
     socket.on('hello', (id) => {
-<<<<<<< HEAD
-      console.log('O usuario ', id, 'chegou');
-      listUser[id] = socket.id;
-    });
-    socket2(socket, listUser);
-=======
       console.log('O Usuário', id, 'chegou');
       listUser[id] = socket.id;
     });
     flow(socket, listUser);
->>>>>>> 819f36eebf9d94350f7211243fd398d72b8b123a
     socket.on('disconnect', () => {});
   });
 };

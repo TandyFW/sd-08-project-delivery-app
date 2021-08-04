@@ -36,10 +36,10 @@ class CustomerOrdersDetailsList extends React.Component {
     this.setAllOrdesInState(orderId);
   }
   
-  status()
-  state(state) {
-    this.
+  status(state){
+    this.setState()
   }
+
 
   async setAllOrdesInState(orderId) {
     const { allOrdes } = this.props;

@@ -50,8 +50,6 @@ const allOrdesAction = (allOrdes) => ({
 });
 
 export const getAllOrdesByUserApi = () => async (dispatch) => {
-  // const result = await getAllOrdersForUser();
-  // console.log(result);
   const { orders } = await getAllOrdersForUser();
   dispatch(allOrdesAction(orders));
 };
