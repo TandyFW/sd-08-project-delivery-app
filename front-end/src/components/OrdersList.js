@@ -9,7 +9,6 @@ export default function OrdersList() {
   const [isLoading, setIsLoading] = useState(true);
 
   const getOrders = async () => {
-    console.log(data);
     const data = await fetchOrders(route);
     setOrdersList(data);
   };

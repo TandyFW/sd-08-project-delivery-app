@@ -7,7 +7,7 @@ const sendOrder = async ({
   deliveryAddress,
   deliveryNumber,
   productsList,
-}, token) => {
+}) => {
   try {
     const orderId = await axios.post('http://localhost:3001/sales', {
       userId,
