@@ -1,9 +1,9 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-const reqquireHttp = require('http');
-const socketIo = require('socket.io');
-const sock = require('../socket.io/sockets');
+// const reqquireHttp = require('http');
+// const socketIo = require('socket.io');
+// const sock = require('../socket.io/sockets');
 const { loginRoute, registerRoute, productsRoute, orderRoute } = require('./routes');
 const handleError = require('../middlewares/errorHandler');
 // const SOCKET_PORT = process.env.SOCKET_PORT || 3002;
