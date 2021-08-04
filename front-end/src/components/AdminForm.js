@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Row, Col, Button } from 'react-bootstrap';
+import { Form, Col, Button, Row, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import schema from '../lib/validatorAdmin';
 
@@ -48,10 +48,14 @@ function Admin() {
   };
 
   return (
-    <Form className="bg-light p-4">
-      <Row className="mb-3">
-        <Form.Group as={ Col } md="2" controlId="inputName">
-          <Form.Label>Nome</Form.Label>
+    <Form className="p-4">
+      <Row className="bg-light p-4">
+        <Form.Group
+          xs={ { span: 12 } }
+          md={ { span: 2 } }
+          as={ Col }
+          controlId="inputName"
+        >
           <Form.Control
             required
             type="text"
@@ -61,8 +65,12 @@ function Admin() {
             data-testid="admin_manage__input-name"
           />
         </Form.Group>
-        <Form.Group as={ Col } md="2" controlId="inputEmail">
-          <Form.Label>Email</Form.Label>
+        <Form.Group
+          xs={ { span: 12 } }
+          md={ { span: 2 } }
+          as={ Col }
+          controlId="inputEmail"
+        >
           <Form.Control
             required
             type="email"
@@ -72,8 +80,12 @@ function Admin() {
             data-testid="admin_manage__input-email"
           />
         </Form.Group>
-        <Form.Group as={ Col } md="2" controlId="inputPassword">
-          <Form.Label>Senha</Form.Label>
+        <Form.Group
+          xs={ { span: 12 } }
+          md={ { span: 2 } }
+          as={ Col }
+          controlId="inputPassword"
+        >
           <Form.Control
             required
             type="password"
@@ -83,8 +95,12 @@ function Admin() {
             data-testid="admin_manage__input-password"
           />
         </Form.Group>
-        <Form.Group as={ Col } md="2" controlId="inputRole">
-          <Form.Label>Tipo</Form.Label>
+        <Form.Group
+          xs={ { span: 12 } }
+          md={ { span: 2 } }
+          as={ Col }
+          controlId="inputRole"
+        >
           <Form.Select
             aria-label="Default select example"
             onChange={ ({ target }) => setRole(target.value) }
@@ -95,21 +111,29 @@ function Admin() {
             <option value="administrator">Administrador</option>
           </Form.Select>
         </Form.Group>
-        <Button
-          className="m-4"
-          md="2"
-          disabled={ disable }
-          data-testid="admin_manage__button-register"
-          onClick={ createUser }
+        <Col
+          xs={ { span: 12 } }
+          md={ { span: 4 } }
         >
-          Cadastrar
-        </Button>
-        <span
+          <Button
+            style={ { width: '100%' } }
+            size="md"
+            disabled={ disable }
+            data-testid="admin_manage__button-register"
+            onClick={ createUser }
+          >
+            Cadastrar
+          </Button>
+        </Col>
+      </Row>
+      <Row>
+        <Alert
+          variant="danger"
           className={ error ? 'visible' : 'invisible' }
           data-testid="admin_manage__element-invalid-register"
         >
           { error }
-        </span>
+        </Alert>
       </Row>
     </Form>
   );
