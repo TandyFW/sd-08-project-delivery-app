@@ -9,17 +9,14 @@ import beerToastIcon from '../images/beer.png';
 
 import '../styles/Register.css';
 
-const MIN_NAME_LENGTH = 12;
-const MIN_PASSWORD_LENGTH = 6;
-
 function Register() {
   const [user, setUser] = useState(undefined);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [inputValue, setInputValue] = useState({ Nome: '', Email: '', Senha: '' });
   const { Nome, Email, Senha } = inputValue;
+  const MIN_NAME_LENGTH = 12;
+  const MIN_PASSWORD_LENGTH = 6;
   const history = useHistory();
-
-  useEffect(() => user && history.push('/customer/products'), [user, history]);
 
   const handleChange = ({ target }) => {
     setInputValue({ ...inputValue, [target.name]: target.value });
@@ -37,13 +34,15 @@ function Register() {
   };
 
   const isRegisterValid = () => {
-    const isNameValid = inputValue.Nome.length >= MIN_NAME_LENGTH;
-    const isEmailValid = /\S+@\S+\.\S+/.test(inputValue.Email);
-    const isPasswordValid = inputValue.Senha.length >= MIN_PASSWORD_LENGTH;
+    const isNameValid = Nome.length >= MIN_NAME_LENGTH;
+    const isEmailValid = /\S+@\S+\.\S+/.test(Email);
+    const isPasswordValid = Senha.length >= MIN_PASSWORD_LENGTH;
 
     return [isNameValid, isEmailValid, isPasswordValid]
       .every((validation) => validation === true);
   };
+
+  useEffect(() => user && history.push('/customer/products'), [user, history]);
 
   return (
     <>

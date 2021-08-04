@@ -11,6 +11,7 @@ import OrderContextProvider from './components/OrderContextProvider';
 import CustomerOrderDetails from './pages/CustomerOrderDetails';
 import SellerProduct from './pages/SellerProduct';
 import SellerOrderById from './pages/SellerOrderById';
+import AdminManageUsers from './pages/AdminManageUsers';
 
 function Routes() {
   return (
@@ -18,6 +19,7 @@ function Routes() {
       <Route path="/seller/orders/:id">
         <SellerOrderById />
       </Route>
+      <Route path="/admin/manage" component={ AdminManageUsers } />
       <Route path="/seller/orders" component={ SellerProduct } />
       <Route path="/register" component={ Register } />
       <Route path="/customer/orders/:id" component={ CustomerOrderDetails } />
