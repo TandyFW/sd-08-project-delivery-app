@@ -20,31 +20,26 @@ class CheckoutAdress extends React.Component {
     this.setState({ sellers });
   }
 
-  async sendOrder({ target }) {
+  async sendOrder() {
     const { history } = this.props;
+    const sellerId = document.getElementById('seller').value;
     const totalPrice = parseFloat(localStorage.getItem('totalPrice')).toFixed(2);
-    const deliveryAddress = target.parentNode.firstChild
-      .childNodes[1].childNodes[1].value;
-    const deliveryNumber = target.parentNode.firstChild.childNodes[2].childNodes[1].value;
-    const sellerId = target.parentNode.firstChild.childNodes[0].childNodes[1].value;
+    const deliveryAddress = document.getElementById('adress').value;
+    const deliveryNumber = document.getElementById('number').value;
+    console.log(deliveryAddress, deliveryNumber, sellerId, totalPrice)
     const { stateCart } = this.props;
-    const data = { deliveryAddress,
-      deliveryNumber,
-      totalPrice,
-      sellerId };
+    const data = { sellerId, totalPrice, deliveryAddress, deliveryNumber };
     const result = await createSaler(data, stateCart);
-    const { id } = result.newOrder;
-    // console.log(result);
-    localStorage.removeItem('totalPrice');
-    localStorage.removeItem('cart');
-    history.push(`/customer/orders/${id}`);
+    if(result) {
+      const { id } = result.newOrder;
+      localStorage.removeItem('totalPrice');
+      localStorage.removeItem('cart');
+      history.push(`/customer/orders/${id}`);
+    }
   }
 
   render() {
     const { state } = this;
-    // const { props } = this;
-    // console.log(props.history);
-    // console.log(state.sellers);
     return (
       <div className="checkout-adress-container">
         <div className="checkout-adress-selectdiv">
@@ -81,7 +76,7 @@ class CheckoutAdress extends React.Component {
         <button
           type="button"
           data-testid="customer_checkout__button-submit-order"
-          onClick={ (event) => { this.sendOrder(event); } }
+          onClick={ this.sendOrder() }
         >
           Finalizar Pedido
         </button>
@@ -100,7 +95,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 CheckoutAdress.propTypes = {
   history: PropTypes.shape().isRequired,
-  // dispatchCart: PropTypes.func.isRequired,
   stateCart: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 

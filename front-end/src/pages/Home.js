@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Loader } from '../components';
 
-const SECOND_HALF = 1500;
+const loadingTime = 1500;
 
 const Home = ({ history }) => {
   useEffect(() => {
     setTimeout(() => {
       history.push('./login');
-    }, SECOND_HALF);
+    }, loadingTime);
   });
 
   return (

@@ -69,5 +69,16 @@
       "./services/renderWithRouter",
       "./services/history"
     ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ],
+    "rules": {
+      "no-unused-vars": 0,
+      " ↑↑↑ OR ↓↓↓↓ #You either need the above one, or the below one. Use below one if you are using typesript template.": "",
+      "@typescript-eslint/no-unused-vars": 0 
+    }
   }
 }

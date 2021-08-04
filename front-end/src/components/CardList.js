@@ -116,6 +116,7 @@ class CardList extends React.Component {
       // decrease price on LocalStorage
       const LSprice = Number(localStorage.getItem('totalPrice'));
       const formattedPrice = Number((LSprice - selected.price).toFixed(2));
+      console.log(LSprice, selected.price, formattedPrice);
       localStorage.setItem('totalPrice', JSON.stringify(formattedPrice));
     }
     // if in redux cart

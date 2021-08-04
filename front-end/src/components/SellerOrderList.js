@@ -34,6 +34,7 @@ class SellerOrderList extends React.Component {
 
   async setAllOrdesInState() {
     const { allOrdes } = this.props;
+    console.log(allOrdes);
     // orderId -= 1;
     // console.log(orderId);
     // console.log(allOrdes);

@@ -69,9 +69,10 @@ const getByEmail = async (email) => {
 };
 
 const getByRole = async (role) => {
-  const sellers = await user.findAll({ where: { role } });
-  const { password: _, ...result } = sellers[0].dataValues;
-  return [result];
+  const sellers = await user.findAll({ where: { role }, 
+    attributes: { exclude: ['password'] } 
+  });
+  return sellers;
 };
 
 const getNameById = async (id) => {

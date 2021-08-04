@@ -11,7 +11,6 @@ const createOrder = rescue(async (req, res, _next) => {
   // console.log(sellerId, totalPrice, deliveryAddress, deliveryNumber);
   const result = await orderServices.createOrder({
     userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, salesDate, stateCart, status });
-
   res.status(success.Created).json({ newOrder: result });
 });
 

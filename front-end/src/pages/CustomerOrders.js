@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Header, Loader, CustomerOrdersList } from '../components';
 
 class CustomerOrders extends React.Component {
@@ -21,7 +20,7 @@ class CustomerOrders extends React.Component {
     const { history } = this.props;
     const { loading } = this.state;
     return (
-      <div className="products-container">
+      <div className="cust-orders-mastercontainer">
         <Header history={ history } />
         {
           loading
@@ -37,4 +36,4 @@ CustomerOrders.propTypes = {
   history: PropTypes.shape().isRequired,
 };
 
-export default connect(null, null)(CustomerOrders);
+export default CustomerOrders;

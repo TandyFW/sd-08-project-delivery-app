@@ -24,7 +24,6 @@ class CustomerOrdersList extends React.Component {
 
   setAllOrdesInState() {
     const { allOrdes } = this.props;
-    // console.log(allOrdes);
     if (allOrdes) {
       this.setState((state) => ({ ...state,
         orders: allOrdes,
@@ -33,29 +32,21 @@ class CustomerOrdersList extends React.Component {
   }
 
   render() {
-    // const { history } = this.props;
-    // console.log(history);
-    // const { stateProducts } = this.props;
-    // const { state } = this;
     const { isLoading } = this.state;
     if (isLoading) {
       return <Loader />;
     }
     const { orders } = this.state;
     return (
-      <div>
+      <div className="customer-orders-container">
         {
           orders.map((order, i) => (
-            <div key={ i }>
-              {/* <div > */}
-              {/* <h4>Pedido</h4> */}
+            <div key={ i } className="order-card">
               <a
                 href={ `/customer/orders/${order.id}` }
-                // onClick={ () => history.push(`/customer/orders/${order.id}`) }
                 data-testid={ `${testId}element-order-id-${order.id}` }
               >
                 {`Pedido ${order.id}` }
-                {/* </div> */}
               </a>
               <div
                 data-testid={ `${testId}element-delivery-status-${order.id}` }
@@ -83,32 +74,16 @@ class CustomerOrdersList extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  // dispatchProducts: (array) => dispatch(productsAction(array)),
-  // dispatchCart: (array) => dispatch(cartAction(array)),
   getAllOrdesByUser: () => dispatch(getAllOrdesByUserApi()),
-  // setAllUserStore: () => dispatch(getAllUsersApi()),
 });
 
 const mapStateToProps = (state) => ({
   allOrdes: state.ordesReducer.allOrdes,
 });
 
-// const mapStateToProps = (state) => ({
-//   stateProducts: state.products.products,
-//   stateCart: state.products.cart,
-// });
-
 CustomerOrdersList.propTypes = {
-  // history: PropTypes.shape().isRequired,
   getAllOrdesByUser: PropTypes.func.isRequired,
   allOrdes: PropTypes.arrayOf(PropTypes.object).isRequired,
-//   dispatchProducts: PropTypes.func.isRequired,
-//   dispatchCart: PropTypes.func.isRequired,
-//   stateProducts: PropTypes.arrayOf(PropTypes.object).isRequired,
-//   stateCart: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CustomerOrdersList);
-
-// export default connect(mapStateToProps, mapDispatchToProps)(CustomerOrdersList);
-// export default CustomerOrdersList;

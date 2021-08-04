@@ -4,7 +4,7 @@
     background-color: $bcolor;
     width: $wid;
     height: $hei;
-    top: 250px;
+    top: calc(50vh - 250px);
     border: 2px rgba(0, 0, 0, 0.3)solid;
     padding-top: 15px;
     border-radius: 25px;
