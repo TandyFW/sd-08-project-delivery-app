@@ -1,31 +1,40 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-function CustomerOrderDetailsHeader({ id, selller, date, status }) {
+const statusTest = 'customer_order_details__element-order-details-label-delivery-status';
+
+function CustomerOrderDetailsHeader({ id, seller, date, status }) {
   return (
     <header>
       <span
         data-testid="customer_order_details__element-order-details-label-order-id"
       >
-        Pedido 0003
+        { `Pedido ${id}` }
       </span>
       <span
         data-testid="customer_order_details__element-order-details-label-seller-name"
       >
-        P. Vend: Fulana Pereira
+        {`P. Vend: ${seller}`}
       </span>
       <span
         data-testid="customer_order_details__element-order-details-label-order-date"
       >
-        07/04/2021
+        { new Date(date).toLocaleString('pt-br')}
       </span>
-      <span data-testid={ statusTest }>Entregue</span>
+      <span data-testid={ statusTest }>{ status }</span>
       <span
         data-testid="customer_order_details__button-delivery-check"
       >
         Marcar como entregue
       </span>
     </header>
-  )
+  );
 }
 
-export default CustomerOrderDetailsHeader
+CustomerOrderDetailsHeader.propTypes = {
+  id: PropTypes.string.isRequired,
+  seller: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
+};
+export default CustomerOrderDetailsHeader;

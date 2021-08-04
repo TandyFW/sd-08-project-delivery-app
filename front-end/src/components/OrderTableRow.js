@@ -1,36 +1,48 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 function OrderTableRow({ product, index }) {
-  const { name, quantity, price, SalesProducts : { quantity },  }
+  const { name, price, SalesProducts } = product;
   return (
     <tr>
-          <td
-            data-testid="customer_order_details__element-order-table-item-number-<index>"
-          >
-            1
-          </td>
-          <td
-            data-testid="customer_order_details__element-order-table-name-<index>"
-          >
-            { name }
-          </td>
-          <td
-            data-testid="customer_order_details__element-order-table-quantity-<index>"
-          >
-            { quantity }
-          </td>
-          <td
-            data-testid="customer_order_details__element-order-table-sub-total-<index>"
-          >
-            R$3,50
-          </td>
-          <td
-            data-testid="customer_order_details__element-order-total-price-<index>"
-          >
-            R$ 10,5
-          </td>
-        </tr>
-  )
+      <td
+        data-testid={ `customer_order_details__element-order-table-item-number-${index}` }
+      >
+        1
+      </td>
+      <td
+        data-testid={ `customer_order_details__element-order-table-name-${index}` }
+      >
+        { name }
+      </td>
+      <td
+        data-testid="customer_order_details__element-order-table-quantity-<index>"
+      >
+        { SalesProducts.quantity }
+      </td>
+      <td
+        data-testid="customer_order_details__element-order-table-sub-total-<index>"
+      >
+        {`R$${price.replace('.', ',')}`}
+      </td>
+      <td
+        data-testid="customer_order_details__element-order-total-price-<index>"
+      >
+        {`R$${parseFloat(SalesProducts.quantity) * parseFloat(price)}`}
+      </td>
+    </tr>
+  );
 }
 
-export default OrderTableRow
+OrderTableRow.propTypes = {
+  product: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired,
+    SalesProducts: PropTypes.shape({
+      quantity: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+  index: PropTypes.number.isRequired,
+};
+
+export default OrderTableRow;

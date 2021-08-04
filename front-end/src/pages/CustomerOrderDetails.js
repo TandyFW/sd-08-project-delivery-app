@@ -8,7 +8,6 @@ import OrderTableHead from '../components/OrderTableHead';
 import CustomerOrderDetailsHeader from '../components/CustomerOrderDetailsHeader';
 import OrderTableRow from '../components/OrderTableRow';
 
-const statusTest = 'customer_order_details__element-order-details-label-delivery-status';
 //  Examplo de order: {
 //   "id": 2,
 //   "userId": 3,
@@ -48,29 +47,37 @@ const statusTest = 'customer_order_details__element-order-details-label-delivery
 // }
 
 function CustomerOrderDetails({ match }) {
-  const [order, setOrder] = useState(undefined);
+  const [order, setOrder] = useState([]);
   const { id } = match.params;
   const user = loadState('user');
 
   const getOrder = async () => {
     setOrder(await (fetchSaleById(id, user.token)));
   };
-
   useEffect(() => { getOrder(); }, []);
-  const { id, status, seller: { name }, saleDate, products } = order;
+
+  const { status, seller: { name }, saleDate, products } = order;
   return (
     <>
       <Navbar name={ user.name } />
       <h3>Detalhes do Pedido</h3>
       <div className="order-details-container">
-        <CustomerOrderDetailsHeader id={ id } selller={ name } date={ saleDate } status={ status} />
+        <CustomerOrderDetailsHeader
+          id={ order.id }
+          selller={ name }
+          date={ saleDate }
+          status={ status }
+        />
         <table>
-      <OrderTableHead />
-      <tbody>
-        { products.map((product, index) => <OrderTableRow key={product.id} product={product} index={index}/>) }
-      </tbody>
-    </table>
-        <p>Total: R${order.totalPrice.replace('.', ',')}</p>
+          <OrderTableHead />
+          <tbody>
+            { products
+              .map((product, index) => (
+                <OrderTableRow key={ product.id } product={ product } index={ index } />
+              )) }
+          </tbody>
+        </table>
+        <p>{`Total: R$${order.totalPrice.replace('.', ',')}`}</p>
       </div>
     </>
   );
