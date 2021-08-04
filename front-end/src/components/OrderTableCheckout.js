@@ -35,11 +35,17 @@ function OrderTableCheckout({ orderData, onClick }) {
             <tr key={ index }>
               <td data-testid={ ITEM_NUMBER_ID + index }>{index + 1}</td>
               <td data-testid={ NAME_ID + index }>{item.description}</td>
-              <td data-testid={ QUANT_ID + index }>{item.quantity}</td>
+              <td data-testid={ QUANT_ID + index }>
+                R$
+                {item.quantity}
+                ,00
+              </td>
               <td data-testid={ UNIT_PRICE_ID + index }>
+                R$
                 {item.unitValue.toFixed(2).toString().replace('.', ',')}
               </td>
               <td data-testid={ SUB_TOTAL_ID + index }>
+                R$
                 {(item.quantity * item.unitValue).toFixed(2).toString().replace('.', ',')}
               </td>
               <td>

@@ -85,6 +85,7 @@ function FormCheckout({ values }) {
         md={ { span: 3 } }
       >
         <Button
+          className="mt-3"
           size="md"
           type="button"
           data-testid={ SUBMIT_ID }
