@@ -3,7 +3,7 @@ const { sales, products } = require('../database/models');
 const findOrderCustomer = async ({ id }) => {
   const custumerSales = await sales.findAndCountAll({
       where: { userId: id },
-      attributes: ['id', 'salesDate', 'status', 'totalPrice'],
+      attributes: ['id', 'saleDate', 'status', 'totalPrice'],
     });
   if (!custumerSales.count) {
     return [];

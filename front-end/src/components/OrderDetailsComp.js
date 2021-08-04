@@ -39,7 +39,7 @@ export default function OrderDetailsComp() {
       try {
         const result = await axios.get(`http://localhost:3001/${roleUser}/orders/${id}`, configAxios);
         setOrder(result.data.result.products);
-        const data = new Date(result.data.result.salesDate).toLocaleDateString('pt-br');
+        const data = new Date(result.data.result.saleDate).toLocaleDateString('pt-br');
         setSaleDate(data);
         setStatus(result.data.result.status);
         setSeller(result.data.user.name);

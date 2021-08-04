@@ -2,6 +2,7 @@ const saleProduct = (sequelize, DataTypes) => {
   const saleProducts = sequelize.define('salesProducts', {
     quantity: DataTypes.INTEGER,
   }, {
+    underscored: true,
     timestamps: false,
     tableName: 'salesProducts'
   });
