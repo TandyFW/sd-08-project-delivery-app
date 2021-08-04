@@ -28,7 +28,6 @@ const socketStatus = async (func, status) => {
 };
 
 const updateStatus = async (id, status, setFunction) => {
-  socket.emit('statusUpdate', { status, position: id });
   const { data } = await api({
     method: 'put',
     url: `http://localhost:3001/delivery/sales/${id}`,
@@ -37,6 +36,7 @@ const updateStatus = async (id, status, setFunction) => {
     },
   });
   setFunction(data);
+  socket.emit('statusUpdate', { status, position: id });
 };
 
 const SellerDetails = () => {
@@ -54,14 +54,13 @@ const SellerDetails = () => {
   }, [id]);
 
   useEffect(() => {
+    console.log('socket on');
     socket.on('statusUpdate', (status) => {
       socketStatus(setLoading, status)
         .then((statusUpdated) => setSale({ ...sale, status: statusUpdated }))
         .then(() => setLoading(false));
     });
   }, [sale]);
-
-  useEffect(() => {}, [sale]);
 
   return (
     <Container>
