@@ -57,4 +57,12 @@ const createByAdmin = async (newUserInfo) => {
   return { name, email, role };
 };
 
-module.exports = { generateJWTToken, findAll, findByEmail, findByName, create, createByAdmin };
+const remove = async (id) => {
+  await User.destroy({ where: { id } });
+
+  return {};
+};
+
+module.exports = {
+  generateJWTToken, findAll, findByEmail, findByName, create, createByAdmin, remove,
+};

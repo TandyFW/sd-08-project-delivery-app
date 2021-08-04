@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { createUserByAdmin, fetchUsers } from '../services/Api';
+import { createUserByAdmin, fetchUsers, deleteUser } from '../services/Api';
 import { loadState } from '../services/LocalStorage';
 import Input from '../components/Input';
 import UsersTable from '../components/UsersTable';
@@ -25,8 +25,17 @@ function AdminManageUsers() {
     history.push('/login');
   };
 
+  const getUsers = async () => {
+    setUsers(await fetchUsers());
+  };
+
   const handleChange = ({ target }) => {
     setInputValue({ ...inputValue, [target.name]: target.value });
+  };
+
+  const handleDelete = async (id) => {
+    await deleteUser(id, userData.token);
+    getUsers();
   };
 
   const handleClick = async () => {
@@ -37,11 +46,7 @@ function AdminManageUsers() {
     return !newUser && setShowErrorMessage(true);
   };
 
-  const getUsers = async () => {
-    setUsers(await fetchUsers());
-  };
-
-  useEffect(() => getUsers(), []);
+  useEffect(() => getUsers(), [users]);
 
   console.log(users);
 
@@ -126,7 +131,7 @@ function AdminManageUsers() {
             Usuário já cadastrado.
           </p>
         )}
-        {users && <UsersTable usersData={ users } />}
+        {users && <UsersTable handleDelete={ handleDelete } usersData={ users } />}
       </main>
 
     </>

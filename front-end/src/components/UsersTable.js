@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function UsersTable({ usersData }) {
+function UsersTable({ handleDelete, usersData }) {
   return (
     <table>
       <thead>
@@ -29,12 +29,14 @@ function UsersTable({ usersData }) {
                 <td data-testid={ `admin_manage__element-user-table-email-${index}` }>
                   {user.email}
                 </td>
-                <td data-testid={ `admin_manage__element-user-table-item-role-${index}` }>
+                <td data-testid={ `admin_manage__element-user-table-role-${index}` }>
                   {user.role}
                 </td>
                 <td>
                   <button
                     data-testid={ `admin_manage__element-user-table-remove-${index}` }
+                    id={ user.id }
+                    onClick={ ({ target }) => handleDelete(target.id) }
                     type="button"
                   >
                     Excluir
@@ -51,6 +53,7 @@ function UsersTable({ usersData }) {
 }
 
 UsersTable.propTypes = {
+  handleDelete: PropTypes.func.isRequired,
   usersData: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 

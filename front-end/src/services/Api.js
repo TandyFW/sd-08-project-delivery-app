@@ -9,6 +9,19 @@ export const createUser = async (userInfo) => {
   }
 };
 
+export const createUserByAdmin = async (userInfo, token) => {
+  try {
+    const { data } = await axios.post('http://localhost:3001/register/admin', userInfo, {
+      headers: {
+        authorization: token,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const fetchUsers = async () => {
   try {
     const { data } = await axios.get('http://localhost:3001/user');
@@ -18,9 +31,9 @@ export const fetchUsers = async () => {
   }
 };
 
-export const createUserByAdmin = async (userInfo, token) => {
+export const deleteUser = async (id, token) => {
   try {
-    const { data } = await axios.post('http://localhost:3001/register/admin', userInfo, {
+    const { data } = await axios.delete(`http://localhost:3001/user/${id}`, {
       headers: {
         authorization: token,
       },
