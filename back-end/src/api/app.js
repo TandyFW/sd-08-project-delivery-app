@@ -1,10 +1,11 @@
 const express = require('express');
+const { errors } = require('celebrate');
 const cors = require('cors');
 const path = require('path');
 
 const app = express();
-const http = require('http').createServer();
-const io = require('socket.io')(http, {
+const server = require('http').createServer(app);
+const io = require('socket.io')(server, {
   cors: {
     origin: [
       'http://localhost:3000',
@@ -35,7 +36,15 @@ app.use('/admin', adminRouter);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 
-module.exports = {
-  app,
-  io,
-};
+app.use((err, _req, res, _next) => {
+  console.error(err.message);
+  return res.status(500).json({
+    statusCode: 500,
+    error: 'Internal Server Error',
+    message: 'Internal server error',
+  });
+});
+
+app.use(errors());
+
+module.exports = server;
