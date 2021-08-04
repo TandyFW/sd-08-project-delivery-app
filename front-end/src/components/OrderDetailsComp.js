@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { Table, Container, Button, Row, Col } from 'react-bootstrap';
-import Socket from '../service/socketConfig';
+import { GlobalContext } from '../context/GlobalProvider';
 import '../styles/orderDetails.css';
 import {
   orderNumber,
@@ -23,7 +23,6 @@ export default function OrderDetailsComp() {
   const id = urlText.split('s/')[1];
   const roleUser = urlText.split('/')[1];
   const tokenUser = JSON.parse(localStorage.getItem('user')).token;
-  const socket = Socket(tokenUser);
   const configAxios = {
     headers: { Authorization: tokenUser },
   };
@@ -31,12 +30,15 @@ export default function OrderDetailsComp() {
     customer: 'customer_order_details__',
     seller: 'seller_order_details__',
   };
-
-  socket.on('updateOrder', (obj) => {
-    if (obj.role !== roleUser) {
-      setStatus(obj.status);
-    }
-  });
+  const { socket } = useContext(GlobalContext);
+  useEffect(() => {
+    socket.on('updateOrder', (obj) => {
+      if (obj.role !== roleUser) {
+        setStatus(obj.status);
+      }
+    });
+    return () => socket.disconnect();
+  }, []);
 
   useEffect(() => {
     async function requestOrderById() {
@@ -48,13 +50,13 @@ export default function OrderDetailsComp() {
         setStatus(result.data.result.status);
         setSeller(result.data.user.name);
         setLoading(false);
-        socket.emit('newOrder', result.data);
+        socket.emit('newOrder', { id, status: value, role: roleUser });
       } catch (err) {
         setError('Not Found!');
       }
     }
     requestOrderById();
-  }, [id, loading, status, roleUser, configAxios]);
+  }, [id, loading, roleUser, configAxios]);
 
   const totalValue = (value) => {
     totalValues = parseFloat(value) + parseFloat(totalValues);

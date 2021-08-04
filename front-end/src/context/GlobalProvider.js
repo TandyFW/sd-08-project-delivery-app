@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
-
 import PropTypes from 'prop-types';
+import Socket from '../service/socketConfig';
 
 export const GlobalContext = createContext();
 export function GlobalProvider({ children }) {
@@ -9,6 +9,9 @@ export function GlobalProvider({ children }) {
   const [totalPrice, setTotalPrice] = useState(0);
   const [products, setProducts] = useState([]);
   const [storedLS, setStoredLS] = useState(ls);
+
+  const socket = Socket();
+
   const provide = {
     values: {
       name,
@@ -22,7 +25,9 @@ export function GlobalProvider({ children }) {
       setTotalPrice,
       setProducts,
     },
+    socket,
   };
+
   return (
     <GlobalContext.Provider value={ provide }>
       {children}
