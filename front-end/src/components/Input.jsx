@@ -30,7 +30,7 @@ Input.propTypes = {
   name: PropTypes.string,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
 };
 
 Input.defaultProps = {
@@ -39,6 +39,7 @@ Input.defaultProps = {
   value: '',
   name: '',
   onChange: null,
+  type: 'text',
 };
 
 export default Input;

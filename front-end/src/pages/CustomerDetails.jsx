@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import io from 'socket.io-client';
 import { useParams } from 'react-router-dom';
 import ListItem from '../components/ListItem';
 import NavBar from '../components/NavBar';
@@ -14,10 +15,28 @@ import {
 } from '../styles/pages/SellerDetails.styled';
 
 const prefix = 'customer_order_details__';
+let socket;
 
 const getSale = async (id) => {
   const result = await api.get(`/delivery/sales/${id}`);
   return result.data;
+};
+
+// const socketStatus = async (func, status) => {
+//   await func(true);
+//   return status;
+// };
+
+const updateStatus = async (id, status, setFunction) => {
+  const { data } = await api({
+    method: 'put',
+    url: `http://localhost:3001/delivery/sales/${id}`,
+    data: {
+      status,
+    },
+  });
+  setFunction(data);
+  socket.emit('statusUpdate', { status, position: id });
 };
 
 const CustomerDetails = () => {
@@ -25,16 +44,36 @@ const CustomerDetails = () => {
   const user = JSON.parse(localStorage.getItem('user'));
   const [sale, setSale] = useState({});
   const [loading, setLoading] = useState(true);
+  const socketEndPoint = 'http://localhost:3002';
+
   useEffect(() => {
+    socket = io(socketEndPoint);
     getSale(id)
       .then((response) => setSale(response))
       .then(() => setLoading(false));
   }, [id]);
+
+  // useEffect(() => {
+  //   console.log('socket on');
+  //   socket.on('statusUpdate', (status) => {
+  //     socketStatus(setLoading, status)
+  //       .then((statusUpdated) => setSale({ ...sale, status: statusUpdated }))
+  //       .then(() => setLoading(false));
+  //   });
+  // }, [sale]);
+
+  useEffect(() => {
+    console.log('socket on');
+    socket.on('statusUpdate', (status) => {
+      setSale({ ...sale, status });
+    });
+  }, [sale]);
+
   return (
     <Container>
       <NavBar user={ user.name } />
       <h4>Detalhe do Pedido</h4>
-      {!loading && (
+      {!loading && sale.seller && (
         <DetailsContainer>
           <DetailsBar color={ colors.whitesmoke }>
             <section className="info-order">
@@ -65,7 +104,8 @@ const CustomerDetails = () => {
             </section>
             <section className="control-buttons">
               <OrderButton
-                disabled
+                disabled={ sale && sale.status !== 'Em Trânsito' }
+                onClick={ () => updateStatus(id, 'Entregue', setSale) }
                 data-testid={ `${prefix}button-delivery-check` }
                 color={ colors.teal }
               >

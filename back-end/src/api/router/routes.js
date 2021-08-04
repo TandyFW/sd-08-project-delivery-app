@@ -26,5 +26,6 @@ router.get('/sellersales', auth.verifyToken, saleController.findSalesById);
 router.get('/sales', saleController.getAllSales);
 router.get('/sales/:id', saleController.getOneSale);
 router.post('/sales', auth.verifyToken, saleController.createSales);
+router.put('/sales/:id', auth.verifyToken, saleController.updateStatus);
 
 module.exports = router;
