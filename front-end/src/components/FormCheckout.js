@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 import sendOrder from '../services/sendOrder';
 
@@ -15,13 +15,11 @@ export default function FormCheckout() {
   } = useContext(DeliveryAppContext);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
-  const [saleId, setSaleId] = useState(0);
+  // const [saleId, setSaleId] = useState(0);
 
   const submitOrder = async (e) => {
     e.preventDefault();
-    console.log('FRANCO PEDIU');
-    console.log({ user });
-    const currentSaleId = await sendOrder({
+    const idSale = await sendOrder({
       userId,
       sellerId,
       totalPrice,
@@ -30,7 +28,8 @@ export default function FormCheckout() {
       productsList: itemsList,
     }, user.token);
 
-    setSaleId(currentSaleId);
+    window.location.href = `http://localhost:3000/customer/orders/${idSale}`;
+    // setSaleId(currentSaleId);
   };
 
   const selectSeller = () => {
@@ -98,7 +97,7 @@ export default function FormCheckout() {
         onClick={ (e) => submitOrder(e) }
         data-testid="customer_checkout__button-submit-order"
       >
-        <Link to={ `/customer/orders/${saleId}` }>FINALIZAR PEDIDO</Link>
+        FINALIZAR PEDIDO
       </button>
     </div>);
 }

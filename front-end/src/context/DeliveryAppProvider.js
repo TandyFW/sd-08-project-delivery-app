@@ -34,6 +34,7 @@ function DeliveryAppProvider({ children }) {
 
   const getCardList = async () => {
     const data = await fetchProducts();
+    console.log(data);
     setCardsList(data);
   };
 

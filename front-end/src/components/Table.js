@@ -4,6 +4,7 @@ import TableRow from './TableRow';
 
 export default function Table({ heading, body = [] }) {
   const ARRAY_SIZE = 5;
+  console.log(body);
 
   if (!body) return <p>Carregando ...</p>;
   return (
