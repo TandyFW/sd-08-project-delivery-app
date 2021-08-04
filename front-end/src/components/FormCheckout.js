@@ -61,7 +61,7 @@ function FormCheckout({ values }) {
           )) }
         </select>
       </Form.Group>
-      <Form.Group as={ Col } md={ { span: 4 } }>
+      <Form.Group as={ Col } md={ { span: 3 } }>
         <Input
           className="form-control"
           testid={ ADDRESS_ID }
@@ -70,7 +70,7 @@ function FormCheckout({ values }) {
           value={ address }
         />
       </Form.Group>
-      <Form.Group as={ Col } md={ { span: 4 } }>
+      <Form.Group as={ Col } md={ { span: 2 } }>
         <Input
           className="form-control"
           testid={ NUMBER_ID }
@@ -82,10 +82,10 @@ function FormCheckout({ values }) {
       <Form.Group
         className="pt-2 d-flex justify-content-center"
         as={ Col }
-        md={ { span: 12 } }
+        md={ { span: 3 } }
       >
         <Button
-          size="lg"
+          size="md"
           type="button"
           data-testid={ SUBMIT_ID }
           onClick={ handleButton }

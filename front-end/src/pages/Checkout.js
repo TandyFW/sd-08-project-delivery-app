@@ -60,19 +60,21 @@ function Checkout() {
       <Header />
       <Container>
         <Row
-          className="mt-5 justify-content-center"
+          className="mt-5 pb-4 justify-content-center"
         >
 
           <OrderTableCheckout orderData={ products } onClick={ setProducts } />
+          <h5 data-testid={ TOTAL_PRICE_ID }>
+            Total: R$
+            {totalPrice.toFixed(2).toString().replace('.', ',')}
+          </h5>
         </Row>
         {
           loading
             ? loadingPage()
             : <FormCheckout values={ { sellers, products, totalPrice } } />
         }
-        <p data-testid={ TOTAL_PRICE_ID }>
-          {totalPrice.toFixed(2).toString().replace('.', ',')}
-        </p>
+
       </Container>
     </>
   );
