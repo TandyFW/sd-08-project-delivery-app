@@ -5,9 +5,11 @@ import { ListGroup, Row, Card, Col } from 'react-bootstrap';
 export default function OrderCard(props) {
   const { requests: { id, totalPrice, saleDate, status }, user, children } = props;
 
-  const price = new Intl.NumberFormat('BRL', {
-    style: 'currency', currency: 'BRL',
-  }).format(totalPrice);
+  // const price = new Intl.NumberFormat('BRL', {
+  //   style: 'currency', currency: 'BRL',
+  // }).format(totalPrice);
+
+  const price = parseFloat(totalPrice).toFixed(2).toString().replace('.', ',');
   const date = new Date(saleDate).toLocaleDateString('pt-BR');
   return (
     <Card className="m-2">
