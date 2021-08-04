@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import Context from '../../../context/Context';
 import NavBar from '../../Components/NavBar';
 import OrderCard from './components/OrderCard';
+import './styles.css';
 
 function Orders() {
   const { userData } = useContext(Context);

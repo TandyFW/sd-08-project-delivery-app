@@ -2,12 +2,30 @@
   align-items: center;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  width: 100vw;
 }
 
-.order-status {
+.order-detail-status {
+  border-radius: 10px;
   display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  width: 70vw;
 }
 
-.order-status p {
-  padding-right: 20px;
+.order-detail-button {
+  font-size: small;
+}
+
+.pendente {
+  background-color: #ccb800;
+}
+
+.preparando {
+  background-color: #6c0;
+}
+
+.entregue {
+  background-color: #00cc9b;
 }
