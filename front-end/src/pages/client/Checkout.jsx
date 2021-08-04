@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, InputLabel } from '@material-ui/core';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
 import SelectInput from '../../components/SelectInput';
 import TableCheckout from '../../components/TableCheckout';
@@ -12,6 +13,7 @@ function Checkout() {
   const [sellers, setSellers] = useState([]);
   const [selectedSellers, setSelectedSellers] = useState();
   const { cartTotal } = useContext(Context);
+  const history = useHistory();
 
   const fetchSellers = async () => {
     const { data } = await axios({
@@ -25,6 +27,26 @@ function Checkout() {
   useEffect(() => {
     fetchSellers();
   }, []);
+
+  const userName = JSON.parse(localStorage.getItem('user')).name;
+  const price = Number(cartTotal.value.replace(',', '.')).toFixed(2);
+  const { token } = JSON.parse(localStorage.getItem('user'));
+
+  const fetchSale = async () => {
+    try {
+      const sale = await axios({
+        method: 'POST',
+        url: 'http://localhost:3001/sales',
+        headers: { 'Content-Type': 'application/json', authorization: token },
+        data: { totalPrice: price, address, addressNumber, name: userName },
+      });
+      console.log('teste', sale);
+      const { id } = sale.data;
+      history.push(`/customer/orders/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -61,6 +83,7 @@ function Checkout() {
       />
       <Button
         data-testid="customer_checkout__button-submit-order"
+        onClick={ fetchSale }
       >
         FINALIZAR PEDIDO
       </Button>

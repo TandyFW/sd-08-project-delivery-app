@@ -14,7 +14,7 @@ const router = express.Router();
 
 router.post('/login', login);
 router.post('/register', validateEmailExist, validateNameExist, register);
-router.post('/sales', postSale);
+router.post('/sales', authorizationMid, postSale);
 
 router.get('/sellers', getSellers);
 router.get('/products', getAllProducts);

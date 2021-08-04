@@ -1,13 +1,15 @@
 const { sale } = require('../database/models');
 
-const createSale = async (price, address, addressNumber, status = 'PENDENTE') => {
-	const saleCreated = await sale.create({ 
-		price,
-		address,
-		addressNumber,
-		status,
-	 });
-	 return saleCreated;
+const createSale = async ({ totalPrice, deliveryAddress, deliveryNumber, userId, sellerId }) => {
+const saleCreated = await sale.create({
+totalPrice,
+deliveryAddress,
+deliveryNumber,
+userId,
+sellerId,
+status: 'PENDENTE',
+});
+return saleCreated;
 };
 
 module.exports = { createSale };

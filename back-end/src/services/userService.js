@@ -13,7 +13,7 @@ return userByEmail;
 };
 
 const findUserByName = async (name) => {
-const userByName = await user.findOne({ where: { name } });
+const userByName = await user.findOne({ raw: true, where: { name } });
 return userByName;
 };
 
@@ -27,7 +27,7 @@ return userFields;
 };
 
 const findSellers = async () => {
-  const sellers = await user.findAll({ where: { role: 'seller' } });
+  const sellers = await user.findAll({ raw: true, where: { role: 'seller' } });
   return sellers;
 };
 
