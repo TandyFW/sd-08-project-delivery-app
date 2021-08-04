@@ -8,6 +8,8 @@ export default function TableRow({ row, tableIndex, showRemove }) {
   const [rowUnitaryPrice, setRowUnitaryPrice] = useState(0);
   const [rowSubtotal, setRowSubtotal] = useState(0);
 
+  console.log(row);
+
   const remove = () => {
     console.log(row.name);
     const currentList = itemsList.filter((item) => item.name !== row.name);
@@ -74,7 +76,9 @@ export default function TableRow({ row, tableIndex, showRemove }) {
             type="button"
             className="btn-remove"
             onClick={ remove }
-            data-testid={ `customer_checkout__element-order-table-remove-${tableIndex}` }
+            data-testid={
+              `customer_checkout__element-order-table-remove-${row.productId}`
+            }
           >
             Remover
           </button>
@@ -94,6 +98,7 @@ TableRow.propTypes = {
     salesProducts: PropTypes.shape({
       quantity: PropTypes.number,
     }),
+    productId: PropTypes.number,
   }).isRequired,
   tableIndex: PropTypes.number.isRequired,
   showRemove: PropTypes.bool.isRequired,

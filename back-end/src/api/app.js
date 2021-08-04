@@ -12,6 +12,8 @@ app.use('/images', express.static(path.join(__dirname, '../../', 'public')));
 app.get('/orders/:id', controller.orderProductController);
 app.post('/orders', controller.orderController);
 app.get('/seller', controller.sellerController);
+app.post('/seller/orders', controller.orderSallerController);
+app.get('/seller/orders/:id', controller.orderSellerDetailController);
 app.get('/products', controller.getProductsController);
 app.post('/login', controller.loginController);
 app.post('/register', controller.registerController);
