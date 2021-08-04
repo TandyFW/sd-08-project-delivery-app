@@ -3,7 +3,7 @@ const sale = (sequelize, DataTypes) => {
     totalPrice: DataTypes.DECIMAL,
     deliveryAddress: DataTypes.STRING,
     deliveryNumber: DataTypes.STRING,
-    salesDate: DataTypes.DATE,
+    saleDate: DataTypes.DATE,
     status: DataTypes.STRING,
     userId: DataTypes.INTEGER,
     sellerId: DataTypes.INTEGER,
