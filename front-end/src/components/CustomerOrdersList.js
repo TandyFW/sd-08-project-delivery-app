@@ -24,8 +24,12 @@ class CustomerOrdersList extends React.Component {
 
   setAllOrdesInState() {
     const { allOrdes } = this.props;
-    // console.log(allOrdes);
     if (allOrdes) {
+      allOrdes.forEach((ordes) => {
+        const dateArray = ordes.sale_date.split('T')[0].split('-');
+        ordes.date = `${dateArray[2]}/${dateArray[1]}/${dateArray[0]}`;
+      });
+      console.log(allOrdes);
       this.setState((state) => ({ ...state,
         orders: allOrdes,
         isLoading: false }));
@@ -66,12 +70,12 @@ class CustomerOrdersList extends React.Component {
                 <div
                   data-testid={ `${testId}element-order-date-${order.id}` }
                 >
-                  { order.sale_date }
+                  { order.date }
                 </div>
                 <div
                   data-testid={ `${testId}element-card-price-${order.id}` }
                 >
-                  { `R$ ${order.total_price}` }
+                  { `${order.total_price.replace('.', ',')}` }
                 </div>
               </div>
             </div>
