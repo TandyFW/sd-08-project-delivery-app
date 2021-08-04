@@ -11,6 +11,7 @@ function Input({ legend, value, onChange, testid }) {
     <>
       <label htmlFor={ `${legend}-input` }>{ legend }</label>
       <input
+        className="form-control"
         type="text"
         id={ `${legend}-input` }
         data-testid={ testid }

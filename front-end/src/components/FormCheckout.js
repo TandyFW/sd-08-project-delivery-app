@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { Col, Form, Row, Button } from 'react-bootstrap';
 import Input from './Input';
 
 const SELECT_ID = 'customer_checkout__select-seller';
@@ -43,31 +44,55 @@ function FormCheckout({ sellers, products }) {
   }
 
   return (
-    <>
-      <span>P. Vendedora Responsável</span>
-      <select data-testid={ SELECT_ID } onChange={ handleSelect }>
-        { sellers.map(({ id, name }) => (
-          <option key={ id } value={ id }>
-            { name }
-          </option>
-        )) }
-      </select>
-      <Input
-        testid={ ADDRESS_ID }
-        legend="Endereço"
-        onChange={ setAddress }
-        value={ address }
-      />
-      <Input
-        testid={ NUMBER_ID }
-        legend="Número"
-        onChange={ setNumber }
-        value={ number }
-      />
-      <button type="button" data-testid={ SUBMIT_ID } onClick={ handleButton }>
-        Finalizar pedido
-      </button>
-    </>
+    <Form as={ Row }>
+      <legend>Detalhes e Endereço para Entrega</legend>
+      <Form.Group as={ Col } md={ { span: 4 } }>
+        <span>P. Vendedora Responsável</span>
+        <select
+          className="form-control"
+          data-testid={ SELECT_ID }
+          onChange={ handleSelect }
+        >
+          { sellers.map(({ id, name }) => (
+            <option key={ id } value={ id }>
+              { name }
+            </option>
+          )) }
+        </select>
+      </Form.Group>
+      <Form.Group as={ Col } md={ { span: 4 } }>
+        <Input
+          className="form-control"
+          testid={ ADDRESS_ID }
+          legend="Endereço"
+          onChange={ setAddress }
+          value={ address }
+        />
+      </Form.Group>
+      <Form.Group as={ Col } md={ { span: 4 } }>
+        <Input
+          className="form-control"
+          testid={ NUMBER_ID }
+          legend="Número"
+          onChange={ setNumber }
+          value={ number }
+        />
+      </Form.Group>
+      <Form.Group
+        className="pt-2 d-flex justify-content-center"
+        as={ Col }
+        md={ { span: 12 } }
+      >
+        <Button
+          size="lg"
+          type="button"
+          data-testid={ SUBMIT_ID }
+          onClick={ handleButton }
+        >
+          Finalizar pedido
+        </Button>
+      </Form.Group>
+    </Form>
   );
 }
 

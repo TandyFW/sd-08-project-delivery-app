@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import { Container, Row } from 'react-bootstrap';
 import OrderTableCheckout from '../components/OrderTableCheckout';
 import Header from '../components/Header';
 import FormCheckout from '../components/FormCheckout';
@@ -55,18 +56,25 @@ function Checkout() {
   }
 
   return (
-    <div>
+    <>
       <Header />
-      <OrderTableCheckout orderData={ products } onClick={ setProducts } />
-      {
-        loading
-          ? loadingPage()
-          : <FormCheckout sellers={ sellers } products={ products } />
-      }
-      <p data-testid={ TOTAL_PRICE_ID }>
-        {totalPrice.toFixed(2).toString().replace('.', ',')}
-      </p>
-    </div>
+      <Container>
+        <Row
+          className="mt-5 justify-content-center"
+        >
+
+          <OrderTableCheckout orderData={ products } onClick={ setProducts } />
+        </Row>
+        {
+          loading
+            ? loadingPage()
+            : <FormCheckout sellers={ sellers } products={ products } />
+        }
+        <p data-testid={ TOTAL_PRICE_ID }>
+          {totalPrice.toFixed(2).toString().replace('.', ',')}
+        </p>
+      </Container>
+    </>
   );
 }
 
