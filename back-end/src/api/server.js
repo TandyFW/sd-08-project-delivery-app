@@ -1,6 +1,16 @@
-// const socket = require('socket.io');
-const app = require('./app');
+const httpServer = require('http').createServer(require('./app'));
 
-const PORT = process.env.PORT || 3001;
+const io = require('socket.io')(httpServer, {
+    cors: {
+      origin: 'http://localhost:3000',
+      methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    },
+});
 
-app.listen(PORT, () => console.log(`Listening in on port: ${PORT}`));
+const socket = require('./socket');
+
+socket.delivery(io);
+
+const PORT = 3001;
+
+httpServer.listen(PORT, () => console.log(`Listening on port ${PORT}`));

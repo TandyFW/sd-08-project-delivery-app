@@ -1,17 +1,9 @@
-// import Chat from "./chat/chat";
-// import Process from "./process/process";
 import React from 'react';
 import socketClient from 'socket.io-client';
 
-const SOCKETport = 3002;
+const SOCKETport = 3001;
 const tree = 3;
 const SOCKET_PORT = process.env.SOCKET_PORT || SOCKETport;
-// import Home from './Home';
-// import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-// import "./App.scss";
-
-// const ioio = io();
-// console.log(socket, ioio);
 
 class Sockets extends React.Component {
   render() {
