@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 const testIdData = {
@@ -7,11 +7,13 @@ const testIdData = {
 
 function StatusNav({ orderData }) {
   const TEN = 10;
-  const status = useRef();
   function statusColor() {
-    if (status.current.innerHTML.includes('Pendente')) return 'pendente';
-    if (status.current.innerHTML.includes('Preparando')) return 'preparando';
-    return 'entregue';
+    if (orderData.status === 'Pendente') {
+      return 'pendente';
+    }
+    if (orderData.status === 'Preparando') {
+      return 'preparando';
+    } return 'entregue';
   }
   return (
     orderData
@@ -34,7 +36,6 @@ function StatusNav({ orderData }) {
               ? orderData.saleDate.slice(0, TEN).split('-').reverse().join('/') : null}
           </p>
           <p
-            ref={ status }
             className={ statusColor() }
             data-testid={ testIdData.deliveryStatus }
           >
