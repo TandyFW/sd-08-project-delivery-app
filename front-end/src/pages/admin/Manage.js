@@ -37,7 +37,6 @@ const Manage = () => {
   };
 
   async function handleClick() {
-    console.log(selectedRole);
     try {
       const { token } = JSON.parse(localStorage.getItem('user'));
       const response = await api.newUser({

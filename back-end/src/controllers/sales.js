@@ -7,7 +7,6 @@ const getAllSales = rescue(async (_req, res) => {
 });
 
 const createSale = rescue(async (req, res) => {
-  console.log(req.body);
   const { id: userId } = req.user;
   const result = await SaleService.createSale(req.body, userId);
   res.status(201).json({ saleId: result });

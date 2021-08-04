@@ -14,7 +14,7 @@ const adminAuth = rescue(async (req, _res, next) => {
   const user = await UserServices.findByEmail(email);
 
   if (!user) throw boom.badRequest('Usuário inválido');
-  console.log(user);
+
   if (user.role !== 'administrator') throw boom.badRequest('Usuário nao e um administrador');
 
   req.user = { id, email };

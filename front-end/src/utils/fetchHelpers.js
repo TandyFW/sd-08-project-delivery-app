@@ -4,7 +4,6 @@ export const getUrl = (url) => (
   fetch(url)
     .then((response) => {
       if (response.status !== STATUS_CODES.OK) {
-        console.log(response.status);
         throw new Error('Failed to fetch');
       }
       return response.json();
