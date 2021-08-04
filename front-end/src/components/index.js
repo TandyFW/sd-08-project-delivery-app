@@ -1,6 +1,6 @@
 import TopBar from './TopBar';
 import NavBar from './NavBar';
-import RegistrationByManager from './RegistrationByManager';
+import RegistrationByManager from './AdminComponents/RegistrationByManager';
 import OrderCard from './OrderCard';
 import ProductsList from './ProductsList';
 import ProductCard from './ProductCard';
