@@ -4,8 +4,48 @@ import PropTypes from 'prop-types';
 import { loadState } from '../services/LocalStorage';
 import { fetchSaleById } from '../services/Api';
 import Navbar from '../components/Navbar';
+import OrderTableHead from '../components/OrderTableHead';
+import CustomerOrderDetailsHeader from '../components/CustomerOrderDetailsHeader';
+import OrderTableRow from '../components/OrderTableRow';
 
 const statusTest = 'customer_order_details__element-order-details-label-delivery-status';
+//  Examplo de order: {
+//   "id": 2,
+//   "userId": 3,
+//   "sellerId": 2,
+//   "totalPrice": "19.60",
+//   "deliveryAddress": "rua da cerva",
+//   "deliveryNumber": "002",
+//   "status": "Pendente",
+//   "saleDate": "2021-08-04T20:21:28.000Z",
+//   "UserId": 3,
+//   "seller": {
+//     "id": 2,
+//     "name": "Fulana Pereira",
+//     "email": "fulana@deliveryapp.com",
+//     "role": "seller"
+//   },
+//   "products": [
+//     {
+//       "id": 9,
+//       "name": "Becks 600ml",
+//       "price": "8.89",
+//       "urlImage": "http://localhost:3001/images/becks_600ml.jpg",
+//       "SalesProducts": {
+//         "quantity": 1
+//       }
+//     },
+//     {
+//       "id": 10,
+//       "name": "Skol Beats Senses 269ml",
+//       "price": "3.57",
+//       "urlImage": "http://localhost:3001/images/skol_beats_senses_269ml.jpg",
+//       "SalesProducts": {
+//         "quantity": 3
+//       }
+//     }
+//   ]
+// }
 
 function CustomerOrderDetails({ match }) {
   const [order, setOrder] = useState(undefined);
@@ -17,83 +57,20 @@ function CustomerOrderDetails({ match }) {
   };
 
   useEffect(() => { getOrder(); }, []);
-
-  console.log(order);
-
-  const renderTable = () => (
-    <table>
-      <thead>
-        <tr>
-          <th>Item</th>
-          <th>Descrição</th>
-          <th>Quantidade</th>
-          <th>Valor Unitário</th>
-          <th>Sub-total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td
-            data-testid="customer_order_details__element-order-table-item-number-<index>"
-          >
-            1
-          </td>
-          <td
-            data-testid="customer_order_details__element-order-table-name-<index>"
-          >
-            Cerveja Stella
-          </td>
-          <td
-            data-testid="customer_order_details__element-order-table-quantity-<index>"
-          >
-            3
-          </td>
-          <td
-            data-testid="customer_order_details__element-order-table-sub-total-<index>"
-          >
-            R$3,50
-          </td>
-          <td
-            data-testid="customer_order_details__element-order-total-price-<index>"
-          >
-            R$ 10,5
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-  );
-
+  const { id, status, seller: { name }, saleDate, products } = order;
   return (
     <>
       <Navbar name={ user.name } />
       <h3>Detalhes do Pedido</h3>
       <div className="order-details-container">
-        <header>
-          <span
-            data-testid="customer_order_details__element-order-details-label-order-id"
-          >
-            Pedido 0003
-          </span>
-          <span
-            data-testid="customer_order_details__element-order-details-label-seller-name"
-          >
-            P. Vend: Fulana Pereira
-          </span>
-          <span
-            data-testid="customer_order_details__element-order-details-label-order-date"
-          >
-            07/04/2021
-          </span>
-          <span data-testid={ statusTest }>Entregue</span>
-          <span
-            data-testid="customer_order_details__button-delivery-check"
-          >
-            Marcar como entregue
-          </span>
-        </header>
-        { renderTable() }
-        <p>Total: R$ 28,46</p>
+        <CustomerOrderDetailsHeader id={ id } selller={ name } date={ saleDate } status={ status} />
+        <table>
+      <OrderTableHead />
+      <tbody>
+        { products.map((product, index) => <OrderTableRow key={product.id} product={product} index={index}/>) }
+      </tbody>
+    </table>
+        <p>Total: R${order.totalPrice.replace('.', ',')}</p>
       </div>
     </>
   );
