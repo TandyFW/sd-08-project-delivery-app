@@ -50,6 +50,7 @@ function ProductCard({ product, refreshCart }) {
   const handleChange = (event) => {
     const value = filterInput(event);
     lStorage().cart.set({
+      id: product.id,
       name: product.name,
       quantity: ((!value) ? 0 : value),
       price: product.price,
@@ -92,6 +93,7 @@ function ProductCard({ product, refreshCart }) {
           onClick={ () => {
             if (quantity !== 0) {
               lStorage().cart.set({
+                id: product.id,
                 name: product.name,
                 quantity: quantity - 1,
                 price: product.price,
@@ -114,6 +116,7 @@ function ProductCard({ product, refreshCart }) {
           data-testid={ `customer_products__button-card-add-item-${product.id}` }
           onClick={ () => {
             lStorage().cart.set({
+              id: product.id,
               name: product.name,
               quantity: quantity + 1,
               price: product.price,

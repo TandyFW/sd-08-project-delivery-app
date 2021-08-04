@@ -1,21 +1,40 @@
 const express = require('express');
 const cors = require('cors');
-const { loginRoute, registerByAdminRoute, productRoute, registerRoute } = require('./routes');
+const http = require('http');
+const socketio = require('socket.io');
+const { userRoute, registerByAdminRoute, productRoute, registerRoute,
+  saleRoute, transactionRoute } = require('./routes');
 const { errorHandler } = require('./middlewares');
+const socketEvents = require('./socketEvents');
 
 const app = express();
+const server = http.createServer(app);
+const io = socketio(server, {
+  cors: {
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST'],
+  },
+});
+
+io.on('connection', (socket) => {
+  socketEvents.orders(socket, io);
+});
 
 app.use(express.json());
 app.use(cors());
 
 app.use('/images', express.static('public'));
 
-app.use(loginRoute);
+app.use(userRoute);
+app.use(saleRoute);
 app.use(registerByAdminRoute);
+app.use(transactionRoute);
 app.use(productRoute);
 app.use(registerRoute);
+app.use(userRoute);
+app.use(saleRoute);
 app.get('/coffee', (_req, res) => res.status(418).end());
 
 app.use(errorHandler);
 
-module.exports = app;
+module.exports = server;

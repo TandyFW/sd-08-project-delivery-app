@@ -3,6 +3,7 @@ import request from './request';
 import getPathByRole from './getPathByRole';
 import getUserObjByToken from './getUserObjByToken';
 import lStorage from './localStorage';
+import formatNumberToReal from './formatNumberToReal';
 
 export {
   isValidUserForRegistration,
@@ -11,4 +12,5 @@ export {
   getPathByRole,
   getUserObjByToken,
   lStorage,
+  formatNumberToReal,
 };

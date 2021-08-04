@@ -45,6 +45,15 @@ const LoginForm = () => {
     isDisable.set(!isValidForLogin(email.value, password.value));
   }, [email.value, password.value, isDisable]);
 
+  useEffect(() => {
+    const user = lStorage().user.get();
+    if (user && user.token) {
+      const { role } = getUserObjByToken(user.token);
+      const homePage = getPathByRole(role);
+      history.push(homePage);
+    }
+  }, [history]);
+
   const handleChange = (callback, event) => {
     callback(event.target.value);
   };

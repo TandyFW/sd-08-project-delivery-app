@@ -20,7 +20,7 @@ export default () => ({
     set: (item) => {
       const cartString = localStorage.getItem('cart');
       const cartJson = (!cartString) ? {} : JSON.parse(cartString);
-      cartJson[item.name] = { quantity: item.quantity, price: item.price };
+      cartJson[item.name] = { id: item.id, quantity: item.quantity, price: item.price };
       const newCartString = JSON.stringify(cartJson);
       localStorage.setItem('cart', newCartString);
     },
