@@ -4,7 +4,7 @@ import Item from '../../styles/components/Navbar/SellerNavbar';
 
 const SellerNavbar = () => (
   <Navbar>
-    <Item to="#">
+    <Item to="/seller/orders">
       Pedidos
     </Item>
   </Navbar>

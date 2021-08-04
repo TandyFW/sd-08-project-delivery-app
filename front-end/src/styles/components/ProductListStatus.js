@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import ListHeader from './List/ListHeader';
 import RequestStatusTag from '../../components/RequestStatusTag';
-import { ButtonPrimary } from './Input/Button';
+import { ButtonPrimary, ButtonSecondary } from './Input/Button';
 
 export const StyledProductListHeader = styled(ListHeader)`
   align-items: center;
@@ -46,9 +46,20 @@ export const StatusTag = styled(RequestStatusTag)`
   text-transform: capitalize;
 `;
 
-export const DeliveredButton = styled(ButtonPrimary)`
+export const ListButtonPrimary = styled(ButtonPrimary)`
   border-radius: 6px;
   font-size: 1.4rem;
   font-weight: 700;
   padding: 5px 20px;
+`;
+
+export const ListButtonSecondary = styled(ButtonSecondary)`
+  border-radius: 6px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  padding: 5px 20px;
+`;
+
+export const Spacer = styled.div`
+  flex: 1;
 `;

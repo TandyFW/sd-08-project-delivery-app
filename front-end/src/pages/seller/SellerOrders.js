@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import RequestCard from '../../components/Card/RequestCard';
 import SellerNavbar from '../../components/Navbar/SellerNavbar';
-import OrdersContainer from '../../styles/pages/customer/Orders';
+import OrdersContainer from '../../styles/pages/customer/CustomerOrders';
 import * as api from '../../services/api';
 
 function SellerOrders() {

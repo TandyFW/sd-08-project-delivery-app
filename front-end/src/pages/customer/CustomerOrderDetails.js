@@ -13,7 +13,7 @@ import {
   ProductResumeContainer,
   ProductListContainer,
   TotalValue,
-} from '../../styles/pages/customer/OrderDetails';
+} from '../../styles/pages/customer/CustomerOrderDetails';
 
 function OrderDetails() {
   const { id } = useParams();
