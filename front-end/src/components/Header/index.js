@@ -42,7 +42,6 @@ export default function Header() {
       <UserButton
         type="button"
         data-testid="customer_products__element-navbar-user-full-name"
-        // onClick={ () => history.push('/user') }
       >
         { userName }
       </UserButton>
@@ -51,7 +50,7 @@ export default function Header() {
         data-testid="customer_products__element-navbar-link-logout"
         onClick={ logout }
       >
-        Sair
+        SAIR
       </LogoutButton>
     </Container>
   );
