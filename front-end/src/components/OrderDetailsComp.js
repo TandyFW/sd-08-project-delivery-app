@@ -2,10 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
-import Container from 'react-bootstrap/Container';
-import { Button } from 'react-bootstrap';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { Button, Row, Col } from 'react-bootstrap';
 import '../styles/orderDetails.css';
 import {
   orderNumber,
@@ -119,40 +116,26 @@ export default function OrderDetailsComp() {
   };
 
   const renderDetails = () => (
-    <Row>
-      <Col
-        className="font-weight-bold rounded bg-success text-black"
-        data-testid={ `${prefix[roleUser]}element-order-details-label-order-id` }
-      >
-        PEDIDO:
-        { ' ' }
-        {id.padStart(orderNumber(id), '0')}
-        { ' ' }
-      </Col>
-      { conditionUser() }
-      <Col
-        className="font-weight-bold rounded bg-secondary text-black"
-        data-testid={ `${prefix[roleUser]}element-order-details-label-order-date` }
-      >
-        {saleDate}
-
-      </Col>
-      <Col
-        data-testid={ `${prefix[roleUser]}element-order-details-label-delivery-status` }
-      >
-        {status}
-      </Col>
-      <Col
-        className="col-2"
-      >
-        { conditionUserButton() }
-      </Col>
-    </Row>
+    <Table size="lg">
+      <thead className="text-center">
+        <tr>
+          <th>
+            PEDIDO:
+            { ' ' }
+            {id.padStart(orderNumber(id), '0')}
+          </th>
+          <th>{ conditionUser() }</th>
+          <th>{saleDate}</th>
+          <th>{status}</th>
+          <th>{ conditionUserButton() }</th>
+        </tr>
+      </thead>
+    </Table>
   );
 
   const renderTable = () => (
     <Table striped bordered hover size="lg">
-      <thead>
+      <thead className="text-center">
         <tr>
           <th>Item</th>
           <th>Descrição</th>
@@ -161,7 +144,7 @@ export default function OrderDetailsComp() {
           <th>Sub-Total</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className="text-center">
         { order.map((elem, index) => (
           <tr key={ index }>
             <td
@@ -208,35 +191,33 @@ export default function OrderDetailsComp() {
           </tr>
         ))}
       </tbody>
-      <tbody>
+      <tfoot className="text-center">
         <tr>
-          Total R$:
           <td
             className="justify"
             data-testid={ `${prefix[roleUser]}element-order-total-price` }
           >
+            Total: R$
             { totalValues.toFixed(2).replace('.', ',') }
           </td>
         </tr>
-      </tbody>
+      </tfoot>
     </Table>
   );
 
   const renderError = () => <span>{error}</span>;
 
   const render = () => (
-    <div>
-      Detalhe do Pedido
-      <Container>
-        {renderDetails()}
-        <Row>{renderTable()}</Row>
-      </Container>
-    </div>
+    <>
+      <h4>Detalhe do Pedido</h4>
+      <Row>{renderDetails()}</Row>
+      <Row>{renderTable()}</Row>
+    </>
   );
 
   return (
     <div>
-      { loading ? renderError() : <div>{ render() }</div> }
+      { loading ? renderError() : render() }
     </div>
   );
 }
