@@ -9,13 +9,16 @@ export default function TableRow({ row, tableIndex, showRemove }) {
   const [rowSubtotal, setRowSubtotal] = useState(0);
 
   const remove = () => {
+    console.log(row.name);
+    console.log(itemsList);
     const currentList = itemsList.filter((item) => item.name !== row.name);
-
+    console.log(currentList);
     setItemsList(currentList);
   };
 
   const componentSettings = () => {
     if (showRemove) {
+      console.log(showRemove);
       setRowQuantity(+row.quantity);
       setRowUnitaryPrice(+(+row.unitaryPrice).toFixed(2));
       return setRowSubtotal((+(+row.unitaryPrice).toFixed(2)) * (+row.quantity));
