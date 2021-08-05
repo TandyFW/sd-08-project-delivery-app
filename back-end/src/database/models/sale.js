@@ -1,3 +1,5 @@
+// const moment = require('moment');
+
 const sale = (sequelize, DataTypes) => {
   const SaleTable = sequelize.define("sale", {
     totalPrice: DataTypes.DECIMAL,
@@ -6,16 +8,19 @@ const sale = (sequelize, DataTypes) => {
     saleDate: DataTypes.DATE,
     status: DataTypes.STRING,
   }, { 
-    timestamps: false,
+    createdAt: 'saleDate',
+    updatedAt: false,
     // para indicar que as referências de campos e tabelas são em snake_case 
     underscored: true
   });
 
   SaleTable.associate = (models) => {
     SaleTable.belongsTo(models.user,
-  { onDelete: 'CASCADE', foreignKey: 'user_id', as: 'user' },
-  { onDelete: 'CASCADE', foreignKey: 'seller_id', as: 'user' }
+  { onDelete: 'CASCADE', foreignKey: 'userId', as: 'user' },
   );
+  SaleTable.belongsTo(models.user,
+    { onDelete: 'CASCADE', foreignKey: 'sellerId', as: 'seller' }
+    );
   };
   return SaleTable;
 };

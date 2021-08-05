@@ -12,13 +12,17 @@ const clientPaths = [
 ];
 
 module.exports = {
-  '/customer/products': clientPaths,
-  '/customer/orders': clientPaths,
-  '/customer/checkout': clientPaths,
-  '/admin/manage': [
+  customer: clientPaths,
+  admin: [
     {
       label: 'GERENCIAR USUÁRIOS',
       href: '/admin/manage',
+    },
+  ],
+  seller: [
+    {
+      label: 'PEDIDOS',
+      href: '/seller/orders',
     },
   ],
 };

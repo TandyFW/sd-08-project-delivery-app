@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
+import moment from 'moment';
 
 function Order(props) {
   const history = useHistory();
@@ -22,7 +23,7 @@ function Order(props) {
       </span>
       <div>
         <span data-testid={ `${prefix}element-order-date-${id}` }>
-          { saleDate }
+          { moment(saleDate).locale('pt-br').format('L') }
         </span>
         <span data-testid={ `${prefix}element-card-price-${id}` }>
           { `R$${totalPrice}` }

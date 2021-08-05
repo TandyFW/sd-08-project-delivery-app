@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => (
 function NavBar() {
   const history = useHistory();
   const location = useLocation();
-  const currentPathName = location.pathname;
+  const currentPathName = location.pathname.split('/')[1];
   const headerButtons = navButtonsData[currentPathName];
   const classes = useStyles();
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Card,
   CardContent,
   CardMedia,
@@ -7,6 +7,7 @@ import { Card,
   Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import QuantitySelector from '../buttons/QuantitySelector';
+import Context from '../../context/Context';
 
 const useStyles = makeStyles((theme) => (
   {
@@ -34,6 +35,11 @@ function ProductCard(props) {
   const [count, setCount] = useState(0);
   const { name, price, urlImage, id } = props;
   const classes = useStyles();
+  const { cart } = useContext(Context);
+
+  useEffect(() => {
+    cart.update({ id, quantity: count });
+  }, [count]);
   return (
     <Grid item xs={ 6 } sm={ 4 } md={ 3 } lg={ 2 } className={ classes.cards }>
       <Card data-testid={ `customer_products__element-card-title-${id}` }>
@@ -70,7 +76,7 @@ ProductCard.propTypes = {
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
   urlImage: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default ProductCard;
