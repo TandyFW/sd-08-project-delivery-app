@@ -1,3 +1,6 @@
+// Sales service - atualização do status de uma venda pelos atributos 'id' e 'status'
+// na tabela 'sales'.
+
 const { sale } = require('../../../database/models');
 const getSaleById = require('./getSaleById');
 

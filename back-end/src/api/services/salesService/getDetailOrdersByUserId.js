@@ -1,3 +1,6 @@
+// Sales service - leitura de uma venda especifica de um usuário  pelos atributos 'id', 'role' e 'saleId'
+// com as informações da tabela 'sales' associada a tabela 'products'.
+
 const { Op } = require('sequelize');
 const { sale, product, salesProduct } = require('../../../database/models');
 

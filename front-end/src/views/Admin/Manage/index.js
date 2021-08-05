@@ -3,6 +3,7 @@ import Context from '../../../context/Context';
 
 import NavBar from '../../Components/NavBar';
 import Form from './Components/form';
+import AdminTable from './Components/table';
 
 const AdminManage = () => {
   const { userData } = useContext(Context);
@@ -11,6 +12,7 @@ const AdminManage = () => {
     <div>
       <NavBar userType="admin" userName={ userData.name } />
       <Form />
+      <AdminTable />
     </div>
   );
 };

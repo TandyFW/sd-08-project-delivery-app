@@ -1,3 +1,6 @@
+// Sales service - criação pelos atributos 'saleId', 'productId' e 'quantity'
+// da relação entre as tabelas 'sales' e 'products' na joinTable 'salesProducts'.
+
 const { salesProduct } = require('../../../database/models');
 
 module.exports = async ({ saleId, products }) => {

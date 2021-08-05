@@ -7,10 +7,8 @@ const Form = () => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [role, setRole] = useState('customer');
-  const [cadUser, setCadUser] = useState(null);
   const [error, setError] = useState(true);
-
-  const { userData } = useContext(Context);
+  const { userData, cadUser, setCadUser } = useContext(Context);
 
   function checkInputs() {
     const PASSWORD_MIN_LENGTH = 6;
