@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import Context from '../context/Context';
 
-function TableCheckout() {
+function TableCheckout({ removeButtons = true, prefix }) {
   const { cart } = useContext(Context);
   const realCart = cart.value.filter(({ quantity }) => quantity > 0);
   console.log('REALCART', realCart);
@@ -14,7 +15,11 @@ function TableCheckout() {
           <th>Quantidade</th>
           <th>Valor Unitário</th>
           <th>Sub-Total</th>
-          <th>Remover Item</th>
+          {
+            removeButtons && (
+              <th>Remover Item</th>
+            )
+          }
         </tr>
       </thead>
       <tbody>
@@ -22,28 +27,28 @@ function TableCheckout() {
           <tr key={ id }>
             <td
               data-testid={
-                `customer_checkout__element-order-table-item-number-${index}`
+                `${prefix}element-order-table-item-number-${index}`
               }
             >
               {index + 1}
             </td>
             <td
               data-testid={
-                `customer_checkout__element-order-table-name-${index}`
+                `${prefix}element-order-table-name-${index}`
               }
             >
               {name}
             </td>
             <td
               data-testid={
-                `customer_checkout__element-order-table-quantity-${index}`
+                `${prefix}element-order-table-quantity-${index}`
               }
             >
               {quantity}
             </td>
             <td
               data-testid={
-                `customer_checkout__element-order-table-unit-price-${index}`
+                `${prefix}element-order-table-unit-price-${index}`
               }
             >
               {`R$ ${price.replace('.', ',')}`}
@@ -52,7 +57,7 @@ function TableCheckout() {
               <span>R$ </span>
               <span
                 data-testid={
-                  `customer_checkout__element-order-table-sub-total-${index}`
+                  `${prefix}element-order-table-sub-total-${index}`
                 }
               >
                 {(Number(price) * quantity).toFixed(2).toString().replace('.', ',')}
@@ -60,15 +65,17 @@ function TableCheckout() {
             </td>
             <td
               data-testid={
-                `customer_checkout__element-order-table-remove-${index}`
+                `${prefix}element-order-table-remove-${index}`
               }
             >
-              <button
-                type="button"
-                onClick={ () => cart.update({ name, id, quantity: 0, price }) }
-              >
-                Remover
-              </button>
+              { removeButtons && (
+                <button
+                  type="button"
+                  onClick={ () => cart.update({ name, id, quantity: 0, price }) }
+                >
+                  Remover
+                </button>
+              )}
             </td>
           </tr>
         ))}
@@ -76,5 +83,10 @@ function TableCheckout() {
     </table>
   );
 }
+
+TableCheckout.propTypes = {
+  removeButtons: PropTypes.element.isRequired,
+  prefix: PropTypes.string.isRequired,
+};
 
 export default TableCheckout;

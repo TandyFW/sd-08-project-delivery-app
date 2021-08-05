@@ -7,6 +7,7 @@ function Provider({ children }) {
   const [email, setEmail] = useState('');
   const [cart, setCart] = useState([]);
   const [cartTotal, setCartTotal] = useState(0);
+  const [orderInfo, setOrderInfo] = useState([]);
 
   useEffect(() => {
     const total = cart.reduce((acc, curr) => {
@@ -49,6 +50,10 @@ function Provider({ children }) {
     },
     cartTotal: {
       value: cartTotal,
+    },
+    orderInfo: {
+      value: orderInfo,
+      set: (infos) => setOrderInfo(infos),
     },
   };
   return (
