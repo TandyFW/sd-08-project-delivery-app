@@ -49,7 +49,7 @@ function OrderDetailsHeader({ order, user }) {
       { role === 'seller'
         && <button
           type="button"
-          disabled={ status === 'Entregue' }
+          disabled={ status === 'Pendente' || status === 'Entregue' }
           data-testid={ `${role}_order_details__button-dispatch-check` }
         >
           Saiu para entrega
