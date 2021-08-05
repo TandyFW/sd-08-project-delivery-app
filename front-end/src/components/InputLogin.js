@@ -31,6 +31,12 @@ export default function InputLogin() {
       history.push('/seller/orders');
       return;
     }
+    if (user.data.role === 'administrator') {
+      localStorage.setItem('user', JSON.stringify(user.data));
+      setRedirected(false);
+      history.push('/admin/manage');
+      return;
+    }
     if (user.statusText === 'OK') {
       localStorage.setItem('user', JSON.stringify(user.data));
       setRedirected(false);

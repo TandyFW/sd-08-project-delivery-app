@@ -13,6 +13,11 @@ const generateJWTToken = (user) => {
   return token;
 };
 
+const findAll = async () => {
+  const users = User.findAll();
+  return users;
+};
+
 const findByName = async (name) => {
   const user = await User.findOne({ where: { name } });
   return user;
@@ -42,4 +47,22 @@ const create = async (newUserInfo) => {
   return { name, email, role: 'customer' };
 };
 
-module.exports = { generateJWTToken, findByEmail, findByName, create };
+const createByAdmin = async (newUserInfo) => {
+  const isValid = await validateNewUserInfo(newUserInfo);
+  if (!isValid) {
+    return { error: { status: 409, message: 'Name or email already registered' } };
+  }
+  const { name, email, password, role } = newUserInfo;
+  await User.create({ name, email, password: md5(password), role });
+  return { name, email, role };
+};
+
+const remove = async (id) => {
+  await User.destroy({ where: { id } });
+
+  return {};
+};
+
+module.exports = {
+  generateJWTToken, findAll, findByEmail, findByName, create, createByAdmin, remove,
+};
