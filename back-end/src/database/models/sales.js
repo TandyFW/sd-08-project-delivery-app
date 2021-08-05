@@ -3,7 +3,7 @@ const sale = (sequelize, DataTypes) => {
     totalPrice: DataTypes.DECIMAL,
     deliveryAddress: DataTypes.STRING,
     deliveryNumber: DataTypes.STRING,
-    salesDate: DataTypes.DATE,
+    saleDate: DataTypes.DATE,
     status: DataTypes.STRING,
     userId: DataTypes.INTEGER,
     sellerId: DataTypes.INTEGER,
@@ -17,7 +17,7 @@ const sale = (sequelize, DataTypes) => {
     sale.belongsTo(models.users,
       { foreignKey: 'userId', as: 'user' });
     sale.belongsTo(models.users,
-      { foreignKey: 'sellerId', as: 'user_seller' });
+      { foreignKey: 'sellerId', as: 'userSeller' });
   };
 
   return sale;

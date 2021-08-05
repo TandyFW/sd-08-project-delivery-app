@@ -34,7 +34,6 @@ function DeliveryAppProvider({ children }) {
 
   const getCardList = async () => {
     const data = await fetchProducts();
-    console.log(data);
     setCardsList(data);
   };
 
@@ -54,33 +53,27 @@ function DeliveryAppProvider({ children }) {
     return setSellers(data);
   };
 
+  const setStorage = () => {
+    const userLocalStorage = JSON.parse(localStorage.getItem('user'));
+    if (userLocalStorage) {
+      setUser(userLocalStorage);
+    }
+  };
+
   useEffect(() => getTotalPrice(), [itemsList]);
 
   useEffect(() => {
     getCardList();
     getSellers();
+    setStorage();
     // rescueStorageList();
   }, []);
-
-  const setStorage = () => {
-    const { name, email, role, token } = user;
-
-    const storge = {
-      name,
-      email,
-      role,
-      token,
-    };
-
-    localStorage.setItem('user', JSON.stringify(storge));
-  };
 
   const getUserId = () => {
     setUserId(user.id);
   };
 
   useEffect(() => {
-    setStorage();
     getUserId();
     getRoute();
   }, [user]);
