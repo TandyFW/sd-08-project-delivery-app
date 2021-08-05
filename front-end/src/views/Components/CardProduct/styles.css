@@ -16,6 +16,7 @@
   font-size: large;
   font-weight: 700;
   left: 120px;
+  margin-bottom: -20px;
   position: relative;
   text-align: center;
   top: 5px;
@@ -36,8 +37,8 @@
 }
 
 .card_image img {
-  height: 150px;
-  width: 150px;
+  height: 175px;
+  width: 175px;
 }
 
 .card_bottom {
