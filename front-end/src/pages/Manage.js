@@ -1,12 +1,12 @@
 import React from 'react';
 import Header from '../components/Header';
-import ManagerDetails from '../components/ManagerDetails';
+import ManageDetails from '../components/ManageDetails';
 
-export default function Manager() {
+export default function Manage() {
   return (
     <section className="order-details-page">
       <Header />
-      <ManagerDetails />
+      <ManageDetails />
     </section>
   );
 }

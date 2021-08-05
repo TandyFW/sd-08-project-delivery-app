@@ -5,7 +5,7 @@ import Table from './Table';
 import { HEADING_MANAGER_DETAILS } from '../utils/Lists';
 // import fetchOrderDetails from '../services/fetchOrderDetails';
 
-export default function ManagerDetails() {
+export default function ManageDetails() {
   // const { sellers, orderStatus, setOrderStatus } = useContext(DeliveryAppContext);
   // const [sellerName, setSellerName] = useState('');
   // const [orderDate, setOrderDate] = useState('');
@@ -23,8 +23,7 @@ export default function ManagerDetails() {
   // const SLICE_INDEX_SEVEN = 7;
   // const SLICE_INDEX_EIGHT = 8;
   // const SLICE_INDEX_TEN = 10;
-  const DATA_TESTID_PREFIX = 'customer_order_details__';
-
+  const DATA_TESTID_PREFIX = 'admin_manage__';
   // const formatDate = () => {
   //   if (order.salesDate !== undefined) {
   //     const { salesDate } = order;
@@ -70,48 +69,53 @@ export default function ManagerDetails() {
   return (
     <section className="order-details-container">
       <h2 className="title-2">
-        Lista de usuários
+        Cadastrar novo usuário
       </h2>
       <div className="order-details-info-bar">
-        <p
-          className="order-details-order-id"
-          data-testid={ `${DATA_TESTID_PREFIX}element-order-details-label-order-id` }
-        >
-          {/* { `PEDIDO ${order.id}`} */}
-          oi
-        </p>
-        <p
-          className="order-details-seller-name"
-          data-testid={ `${DATA_TESTID_PREFIX}element-order-details-label-seller-name` }
-        >
-          {/* { sellerName } */}
-          oi
-        </p>
-        <p
-          className="order-details-order-date"
-          data-testid={ `${DATA_TESTID_PREFIX}element-order-details-label-order-date` }
-        >
-          {/* { orderDate } */}
-          oi
-        </p>
-        <p
-          className="order-details-order-status"
-          data-testid={
-            `${DATA_TESTID_PREFIX}element-order-details-label-delivery-status`
-          }
-        >
-          {/* { orderStatus } */}
-          oi
-        </p>
+        <label htmlFor="Nome">
+          Nome
+          <input
+            type="text"
+            name="Nome"
+            data-testid={ `${DATA_TESTID_PREFIX}input-name` }
+          />
+        </label>
+        <label htmlFor="Email">
+          Email
+          <input
+            type="text"
+            name="Email"
+            data-testid={ `${DATA_TESTID_PREFIX}input-email` }
+          />
+        </label>
+        <label htmlFor="Senha">
+          Senha
+          <input
+            type="password"
+            name="Senha"
+            data-testid={ `${DATA_TESTID_PREFIX}input-password` }
+          />
+        </label>
+        <label htmlFor="Tipo">
+          Tipo
+          <input
+            type="text"
+            name="Tipo"
+            data-testid={ `${DATA_TESTID_PREFIX}select-role` }
+          />
+        </label>
         <button
           type="button"
           className="btn-confirm-delivery"
           // onClick={ confirmDelivery }
-          data-testid={ `${DATA_TESTID_PREFIX}button-delivery-check` }
+          data-testid={ `${DATA_TESTID_PREFIX}button-register` }
         >
-          MARCAR COMO ENTREGUE
+          CADASTRAR
         </button>
       </div>
+      <h2 className="title-2">
+        Lista de usuários
+      </h2>
       <Table
         heading={ HEADING_MANAGER_DETAILS }
         // body={ order && order.products }
