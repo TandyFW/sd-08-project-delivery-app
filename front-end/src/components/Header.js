@@ -10,7 +10,6 @@ export default function Header() {
   const { user, route } = useContext(DeliveryAppContext);
 
   const clear = () => localStorage.clear();
-  console.log(route);
   return (
     <header>
       {route === 'customer'

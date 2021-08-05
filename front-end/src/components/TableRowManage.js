@@ -6,7 +6,7 @@ export default function TableRow({ row, tableIndex, showRemove }) {
   const { itemsList, setItemsList } = useContext(DeliveryAppContext);
   const [rowQuantity, setRowQuantity] = useState(0);
   const [rowUnitaryPrice, setRowUnitaryPrice] = useState(0);
-  const [rowSubtotal, setRowSubtotal] = useState(0);
+  const [setRowSubtotal] = useState(0);
 
   // console.log(row);
 
@@ -39,35 +39,31 @@ export default function TableRow({ row, tableIndex, showRemove }) {
   return (
     <tr key={ tableIndex }>
       <td
-        className="products-table-cel"
-        data-testid={ `customer_checkout__element-order-table-item-number-${tableIndex}` }
+        className="admin-table-cel"
+        data-testid={ `admin_manage__element-user-table-item-number-${tableIndex}` }
       >
         { tableIndex + 1 }
       </td>
       <td
-        className="products-table-cel"
-        data-testid={ `customer_checkout__element-order-table-name-${tableIndex}` }
+        className="admin-table-cel"
+        data-testid={ `admin_manage__element-user-table-name-${tableIndex}` }
       >
         { row.name }
       </td>
       <td
-        className="products-table-cel"
-        data-testid={ `customer_checkout__element-order-table-quantity-${tableIndex}` }
+        className="admin-table-cel"
+        data-testid={ `admin_manage__element-user-table-email-${tableIndex}` }
       >
+        {/* email, mudar a linha a baixo */}
         { rowQuantity }
       </td>
       <td
-        className="products-table-cel"
-        data-testid={ `customer_checkout__element-order-table-unit-price-${tableIndex}` }
+        className="admin-table-cel"
+        data-testid={ `admin_manage__element-user-table-role-${tableIndex}` }
       >
+        {/* role, mudar a linha a baixo */}
         { rowUnitaryPrice
           .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }
-      </td>
-      <td
-        className="products-table-cel"
-        data-testid={ `customer_checkout__element-order-table-sub-total-${tableIndex}` }
-      >
-        { rowSubtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }
       </td>
       {showRemove
       && (
@@ -77,10 +73,10 @@ export default function TableRow({ row, tableIndex, showRemove }) {
             className="btn-remove"
             onClick={ remove }
             data-testid={
-              `customer_checkout__element-order-table-remove-${row.productId}`
+              `admin_manage__element-user-table-remove-${row.productId}`
             }
           >
-            Remover
+            Excluir
           </button>
         </td>
       )}

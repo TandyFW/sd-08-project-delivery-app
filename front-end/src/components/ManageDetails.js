@@ -1,70 +1,46 @@
-import React from 'react';
+import md5 from 'md5';
+import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
-// import DeliveryAppContext from '../context/DeliveryAppContext';
 import Table from './Table';
 import { HEADING_MANAGER_DETAILS } from '../utils/Lists';
-// import fetchOrderDetails from '../services/fetchOrderDetails';
+import { emailVerify } from '../utils/functions';
 
 export default function ManageDetails() {
-  // const { sellers, orderStatus, setOrderStatus } = useContext(DeliveryAppContext);
-  // const [sellerName, setSellerName] = useState('');
-  // const [orderDate, setOrderDate] = useState('');
-  // const [order, setOrder] = useState({});
-
-  // const getSellerName = () => {
-  //   const { sellerId } = order;
-  //   const currentSellerName = sellers.filter((seller) => seller.sellerId === sellerId);
-  //   setSellerName(currentSellerName[0]);
-  // };
-
-  // const SLICE_INDEX_ZERO = 0;
-  // const SLICE_INDEX_FOUR = 4;
-  // const SLICE_INDEX_FIVE = 5;
-  // const SLICE_INDEX_SEVEN = 7;
-  // const SLICE_INDEX_EIGHT = 8;
-  // const SLICE_INDEX_TEN = 10;
+  const [isValid, setIsValid] = useState(false);
+  const [currentName, setCurrentName] = useState('');
+  const [currentEmail, setCurrentEmail] = useState('');
+  const [currentPassword, setEncryptPassword] = useState('');
+  const [currentSelect, setCurrentSelect] = useState('');
   const DATA_TESTID_PREFIX = 'admin_manage__';
-  // const formatDate = () => {
-  //   if (order.salesDate !== undefined) {
-  //     const { salesDate } = order;
-  //     const day = salesDate.slice(SLICE_INDEX_EIGHT, SLICE_INDEX_TEN);
-  //     const month = salesDate.slice(SLICE_INDEX_FIVE, SLICE_INDEX_SEVEN);
-  //     const year = salesDate.slice(SLICE_INDEX_ZERO, SLICE_INDEX_FOUR);
-  //     const newDate = `${day}/${month}/${year}`;
-  //     setOrderDate(newDate);
-  //   }
-  // };
 
-  // const confirmDelivery = () => {
-  //   setOrderStatus('ENTREGUE');
-  // };
+  const validation = () => {
+    const nameInput = document.querySelector('#name');
+    const emailInput = document.querySelector('#email');
+    const passwordInput = document.querySelector('#password');
+    const name = nameInput.value;
+    const email = emailInput.value;
+    const password = passwordInput.value;
+    const MIN_NAME_LENGTH = 12;
+    const MIN_PASSWORRD_LENGTH = 6;
+    setCurrentName(name);
+    setCurrentEmail(email);
+    setEncryptPassword(md5(password));
+    if (!emailVerify(email)
+      || password.length < MIN_PASSWORRD_LENGTH
+      || name.length < MIN_NAME_LENGTH) {
+      setIsValid(false);
+    }
+    if (emailVerify(email)
+      && password.length >= MIN_PASSWORRD_LENGTH
+      && name.length >= MIN_NAME_LENGTH) {
+      setIsValid(true);
+    }
+  };
 
-  // const getOrder = async (id) => {
-  //   const data = await fetchOrderDetails(id);
-  //   console.log(data[0]);
-  //   setOrder(data[0]);
-  // };
-
-  // const getId = () => {
-  //   const location = window.location.pathname;
-  //   console.log(location);
-
-  //   const arrayLocation = location.split('/');
-  //   console.log(arrayLocation);
-
-  //   const currentId = arrayLocation[3];
-  //   console.log(currentId);
-  //   console.log(typeof (currentId));
-
-  //   getOrder(+currentId);
-  // };
-
-  // useEffect(() => {
-  //   getSellerName();
-  //   formatDate();
-  // }, [order]);
-
-  // useEffect(() => getId(), []);
+  const selectType = () => {
+    const currentType = document.querySelector('#type').value;
+    setCurrentSelect(currentType);
+  };
 
   return (
     <section className="order-details-container">
@@ -77,6 +53,10 @@ export default function ManageDetails() {
           <input
             type="text"
             name="Nome"
+            maxLength="100"
+            placeholder="Nome e sobrenome"
+            onKeyUp={ validation }
+            id="name"
             data-testid={ `${DATA_TESTID_PREFIX}input-name` }
           />
         </label>
@@ -85,6 +65,10 @@ export default function ManageDetails() {
           <input
             type="text"
             name="Email"
+            maxLength="100"
+            placeholder="seu-email@site.com.br"
+            onKeyUp={ validation }
+            id="email"
             data-testid={ `${DATA_TESTID_PREFIX}input-email` }
           />
         </label>
@@ -93,21 +77,55 @@ export default function ManageDetails() {
           <input
             type="password"
             name="Senha"
+            maxLength="30"
+            placeholder="**********"
+            onKeyUp={ validation }
+            id="password"
             data-testid={ `${DATA_TESTID_PREFIX}input-password` }
           />
         </label>
-        <label htmlFor="Tipo">
+        <label htmlFor="type" className="label-form-manage">
           Tipo
-          <input
-            type="text"
-            name="Tipo"
+          <select
+            className="type-select"
+            name="type-select"
+            id="type"
+            onChange={ selectType }
             data-testid={ `${DATA_TESTID_PREFIX}select-role` }
-          />
+          >
+            <option
+              className="option-type"
+              value=""
+            >
+              .
+            </option>
+            <option
+              className="option-type"
+              value="customer"
+            >
+              Cliente
+            </option>
+            <option
+              className="option-type"
+              value="seler"
+            >
+              Vendedor
+            </option>
+            <option
+              className="option-type"
+              value="adminstrator"
+            >
+              Administrador
+            </option>
+          </select>
         </label>
         <button
           type="button"
           className="btn-confirm-delivery"
-          // onClick={ confirmDelivery }
+          disabled={ !isValid }
+          onClick={
+            console.log(currentName, currentEmail, currentPassword, currentSelect)
+          }
           data-testid={ `${DATA_TESTID_PREFIX}button-register` }
         >
           CADASTRAR
