@@ -12,7 +12,7 @@ function Checkout() {
   const [addressNumber, setAddressNumber] = useState('');
   const [sellers, setSellers] = useState([]);
   const [selectedSellers, setSelectedSellers] = useState();
-  const { cartTotal, cart } = useContext(Context);
+  const { cartTotal, cart, orderInfo } = useContext(Context);
   const history = useHistory();
 
   const fetchSellers = async () => {
@@ -20,7 +20,6 @@ function Checkout() {
       method: 'GET',
       url: 'http://localhost:3001/sellers',
     });
-    console.log('DATAAAAA', data);
     return setSellers(data);
   };
 
@@ -29,7 +28,9 @@ function Checkout() {
   }, []);
 
   const userName = JSON.parse(localStorage.getItem('user')).name;
-  const price = Number(cartTotal.value.replace(',', '.')).toFixed(2);
+  const cartPrice = cartTotal.value;
+  console.log('oi', cartPrice);
+  const price = Number(cartPrice.replace(',', '.')).toFixed(2);
   const { token } = JSON.parse(localStorage.getItem('user'));
 
   const fetchSale = async () => {
@@ -50,8 +51,10 @@ function Checkout() {
           products: JSON.stringify(cartProducts),
         },
       });
-      console.log('teste', sale);
-      const { id } = sale.data;
+      console.log('testeoiiii', sale.data);
+      const { id, status, saleDate } = sale.data;
+      orderInfo.set([id, saleDate, status]);
+      console.log('data', saleDate);
       history.push(`/customer/orders/${id}`);
     } catch (error) {
       console.log(error);
@@ -62,7 +65,7 @@ function Checkout() {
     <>
       <NavBar />
       <h3>Finalizar Pedido</h3>
-      <TableCheckout />
+      <TableCheckout prefix="customer_checkout__" />
       <span data-testid="customer_checkout__element-order-total-price">
         {`Total: R$ ${cartTotal.value}`}
       </span>
