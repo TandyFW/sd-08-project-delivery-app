@@ -53,7 +53,10 @@ function NavBar({ user, show }) {
 }
 NavBar.propTypes = {
   user: PropTypes.string.isRequired,
-  show: PropTypes.bool.isRequired,
+  show: PropTypes.bool,
+};
+NavBar.defaultProps = {
+  show: false,
 };
 
 export default NavBar;

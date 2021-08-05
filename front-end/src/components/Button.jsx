@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Button = ({ className, label, onClick, datatestid, disabled = true }) => (
-
   <button
     className={ className }
     type="button"
@@ -10,7 +9,7 @@ const Button = ({ className, label, onClick, datatestid, disabled = true }) => (
     data-testid={ datatestid }
     disabled={ disabled }
   >
-    { label }
+    {label}
   </button>
 );
 
@@ -19,11 +18,12 @@ Button.propTypes = {
   onClick: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
 };
 
 Button.defaultProps = {
   disabled: false,
+  className: '',
 };
 
 export default Button;

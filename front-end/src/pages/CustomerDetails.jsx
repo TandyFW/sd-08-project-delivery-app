@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ListItem from '../components/ListItem';
 import NavBar from '../components/NavBar';
-import api from '../services/api';
 import colors from '../styles/colors';
 import {
   DetailsBar,
@@ -12,13 +11,9 @@ import {
   OrderButton,
   ListHeader,
 } from '../styles/pages/SellerDetails.styled';
+import getSale from '../services/requestFunctions';
 
 const prefix = 'customer_order_details__';
-
-const getSale = async (id) => {
-  const result = await api.get(`/delivery/sales/${id}`);
-  return result.data;
-};
 
 const CustomerDetails = () => {
   const { id } = useParams();
@@ -26,7 +21,7 @@ const CustomerDetails = () => {
   const [sale, setSale] = useState({});
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    getSale(id)
+    getSale.getSale(id)
       .then((response) => setSale(response))
       .then(() => setLoading(false));
   }, [id]);

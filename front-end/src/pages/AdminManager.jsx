@@ -49,9 +49,18 @@ const AdminManager = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let mounted = true;
     setLoading(true);
-    getUsers().then((response) => setUsers(response));
-    setLoading(false);
+    getUsers().then((response) => {
+      if (mounted) {
+        setUsers(response);
+        setLoading(false);
+      }
+    });
+    return () => {
+      mounted = false;
+      return mounted;
+    };
   }, [OK]);
   const registerUser = () => {
     const newUser = { name: userName, email, password, role };
@@ -146,7 +155,7 @@ const AdminManager = () => {
               <UserList
                 key={ user.id }
                 id={ user.id }
-                index={ index + 1 }
+                index={ (index + 1).toString() }
                 name={ user.name }
                 email={ user.email }
                 userType={ convertRole(user.role) }
