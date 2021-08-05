@@ -152,7 +152,7 @@ export default function ManageDetails() {
         && (
           <p
             className="error-message"
-            data-testid={ `${DATA_TESTID_PREFIX}invalid-register` }
+            data-testid={ `${DATA_TESTID_PREFIX}element-invalid-register` }
           >
             Usuário já cadastrado.
           </p>)}
