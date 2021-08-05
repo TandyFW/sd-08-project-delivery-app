@@ -29,12 +29,4 @@ describe("2 - Botões da tela de Administrador", () => {
     render(<AdminManager />);
     expect(screen.getByTestId(`${prefix}button-register`)).toBeDisabled();
   });
-  test('O botão de "Excluir" deve estar presente na tela', async () => {
-    render(<AdminManager />);
-    await waitFor(() => {
-      expect(
-        screen.getByTestId(`${prefix}element-user-table-remove-1`)
-      ).toBeInTheDocument();
-    });
-  });
 });
