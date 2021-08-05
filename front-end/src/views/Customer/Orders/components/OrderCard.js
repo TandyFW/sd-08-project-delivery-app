@@ -1,8 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import socketIOClient from 'socket.io-client';
+
+const ENDPOINT = 'http://localhost:3001';
 
 function OrderCard({ data, index }) {
+  const { id } = data;
+  const [status, setStatus] = useState();
+  console.log(data);
+
+  const socket = socketIOClient(ENDPOINT);
+
+  useEffect(() => {
+    socket.emit('setOrderStatus', { id, status: '' });
+    socket.on('getUpdatedStatus', (statusFromBrack) => {
+      setStatus(statusFromBrack);
+    });
+  }, [socket, id]);
+
   const TEN = 10;
   return (
     <Link to={ `/customer/orders/${data.id}` }>
@@ -18,7 +34,7 @@ function OrderCard({ data, index }) {
         <p
           data-testid={ `customer_orders__element-delivery-status-${data.id}` }
         >
-          {`STATUS: ${data.status}`}
+          {status}
         </p>
         <p
           data-testid={ `customer_orders__element-order-date-${data.id}` }

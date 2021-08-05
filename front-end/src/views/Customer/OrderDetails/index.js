@@ -28,6 +28,9 @@ function OrderDetails() {
   useEffect(() => {
     fetchOrder();
   }, []);
+
+  if (orderData.length === 0) return <p>Loading... </p>;
+
   return (
     <div className="main-wrapper-details">
       <NavBar
