@@ -1,3 +1,5 @@
+// Users service - remoção de um usuários específico pelo 'id' na tabela 'users'.
+
 const { user } = require('../../../database/models');
 
 module.exports = async (id) => {
@@ -5,5 +7,11 @@ module.exports = async (id) => {
     where: { id },
   });
 
-  return result;
+  const message = { ok: false, message: 'User not deleted!' };
+  if (result !== 0) {
+    message.message = `User ${id} deleted!`;
+    message.ok = true;
+  }
+
+  return message;
 };

@@ -18,9 +18,13 @@ const getCustomerAndSellers = async (req, res) => {
 // remove usuários identificado pelo ID no parametro na Url.
 const removeUser = async (req, res) => {
   const { id } = req.params;
-  await removeUserById(id);
+  const message = await removeUserById(id);
 
-  return res.status(204).json({ message: 'User deleted!' });
+  if (message.ok) {
+    return res.status(204).json(message.message);
+  }
+
+  return res.status(500).json(message.message);
 };
 
 module.exports = { getAllSellers, getCustomerAndSellers, removeUser };

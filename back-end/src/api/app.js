@@ -1,3 +1,5 @@
+// Servidor Express. Disponibiliza os arquivos static das imagens dos produtos. Usa as rotas no arquivo ./router
+
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');

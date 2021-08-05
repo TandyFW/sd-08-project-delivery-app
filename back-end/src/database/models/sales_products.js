@@ -14,12 +14,12 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id'
       }
     },
-    quantity: DataTypes.STRING
+    quantity: DataTypes.INTEGER
   },
   {
     timestamps: false,
     underscored: true,
-    tableName: 'sales_products'
+    tableName: 'salesProducts'
   });
 
   salesProduct.associate = (models) => {

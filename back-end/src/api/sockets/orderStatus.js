@@ -1,3 +1,6 @@
+// Socket para atualização do 'status' de uma venda em tempo real.
+// Recebe o 'id' e o novo 'status' e retorna o status atualizado no DB.
+
 const { updateOrder, getSaleById } = require('../services');
 
 module.exports = (io) => {
