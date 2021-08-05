@@ -14,6 +14,4 @@ const getOrderById = async (id) => {
   return order;
 };
 
-
-
 module.exports = { getUserOrders, getOrderById };
