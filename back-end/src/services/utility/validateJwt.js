@@ -20,11 +20,11 @@ const validateJwt = async (req, res, next) => {
     const { email } = decoded;
     const exists = await users.findOne({ where: { email } });
     
-    if (!exists) return res.status(helpers.QOO).json({ message: msg });
+    if (!exists) return res.status(400).json({ message: msg });
 
     next();
   } catch (err) {
-    return res.status(helpers.QOU).json({ message: msg });
+    return res.status(401).json({ message: msg });
   }
 };
 

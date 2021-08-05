@@ -9,7 +9,6 @@ const orderSallerController = require('./orderSallerController');
 const orderSellerDetailController = require('./orderSellerDetailController');
 const adminsitratorController = require('./adminsitratorController');
 
-
 module.exports = {
   loginController,
   registerController,
