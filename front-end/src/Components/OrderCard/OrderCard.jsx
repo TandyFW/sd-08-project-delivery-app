@@ -1,12 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { socket } from '../../socket/Socket';
 
 export default function OrderCard({ path, order, address, prefix, idPedido }) {
   const history = useHistory();
-  console.log(idPedido);
   const { sale_date: saleDate, status, total_price: totalPrice, id } = order;
+  const [updatedStatus, setUpdatedStatus] = useState(status);
+  console.log(idPedido);
+  socket.on('preparando', (orderIdFromSocket) => {
+    if (Number(orderIdFromSocket) === id) {
+      setUpdatedStatus('Preparando');
+    }
+  });
+  socket.on('emTransito', (orderIdFromSocket) => {
+    if (Number(orderIdFromSocket) === id) {
+      setUpdatedStatus('Em Trânsito');
+    }
+  });
+  socket.on('entregue', (orderIdFromSocket) => {
+    if (Number(orderIdFromSocket) === id) {
+      setUpdatedStatus('Entregue');
+    }
+  });
+
   const formataDate = () => {
     moment.locale();
     // moment(new Date('07-18-2013 UTC')).utc().format("YYYY-MM-DD HH:mm")
@@ -14,7 +32,6 @@ export default function OrderCard({ path, order, address, prefix, idPedido }) {
       .format('DD-MM-YYYY').replaceAll('-', '/');
     return dateFormate;
   };
-  console.log('ORDER---> ', order);
   return (
     <button
       className="container"
@@ -32,7 +49,7 @@ export default function OrderCard({ path, order, address, prefix, idPedido }) {
           className="current-status"
           data-testid={ `${prefix}__element-delivery-status-${id}` }
         >
-          { status }
+          { updatedStatus }
         </div>
         <div
           className="order-date"

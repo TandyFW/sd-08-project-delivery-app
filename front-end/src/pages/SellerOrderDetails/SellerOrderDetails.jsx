@@ -5,7 +5,7 @@ import moment from 'moment';
 import NavBar from '../../Components/NavBar/NavBar';
 import ItemTable from '../../Components/ItemTable/ItemTable';
 import { getUserInfo } from '../../service/getLocalStorage';
-import { pedidoSendoPreparado, pedidoEmTransito } from '../../socket/Socket';
+import { socket } from '../../socket/Socket';
 
 export default function SellerOrderDetails() {
   const [isLoading, setLoading] = useState(true);
@@ -15,6 +15,37 @@ export default function SellerOrderDetails() {
   const [orderDetailsInfos, setOrderDetailsInfos] = useState({});
   const [statusOrders, setstatusOrders] = useState('');
   // const { status } = useSelector((state) => state.status);
+
+  // const changeStatusOrders = (newStatus) => {
+  //   setstatusOrders(newStatus);
+  // };
+
+  // waitingForSocketOnEvents(changeStatusOrders);
+
+  // export const pedidoSendoPreparado = (id) => {
+  //   socket.emit('preparando', { id });
+  //   return 'Preparando';
+  // };
+  // export const pedidoEmTransito = (id) => {
+  //   socket.emit('emTransito', { id });
+  //   return 'Em Trânsito';
+  // };
+  // export const pedidoEntregue = (id) => {
+  //   socket.emit('entregue', { id });
+  //   return 'Entregue';
+  // };
+  socket.on('preparando', () => {
+    console.log('seller preparando');
+    setstatusOrders('Preparando');
+  });
+  socket.on('emTransito', () => {
+    console.log('seller emTRANSITO');
+    setstatusOrders('Em Trânsito');
+  });
+  socket.on('entregue', () => {
+    console.log('seller ENTREGUE');
+    setstatusOrders('Entregue');
+  });
 
   const formataDate = () => {
     moment.locale();
@@ -54,14 +85,14 @@ export default function SellerOrderDetails() {
   const prefix = 'seller_order_details__';
 
   const onClickPrepararPedido = async () => {
-    const statusOrder = await pedidoSendoPreparado(orderDetailsInfos.id);
-    setstatusOrders(statusOrder);
+    socket.emit('preparando', { id });
+    setstatusOrders('Preparando');
   };
 
   const onClickSaiuParaEntrega = async () => {
     // emitir socket para mudar status em transito
-    const statusOrder = await pedidoEmTransito(orderDetailsInfos.id);
-    setstatusOrders(statusOrder);
+    socket.emit('emTransito', { id });
+    setstatusOrders('Em Trânsito');
   };
 
   return (

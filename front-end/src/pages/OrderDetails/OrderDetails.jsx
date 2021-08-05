@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import NavBar from '../../Components/NavBar/NavBar';
 import ItemTable from '../../Components/ItemTable/ItemTable';
 import { getUserInfo } from '../../service/getLocalStorage';
-import { pedidoEntregue } from '../../socket/Socket';
+import { socket } from '../../socket/Socket';
 
 export default function OrderDetails() {
   const [isLoading, setLoading] = useState(true);
@@ -17,9 +17,26 @@ export default function OrderDetails() {
   const [statusOrders, setstatusOrders] = useState('');
 
   const delivered = async () => {
-    const result = await pedidoEntregue(orderDetailsInfos.id);
-    setstatusOrders(result);
+    socket.emit('entregue', { id });
+    setstatusOrders('Entregue');
   };
+
+  const changeStatusOrders = (newStatus) => {
+    setstatusOrders(newStatus);
+  };
+
+  socket.on('preparando', () => {
+    console.log('customer preparando');
+    changeStatusOrders('Preparando');
+  });
+  socket.on('emTransito', () => {
+    console.log('customer transito');
+    changeStatusOrders('Em Trânsito');
+  });
+  socket.on('entregue', () => {
+    console.log('customer entregue');
+    changeStatusOrders('Entregue');
+  });
 
   const formataDate = () => {
     moment.locale();
@@ -30,6 +47,19 @@ export default function OrderDetails() {
       .replaceAll('-', '/');
     return dateFormate;
   };
+
+  // export const pedidoSendoPreparado = (id) => {
+  //   socket.emit('preparando', { id });
+  //   return 'Preparando';
+  // };
+  // export const pedidoEmTransito = (id) => {
+  //   socket.emit('emTransito', { id });
+  //   return 'Em Trânsito';
+  // };
+  // export const pedidoEntregue = (id) => {
+  //   socket.emit('entregue', { id });
+  //   return 'Entregue';
+  // };
 
   const getOrderDetails = async () => {
     setLoading(true);
@@ -88,7 +118,7 @@ export default function OrderDetails() {
           <button
             type="button"
             data-testid={ `${prefix}button-delivery-check` }
-            disabled={ statusOrders !== 'Em Trânsito' }
+            disabled={ statusOrders !== 'Em Trânsito' || statusOrders === 'Entregue' }
             onClick={ delivered }
           >
             Marcar Como Entregue
