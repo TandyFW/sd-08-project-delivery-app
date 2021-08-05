@@ -10,7 +10,6 @@ export default function Header() {
   const { user, route } = useContext(DeliveryAppContext);
 
   const clear = () => localStorage.clear();
-
   return (
     <header>
       {route === 'customer'
@@ -23,7 +22,7 @@ export default function Header() {
               PRODUTOS
             </button>
           </Link>)}
-      {route !== 'admin'
+      {route === 'seller'
         && (
           <Link to={ `/${route}/orders` }>
             <button
@@ -33,7 +32,7 @@ export default function Header() {
               MEUS PEDIDOS
             </button>
           </Link>)}
-      {route === 'admin'
+      {route === 'administrator'
         && (
           <button
             type="button"
