@@ -38,7 +38,8 @@
 
 .card_image img {
   height: 175px;
-  width: 175px;
+  object-fit: cover;
+  width: 95px;
 }
 
 .card_bottom {
