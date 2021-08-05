@@ -22,11 +22,13 @@ function CustomerOrderDetailsHeader({ id, seller, date, status }) {
         { new Date(date).toLocaleString('pt-br')}
       </span>
       <span data-testid={ statusTest }>{ status }</span>
-      <span
+      <button
+        type="button"
+        disabled={ status === 'Pendente' }
         data-testid="customer_order_details__button-delivery-check"
       >
         Marcar como entregue
-      </span>
+      </button>
     </header>
   );
 }
