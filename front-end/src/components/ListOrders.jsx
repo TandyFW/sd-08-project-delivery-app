@@ -1,39 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Order from './Order';
 
-function ListOrders() {
-  const prefix = 'customer_products__';
-  const orders = [
-    {
-      id: '1',
-      deliveryStatus: 'PENDENTE',
-      date: '10/04/2021',
-      price: '35,80',
-    },
-    {
-      id: '2',
-      deliveryStatus: 'ENTREGUE',
-      date: '11/04/2021',
-      price: '35,80',
-    },
-    {
-      id: '3',
-      deliveryStatus: 'PENDENTE',
-      date: '12/04/2021',
-      price: '35,80',
-    },
-    {
-      id: '4',
-      deliveryStatus: 'PENDENTE',
-      date: '15/04/2021',
-      price: '35,80',
-    },
-  ];
+function ListOrders(props) {
+  const { orders, prefix, isSeller } = props;
   return (
     <>
-      {orders.map((order) => <Order key={ order.id } { ...order } prefix={ prefix } />)}
+      {orders.map((order) => (<Order
+        key={ order.id }
+        { ...order }
+        isSeller={ isSeller }
+        prefix={ prefix }
+      />))}
     </>
   );
 }
+
+ListOrders.propTypes = {
+  orders: PropTypes.arrayOf.isRequired,
+  prefix: PropTypes.string.isRequired,
+  isSeller: PropTypes.bool.isRequired,
+};
 
 export default ListOrders;

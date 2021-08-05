@@ -1,7 +1,7 @@
 const { validateToken } = require('../auth/jwt');
 
 const validateUserToken = async (req, res, next) => {
-  const { authorizartion: token } = req.headers;
+  const { authorization: token } = req.headers;
   try {
     const decoded = validateToken(token);
     req.user = decoded;

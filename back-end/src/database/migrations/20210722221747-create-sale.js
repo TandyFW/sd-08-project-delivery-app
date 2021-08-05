@@ -13,6 +13,7 @@ module.exports = {
         allowNull: false,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
+        field: 'user_id',
         references: {
         model: 'users',
         key: 'id',
@@ -24,6 +25,7 @@ module.exports = {
         allowNull: false,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
+        field: 'seller_id',
         references: {
         model: 'users',
         key: 'id',
@@ -38,7 +40,7 @@ module.exports = {
     deliveryAddress: {
       type: Sequelize.STRING(100),
       allowNull: false,
-      field: ''
+      field: 'delivery_address'
     },
     deliveryNumber: {
       type: Sequelize.STRING(50),

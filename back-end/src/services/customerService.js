@@ -1,7 +1,8 @@
 const { sale } = require('../database/models');
 
 const getAllOrdersByCustomer = async (id) => {
-  const ordersCustomer = await sale.findOne({ where: { UserId: id } });
+  const customerId = 'user_id';
+  const ordersCustomer = await sale.findAll({ where: { [customerId]: id } });
   return ordersCustomer;
 };
 

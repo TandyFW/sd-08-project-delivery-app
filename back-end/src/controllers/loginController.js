@@ -12,12 +12,10 @@ const login = async (req, res) => {
 try {
 const { email, password } = req.body;
 const loginUser = await userService.loginUser({ email, password });
-// console.log(loginUser.toJSON());
 const { id, password: pass, ...infos } = loginUser.toJSON();
 const token = createToken({ id, infos });
-console.log('Test', rolePath[infos.role]);
 const redirectPath = rolePath[infos.role];
-return res.status(status.OK).json({ ...infos, token, redirectPath });
+return res.status(status.OK).json({ ...infos, id, token, redirectPath });
 } catch (error) {
 return res.status(status.NotFound).json({ message: error.message });
 }

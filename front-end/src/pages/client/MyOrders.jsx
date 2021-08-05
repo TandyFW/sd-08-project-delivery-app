@@ -1,24 +1,42 @@
-import React from 'react';
-// import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import NavBar from '../../components/NavBar';
 import ListOrders from '../../components/ListOrders';
 
 function MyOrders() {
-  // const Orders = async () => {
-  //   try {
-  //     const ordersCustomer = await axios({
-  //       method: 'GET',
-  //       url: 'http://localhost:3001/customer/orders',
-  //       headers: { 'Content-Type': 'application/json' },
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const [ordersCustomer, setOrdersCustomer] = useState([]);
+  const prefix = 'customer_orders__';
+  const isSeller = false;
+  const getOrders = async () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const config = {
+      method: 'get',
+      url: `http://localhost:3001/customers/${user.id}/orders`,
+      headers: {
+        authorization: user.token,
+      },
+    };
+    axios(config)
+      .then((response) => {
+        console.log(response.data);
+        setOrdersCustomer(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    getOrders();
+  }, []);
+
   return (
     <>
       <NavBar />
-      <ListOrders />
+      <ListOrders
+        orders={ ordersCustomer || [] }
+        prefix={ prefix }
+        isSeller={ isSeller }
+      />
     </>
   );
 }

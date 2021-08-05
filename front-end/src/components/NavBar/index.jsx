@@ -25,13 +25,13 @@ function NavBar() {
   const headerButtons = navButtonsData[currentPathName];
   const classes = useStyles();
 
-  const pageRole = location.pathname.split('/')[1];
+  // const pageRole = location.pathname.split('/')[1];
   // const localStorageName = async () => {
   //   const user = await localStorage.getItem('user');
   //   return user ? JSON.parse(user).name : '';
   // };
   // const [user, setUser] = useState('');
-  console.log(pageRole);
+  // console.log(pageRole);
 
   const clearLocalStorage = async () => {
     await localStorage.removeItem('user');
