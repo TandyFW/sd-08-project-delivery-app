@@ -56,3 +56,18 @@ export const fetchSaleById = async (id, token) => {
     console.log(error);
   }
 };
+
+export const updateSaleStatus = async (id, statusObj, token) => {
+  try {
+    const { data } = await axios.put(`http://localhost:3001/customer/orders/${id}`,
+      statusObj,
+      {
+        headers: {
+          authorization: token,
+        },
+      });
+    return data;
+  } catch (error) {
+    console.log('Error on updateSaleStatus: ', error);
+  }
+};

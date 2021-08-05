@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { loadState } from '../services/LocalStorage';
 import { fetchSaleById } from '../services/Api';
-import Navbar from '../components/Navbar';
+import NavbarSeller from '../components/NavbarSeller';
 import OrderTableHead from '../components/OrderTableHead';
 import OrderDetailsHeader from '../components/OrderDetailsHeader';
 import OrderTableRow from '../components/OrderTableRow';
@@ -23,7 +23,7 @@ function CustomerOrderDetails({ match }) {
   return (
     <>
       { console.log('order', order) }
-      <Navbar name={ user.name } />
+      <NavbarSeller nome={ user.name } />
       <h3>Detalhes do Pedido</h3>
       { order
         && (

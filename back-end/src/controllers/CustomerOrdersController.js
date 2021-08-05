@@ -12,4 +12,15 @@ const getOrderById = async (req, res) => {
   return res.status(200).json(order);
 };
 
-module.exports = { getAllUserOrders, getOrderById };
+const updateOrderStatus = async (req, res) => {
+  const { id } = req.params;
+  const statusObject = req.body;
+  try {
+    const updatedOrder = OrderService.updateOrderStatus(id, statusObject);
+    return res.status(202).json(updatedOrder);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
+module.exports = { getAllUserOrders, getOrderById, updateOrderStatus };
