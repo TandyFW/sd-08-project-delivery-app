@@ -7,15 +7,31 @@
 }
 
 .order-detail-status {
-  border-radius: 10px;
+  align-items: center;
+  background-color: thistle;
+  border-radius: 5px;
   display: flex;
   justify-content: space-between;
-  padding: 10px;
-  width: 70vw;
+  margin: 5px 0;
+  padding: 5px;
+  width: 80vw;
+}
+
+.order-detail-status p {
+  margin: 0;
 }
 
 .order-detail-button {
   font-size: small;
+}
+
+.status-label {
+  align-items: center;
+  border-radius: 5px;
+  display: flex;
+  height: 50px;
+  justify-content: center;
+  width: 100px;
 }
 
 .pendente {

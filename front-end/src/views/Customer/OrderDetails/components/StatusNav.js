@@ -56,7 +56,7 @@ function StatusNav({ orderData }) {
               ? saleDate.slice(0, TEN).split('-').reverse().join('/') : null}
           </p>
           <p
-            className={ statusColor() }
+            className={ `status-label ${statusColor()}` }
             data-testid={ testIdData.deliveryStatus }
           >
             {status}
