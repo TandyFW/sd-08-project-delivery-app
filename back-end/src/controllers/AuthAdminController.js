@@ -12,10 +12,9 @@ module.exports = async (req, res, next) => {
     const decoded = jwt.verify(token, secret);
     const user = await findByEmail(decoded.data.email);
 
-    if (!user) {
-      return res.status(403).json({ message: 'Expired or invalid token' });
+    if (user.dataValues.role !== 'administrator') {
+      return res.status(403).json({ message: 'Unauthorized' });
     }
-    req.user = { id: user.id, ...decoded.data };
     next();
   } catch (error) {
     console.log('error:', error);

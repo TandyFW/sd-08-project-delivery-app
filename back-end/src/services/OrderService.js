@@ -8,6 +8,7 @@ const getUserOrders = async (userId) => {
 const getOrderById = async (id) => {
   const order = await Sales.findByPk(id, { include: [
     { model: User, as: 'seller', attributes: { exclude: ['password'] } },
+    // { model: Products, as: 'products' },
   ] });
 
   return order;
