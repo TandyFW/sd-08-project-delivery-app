@@ -8,6 +8,7 @@ import Register from './pages/Register';
 import './App.css';
 import Products from './pages/Products';
 import OrderDetails from './pages/OrderDetails';
+import Manager from './pages/Manager';
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
       <Route exact path="/seller/orders" component={ Orders } />
       <Route exact path="/seller/orders/:id" component={ OrderDetails } />
       {/* <Route exact path="/confirmation" component={Confirmation} /> */}
-      {/* <Route exact path="/admin/manage" component={Manager} /> */}
+      <Route exact path="/admin/manage" component={ Manager } />
       {/* <Route component={NotFound} /> */}
     </Switch>
   );
