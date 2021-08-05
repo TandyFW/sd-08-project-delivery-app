@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-const cors = require("cors");
-const express = require("express");
-
-const port = process.env.PORT || 3001;
-const app = require("./app");
-const routes = require("./router/routes");
-=======
 require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
@@ -16,7 +8,6 @@ const port = process.env.PORT || 3001;
 const socketPort = process.env.SOCKET_PORT || 3002;
 const app = require('./app');
 const routes = require('./router/routes');
->>>>>>> 36fba867f16ad7c8b6635f5f2b4309571ba6c9a3
 
 app.use(express.json());
 
@@ -24,13 +15,10 @@ app.use(express.static(`${__dirname}/../../public`));
 
 app.use(cors());
 
-app.use("/delivery", routes);
+app.use('/delivery', routes);
 
 app.listen(port, () => console.log(`Api rodando na porta ${port}`));
 
-<<<<<<< HEAD
-module.exports = app;
-=======
 const server = http.createServer(app);
 
 const io = socketio(server, {
@@ -53,4 +41,3 @@ io.on('connection', (socket) => {
 
 server.listen(socketPort, 'localhost',
   () => console.log(`Socket aberto na porta ${socketPort}`));
->>>>>>> 36fba867f16ad7c8b6635f5f2b4309571ba6c9a3
