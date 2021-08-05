@@ -1,16 +1,20 @@
 import md5 from 'md5';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 // import PropTypes from 'prop-types';
+import administradorRegister from '../services/administradorRegister';
 import Table from './Table';
 import { HEADING_MANAGER_DETAILS } from '../utils/Lists';
+import DeliveryAppContext from '../context/DeliveryAppContext';
 import { emailVerify } from '../utils/functions';
 
 export default function ManageDetails() {
+  const { user } = useContext(DeliveryAppContext);
   const [isValid, setIsValid] = useState(false);
   const [currentName, setCurrentName] = useState('');
   const [currentEmail, setCurrentEmail] = useState('');
   const [currentPassword, setEncryptPassword] = useState('');
   const [currentSelect, setCurrentSelect] = useState('');
+  const [showMessage, setShowMessage] = useState(false);
   const DATA_TESTID_PREFIX = 'admin_manage__';
 
   const validation = () => {
@@ -39,7 +43,27 @@ export default function ManageDetails() {
 
   const selectType = () => {
     const currentType = document.querySelector('#type').value;
+    console.log(currentType);
     setCurrentSelect(currentType);
+  };
+
+  const register = async (e) => {
+    e.preventDefault();
+    try {
+      const newRegister = await administradorRegister({
+        name: currentName,
+        email: currentEmail,
+        password: currentPassword,
+        role: currentSelect,
+        token: user.token,
+      });
+
+      if (newRegister) {
+        setShowMessage(false);
+      }
+    } catch (err) {
+      setShowMessage(true);
+    }
   };
 
   return (
@@ -95,19 +119,14 @@ export default function ManageDetails() {
           >
             <option
               className="option-type"
-              value=""
-            >
-              .
-            </option>
-            <option
-              className="option-type"
               value="customer"
+              defaultValue="customer"
             >
               Cliente
             </option>
             <option
               className="option-type"
-              value="seler"
+              value="seller"
             >
               Vendedor
             </option>
@@ -123,14 +142,20 @@ export default function ManageDetails() {
           type="button"
           className="btn-confirm-delivery"
           disabled={ !isValid }
-          onClick={
-            console.log(currentName, currentEmail, currentPassword, currentSelect)
-          }
+          onClick={ (e) => register(e) }
           data-testid={ `${DATA_TESTID_PREFIX}button-register` }
         >
           CADASTRAR
         </button>
       </div>
+      {showMessage
+        && (
+          <p
+            className="error-message"
+            data-testid={ `${DATA_TESTID_PREFIX}invalid-register` }
+          >
+            Usuário já cadastrado.
+          </p>)}
       <h2 className="title-2">
         Lista de usuários
       </h2>
