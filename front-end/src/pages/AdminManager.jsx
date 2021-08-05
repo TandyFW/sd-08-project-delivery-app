@@ -155,7 +155,7 @@ const AdminManager = () => {
               <UserList
                 key={ user.id }
                 id={ user.id }
-                index={ index + (1).toString() }
+                index={ index + 1 }
                 name={ user.name }
                 email={ user.email }
                 userType={ convertRole(user.role) }
