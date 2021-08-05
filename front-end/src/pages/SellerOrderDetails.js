@@ -8,14 +8,13 @@ import OrderTableHead from '../components/OrderTableHead';
 import OrderDetailsHeader from '../components/OrderDetailsHeader';
 import OrderTableRow from '../components/OrderTableRow';
 
-function CustomerOrderDetails({ match }) {
+function SellerOrderDetails({ match }) {
   const [order, setOrder] = useState(undefined);
   const { id } = match.params;
   const user = loadState('user');
 
   const getOrder = async () => {
     const fetchedOrder = await fetchSaleById(id, user.token);
-    console.log('fetchedOrder', fetchedOrder);
     setOrder(fetchedOrder);
   };
 
@@ -23,11 +22,11 @@ function CustomerOrderDetails({ match }) {
 
   return (
     <>
-      { console.log('order', order) }
       <Navbar name={ user.name } />
       <h3>Detalhes do Pedido</h3>
-      { order
-        && <div className="order-details-container">
+      { !order
+        ? <h2>Carregando</h2>
+        : <div className="order-details-container">
           <OrderDetailsHeader
             order={ order }
             user={ user }
@@ -41,7 +40,7 @@ function CustomerOrderDetails({ match }) {
                 )) }
             </tbody>
           </table>
-          <p data-testid="customer_order_details__element-order-total-price">
+          <p data-testid="seller_order_details__element-order-total-price">
             {order.totalPrice.replace('.', ',')}
           </p>
         </div> }
@@ -49,7 +48,7 @@ function CustomerOrderDetails({ match }) {
   );
 }
 
-CustomerOrderDetails.propTypes = {
+SellerOrderDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
@@ -57,4 +56,4 @@ CustomerOrderDetails.propTypes = {
   }).isRequired,
 }.isRequired;
 
-export default CustomerOrderDetails;
+export default SellerOrderDetails;

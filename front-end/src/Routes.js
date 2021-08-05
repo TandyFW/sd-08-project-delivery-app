@@ -10,14 +10,12 @@ import CartContextProvider from './components/CartContextProvider';
 import OrderContextProvider from './components/OrderContextProvider';
 import CustomerOrderDetails from './pages/CustomerOrderDetails';
 import SellerProduct from './pages/SellerProduct';
-import SellerOrderById from './pages/SellerOrderById';
+import SellerOrderDetails from './pages/SellerOrderDetails';
 
 function Routes() {
   return (
     <Switch>
-      <Route path="/seller/orders/:id">
-        <SellerOrderById />
-      </Route>
+      <Route path="/seller/orders/:id" component={ SellerOrderDetails } />
       <Route path="/seller/orders" component={ SellerProduct } />
       <Route path="/register" component={ Register } />
       <Route path="/customer/orders/:id" component={ CustomerOrderDetails } />

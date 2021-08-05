@@ -1,32 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { loadState } from '../services/LocalStorage';
 
 function OrderTableRow({ product, index }) {
   const { name, price, SalesProducts } = product;
+  const { role } = loadState('user');
   return (
     <tr>
       <td
-        data-testid={ `customer_order_details__element-order-table-item-number-${index}` }
+        data-testid={ `${role}_order_details__element-order-table-item-number-${index}` }
       >
         1
       </td>
       <td
-        data-testid={ `customer_order_details__element-order-table-name-${index}` }
+        data-testid={ `${role}_order_details__element-order-table-name-${index}` }
       >
         { name }
       </td>
       <td
-        data-testid="customer_order_details__element-order-table-quantity-<index>"
+        data-testid={ `${role}_order_details__element-order-table-quantity-<index>` }
       >
         { SalesProducts.quantity }
       </td>
       <td
-        data-testid="customer_order_details__element-order-table-sub-total-<index>"
+        data-testid={ `${role}_order_details__element-order-table-sub-total-<index>` }
       >
         {`R$${price.replace('.', ',')}`}
       </td>
       <td
-        data-testid="customer_order_details__element-order-total-price-<index>"
+        data-testid={ `${role}_order_details__element-order-total-price-<index>` }
       >
         {`R$${parseFloat(SalesProducts.quantity) * parseFloat(price)}`}
       </td>
@@ -39,7 +41,7 @@ OrderTableRow.propTypes = {
     name: PropTypes.string.isRequired,
     price: PropTypes.string.isRequired,
     SalesProducts: PropTypes.shape({
-      quantity: PropTypes.string.isRequired,
+      quantity: PropTypes.number.isRequired,
     }).isRequired,
   }).isRequired,
   index: PropTypes.number.isRequired,
