@@ -12,6 +12,7 @@ const authorizationMid = async (req, res, next) => {
     validateToken(authorization);
     next();
   } catch (err) {
+    console.log('____Got an error_____');
     return res.status(status.Conflict).json({ message: err.message });
   }
 };
