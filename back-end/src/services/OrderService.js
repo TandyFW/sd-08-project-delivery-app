@@ -14,8 +14,10 @@ const getOrderById = async (id) => {
   return order;
 };
 
-const updateOrderStatus = async (id, obj) => {
-  const updatedOrder = await Sales.update(obj, { where: { id } });
+const updateOrderStatus = async (id, newStatusObj) => {
+  console.log('order service id: ', id);
+  console.log('order service statusObj', newStatusObj);
+  const updatedOrder = await Sales.update(newStatusObj, { where: { id } });
   return updatedOrder;
 }
 
