@@ -27,19 +27,39 @@ function OrderCard({ data }) {
     <div className="main-wrapper-order">
       <div className="order-number">
         <p>Pedido</p>
-        <p>{data.id}</p>
+        <p
+          data-testid={ `customer_orders__element-order-id-${data.id}` }
+        >
+          {data.id}
+        </p>
       </div>
       <div className="half-data">
         <div className="half-data-status">
-          <p className={ statusColor() }>{status}</p>
+          <p
+            data-testid={ `customer_orders__element-delivery-status-${data.id}` }
+            className={ statusColor() }
+          >
+            {status}
+          </p>
           <div className="date-valor">
-            <p className="date">
+            <p
+              data-testid={ `customer_orders__element-order-date-${data.id}` }
+              className="date"
+            >
               {data.saleDate.slice(0, TEN).split('-').reverse().join('/')}
             </p>
-            <p>{data.totalPrice.replace('.', ',')}</p>
+            <p
+              data-testid={ `customer_orders__element-card-price-${data.id}` }
+            >
+              {data.totalPrice.replace('.', ',')}
+            </p>
           </div>
         </div>
-        <p>{`${data.deliveryAddress}, ${data.deliveryNumber}`}</p>
+        <p
+          data-testid={ `customer_orders__element-card-address-${data.id}` }
+        >
+          {`${data.deliveryAddress}, ${data.deliveryNumber}`}
+        </p>
       </div>
     </div>
   );
