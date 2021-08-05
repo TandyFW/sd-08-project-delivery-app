@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id'
       }
     },
-    quantity: DataTypes.STRING
+    quantity: DataTypes.INTEGER
   },
   {
     timestamps: false,
