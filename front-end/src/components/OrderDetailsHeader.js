@@ -8,10 +8,10 @@ function OrderDetailsHeader({ order, user }) {
   const { role, token } = user;
   const statusId = '_order_details__element-order-details-label-delivery-status';
   const sellerNameId = '_order_details__element-order-details-label-seller-name';
-
-  const handleClick = async (statusObj) => {
-    await updateSaleStatus(id, statusObj, token);
-  };
+  const EM_TRANSITO = 'Em Trânsito';
+  // const handleClick = async (statusObj) => {
+  //   await updateSaleStatus(id, statusObj, token);
+  // };
   return (
     <header>
       <span
@@ -41,9 +41,10 @@ function OrderDetailsHeader({ order, user }) {
         && (
           <button
             type="button"
-            disabled={ status === 'Pendente' }
+            disabled={ status === 'Pendente'
+              || status === 'Entregue' || status === 'Preparando' }
             data-testid={ `${role}_order_details__button-delivery-check` }
-            onClick={ handleClick({ status: 'Entregue' }) }
+            onClick={ () => updateSaleStatus(id, { status: 'Entregue' }, token) }
           >
             Marcar como entregue
           </button>) }
@@ -51,9 +52,10 @@ function OrderDetailsHeader({ order, user }) {
         && (
           <button
             type="button"
-            disabled={ status === 'Preparando' || status === 'Entregue' }
+            disabled={ status === 'Preparando'
+              || status === 'Entregue' || status === EM_TRANSITO }
             data-testid={ `${role}_order_details__button-preparing-check` }
-            onClick={ handleClick({ status: 'Preparando' }) }
+            onClick={ () => updateSaleStatus(id, { status: 'Preparando' }, token) }
           >
             Preparar pedido
           </button>) }
@@ -61,9 +63,13 @@ function OrderDetailsHeader({ order, user }) {
         && (
           <button
             type="button"
-            disabled={ status === 'Pendente' || status === 'Entregue' }
+            disabled={
+              status === 'Pendente'
+              || status === 'Entregue'
+              || status === EM_TRANSITO
+            }
             data-testid={ `${role}_order_details__button-dispatch-check` }
-            onClick={ handleClick({ status: 'Em transito' }) }
+            onClick={ () => updateSaleStatus(id, { status: EM_TRANSITO }, token) }
           >
             Saiu para entrega
           </button>) }
