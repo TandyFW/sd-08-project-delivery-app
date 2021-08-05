@@ -51,7 +51,7 @@ function OrderCard({ data }) {
             <p
               data-testid={ `customer_orders__element-card-price-${data.id}` }
             >
-              {data.totalPrice.replace('.', ',')}
+              {`R$ ${data.totalPrice.replace('.', ',')}`}
             </p>
           </div>
         </div>

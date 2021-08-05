@@ -3,12 +3,13 @@
   border-radius: 3px;
   display: flex;
   margin-top: 10px;
+  width: 30vw;
 }
 
 .order-number {
   display: flex;
   flex-direction: column;
-  width: 100px;
+  width: 30%;
 }
 
 .order-number p {
@@ -20,10 +21,12 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  width: 70%;
 }
 
 .half-data-status {
   display: flex;
+  width: 100%;
 }
 
 .half-data-status p {
@@ -47,7 +50,7 @@
   background-color: rgba(242, 255, 252, 0.75);
   border-radius: 5px;
   height: 30px;
-  width: 100px;
+  width: 100%;
 }
 
 .half-data p {
