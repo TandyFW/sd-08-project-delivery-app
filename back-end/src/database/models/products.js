@@ -5,6 +5,15 @@ const Products = (sequelize, DataTypes) => {
     urlImage: DataTypes.STRING,
   }, { underscored: true, tableName: 'products', timestamps: false});
 
+  Products.associate = (models) => {
+    Products.belongsToMany(models.Sales, {
+      as: 'sales',
+      through: models.SalesProducts,
+      foreignKey: 'productId',
+      otherKey: 'saleId'
+    })
+  };
+
   return Products;
 };
 
