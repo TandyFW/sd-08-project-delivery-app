@@ -1,11 +1,9 @@
-/* eslint-disable react/jsx-closing-tag-location */
 import React from 'react';
 import PropTypes from 'prop-types';
 
 function OrderDetailsHeader({ order, user }) {
   const { id, saleDate, status } = order;
   const { role } = user;
-  const element = 'element-order-details-label-delivery-status';
   return (
     <header>
       <span
@@ -14,46 +12,52 @@ function OrderDetailsHeader({ order, user }) {
         { `Pedido ${id}` }
       </span>
       { role === 'customer'
-        && <span
-          data-testid={ `${role}_order_details__element-order-details-label-seller-name` }
-        >
-          {`P. Vend: ${order.seller.name}`}
-        </span> }
+        && (
+          <span
+            data-testid={ `${role}_order_details__
+            element-order-details-label-seller-name` }
+          >
+            {`P. Vend: ${order.seller.name}`}
+          </span>) }
       <span
         data-testid={ `${role}_order_details__element-order-details-label-order-date` }
       >
         { new Date(saleDate).toLocaleString('pt-br')}
       </span>
       <span
-        data-testid={ `${role}_order_details__${element}` }
+        data-testid={ `${role}_order_details__
+        element-order-details-label-delivery-status` }
       >
         { status }
       </span>
 
       { role === 'customer'
-        && <button
-          type="button"
-          disabled={ status === 'Pendente' }
-          data-testid={ `${role}_order_details__button-delivery-check` }
-        >
-          Marcar como entregue
-        </button> }
+        && (
+          <button
+            type="button"
+            disabled={ status === 'Pendente' }
+            data-testid={ `${role}_order_details__button-delivery-check` }
+          >
+            Marcar como entregue
+          </button>) }
       { role === 'seller'
-        && <button
-          type="button"
-          disabled={ status === 'Preparando' || status === 'Entregue' }
-          data-testid={ `${role}_order_details__button-preparing-check` }
-        >
-          Preparar pedido
-        </button> }
+        && (
+          <button
+            type="button"
+            disabled={ status === 'Preparando' || status === 'Entregue' }
+            data-testid={ `${role}_order_details__button-preparing-check` }
+          >
+            Preparar pedido
+          </button>) }
       { role === 'seller'
-        && <button
-          type="button"
-          disabled={ status === 'Pendente' || status === 'Entregue' }
-          data-testid={ `${role}_order_details__button-dispatch-check` }
-        >
-          Saiu para entrega
-        </button> }
+        && (
+          <button
+            type="button"
+            disabled={ status === 'Pendente' || status === 'Entregue' }
+            data-testid={ `${role}_order_details__button-dispatch-check` }
+          >
+            Saiu para entrega
+          </button>) }
     </header>
   );
 }

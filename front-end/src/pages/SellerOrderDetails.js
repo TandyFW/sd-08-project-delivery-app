@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-closing-tag-location */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { loadState } from '../services/LocalStorage';
@@ -24,26 +23,30 @@ function SellerOrderDetails({ match }) {
     <>
       <Navbar name={ user.name } />
       <h3>Detalhes do Pedido</h3>
-      { !order
-        ? <h2>Carregando</h2>
-        : <div className="order-details-container">
-          <OrderDetailsHeader
-            order={ order }
-            user={ user }
-          />
-          <table>
-            <OrderTableHead />
-            <tbody>
-              { order.products
-                .map((product, index) => (
-                  <OrderTableRow key={ product.id } product={ product } index={ index } />
-                )) }
-            </tbody>
-          </table>
-          <p data-testid="seller_order_details__element-order-total-price">
-            {order.totalPrice.replace('.', ',')}
-          </p>
-        </div> }
+      { order
+        && (
+          <div className="order-details-container">
+            <OrderDetailsHeader
+              order={ order }
+              user={ user }
+            />
+            <table>
+              <OrderTableHead />
+              <tbody>
+                { order.products
+                  .map((product, index) => (
+                    <OrderTableRow
+                      key={ product.id }
+                      product={ product }
+                      index={ index }
+                    />
+                  )) }
+              </tbody>
+            </table>
+            <p data-testid="seller_order_details__element-order-total-price">
+              {order.totalPrice.replace('.', ',')}
+            </p>
+          </div>) }
     </>
   );
 }
