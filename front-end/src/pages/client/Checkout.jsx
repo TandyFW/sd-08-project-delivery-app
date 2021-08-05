@@ -12,7 +12,7 @@ function Checkout() {
   const [addressNumber, setAddressNumber] = useState('');
   const [sellers, setSellers] = useState([]);
   const [selectedSellers, setSelectedSellers] = useState();
-  const { cartTotal } = useContext(Context);
+  const { cartTotal, cart } = useContext(Context);
   const history = useHistory();
 
   const fetchSellers = async () => {
@@ -33,12 +33,22 @@ function Checkout() {
   const { token } = JSON.parse(localStorage.getItem('user'));
 
   const fetchSale = async () => {
+    const cartProducts = cart.value
+      .filter(({ quantity }) => quantity > 0)
+      .map(({ id: productId, quantity }) => ({ productId, quantity }));
+    console.log('CART_PRODUCTS', cartProducts);
     try {
       const sale = await axios({
         method: 'POST',
         url: 'http://localhost:3001/sales',
         headers: { 'Content-Type': 'application/json', authorization: token },
-        data: { totalPrice: price, address, addressNumber, name: userName },
+        data: {
+          totalPrice: price,
+          address,
+          addressNumber,
+          name: userName,
+          products: JSON.stringify(cartProducts),
+        },
       });
       console.log('teste', sale);
       const { id } = sale.data;

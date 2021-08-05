@@ -5,7 +5,7 @@ const saleProduct = (sequelize, DataTypes) => {
     timestamps: false,
       underscored: true,
       // para indicar que as referências de campos e tabelas são em snake_case 
-      tableName: 'saleProducts', 
+      tableName: 'salesProducts', 
       // para que o sequelize não busque por uma tabela 'minha_tabela'
     });
 
