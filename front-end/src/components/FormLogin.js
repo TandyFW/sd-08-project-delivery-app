@@ -30,11 +30,45 @@ export default function FormLogin() {
     }
   };
 
+  const redirectUser = () => {
+    const userLocalStorage = JSON.parse(localStorage.getItem('user'));
+
+    if (userLocalStorage) {
+      switch (userLocalStorage.role) {
+      case 'customer':
+        return setURL('/customer/products');
+      case 'seller':
+        return setURL('/seller/orders');
+      case 'admin':
+        return setURL('/admin/manage');
+      default:
+        break;
+      }
+    }
+  };
+
+  const setStorage = (user) => {
+    const { name, email, role, token, id } = user;
+
+    const storge = {
+      id,
+      name,
+      email,
+      role,
+      token,
+    };
+
+    localStorage.setItem('user', JSON.stringify(storge));
+  };
+
   const redirectToggle = () => {
     if (URL.length) setRedirect(true);
   };
 
-  useEffect(() => redirectToggle(), [URL]);
+  useEffect(() => {
+    redirectToggle();
+    redirectUser();
+  }, [URL]);
 
   const login = async (e) => {
     e.preventDefault();
@@ -42,6 +76,7 @@ export default function FormLogin() {
 
     if (user) {
       setUser(user);
+      setStorage(user);
       setShowMessage(false);
       switch (user.role) {
       case 'customer':

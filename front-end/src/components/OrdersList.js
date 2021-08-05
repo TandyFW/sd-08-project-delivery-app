@@ -4,13 +4,27 @@ import DeliveryAppContext from '../context/DeliveryAppContext';
 import fetchOrders from '../services/fetchOrders';
 
 export default function OrdersList() {
-  const { route } = useContext(DeliveryAppContext);
+  const { route, userId } = useContext(DeliveryAppContext);
   const [ordersList, setOrdersList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const SLICE_INDEX_ZERO = 0;
+  const SLICE_INDEX_FOUR = 4;
+  const SLICE_INDEX_FIVE = 5;
+  const SLICE_INDEX_SEVEN = 7;
+  const SLICE_INDEX_EIGHT = 8;
+  const SLICE_INDEX_TEN = 10;
+
   const getOrders = async () => {
-    const data = await fetchOrders(route);
-    setOrdersList(data);
+    const data = await fetchOrders(route, userId);
+    const newData = data.map((sale) => {
+      const day = sale.saleDate.slice(SLICE_INDEX_EIGHT, SLICE_INDEX_TEN);
+      const month = sale.saleDate.slice(SLICE_INDEX_FIVE, SLICE_INDEX_SEVEN);
+      const year = sale.saleDate.slice(SLICE_INDEX_ZERO, SLICE_INDEX_FOUR);
+      const newDate = `${day}/${month}/${year}`;
+      return { ...sale, saleDate: newDate };
+    });
+    setOrdersList(newData);
   };
 
   const setLoadingMessage = () => {
@@ -27,7 +41,7 @@ export default function OrdersList() {
     <section className="orders-container">
       {ordersList.map((order, index) => (
         <div className="order-card" key={ index }>
-          <Link to={ `/${route}/order/${order.id}` }>
+          <Link to={ `/${route}/orders/${order.id}` }>
             <div
               className="order-id"
               data-testid={ `${route}_orders__element-order-id-${order.id}` }
@@ -45,18 +59,18 @@ export default function OrdersList() {
                 className="order-date"
                 data-testid={ `${route}_orders__element-order-date-${order.id}` }
               >
-                { order.salesDate }
+                { order.saleDate }
               </div>
               <div
                 className="order-card-price"
-                data-testid={ `${route}_orders__element-card-price-${order.totalPrice}` }
+                data-testid={ `${route}_orders__element-card-price-${index + 1}` }
               >
-                { order.totalPrice }
+                { order.totalPrice.replace('.', ',') }
               </div>
               {route === 'seller'
               && (
                 <div className="order-card-address">
-                  <p data-testid={ `seller_orders__element-card-address-${id}` }>
+                  <p data-testid={ `seller_orders__element-card-address-${order.id}` }>
                     { `${order.deliveryAddress},${order.deliveryNumber}` }
                   </p>
                 </div>

@@ -1,7 +1,6 @@
 const axios = require('axios');
 
 const fetchOrderDetails = (id) => {
-  console.log(id);
   const orders = axios.get(`http://localhost:3001/orders/${id}`)
     .then((response) => {
       const { data } = response;

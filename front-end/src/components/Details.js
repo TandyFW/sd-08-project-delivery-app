@@ -6,16 +6,16 @@ import { HEADING_LIST_DETAILS } from '../utils/Lists';
 import fetchOrderDetails from '../services/fetchOrderDetails';
 
 export default function Details() {
-  const { sellers, orderStatus, setOrderStatus } = useContext(DeliveryAppContext);
+  const { setOrderStatus, route } = useContext(DeliveryAppContext);
   const [sellerName, setSellerName] = useState('');
   const [orderDate, setOrderDate] = useState('');
   const [order, setOrder] = useState({});
+  const [total, setTotal] = useState(0);
 
-  const getSellerName = () => {
-    const { sellerId } = order;
-    const currentSellerName = sellers.filter((seller) => seller.sellerId === sellerId);
-    setSellerName(currentSellerName[0]);
-  };
+  // const getSellerName = () => {
+  //   const { userSeller } = order;
+  //   setSellerName(userSeller.name);
+  // };
 
   const SLICE_INDEX_ZERO = 0;
   const SLICE_INDEX_FOUR = 4;
@@ -23,14 +23,19 @@ export default function Details() {
   const SLICE_INDEX_SEVEN = 7;
   const SLICE_INDEX_EIGHT = 8;
   const SLICE_INDEX_TEN = 10;
-  const DATA_TESTID_PREFIX = 'customer_order_details__';
+  const DATA_TESTID_PREFIX = `${route}_order_details__`;
 
   const formatDate = () => {
-    if (order.salesDate !== undefined) {
-      const { salesDate } = order;
-      const day = salesDate.slice(SLICE_INDEX_EIGHT, SLICE_INDEX_TEN);
-      const month = salesDate.slice(SLICE_INDEX_FIVE, SLICE_INDEX_SEVEN);
-      const year = salesDate.slice(SLICE_INDEX_ZERO, SLICE_INDEX_FOUR);
+    console.log(order);
+    if (order.saleDate !== undefined) {
+      const { saleDate, userSeller, totalPrice } = order;
+
+      setTotal(totalPrice.replace('.', ','));
+      setSellerName(userSeller.name);
+
+      const day = saleDate.slice(SLICE_INDEX_EIGHT, SLICE_INDEX_TEN);
+      const month = saleDate.slice(SLICE_INDEX_FIVE, SLICE_INDEX_SEVEN);
+      const year = saleDate.slice(SLICE_INDEX_ZERO, SLICE_INDEX_FOUR);
       const newDate = `${day}/${month}/${year}`;
       setOrderDate(newDate);
     }
@@ -42,30 +47,25 @@ export default function Details() {
 
   const getOrder = async (id) => {
     const data = await fetchOrderDetails(id);
-    console.log(data[0]);
     setOrder(data[0]);
   };
 
   const getId = () => {
     const location = window.location.pathname;
-    console.log(location);
 
     const arrayLocation = location.split('/');
-    console.log(arrayLocation);
 
     const currentId = arrayLocation[3];
-    console.log(currentId);
-    console.log(typeof (currentId));
 
     getOrder(+currentId);
   };
 
+  useEffect(() => getId(), []);
+
   useEffect(() => {
-    getSellerName();
+    // getSellerName();
     formatDate();
   }, [order]);
-
-  useEffect(() => getId(), []);
 
   return (
     <section className="order-details-container">
@@ -97,21 +97,40 @@ export default function Details() {
             `${DATA_TESTID_PREFIX}element-order-details-label-delivery-status`
           }
         >
-          { orderStatus }
+          { order.status }
         </p>
+        {route === 'seller'
+              && (
+                <button
+                  data-testid="seller_order_details__button-preparing-check"
+                  type="button"
+                >
+                  PREPARAR PEDIDO
+                </button>
+              )}
         <button
           type="button"
           className="btn-confirm-delivery"
           onClick={ confirmDelivery }
-          data-testid={ `${DATA_TESTID_PREFIX}button-delivery-check` }
+          disabled="true"
+          data-testid={
+            route === 'customer'
+              ? `${DATA_TESTID_PREFIX}button-delivery-check`
+              : `${DATA_TESTID_PREFIX}button-dispatch-check`
+          }
         >
-          MARCAR COMO ENTREGUE
+          {route === 'seller' ? 'SAIU PARA ENTREGA' : 'MARCAR COMO ENTREGUE'}
         </button>
       </div>
       <Table
         heading={ HEADING_LIST_DETAILS }
         body={ order && order.products }
       />
+      <p
+        data-testid={ `${DATA_TESTID_PREFIX}element-order-total-price` }
+      >
+        { total }
+      </p>
     </section>
   );
 }
