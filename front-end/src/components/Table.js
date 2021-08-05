@@ -23,7 +23,7 @@ export default function Table({ heading, body = [] }) {
         </tr>
       </thead>
       <tbody>
-        {route === 'customer'
+        {(route === 'customer' || route === 'seller')
           && (
             body.map((row, index) => (
               <TableRow

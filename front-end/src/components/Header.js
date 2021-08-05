@@ -22,7 +22,7 @@ export default function Header() {
               PRODUTOS
             </button>
           </Link>)}
-      {route === 'seller'
+      {route !== 'administrator'
         && (
           <Link to={ `/${route}/orders` }>
             <button
