@@ -15,10 +15,8 @@ const getOrderById = async (id) => {
 };
 
 const updateOrderStatus = async (id, newStatusObj) => {
-  console.log('order service id: ', id);
-  console.log('order service statusObj', newStatusObj);
   const updatedOrder = await Sales.update(newStatusObj, { where: { id } });
   return updatedOrder;
-}
+};
 
 module.exports = { getUserOrders, getOrderById, updateOrderStatus };

@@ -13,17 +13,14 @@ const getOrderById = async (req, res) => {
 };
 
 const updateOrderStatus = async (req, res) => {
-  console.log('req.params0: ', req.params);
   const { id } = req.params;
   const statusObject = req.body;
-  console.log('id', id);
-  console.log('status obj', statusObject);
   try {
     const updatedOrder = OrderService.updateOrderStatus(id, statusObject);
     return res.status(202).json(updatedOrder);
   } catch (error) {
     return res.status(500).json(error);
   }
-}
+};
 
 module.exports = { getAllUserOrders, getOrderById, updateOrderStatus };
