@@ -1,18 +1,19 @@
+const sinon = require('sinon');
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 const Client = require("socket.io-client");
-const { assert } = require('chai');
-const sinon = require('sinon');
+const { expect } = require('chai');
 
 const { sale } = require('../../../database/models');
-const { saleCreateResponse, updatedOrderStatusResponse } = require('../../__mocks__/ordersMocks');
+const { saleByIdResponse } = require('../../__mocks__/ordersMocks')
 
 describe("Sockets", () => {
   let io, serverSocket, clientSocket;
 
-  before((done) => {
+  beforeEach((done) => {
     const httpServer = createServer();
     io = new Server(httpServer);
+    require('../../../api/sockets/orderStatus')(io);
     httpServer.listen(() => {
       const port = httpServer.address().port;
       clientSocket = new Client(`http://localhost:${port}`);
@@ -21,24 +22,54 @@ describe("Sockets", () => {
       });
       clientSocket.on("connect", done);
     });
-
-    sinon.stub(sale, 'findOne').resolves(saleCreateResponse);
-    sinon.stub(sale, 'update').resolves(updatedOrderStatusResponse);
   });
 
-  after(() => {
-    sale.findOne.restore()
+  afterEach(() => {
     io.close();
     clientSocket.close();
   });
 
-  it("setOrderStatus socket", (done) => {
-    clientSocket.on("setOrderStatus", (arg) => {
-      assert.equal(arg, { id: 1, status: 'Preparando' });
+  it("should send to server a msg to update an order status", (done) => {
+    sinon.stub(sale, 'update')
+      .resolves();
+    sinon.stub(sale, 'findOne')
+        .resolves(saleByIdResponse);
+
+    clientSocket.emit("setOrderStatus", { id: 1, status: 'Preparando' });
+
+    serverSocket.on("setOrderStatus", (args) => {
+      expect(args).to.include({ id: 1, status: 'Preparando' });
       done();
     });
-    serverSocket.emit("getUpdatedStatus", updatedOrderStatusResponse.status);
-    done();
+
+    serverSocket.emit("getUpdatedStatus",(args) => {
+      expect(args).to.equal(saleByIdResponse.status);
+      done();
+    });
+
+    sale.update.restore();
+    sale.findOne.restore();
   });
 
+  it("should get from server the updated order status", (done) => {
+    sinon.stub(sale, 'update')
+      .resolves();
+    sinon.stub(sale, 'findOne')
+        .resolves(saleByIdResponse);
+
+    clientSocket.emit("setOrderStatus", { id: 1, status: '' });
+
+    serverSocket.on("setOrderStatus", (args) => {
+      expect(args).to.include({ id: 1, status: '' });
+      done();
+    });
+
+    serverSocket.emit("getUpdatedStatus",(args) => {
+      expect(args).to.equal(saleByIdResponse.status);
+      done();
+    });
+
+    sale.update.restore();
+    sale.findOne.restore();
+  });
 });

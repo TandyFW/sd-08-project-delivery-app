@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './styles.css';
+import socketIOClient from 'socket.io-client';
 
 function OrderCard({ data }) {
+  const { id } = data;
+  const [status, setStatus] = useState();
+  console.log(data);
+  const ENDPOINT = 'http://localhost:3001';
+  const socket = socketIOClient(ENDPOINT);
   const TEN = 10;
+  useEffect(() => {
+    socket.emit('setOrderStatus', { id, status: '' });
+    socket.on('getUpdatedStatus', (statusFromBrack) => {
+      setStatus(statusFromBrack);
+    });
+  }, [socket, id]);
   function statusColor() {
     if (data.status === 'Pendente') {
       return 'pendente';
