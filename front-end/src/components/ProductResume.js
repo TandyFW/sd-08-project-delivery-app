@@ -1,74 +1,74 @@
-import styled from 'styled-components';
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import CartContext from '../context/CartContext';
+import productType from '../types/product';
+import {
+  Wrapper,
+  Id,
+  Name,
+  Quantity,
+  UnitPrice,
+  SubTotal,
+  RemoveButton,
+} from '../styles/components/ProductResume';
 
-const Wrapper = styled.div`
-  border-radius: 8px;
-  display: flex;
-  overflow: hidden;
+const ProductResume = ({ testId, index, product, quantity, removable }) => {
+  const { id, name, price } = product;
+  const { removeCartItem } = useContext(CartContext);
 
-  > * {
-    align-items: center;
-    display: flex;
-    flex-basis: 130px;
-    font-size: 1.5rem;
-    justify-content: center;
-    padding: 10px;
-  }
-`;
+  const renderRemoveButton = () => (
+    <RemoveButton
+      data-testid={ `${testId}__element-order-table-remove-${index}` }
+      onClick={ () => removeCartItem(id) }
+    >
+      Remover
+    </RemoveButton>
+  );
 
-const Id = styled.p`
-  background-color: ${({ theme }) => theme.colors.secondary};
-  flex-basis: 70px;
-  font-weight: 700;
-`;
+  return (
+    <Wrapper>
+      <Id data-testid={ `${testId}__element-order-table-item-number-${index}` }>
+        { index + 1 }
+      </Id>
 
-const Name = styled.p`
-  background-color: rgba(234, 241, 239, 1);
-  flex: 1;
-  justify-content: flex-start;
-  padding-left: 20px;
-`;
+      <Name data-testid={ `${testId}__element-order-table-name-${index}` }>
+        { name }
+      </Name>
 
-const Quantity = styled.p`
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.lightText};
-  font-weight: 700;
-`;
+      <Quantity data-testid={ `${testId}__element-order-table-quantity-${index}` }>
+        { quantity }
+      </Quantity>
 
-const UnitPrice = styled.p`
-  background-color: ${({ theme }) => theme.colors.tertiary};
-  color: ${({ theme }) => theme.colors.lightText};
-  font-weight: 700;
-`;
+      <UnitPrice>
+        R$
+        <span data-testid={ `${testId}__element-order-table-unit-price-${index}` }>
+          { price.replace('.', ',') }
+        </span>
+      </UnitPrice>
 
-const SubTotal = styled.p`
-  background-color: ${({ theme }) => theme.colors.quaternary};
-  color: ${({ theme }) => theme.colors.lightText};
-  font-weight: 700;
-`;
+      <SubTotal>
+        R$
+        <span data-testid={ `${testId}__element-order-table-sub-total-${index}` }>
+          { (price * quantity).toFixed(2).replace('.', ',') }
+        </span>
+      </SubTotal>
 
-const RemoveButton = styled.p`
-  background-color: ${({ theme }) => theme.colors.secondary};
-  color: ${({ theme }) => theme.colors.lightText};
-  cursor: pointer;
-  flex-basis: 170px;
-  font-weight: 700;
-`;
+      { removable && renderRemoveButton() }
+    </Wrapper>
+  );
+};
 
-const ProductResume = ({ removable }) => (
-  <Wrapper>
-    <Id>1</Id>
-    <Name>Product X</Name>
-    <Quantity>10</Quantity>
-    <UnitPrice>R$1,99</UnitPrice>
-    <SubTotal>R$1,99</SubTotal>
-    { removable && <RemoveButton>Remover</RemoveButton> }
-  </Wrapper>
-);
+ProductResume.defaultProps = {
+  removable: false,
+  testId: '',
+};
 
 ProductResume.propTypes = {
-  removable: PropTypes.bool.isRequired,
+  removable: PropTypes.bool,
+  product: productType.isRequired,
+  index: PropTypes.number.isRequired,
+  testId: PropTypes.string,
+  quantity: PropTypes.number.isRequired,
 };
 
 export default ProductResume;

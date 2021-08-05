@@ -9,13 +9,17 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     tableName: 'sales',
     timestamps: true,
-    createdAt: 'sale_date',
+    createdAt: 'saleDate',
     updatedAt: false
   });
 
   Sale.associate = (models) => {
-    Sale.belongsTo(models.User);
-    Sale.belongsToMany(models.Product, { through: 'sales_products' });
+    Sale.belongsTo(models.User, { as: 'seller', foreignKey: 'sellerId' });
+    Sale.belongsToMany(models.Product, {
+      through: models.SalesProducts,
+      foreignKey: 'saleId',
+      as: 'products'
+    });
   }
 
   return Sale;

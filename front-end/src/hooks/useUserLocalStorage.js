@@ -1,15 +1,24 @@
 import { useState } from 'react';
 
-const updateUserData = (key, userData) => {
+const readUserData = (key) => {
   const oldData = JSON.parse(localStorage.getItem('user'));
+  if (key) return oldData[key];
+  return oldData;
+};
+
+const updateUserData = (key, userData) => {
+  const oldData = readUserData();
   const newData = { ...oldData, [key]: userData };
   localStorage.setItem('user', JSON.stringify(newData));
 };
 
-const useUserLocalStorage = (key, initialValue = '') => {
+const useUserLocalStorage = (key, initialValue) => {
   const [item, setItem] = useState(() => {
-    updateUserData(key, initialValue);
-    return initialValue;
+    if (initialValue) {
+      updateUserData(key, initialValue);
+      return initialValue;
+    }
+    return readUserData(key) || '';
   });
 
   const updateItem = (newItem) => {
