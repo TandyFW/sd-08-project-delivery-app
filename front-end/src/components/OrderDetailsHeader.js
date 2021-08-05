@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 
 function OrderDetailsHeader({ order, user }) {
   const { id, saleDate, status } = order;
+  console.log('order - Orderdetails page: ', order);
   const { role } = user;
+  const statusId = '_order_details__element-order-details-label-delivery-status';
+  const sellerNameId = '_order_details__element-order-details-label-seller-name';
   return (
     <header>
       <span
@@ -14,8 +17,7 @@ function OrderDetailsHeader({ order, user }) {
       { role === 'customer'
         && (
           <span
-            data-testid={ `${role}_order_details__
-            element-order-details-label-seller-name` }
+            data-testid={ `${role}${sellerNameId}` }
           >
             {`P. Vend: ${order.seller.name}`}
           </span>) }
@@ -25,8 +27,7 @@ function OrderDetailsHeader({ order, user }) {
         { new Date(saleDate).toLocaleString('pt-br')}
       </span>
       <span
-        data-testid={ `${role}_order_details__
-        element-order-details-label-delivery-status` }
+        data-testid={ `${role}${statusId}` }
       >
         { status }
       </span>
