@@ -6,7 +6,6 @@ import socketIOClient from 'socket.io-client';
 function OrderCard({ data }) {
   const { id } = data;
   const [status, setStatus] = useState();
-  console.log(data);
   const ENDPOINT = 'http://localhost:3001';
   const socket = socketIOClient(ENDPOINT);
   const TEN = 10;
@@ -32,7 +31,7 @@ function OrderCard({ data }) {
       </div>
       <div className="half-data">
         <div className="half-data-status">
-          <p className={ statusColor() }>{data.status}</p>
+          <p className={ statusColor() }>{status}</p>
           <div className="date-valor">
             <p className="date">
               {data.saleDate.slice(0, TEN).split('-').reverse().join('/')}
