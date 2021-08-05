@@ -15,16 +15,7 @@ const HEADING_LIST_DETAILS = [
   'Sub-total',
 ];
 
-const HEADING_MANAGER_DETAILS = [
-  'Item',
-  'Nome',
-  'E-mail',
-  'Tipo',
-  'Exlcuir',
-];
-
 export {
   HEADING_LIST_CHECKOUT,
   HEADING_LIST_DETAILS,
-  HEADING_MANAGER_DETAILS,
 };

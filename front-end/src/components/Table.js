@@ -1,11 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import TableRow from './TableRow';
-import TableRowManage from './TableRowManage';
-import DeliveryAppContext from '../context/DeliveryAppContext';
 
 export default function Table({ heading, body = [] }) {
-  const { route } = useContext(DeliveryAppContext);
   const ARRAY_SIZE = 5;
 
   if (!body) return <p>Carregando ...</p>;
@@ -23,28 +20,15 @@ export default function Table({ heading, body = [] }) {
         </tr>
       </thead>
       <tbody>
-        {route === 'customer'
-          && (
-            body.map((row, index) => (
-              <TableRow
-                className="products-table-row"
-                row={ row }
-                tableIndex={ index }
-                key={ row.productId }
-                showRemove={ heading.length > ARRAY_SIZE }
-              />
-            )))}
-        {route === 'administrator'
-          && (
-            body.map((row, index) => (
-              <TableRowManage
-                className="products-table-row"
-                row={ row }
-                tableIndex={ index }
-                key={ row.productId }
-                showRemove={ heading.length > ARRAY_SIZE }
-              />
-            )))}
+        {body.map((row, index) => (
+          <TableRow
+            className="products-table-row"
+            row={ row }
+            tableIndex={ index }
+            key={ row.productId }
+            showRemove={ heading.length > ARRAY_SIZE }
+          />
+        ))}
       </tbody>
     </table>
   );
