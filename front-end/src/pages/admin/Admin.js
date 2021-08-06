@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getAllUsers } from '../services';
-import { AdminUsers, AdminSignIn, Header, Loader } from '../components';
-import { allUsersAction } from '../redux/actions';
+import { getAllUsers } from '../../services';
+import { AdminUsers, AdminSignIn, AdmSellerHeader, Loader } from '../../components';
+import { allUsersAction } from '../../redux/actions';
 
 class Admin extends React.Component {
   constructor() {
@@ -18,8 +18,7 @@ class Admin extends React.Component {
       localStorage.setItem('allUsers', JSON.stringify(users.registers));
       dispatchUsers(users.registers);
     }
-    const Loading = 500;
-    // const Loading = 1500;
+    const Loading = 1000;
     setTimeout(() => {
       this.setState({ loading: false });
     }, Loading);
@@ -35,7 +34,7 @@ class Admin extends React.Component {
     const { history } = this.props;
     return (
       <div className="admin-container">
-        <Header history={ history } />
+        <AdmSellerHeader history={ history } />
         {loading
           ? (
             <div className="loading-div">

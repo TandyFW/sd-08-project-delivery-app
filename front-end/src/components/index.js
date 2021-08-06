@@ -1,11 +1,20 @@
 export { default as Loader } from './Loader';
-export { default as Header } from './Header';
-export { default as CardList } from './CardList';
-export { default as AdminUsers } from './AdminUsers';
-export { default as AdminSignIn } from './AdminSignIn';
-export { default as CheckoutCart } from './CheckoutCart';
-export { default as CheckoutAdress } from './CheckoutAdress';
-export { default as SellerOrderList } from './SellerOrderList';
-export { default as CustomerOrdersList } from './CustomerOrdersList';
-export { default as CustomerOrdersDetailsList } from './CustomerOrdersDetailsList';
-export { default as SellerOrdersDetailsList } from './SellerOrdersDetailsList';
+// admin
+export { default as AdminUsers } from './admin/AdminUsers';
+export { default as AdminSignIn } from './admin/AdminSignIn';
+// costumer
+export { default as CardList } from './costumer/CardList';
+// costumer/checkout
+export { default as CheckoutCart } from './costumer/checkout/CheckoutCart';
+export { default as CheckoutAdress } from './costumer/checkout/CheckoutAdress';
+// costumer/orders/
+export { default as CustomerOrdersList } from './costumer/orders/CustomerOrdersList';
+export {
+  default as CustomerOrdersDetailsList,
+} from './costumer/orders/CustomerOrdersDetailsList';
+// header
+export { default as Header } from './headers/UserHeader';
+export { default as AdmSellerHeader } from './headers/AdmSellerHeader';
+// seller
+export { default as SellerOrderList } from './seller/SellerOrderList';
+export { default as SellerOrdersDetailsList } from './seller/SellerOrdersDetailsList';

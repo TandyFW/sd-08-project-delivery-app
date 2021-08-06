@@ -41,7 +41,6 @@ export async function getNameUserById(id) {
       Authorization: `${accessToken.token}`,
     } })
     .then((response) => response.data);
-  // console.log(result.register);
   return result.register;
 }
 

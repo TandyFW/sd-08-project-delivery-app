@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
-import { Header, Loader, CustomerOrdersDetailsList } from '../components';
+import { AdmSellerHeader, Loader, SellerOrdersDetailsList } from '../../components';
 
-class CustomerOrdersDetails extends React.Component {
+class SellerOrdersDetails extends React.Component {
   constructor() {
     super();
     this.state = { loading: true };
@@ -11,7 +10,7 @@ class CustomerOrdersDetails extends React.Component {
 
   async componentDidMount() {
     // verificar se o usuario está autenticado
-    const Loading = 1500;
+    const Loading = 1000;
     setTimeout(() => {
       this.setState({ loading: false });
     }, Loading);
@@ -21,8 +20,8 @@ class CustomerOrdersDetails extends React.Component {
     const { history } = this.props;
     const { loading } = this.state;
     return (
-      <div className="cust-orders_details-mastercontainer">
-        <Header history={ history } />
+      <div className="seller-orders_details-mastercontainer">
+        <AdmSellerHeader history={ history } />
         {loading
           ? (
             <div className="loading-div">
@@ -30,16 +29,19 @@ class CustomerOrdersDetails extends React.Component {
             </div>
           )
           : (
-            <CustomerOrdersDetailsList history={ history } />
+            <div>
+              <span>Detalhe do Pedido</span>
+              <SellerOrdersDetailsList history={ history } />
+            </div>
           )}
       </div>
     );
   }
 }
 
-CustomerOrdersDetails.propTypes = {
+SellerOrdersDetails.propTypes = {
   history: PropTypes.shape().isRequired,
 };
 
-// export default connect(null, null)(CustomerOrdersDetails);
-export default CustomerOrdersDetails;
+// export default connect(null, null)(SellerOrdersDetails);
+export default SellerOrdersDetails;

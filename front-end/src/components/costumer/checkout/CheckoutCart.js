@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { cartAction } from '../redux/actions';
+import { cartAction } from '../../../redux/actions';
 
 class CheckoutCart extends React.Component {
   constructor() {
@@ -107,7 +107,7 @@ class CheckoutCart extends React.Component {
         <div>
           <div className="checkout-totalprice">
             <span data-testid="customer_checkout__element-order-total-price">
-              { `Total: ${LSprice.replace('.', ',')}`}
+              { `R$ ${LSprice.replace('.', ',')}`}
             </span>
           </div>
         </div>

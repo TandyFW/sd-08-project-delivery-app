@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-const productsRoute = '/customer/products';
 class Header extends React.Component {
   constructor() {
     super();
@@ -15,14 +14,11 @@ class Header extends React.Component {
         location: { pathname },
       },
     } = this.props;
-    const products = document.querySelector('#products');
-    if (pathname === productsRoute) {
-      products.style.boxShadow = 'inset 0 -17px 0px -14px #FFFFFF';
-      products.style.backgroundColor = '#0f9562';
-    }
-    if (pathname === productsRoute) {
-      document
-        .querySelector('#products').style.boxShadow = 'inset 0 -17px 0px -14px #FFFFFF';
+    const button = document.querySelector('#admin_seller_button');
+    button.style.boxShadow = 'inset 0 -17px 0px -14px #FFFFFF';
+    button.style.backgroundColor = '#0f9562';
+    if (pathname === '/admin/manage') {
+      button.innerText = 'Gerenciar Usuários';
     }
   }
 
@@ -33,32 +29,15 @@ class Header extends React.Component {
         <div className="left">
           <button
             type="button"
-            id="products"
-            data-testid="customer_products__element-navbar-link-products"
-            onClick={ () => {
-              history.push(productsRoute);
-            } }
+            id="admin_seller_button"
           >
-            Produtos
-          </button>
-          <button
-            type="button"
-            id="orders"
-            data-testid="customer_products__element-navbar-link-orders"
-            onClick={ () => {
-              history.push('/customer/orders');
-            } }
-          >
-            Meus Pedidos
+            Pedidos
           </button>
         </div>
         <div className="right">
           <button
             type="button"
             data-testid="customer_products__element-navbar-user-full-name"
-            onClick={ () => {
-              history.push(productsRoute);
-            } }
           >
             {(dataLogin || JSON.parse(localStorage.getItem('user')))
               ? `${JSON.parse(localStorage.getItem('user')).name}`
@@ -66,6 +45,7 @@ class Header extends React.Component {
           </button>
           <button
             type="button"
+            id="logoff"
             onClick={ () => {
               localStorage.clear();
               history.push('/login');

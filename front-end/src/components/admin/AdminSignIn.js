@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import validator from 'email-validator';
-import { adminCreate } from '../services';
-import { allUsersAction } from '../redux/actions';
+import { adminCreate } from '../../services';
+import { allUsersAction } from '../../redux/actions';
 import AdminSelect from './AdminSelect';
 
 class AdminSignIn extends React.Component {
@@ -16,6 +16,11 @@ class AdminSignIn extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.validate = this.validate.bind(this);
+  }
+
+  componentWillUnmount() {
+    const hiddenSpan = document.querySelector('.hidden-span');
+    hiddenSpan.style.display = 'none';
   }
 
   handleChange({ target: { name, value } }) {
@@ -36,7 +41,7 @@ class AdminSignIn extends React.Component {
       }
     }
     if (name === 'name') {
-      const MIN_LENGTH_NAME = 12;
+      const MIN_LENGTH_NAME = 11;
       if (value.length > MIN_LENGTH_NAME) {
         this.setState({ name: true });
       } else {
@@ -56,15 +61,20 @@ class AdminSignIn extends React.Component {
     const role = document.getElementById('admin-select').value;
     const dataForCreate = { name, email, password, role };
     const newUser = await adminCreate(dataForCreate, token);
+    const hiddenSpan = document.querySelector('.hidden-span');
     if (newUser && newUser.statusText) {
-      const hiddenSpan = document.querySelector('.hidden-span');
       hiddenSpan.style.display = 'inline-block';
-      hiddenSpan.innerHTML = newUser.message;
+      hiddenSpan.innerText = newUser.message;
       hiddenSpan.setAttribute('data-testid', 'admin_manage__element-invalid-register');
       setTimeout(() => {
-        document.querySelector('.hidden-span').style.display = 'none';
+        hiddenSpan.style.display = 'none';
       }, spanMaxTime);
     } else {
+      hiddenSpan.style.display = 'inline-block';
+      hiddenSpan.innerText = 'User created!';
+      setTimeout(() => {
+        hiddenSpan.style.display = 'none';
+      }, spanMaxTime);
       stateUsers.push(newUser.newRegister);
       localStorage.setItem('allUsers', JSON.stringify(stateUsers));
       dispatchUsers(stateUsers);

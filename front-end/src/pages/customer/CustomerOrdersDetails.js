@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
-import { Header, Loader, SellerOrdersDetailsList } from '../components';
+import { Header, Loader, CustomerOrdersDetailsList } from '../../components';
 
-class SellerOrdersDetails extends React.Component {
+class CustomerOrdersDetails extends React.Component {
   constructor() {
     super();
     this.state = { loading: true };
@@ -11,7 +10,7 @@ class SellerOrdersDetails extends React.Component {
 
   async componentDidMount() {
     // verificar se o usuario está autenticado
-    const Loading = 1500;
+    const Loading = 1000;
     setTimeout(() => {
       this.setState({ loading: false });
     }, Loading);
@@ -21,7 +20,7 @@ class SellerOrdersDetails extends React.Component {
     const { history } = this.props;
     const { loading } = this.state;
     return (
-      <div className="products-container">
+      <div className="cust-orders_details-mastercontainer">
         <Header history={ history } />
         {loading
           ? (
@@ -30,16 +29,16 @@ class SellerOrdersDetails extends React.Component {
             </div>
           )
           : (
-            <SellerOrdersDetailsList history={ history } />
+            <CustomerOrdersDetailsList history={ history } />
           )}
       </div>
     );
   }
 }
 
-SellerOrdersDetails.propTypes = {
+CustomerOrdersDetails.propTypes = {
   history: PropTypes.shape().isRequired,
 };
 
-// export default connect(null, null)(SellerOrdersDetails);
-export default SellerOrdersDetails;
+// export default connect(null, null)(CustomerOrdersDetails);
+export default CustomerOrdersDetails;

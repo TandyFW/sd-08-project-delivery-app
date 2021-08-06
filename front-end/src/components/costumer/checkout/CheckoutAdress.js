@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getByRole, createSaler } from '../services';
+import { getByRole, createSaler } from '../../../services';
 
 class CheckoutAdress extends React.Component {
   constructor() {

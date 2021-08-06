@@ -37,8 +37,10 @@ code {
 
 @import './admin.scss';
 
-@import './seller_orders.scss';
+@import './seller/seller_orders.scss';
 
-@import './customer/cust_orders';
+@import './customer/cust_orders.scss';
 
 @import './customer/cust_orders_details';
+
+@import './seller/seller_orders_details';

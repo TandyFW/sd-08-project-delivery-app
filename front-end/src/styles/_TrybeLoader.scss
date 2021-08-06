@@ -15,9 +15,32 @@
   font-weight: 900;
 }
 
+.loader > .title {
+  animation: title-shake 2s infinite ease;
+  color: $lightBlack;
+  font-family: Montserrat , sans-serif;
+  font-size: 4em;
+  font-weight: 900;
+}
+
 .rocksGlass {
   animation: shake 1s infinite ease;
   max-height: 80vh;
+}
+
+@keyframes title-shake {
+
+  0% {
+    transform: rotate(3deg);
+  }
+
+  50% {
+    transform: rotate(-3deg);
+  }
+
+  100% {
+    transform: rotate(3deg);
+  }
 }
 
 @keyframes shake {

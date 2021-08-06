@@ -1,11 +1,13 @@
 export { default as Home } from './Home';
 export { default as Login } from './Login';
 export { default as Register } from './Register';
-export { default as Products } from './Products';
-export { default as Admin } from './Admin';
-export { default as Checkout } from './Checkout';
-export { default as SellerOrders } from './SellerOrders';
-export { default as CustomerOrders } from './CustomerOrders';
-export { default as CustomerOrdersDetails } from './CustomerOrdersDetails';
-export { default as SellerOrdersDetails } from './SellerOrdersDetails';
-// export { default as Socket } from './Socket';
+// admin
+export { default as Admin } from './admin/Admin';
+// cutomer
+export { default as Checkout } from './customer/Checkout';
+export { default as Products } from './customer/Products';
+export { default as CustomerOrders } from './customer/CustomerOrders';
+export { default as CustomerOrdersDetails } from './customer/CustomerOrdersDetails';
+// seller
+export { default as SellerOrders } from './seller/SellerOrders';
+export { default as SellerOrdersDetails } from './seller/SellerOrdersDetails';

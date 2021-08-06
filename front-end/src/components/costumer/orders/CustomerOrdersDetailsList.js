@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Loader from './Loader';
-import { getNameUserById } from '../services';
-import { getAllOrdesByUserApi } from '../redux/actions';
+import { getNameUserById } from '../../../services';
+import { getAllOrdesByUserApi } from '../../../redux/actions';
 
 const prefix1 = 'customer_order_details__element-order';
 const prefix2 = 'customer_order_details__';
@@ -12,7 +11,7 @@ class CustomerOrdersDetailsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      OrderDetails: {},
+      OrderDetails: [],
       orders: [],
       isLoading: true,
       isDelivered: false,
@@ -22,43 +21,38 @@ class CustomerOrdersDetailsList extends React.Component {
 
   // const OrderDetails ={};
   async componentDidMount() {
-    const NOT_MAGIC = -1;
     const { history, getAllOrdesByUser } = this.props;
-    const orderId = history.location.pathname.slice(NOT_MAGIC);
+    const orderId = history.location.pathname.split('/')[3];
     await getAllOrdesByUser();
-    this.setAllOrdesInState(orderId);
+    this.setAllOrdesInState(Number(orderId));
   }
 
   async setAllOrdesInState(orderId) {
     const { allOrdes } = this.props;
-    orderId -= 1;
-    if (allOrdes) {
-      const { id, status, productId } = allOrdes[orderId];
-      const sellerName = await getNameUserById(allOrdes[orderId].seller_id);
-      const dateArray = allOrdes[orderId].sale_date.split('T')[0].split('-');
-      const date = `${dateArray[2]}/${dateArray[1]}/${dateArray[0]}`;
-      const OrderDetails = {
-        oderId: id,
-        sellerName,
-        date,
-        status,
-        totalPrice: allOrdes[orderId].total_price,
-        purchasedProducts: productId,
-      };
+    const actualOrder = allOrdes.find((o) => o.id === orderId);
+    if (actualOrder) {
+      const sellerName = await getNameUserById(actualOrder.seller_id);
+      allOrdes.forEach((elem) => {
+        const dateArray = elem.sale_date.split('T')[0].split('-');
+        const date = `${dateArray[2]}/${dateArray[1]}/${dateArray[0]}`;
+        elem.sale_date = date;
+      });
+      const selectedOrder = allOrdes.filter((elem) => elem.id === orderId);
+      selectedOrder[0].sellerName = sellerName;
+      const orderCart = selectedOrder[0].productId;
+      orderCart.forEach((elem) => {
+        elem.quantity = elem.salesProducts.quantity;
+      });
       this.setState((state) => ({ ...state,
-        orders: allOrdes,
-        OrderDetails,
-        isLoading: false }));
+        OrderDetails: selectedOrder[0],
+        isLoading: false,
+        orderCart }));
     }
   }
 
   render() {
     const { history } = this.props;
-    const { isLoading } = this.state;
-    if (isLoading) {
-      return <Loader />;
-    }
-    const { OrderDetails, isDelivered } = this.state;
+    const { OrderDetails, isDelivered, orderCart } = this.state;
     return (
       <div className="cust-orders_details-container">
         <table className="cust-orders_details-orders-info">
@@ -67,7 +61,7 @@ class CustomerOrdersDetailsList extends React.Component {
               id="cust-orders_details-id"
               data-testid={ `${prefix1}-details-label-order-id` }
             >
-              { `Pedido ${OrderDetails.oderId}` }
+              { `Pedido ${OrderDetails.id}` }
             </td>
             <td
               id="cust-orders_details-name"
@@ -79,7 +73,7 @@ class CustomerOrdersDetailsList extends React.Component {
               data-testid={ `${prefix1}-details-label-order-date` }
               id="cust-orders_details-date"
             >
-              { OrderDetails.date }
+              { OrderDetails.sale_date }
             </td>
             <td
               id={ `${OrderDetails.status}` }
@@ -109,52 +103,52 @@ class CustomerOrdersDetailsList extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {
-              OrderDetails.purchasedProducts.map((product, i) => (
+            { (orderCart && orderCart.length > 0)
+              && orderCart.map((elem, i) => (
                 <tr key={ i }>
                   <td
                     id="index-td"
                     data-testid={
-                      `${prefix1}-table-item-number-${product.id}`
+                      `${prefix1}-table-item-number-${elem.id}`
                     }
                   >
                     { i + 1 }
                   </td>
                   <td
                     id="name-td"
-                    data-testid={ `${prefix1}-table-name-${product.id}` }
+                    data-testid={ `${prefix1}-table-name-${elem.id}` }
                   >
-                    { product.name }
+                    { elem.name }
                   </td>
                   <td
                     id="quantity-td"
-                    data-testid={ `${prefix1}-table-quantity-${product.id}` }
+                    data-testid={ `${prefix1}-table-quantity-${elem.id}` }
                   >
-                    { product.salesProducts.quantity }
+                    { elem.quantity }
                   </td>
                   <td
                     id="unitprice-td"
-                    data-testid={ `${prefix1}-table-unit-price-${product.id}` }
+                    data-testid={ `${prefix1}-table-unit-price-${elem.id}` }
                   >
-                    { `R$ ${product.price}` }
+                    { `R$ ${elem.price}` }
                   </td>
                   <td
                     id="totalprice-td"
-                    data-testid={ `${prefix1}-table-sub-total-${product.id}` }
+                    data-testid={ `${prefix1}-table-sub-total-${elem.id}` }
                   >
-                    {`R$ ${(product.price * product.salesProducts.quantity)
+                    {`R$ ${(elem.price * elem.quantity)
                       .toFixed(2)}` }
                   </td>
                 </tr>
-              ))
-            }
+              ))}
           </tbody>
         </table>
         <h2
           className="cust-orders_details-totalprice bottom_info"
           data-testid={ `${prefix2}element-order-total-price` }
         >
-          { `R$ ${OrderDetails.totalPrice.replace('.', ',')}` }
+          { `R$ ${(OrderDetails.total_price)
+            ? OrderDetails.total_price.replace('.', ',') : 0}` }
         </h2>
         <button
           type="button"

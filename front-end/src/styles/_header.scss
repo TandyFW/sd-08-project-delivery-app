@@ -8,7 +8,6 @@
   background-color: $trybeGreen;
   height: 55px;
   top: 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   .left {
     button  {
       position: relative;
@@ -22,6 +21,13 @@
       height: 55px;
     }
   }
+  #products, #orders, #logoff {
+    &:hover {
+      transition: 0.3s;
+      background-color: $enabledGreen;
+      box-shadow: inset 0 -17px 0px -14px #FFFFFF;
+    }
+  }
   button {
     color: $darkWhite;
     font-size: 22px;
@@ -29,10 +35,5 @@
     padding: 0 55px;
     outline: none;
     border: none;
-    &:hover {
-      transition: 0.3s;
-      background-color: $enabledGreen;
-      box-shadow: inset 0 -17px 0px -14px #FFFFFF;
-    }
   }
 }

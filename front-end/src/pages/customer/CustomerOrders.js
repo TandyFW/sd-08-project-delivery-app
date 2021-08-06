@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Header, Loader, CustomerOrdersList } from '../components';
+import { Header, Loader, CustomerOrdersList } from '../../components';
 
 class CustomerOrders extends React.Component {
   constructor() {
@@ -10,7 +10,7 @@ class CustomerOrders extends React.Component {
 
   async componentDidMount() {
     // verificar se o usuario está autenticado
-    const Loading = 1500;
+    const Loading = 1000;
     setTimeout(() => {
       this.setState({ loading: false });
     }, Loading);

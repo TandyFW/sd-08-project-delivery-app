@@ -1,9 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Header, Loader, CheckoutCart, CheckoutAdress } from '../components';
+import { connect } from 'react-redux';
+import { AdmSellerHeader, Loader, SellerOrderList } from '../../components';
 
-class Checkout extends React.Component {
+class SellerOrders extends React.Component {
   constructor() {
     super();
     this.state = { loading: true };
@@ -11,8 +11,7 @@ class Checkout extends React.Component {
 
   async componentDidMount() {
     // verificar se o usuario está autenticado
-    const Loading = 500;
-    // const Loading = 1500;
+    const Loading = 1000;
     setTimeout(() => {
       this.setState({ loading: false });
     }, Loading);
@@ -22,8 +21,8 @@ class Checkout extends React.Component {
     const { history } = this.props;
     const { loading } = this.state;
     return (
-      <div className="checkout-container">
-        <Header history={ history } />
+      <div className="orders-container">
+        <AdmSellerHeader history={ history } />
         {loading
           ? (
             <div className="loading-div">
@@ -31,20 +30,15 @@ class Checkout extends React.Component {
             </div>
           )
           : (
-            <div>
-              <h4>Finalizar Pedido</h4>
-              <CheckoutCart history={ history } />
-              <h4>Detalhes e Endereço para Entrega</h4>
-              <CheckoutAdress history={ history } />
-            </div>
+            <SellerOrderList history={ history } />
           )}
       </div>
     );
   }
 }
 
-Checkout.propTypes = {
+SellerOrders.propTypes = {
   history: PropTypes.shape().isRequired,
 };
 
-export default connect(null, null)(Checkout);
+export default connect(null, null)(SellerOrders);

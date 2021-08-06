@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Header, Loader, CardList } from '../components';
+import PropTypes from 'prop-types';
+import { Header, Loader, CheckoutCart, CheckoutAdress } from '../../components';
 
-class Products extends React.Component {
+class Checkout extends React.Component {
   constructor() {
     super();
     this.state = { loading: true };
@@ -11,20 +11,17 @@ class Products extends React.Component {
 
   async componentDidMount() {
     // verificar se o usuario está autenticado
-    const Loading = 500;
-    // const Loading = 1500;
+    const Loading = 1000;
     setTimeout(() => {
       this.setState({ loading: false });
     }, Loading);
-    if (!localStorage.totalPrice) localStorage.setItem('totalPrice', 0);
   }
 
   render() {
     const { history } = this.props;
     const { loading } = this.state;
-    // localStorage.setItem('user', JSON.stringify(stateUser));
     return (
-      <div className="products-container">
+      <div className="checkout-container">
         <Header history={ history } />
         {loading
           ? (
@@ -33,20 +30,20 @@ class Products extends React.Component {
             </div>
           )
           : (
-            <CardList history={ history } />
+            <div>
+              <h4>Finalizar Pedido</h4>
+              <CheckoutCart history={ history } />
+              <h4>Detalhes e Endereço para Entrega</h4>
+              <CheckoutAdress history={ history } />
+            </div>
           )}
       </div>
     );
   }
 }
 
-// const mapStateToProps = (state) => ({
-//   stateUser: state.userReducer.user,
-// });
-
-Products.propTypes = {
+Checkout.propTypes = {
   history: PropTypes.shape().isRequired,
-  // stateUser: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
-export default connect(null, null)(Products);
+export default connect(null, null)(Checkout);

@@ -4,24 +4,38 @@
   margin: 5% auto 0 auto;
   .orderlist-container {
     @include flex(flex, row, center, center);
+    button {
+      background: none;
+      border: none;
+      outline: none;
+      padding: 0;
+      margin: 0 10px;
+      &:hover > .order-card > .order-left {
+        transition: all 0.3s;
+        background-color: $enabledGreen;
+      }
+      &:hover > .order-card {
+        transition: all 0.1s;
+        box-shadow: 0 6px 8px 0 rgba(0, 3, 3, 0.2) , 0 6px 3px 0 rgba(0, 0, 0, 0.2);
+      }
+    }
     .order-card {
       @include flex(flex, row, space-between, center);
       width: 500px;
       height: 200px;
-      margin: 0 10px;
       border-radius: 5px;
       border-bottom: 1px solid rgba(0, 0, 0, 0.2);
       box-shadow: 0 1px 4px 0 rgba(5, 3, 3, 0.2) , 0 2px 1px 0 rgba(0, 0, 0, 0.2);
       .order-left {
         @include flex(flex, column, center, center);
         width: 30%;
-        background-color: rgba(255, 255, 255, 0.787);
+        background-color: $trybeGreen;
         height: 100%;
         border-top-left-radius: 5px;
         border-bottom-left-radius: 5px;
         span {
           font-weight: 500;
-          color: $lightBlack;
+          color: $darkWhite;
           font-size: 20px;
           padding-top: 5px;
         }
@@ -34,12 +48,22 @@
           @include flex(flex, row, space-around, center);
           width: 100%;
           height: 85%;
+          h4 {
+            background-color: $trybeGreen;
+            padding: 5px 10px;
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            font-size: 18px;
+            letter-spacing: 0.3px;
+            color: $darkWhite;
+          }
         }
         span {
-          margin-right: 15px;
-          font-size: 13px;
+          margin-right: 18px;
+          font-size: 16px;
         }
-        #pendente, #entregue, #preparando {
+        #Pendente, #Entregue, #Preparando {
           @include flex(flex, column, center, center);
           font-size: 20px;
           font-weight: 500;
@@ -47,14 +71,15 @@
           height: 100px;
           border: 1px solid rgba(0, 0, 0, 0.1);
           border-radius: 4px;
+          color: $darkWhite;
         }
-        #pendente {
+        #Pendente {
           background-color: $blue;
         }
-        #entregue {
+        #Entregue {
           background-color: $sucess;
         }
-        #preparando {
+        #Preparando {
           background-color: $libreyellow;
         }
       }

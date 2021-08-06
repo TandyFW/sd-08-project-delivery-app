@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { exclude } from '../services';
-import { getAllUsersApi } from '../redux/actions';
+import { exclude } from '../../services';
+import { getAllUsersApi } from '../../redux/actions';
 
 class AdminUsers extends React.Component {
   constructor() {
@@ -15,7 +15,7 @@ class AdminUsers extends React.Component {
   shouldComponentUpdate() { // nao excluir
     const { props } = this;
     if (props.newUsers) {
-      // console.log('shouldComponentUpdate', props.newUsers);
+      console.log(props.newUsers);
     }
     return true;
   }

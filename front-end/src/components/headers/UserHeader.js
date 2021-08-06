@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 const productsRoute = '/customer/products';
+const ordersRoute = '/customer/orders';
 class Header extends React.Component {
   constructor() {
     super();
@@ -16,13 +17,17 @@ class Header extends React.Component {
       },
     } = this.props;
     const products = document.querySelector('#products');
-    if (pathname === productsRoute) {
+    const orders = document.querySelector('#orders');
+    if (pathname === ordersRoute) {
+      orders.style.boxShadow = 'inset 0 -17px 0px -14px #FFFFFF';
+      orders.style.backgroundColor = '#0f9562';
+      products.style.backgroundColor = '#0fa36b';
+      products.style.boxShadow = '0 0 0';
+    } else {
       products.style.boxShadow = 'inset 0 -17px 0px -14px #FFFFFF';
       products.style.backgroundColor = '#0f9562';
-    }
-    if (pathname === productsRoute) {
-      document
-        .querySelector('#products').style.boxShadow = 'inset 0 -17px 0px -14px #FFFFFF';
+      orders.style.backgroundColor = '#0fa36b';
+      orders.style.boxShadow = '0 0 0';
     }
   }
 
@@ -70,6 +75,7 @@ class Header extends React.Component {
               localStorage.clear();
               history.push('/login');
             } }
+            id="logoff"
             data-testid="customer_products__element-navbar-link-logout"
           >
             Sair

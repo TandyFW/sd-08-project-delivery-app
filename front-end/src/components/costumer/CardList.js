@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getAllProducts } from '../services';
-import { cartAction, productsAction } from '../redux/actions';
+import { getAllProducts } from '../../services';
+import { cartAction, productsAction } from '../../redux/actions';
 
 class CardList extends React.Component {
   constructor() {
@@ -116,7 +116,6 @@ class CardList extends React.Component {
       // decrease price on LocalStorage
       const LSprice = Number(localStorage.getItem('totalPrice'));
       const formattedPrice = Number((LSprice - selected.price).toFixed(2));
-      console.log(LSprice, selected.price, formattedPrice);
       localStorage.setItem('totalPrice', JSON.stringify(formattedPrice));
     }
     // if in redux cart

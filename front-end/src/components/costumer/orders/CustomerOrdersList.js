@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Loader from './Loader';
-import { getAllOrdesByUserApi } from '../redux/actions';
+import Loader from '../../Loader';
+import { getAllOrdesByUserApi } from '../../../redux/actions';
 
 const testId = 'customer_orders__';
 
@@ -46,43 +46,49 @@ class CustomerOrdersList extends React.Component {
       <div className="customer-orders-container">
         {
           orders.map((order, i) => (
-            <div key={ i } className="order-card">
-              <div className="order-left">
-                <button
-                  type="button"
-                  onClick={ () => history.push(`/customer/orders/${order.id}`) }
-                >
-                  <span>Pedido</span>
-                  <span
-                    data-testid={ `${testId}-order-id-${order.id}` }
+            <button
+              key={ i }
+              type="button"
+              onClick={ () => history.push(`/customer/orders/${order.id}`) }
+            >
+              <div key={ i } className="order-card">
+                <div className="order-left">
+                  <button
+                    type="button"
+                    onClick={ () => history.push(`/customer/orders/${order.id}`) }
                   >
-                    {order.id}
-                  </span>
-                </button>
-              </div>
-              <div className="order-right">
-                <div className="status-container">
-                  <div
-                    id={ order.status }
-                    data-testid={ `${testId}element-delivery-status-${order.order_id}` }
-                  >
-                    { order.status }
-                  </div>
-                  <div>
-                    <h4
-                      data-testid={ `${testId}element-order-date-${order.order_id}` }
+                    <span>Pedido</span>
+                    <span
+                      data-testid={ `${testId}-order-id-${order.id}` }
                     >
-                      { order.sale_date }
-                    </h4>
-                    <h4
-                      data-testid={ `${testId}element-card-price-${order.order_id}` }
+                      {order.id}
+                    </span>
+                  </button>
+                </div>
+                <div className="order-right">
+                  <div className="status-container">
+                    <div
+                      id={ order.status }
+                      data-testid={ `${testId}element-delivery-status-${order.order_id}` }
                     >
-                      { `R$ ${order.total_price}` }
-                    </h4>
+                      { order.status }
+                    </div>
+                    <div>
+                      <h4
+                        data-testid={ `${testId}element-order-date-${order.order_id}` }
+                      >
+                        { order.sale_date }
+                      </h4>
+                      <h4
+                        data-testid={ `${testId}element-card-price-${order.order_id}` }
+                      >
+                        { `R$ ${order.total_price}` }
+                      </h4>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </button>
           ))
         }
       </div>

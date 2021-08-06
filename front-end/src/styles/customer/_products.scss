@@ -5,7 +5,7 @@
   justify-content: center;
   margin: 5% auto 0;
   width: 100%;
-  @include loading-div(420px, 500px, $trybeGreen);
+  @include loading-div(450px, 500px, $trybeGreen);
   .cardlist-container {
 
     @include flex(flex, row, center, center);
@@ -112,7 +112,7 @@
 
     .cart-container {
       bottom: 10%;
-      position: fixed;
+      // position: fixed;
       right: 10%;
 
       button {

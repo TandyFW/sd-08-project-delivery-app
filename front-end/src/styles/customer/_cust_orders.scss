@@ -7,6 +7,21 @@
     top: calc(8vh + 55px);
     flex-wrap: wrap;
     max-width: 1300px;
+    button {
+      background: none;
+      outline: none;
+      border: none;
+      padding: 0;
+      margin: 0 10px;
+      &:hover > .order-card > .order-left > button {
+        transition: all 0.3s;
+        background-color: $enabledGreen;
+      }
+      &:hover > .order-card {
+        transition: all 0.1s;
+        box-shadow: 0 6px 8px 0 rgba(0, 3, 3, 0.2) , 0 6px 3px 0 rgba(0, 0, 0, 0.2);
+      }
+    }
     .order-card {
       @include flex(flex, row, space-between, center);
       width: 550px;
