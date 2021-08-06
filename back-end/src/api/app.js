@@ -38,12 +38,11 @@ app.get('/relation', saleController.createRelation);
 // userController
 app.post('/login', userController.login);
 app.post('/register', userController.register);
-app.get('/products', productsController.getProducts);
 // saleController
-app.post('/orders', salesController.getSalesByUser);
-app.post('/sales', TokenAuth, salesController.createSale);
-app.post('/sale/created', salesController.getGeneratedSell);
-app.put('/update/sale', salesController.updateStatusSale);
+app.post('/orders', saleController.getSalesByUser);
+app.post('/sale/created', saleController.getGeneratedSell);
+app.post('/sales', TokenAuth, saleController.createSale);
+app.put('/update/sale', saleController.updateStatusSale);
 // productController
 app.get('/products', productController.getProducts);
 

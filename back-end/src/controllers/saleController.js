@@ -115,8 +115,10 @@ const getGeneratedSell = async (req, res) => {
       attributes: { exclude: ['user_id', 'seller_id'] },
       include: [
         { model: user, as: 'seller', attributes: ['name'] },
-        { model: product, as: 'products', through: { attributes: ['quantity'] } }],
+        { model: product, as: 'products', through: { attributes: ['quantity'] } },
+      ],
     });
+    console.log(data.dataValues);
     return res.status(200).json({ data: [data] });
   } catch (err) {
     return res.status(500).json({ message: messageError, err: err.message });

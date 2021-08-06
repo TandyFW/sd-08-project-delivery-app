@@ -22,7 +22,6 @@ function Routes() {
         <Route exact path="/seller/orders/:id" component={ DetailsSellerOrders } />
         <Route exact path="/customer/orders" component={ ClientOrders } />
         <Route exact path="/seller/orders" component={ SellerOrders } />
-        {/* <Route exact path="/customer/checkout" component={  } /> */}
         {/* <Route exact path="/customer/orders/:idVenda" component={  } /> */}
         <Route path={ ['/login'] } component={ Login } />
         <Route path="/">
