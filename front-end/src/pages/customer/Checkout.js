@@ -77,9 +77,6 @@ const Checkout = () => {
               product={ product }
               quantity={ cart[product.id] }
               index={ index }
-              data-testid={
-                `customer_checkout__element-order-table-item-number-${index}`
-              }
               testId="customer_checkout"
               removable
             />
