@@ -1,6 +1,6 @@
 const { updateOrder, getSaleById } = require('../services');
 
-function clientSetOrder(socket, io) {
+function clientSetOrder(socket) {
   socket.on('clientSetOrderStatus', async ({ id, status }) => {
     if (status !== '') {
       const { dataValues } = await updateOrder(id, status);
@@ -20,7 +20,7 @@ module.exports = (io) => {
       }
     });
 
-    clientSetOrder(socket, io);
+    clientSetOrder(socket);
 
     socket.on('getUpdatedStatus', async (id) => {
       const data = await getSaleById(id);
