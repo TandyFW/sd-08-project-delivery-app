@@ -20,10 +20,14 @@
     "lint:styles": "stylelint **/*.css --config .stylelintrc.json --ignore-disables --allow-empty-input"
   },
   "dependencies": {
+    "@chakra-ui/react": "^1.6.5",
+    "@emotion/react": "^11.4.0",
+    "@emotion/styled": "^11.3.0",
     "@testing-library/jest-dom": "5.14.1",
     "@testing-library/react": "11.2.7",
     "@testing-library/user-event": "12.8.3",
     "axios": "^0.21.1",
+    "framer-motion": "^4.1.17",
     "jsonwebtoken": "^8.5.1",
     "md5": "^2.3.0",
     "react": "17.0.2",

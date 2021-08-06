@@ -1,10 +1,11 @@
 import React from 'react';
+import { ChakraProvider } from '@chakra-ui/react';
 import FormLogin from '../components/FormLogin';
 
 export default function Login() {
   return (
-    <div className="login-page">
+    <ChakraProvider>
       <FormLogin />
-    </div>
+    </ChakraProvider>
   );
 }

@@ -1,9 +1,14 @@
 import md5 from 'md5';
 import React, { useEffect, useState, useContext } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import {
+  Flex, FormControl, FormLabel, Heading, Input, Stack, Image, Button,
+  Text, Link,
+} from '@chakra-ui/react';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 import fetchUser from '../services/fetchUser';
 import { emailVerify } from '../utils/functions';
+import logo from '../images/Neto_Logo_Brand_Transp.png';
 
 export default function FormLogin() {
   const { setUser } = useContext(DeliveryAppContext);
@@ -93,62 +98,108 @@ export default function FormLogin() {
   };
 
   return (
-    <>
-      <form action="" method="POST" className="form-login">
-        <label htmlFor="loginEmail" className="login-label">
-          Email:
-          <input
-            type="email"
-            maxLength="100"
-            placeholder="Digite aqui seu email"
-            className="email-input"
-            onKeyUp={ validation }
-            autoComplete="username"
-            id="loginEmail"
-            data-testid="common_login__input-email"
-          />
-        </label>
-        <label htmlFor="loginPassword" className="login-label">
-          Senha:
-          <input
-            type="password"
-            maxLength="30"
-            placeholder="Digite aqui sua senha"
-            className="password-input"
-            onKeyUp={ validation }
-            autoComplete="current-password"
-            id="loginPassword"
-            data-testid="common_login__input-password"
-          />
-        </label>
-        <button
-          type="button"
-          className="btn-login"
-          disabled={ !isValid }
-          onClick={ login }
-          id="btnLogin"
-          data-testid="common_login__button-login"
+    <Stack
+      minH="100vh"
+      direction={ { base: 'column', md: 'row' } }
+      bgGradient="linear(to-r,orange 50%, black 50%)"
+      overflow="hidden"
+    >
+      <Flex
+        p="8"
+        flex="1"
+        align="center"
+        justify="center"
+        bg="orange"
+      >
+        <Stack
+          w="full"
+          maxW="lg"
+          bg="orange"
+          border="2px black solid"
+          p="50"
         >
-          LOGIN
-        </button>
-        <button
-          type="button"
-          className="btn-link-register"
-          id="btnLinkRegister"
-          data-testid="common_login__button-register"
-        >
-          <Link to="/register">REGISTRE-SE</Link>
-        </button>
-      </form>
-      {showMessage
-        && (
-          <p
-            className="error-message"
-            data-testid="common_login__element-invalid-email"
+          <Heading fontSize="2xl" transform="skewX(-12deg)">Insira sua conta</Heading>
+          <FormControl id="email">
+            <FormLabel transform="skewX(-12deg)">Email</FormLabel>
+            <Input
+              type="email"
+              maxLength="100"
+              placeholder="Digite aqui seu email"
+              className="email-input"
+              focusBorderColor="black"
+              _placeholder={ { color: 'white' } }
+              _hover="none"
+              borderColor="black"
+              onKeyUp={ validation }
+              autoComplete="username"
+              id="loginEmail"
+              data-testid="common_login__input-email"
+            />
+          </FormControl>
+          <FormControl id="password">
+            <FormLabel transform="skewX(-12deg)">Password</FormLabel>
+            <Input
+              type="password"
+              maxLength="30"
+              _hover="none"
+              _placeholder={ { color: 'white' } }
+              focusBorderColor="black"
+              placeholder="Digite aqui sua senha"
+              className="password-input"
+              borderColor="black"
+              onKeyUp={ validation }
+              autoComplete="current-password"
+              id="loginPassword"
+              data-testid="common_login__input-password"
+              marginBottom="10"
+            />
+          </FormControl>
+          <Button
+            type="button"
+            className="btn-login"
+            bg="black"
+            color="white"
+            _hover="none"
+            disabled={ !isValid }
+            onClick={ login }
+            id="btnLogin"
+            isFullWidth="true"
+            data-testid="common_login__button-login"
           >
-            Usuário não encontrado.
-          </p>)}
-      {redirect && <Redirect to={ URL } />}
-    </>
+            Login
+          </Button>
+          {showMessage
+            && (
+              <Text
+                className="error-message"
+                color="red"
+                textAlign="center"
+                data-testid="common_login__element-invalid-email"
+              >
+                Usuário não encontrado.
+              </Text>)}
+          {redirect && <Redirect to={ URL } />}
+          <Text
+            textAlign="center"
+          >
+            Ainda não tem uma conta?
+          </Text>
+          <Button
+            variant="link"
+            color="white"
+            data-testid="common_login__button-register"
+          >
+            <Link href="/register">Registre-se</Link>
+          </Button>
+        </Stack>
+      </Flex>
+      <Flex flex="1" bg="black" p="70" transform="skewX(-5deg)" width="500px">
+        <Image
+          alt="Login Image"
+          src={ logo }
+          transform="skewX(+5deg)"
+        />
+      </Flex>
+    </Stack>
   );
 }
