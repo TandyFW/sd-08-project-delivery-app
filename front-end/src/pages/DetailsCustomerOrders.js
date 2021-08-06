@@ -43,7 +43,6 @@ export default function DetailsCustomerOrders() {
     updateSale('http://localhost:3001/update/sale', idSale, status)
       .then(({ data }) => {
         const updateSell = { ...currentSell[0], ...data };
-        console.log(updateSell);
         setCurrentSell([updateSell]);
       });
     setLoading(false);
@@ -60,7 +59,6 @@ export default function DetailsCustomerOrders() {
         updateOnClick={ updateOnClick }
         dataTestBegin="customer_order_details__"
       />
-      {/* {loading ? <p>Carregando</p> : console.log(currentSell)} */}
     </div>
   );
 }

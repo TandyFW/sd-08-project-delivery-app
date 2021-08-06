@@ -28,7 +28,6 @@ export default function Products() {
       .reduce((acc, curr) => acc + parseFloat(curr.subTotal), 0)
       .toFixed(2)
       .replace('.', ',');
-    console.log(values);
     setTotal(values);
   }, [cart]);
 

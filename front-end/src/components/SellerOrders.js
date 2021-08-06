@@ -17,7 +17,6 @@ export default function SellerOrders() {
         setUserSales(data.data);
       });
     setLoading(false);
-    console.log(`UseEffect ${userSales}`);
   }, []);
   if (loading === true) {
     return (
