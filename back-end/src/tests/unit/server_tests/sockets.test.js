@@ -72,4 +72,48 @@ describe("Sockets", () => {
     sale.update.restore();
     sale.findOne.restore();
   });
+
+  it("should get from server the updated order status by the Id", (done) => {
+    sinon.stub(sale, 'update')
+      .resolves();
+    sinon.stub(sale, 'findOne')
+        .resolves(saleByIdResponse);
+
+    clientSocket.emit("getUpdatedStatus", { id: 1 });
+
+    serverSocket.on("getUpdatedStatus", (args) => {
+      expect(args).to.include({ id: 1 });
+      done();
+    });
+
+    serverSocket.emit("getUpdatedStatus",(args) => {
+      expect(args).to.equal(saleByIdResponse.status);
+      done();
+    });
+
+    sale.update.restore();
+    sale.findOne.restore();
+  });
+
+  it("should the client set order status for the server", (done) => {
+    sinon.stub(sale, 'update')
+      .resolves();
+    sinon.stub(sale, 'findOne')
+        .resolves(saleByIdResponse);
+
+    clientSocket.emit("clientSetOrderStatus", { id: 1, status: 'Preparando' });
+
+    serverSocket.on("clientSetOrderStatus", (args) => {
+      expect(args).to.include({ id: 1, status: 'Preparando' });
+      done();
+    });
+
+    serverSocket.emit("getUpdatedStatus",(args) => {
+      expect(args).to.equal(saleByIdResponse.status);
+      done();
+    });
+
+    sale.update.restore();
+    sale.findOne.restore();
+  });
 });
