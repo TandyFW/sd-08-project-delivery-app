@@ -1,5 +1,7 @@
 const { sale, product } = require('../database/models');
 
+const messageError = 'Algo deu errado';
+
 // callback criadas para testes das associações
 const getAllProductsSales = async (req, res) => {
   try {
@@ -10,12 +12,12 @@ const getAllProductsSales = async (req, res) => {
     });
     return res.status(200).json(data);
   } catch (err) {
-    return res.status(500).json({ message: 'Algo deu errado', err: err.message });
+    return res.status(500).json({ message: messageError, err });
   }
 };
 // ----------------------------------------------------------------------
 
-// callbacks validas
+// CALLBACK VALIDAS
 const getProducts = async (req, res) => {
   try {
     const data = await product.findAll({
@@ -23,11 +25,14 @@ const getProducts = async (req, res) => {
     });
     return res.status(200).json(data);
   } catch (err) {
-    return res.status(500).json({ message: 'Algo deu errado', err: err.message });
+    return res.status(500).json({ message: messageError, err });
   }
 };
 
 module.exports = {
+  // teste de associações
   getAllProductsSales,
+  // --------------------
+  // CALLBACK VALIDAS
   getProducts,
 };

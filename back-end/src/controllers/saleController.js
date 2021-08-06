@@ -1,4 +1,4 @@
-const { sale, user, product, salesProducts } = require('../database/models');
+const { sale, user, product, saleProduct } = require('../database/models');
 
 const messageError = 'Algo deu errado';
 
@@ -12,10 +12,9 @@ const getAllSalesUser = async (req, res) => {
         { model: user, as: 'seller', attributes: { exclude: ['id'] } },
       ],
     });
-    console.log(data);
     return res.status(200).json(data);
   } catch (err) {
-    return res.status(500).json({ message: messageError, err: err.message });
+    return res.status(500).json({ message: messageError, err });
   }
 };
 
@@ -27,36 +26,47 @@ const getAllSalesProducts = async (req, res) => {
         { model: product, as: 'products', through: { attributes: [] } },
       ],
     });
-    console.log(data);
     return res.status(200).json(data);
   } catch (err) {
-    return res.status(500).json({ message: messageError, err: err.message });
+    return res.status(500).json({ message: messageError, err });
   }
 };
 // ----------------------------------------------------------------------
 
-// teste com POST **UTILIZAR CAMEL CASE NA CREATED**
-const createSale = async (req, res) => {
-  const {
-    userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status,
-    products,
-    quantity } = req.body;
-  const t = totalPrice.replace(/,/g, '.');
-  const data = await
-    sale.create({
-    userId, sellerId, totalPrice: t, deliveryAddress, deliveryNumber, status, saleDate: new Date(),
+// teste Gustavo - requisição create POST **UTILIZAR CAMEL CASE NA CREATED**
+const createSaleTeste = async (req, res) => {
+  const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status } = req.body;
+  try {
+    const data = await sale.create({
+      userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status,
     });
-  // const saleId= 'sale_id',
-  const { id } = await sale.findOne({ where: { id: data.id } });
-  await products.forEach((item, index) => {
-    salesProducts.create({ [['sale_id']]: id, [['product_id']]: item, quantity: quantity[index] });
-  });
+    const created = await sale.findOne({ where: { id: data.id } });
 
-  return res.status(201).json(id);
+    return res.status(200).json(created);
+  } catch (err) {
+    return res.status(500).json({ message: messageError, err });
+  }
+};
+
+const createSaleProducts = async (req, res) => {
+  const { saleId, productId } = req.body;
+  try {
+    await saleProduct.create({ saleId, productId });
+    return res.status(200).json({ saleId, productId });
+  } catch (err) {
+    return res.status(500).json({ message: messageError, err });
+  }
 };
 // ----------------------------------------------------------------------
 
-// callbacks validas
+// teste Ruan
+const createRelation = async (req, res) => {
+  const data = await saleProduct.findAll({});
+  return res.status(200).json(data);
+};
+// ----------------------------------------------------------------------
+
+// CALLBACK VALIDAS
 const getSalesByUser = async (req, res) => {
   const { email } = req.body;
   try {
@@ -74,13 +84,27 @@ const getSalesByUser = async (req, res) => {
     });
     return res.status(200).json(data);
   } catch (err) {
-    return res.status(500).json({ message: messageError, err: err.message });
+    return res.status(500).json({ message: messageError, err });
   }
 };
 
-const createRelation = async (req, res) => {
-  const data = await salesProducts.findAll({});
-  return res.status(200).json(data);
+const createSale = async (req, res) => {
+  try {
+    const {
+      userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status, products, quantity,
+    } = req.body;
+    const t = totalPrice.replace(/,/g, '.');
+    const data = await sale.create({
+    userId, sellerId, totalPrice: t, deliveryAddress, deliveryNumber, status, saleDate: new Date(),
+    });
+    const { id } = await sale.findOne({ where: { id: data.id } });
+    await products.forEach((item, index) => {
+      saleProduct.create({ saleId: id, productId: item, quantity: quantity[index] });
+    });
+    return res.status(201).json(id);
+  } catch (err) {
+    return res.status(500).json({ message: messageError, err });
+  }
 };
 
 const getGeneratedSell = async (req, res) => {
@@ -94,29 +118,6 @@ const getGeneratedSell = async (req, res) => {
         { model: product, as: 'products', through: { attributes: ['quantity'] } }],
     });
     return res.status(200).json({ data: [data] });
-  } catch (err) {
-    return res.status(500).json({ message: messageError, err: err.message });
-  }
-};
-
-const getSellById = async (req, res) => {
-  try {
-    const { id, value } = req.body;
-    await sale.update({ status: value }, { where: { id } });
-    const updated = await sale.findOne({ where: { id } });
-
-    return res.status(200).json(updated);
-  } catch (err) {
-    return res.status(500).json({ message: messageError, err: err.message });
-  }
-};
-
-const getSell = async (req, res) => {
-  try {
-    const { id } = req.body;
-    const updated = await sale.findOne({ where: { id } });
-
-    return res.status(200).json(updated);
   } catch (err) {
     return res.status(500).json({ message: messageError, err: err.message });
   }
@@ -138,13 +139,18 @@ const updateStatusSale = async (req, res) => {
 };
 
 module.exports = {
+  // teste de associações
   getAllSalesUser,
   getAllSalesProducts,
-  createSale,
-  getSalesByUser,
+  // teste Gustavo
+  createSaleTeste,
+  createSaleProducts,
+  // teste Ruan
   createRelation,
+  // --------------------
+  // CALLBACK VALIDAS
+  getSalesByUser,
+  createSale,
   getGeneratedSell,
-  getSellById,
-  getSell,
   updateStatusSale,
 };
