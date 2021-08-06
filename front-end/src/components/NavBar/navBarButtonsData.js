@@ -19,4 +19,10 @@ module.exports = {
       href: '/admin/manage',
     },
   ],
+  seller: [
+    {
+      label: 'PEDIDOS',
+      href: '/seller/orders',
+    },
+  ],
 };

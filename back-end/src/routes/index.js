@@ -1,5 +1,8 @@
 const express = require('express');
 const { login } = require('../controllers/loginController');
+const { getAllOrdersByCustomer } = require('../controllers/customerController');
+const validateUserToken = require('../middlewares/validateUserToken');
+const { getAllOrdersBySeller } = require('../controllers/sellerController');
 
 const { getAllProducts } = require('../controllers/productsController');
 const { register, getSellers } = require('../controllers/userController');
@@ -14,6 +17,8 @@ const router = express.Router();
 
 router.post('/login', login);
 router.post('/register', validateEmailExist, validateNameExist, register);
+router.get('/customer/:id/orders', validateUserToken, getAllOrdersByCustomer);
+router.get('/seller/:id/orders', validateUserToken, getAllOrdersBySeller);
 router.post('/sales', authorizationMid, postSale);
 
 router.get('/sellers', getSellers);
