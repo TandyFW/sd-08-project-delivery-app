@@ -34,7 +34,8 @@ function NavBar() {
   // console.log(pageRole);
 
   const clearLocalStorage = async () => {
-    await localStorage.removeItem('user');
+    localStorage.removeItem('user');
+    localStorage.removeItem('redirect');
     history.push('/login');
   };
 

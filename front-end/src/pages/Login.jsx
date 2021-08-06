@@ -31,16 +31,21 @@ function Login() {
       });
       console.log('usuario logado', loggedUser);
       const { redirectPath, ...userInfos } = loggedUser.data;
+      localStorage.setItem('redirect', redirectPath);
       localStorage.setItem('user', JSON.stringify(userInfos));
       setRedirect(redirectPath);
     } catch (error) {
       setVisible('visible');
     }
   };
-
+  const isLogged = localStorage.getItem('redirect');
+  if (isLogged !== null) {
+    history.push(isLogged);
+  }
   return (
     <>
       {redirect !== '' && <Redirect to={ redirect } />}
+
       <div>
         Login
         <input

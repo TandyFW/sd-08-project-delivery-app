@@ -11,7 +11,7 @@ function MyOrders() {
     const user = JSON.parse(localStorage.getItem('user'));
     const config = {
       method: 'get',
-      url: `http://localhost:3001/customers/${user.id}/orders`,
+      url: `http://localhost:3001/customer/${user.id}/orders`,
       headers: {
         authorization: user.token,
       },

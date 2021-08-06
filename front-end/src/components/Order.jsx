@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import moment from 'moment';
+import dateFormat from 'dateformat';
 
 function Order(props) {
   const history = useHistory();
@@ -23,10 +23,10 @@ function Order(props) {
       </span>
       <div>
         <span data-testid={ `${prefix}element-order-date-${id}` }>
-          { moment(saleDate).locale('pt-br').format('L') }
+          { dateFormat(saleDate, 'dd/mm/yyyy') }
         </span>
         <span data-testid={ `${prefix}element-card-price-${id}` }>
-          { `R$${totalPrice}` }
+          { `${totalPrice.replace('.', ',')}` }
         </span>
         {
           isSeller && (
