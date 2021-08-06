@@ -10,6 +10,7 @@ import theme from './theme/theme';
 import MyOrders from './pages/client/MyOrders';
 import Checkout from './pages/client/Checkout';
 import OrderDetails from './pages/client/OrderDetails';
+import OrderDetailsSeller from './pages/Seller/OrderDetailsSeller';
 import Orders from './pages/Seller/Orders';
 
 function App() {
@@ -23,7 +24,11 @@ function App() {
         <Route exact path="/customer/orders/:id" component={ OrderDetails } />
         <Route exact path="/customer/checkout" component={ Checkout } />
         <Route exact path="/admin/manage" component={ Management } />
-        <Route exact path="/seller/orders/:id" component={ OrderDetails } />
+        <Route
+          exact
+          path="/seller/orders/:id"
+          render={ (props) => <OrderDetailsSeller { ...props } /> }
+        />
         <Route exact path="/seller/orders" component={ Orders } />
         <Redirect from="/" to="/login" />
       </Switch>
