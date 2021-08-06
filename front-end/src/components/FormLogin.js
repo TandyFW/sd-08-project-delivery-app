@@ -116,18 +116,20 @@ export default function FormLogin() {
           maxW="lg"
           bg="orange"
           border="2px black solid"
+          borderRadius="5px"
           p="50"
         >
           <Heading fontSize="2xl" transform="skewX(-12deg)">Insira sua conta</Heading>
           <FormControl id="email">
-            <FormLabel transform="skewX(-12deg)">Email</FormLabel>
+            <FormLabel transform="skewX(-12deg)" fontWeight="bold">Email</FormLabel>
             <Input
               type="email"
               maxLength="100"
               placeholder="Digite aqui seu email"
               className="email-input"
+              bg="white"
               focusBorderColor="black"
-              _placeholder={ { color: 'white' } }
+              _placeholder={ { color: '#454545' } }
               _hover="none"
               borderColor="black"
               onKeyUp={ validation }
@@ -137,12 +139,13 @@ export default function FormLogin() {
             />
           </FormControl>
           <FormControl id="password">
-            <FormLabel transform="skewX(-12deg)">Password</FormLabel>
+            <FormLabel transform="skewX(-12deg)" fontWeight="bold">Senha</FormLabel>
             <Input
               type="password"
               maxLength="30"
               _hover="none"
-              _placeholder={ { color: 'white' } }
+              bg="white"
+              _placeholder={ { color: '#454545' } }
               focusBorderColor="black"
               placeholder="Digite aqui sua senha"
               className="password-input"
@@ -174,6 +177,7 @@ export default function FormLogin() {
                 className="error-message"
                 color="red"
                 textAlign="center"
+                fontWeight="bold"
                 data-testid="common_login__element-invalid-email"
               >
                 Usuário não encontrado.
@@ -181,6 +185,7 @@ export default function FormLogin() {
           {redirect && <Redirect to={ URL } />}
           <Text
             textAlign="center"
+            fontWeight="bold"
           >
             Ainda não tem uma conta?
           </Text>
