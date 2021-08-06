@@ -15,7 +15,7 @@ import {
   TotalValue,
 } from '../../styles/pages/customer/CustomerOrderDetails';
 
-function OrderDetails() {
+function SellerOrderDetails() {
   const { id } = useParams();
   const [order, setOrder] = useState();
 
@@ -76,4 +76,4 @@ function OrderDetails() {
   );
 }
 
-export default OrderDetails;
+export default SellerOrderDetails;
