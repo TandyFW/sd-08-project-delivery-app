@@ -6,6 +6,8 @@ const getAllSales = async () => Sale.findAll({
   attributes: ['id', 'status', 'saleDate', 'totalPrice', 'deliveryAddress'],
 });
 
+const getSaleById = async (id) => Sale.findByPk(id);
+
 const getItemPrice = async (id) => {
   const { price } = await ProductServices.findById(id);
   return price;
@@ -73,6 +75,7 @@ const getDetailedSale = async (id) => (
 
 module.exports = {
   getAllSales,
+  getSaleById,
   createSale,
   updateSale,
   getDetailedSale,

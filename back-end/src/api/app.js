@@ -1,10 +1,13 @@
 const express = require('express');
+
+const http = require('http');
 const cors = require('cors');
 const path = require('path');
 const middlewares = require('../middlewares');
 const routes = require('../routes');
 
 const app = express();
+const server = http.createServer(app);
 
 app.use(express.json());
 
@@ -21,4 +24,4 @@ app.get('/coffee', (_req, res) => res.status(418).end());
 
 app.use(middlewares.error);
 
-module.exports = app;
+module.exports = server;

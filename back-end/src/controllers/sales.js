@@ -8,8 +8,12 @@ const getAllSales = rescue(async (_req, res) => {
 
 const createSale = rescue(async (req, res) => {
   const { id: userId } = req.user;
-  const result = await SaleService.createSale(req.body, userId);
-  res.status(201).json({ saleId: result });
+  const saleId = await SaleService.createSale(req.body, userId);
+  const sale = await SaleService.getSaleById(saleId, { 
+    attributes: ['id', 'status', 'saleDate', 'totalPrice', 'deliveryAddress']
+  });
+  require('../sockets').emit('newSale', sale);
+  res.status(201).json({ saleId });
 });
 
 const updateSale = rescue(async (req, res) => {

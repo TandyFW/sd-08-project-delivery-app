@@ -1,6 +1,8 @@
 const { STATUS_CODES } = require('http');
 
 module.exports = (err, _req, res, _next) => {
+  console.log(err);
+
   if (err.isBoom) {
     const { statusCode, message } = err.output.payload;
     return res.status(statusCode).json({ message });
