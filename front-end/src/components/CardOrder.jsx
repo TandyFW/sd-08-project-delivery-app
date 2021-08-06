@@ -41,7 +41,7 @@ const CardOrder = ({
         <span>
           R$
           <span data-testid={ `${prefix}element-card-price-${id}` }>
-            {price.replace('.', ',')}
+            {price.toString().replace('.', ',')}
           </span>
         </span>
       </div>
@@ -52,12 +52,16 @@ const CardOrder = ({
 
 CardOrder.propTypes = {
   prefix: PropTypes.string.isRequired,
-  address: PropTypes.string.isRequired,
+  address: PropTypes.string,
   id: PropTypes.number.isRequired,
   deliveryStatus: PropTypes.string.isRequired,
   orderDate: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired,
+};
+
+CardOrder.defaultProps = {
+  address: '',
 };
 
 export default CardOrder;

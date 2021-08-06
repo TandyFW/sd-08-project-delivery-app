@@ -37,7 +37,7 @@ function ClientProducts() {
   }, []);
   return (
     <div>
-      <NavBar user={ user.name } />
+      <NavBar user={ user.name } contextPage="PRODUTOS" />
       <Center>
         <CartButton
           disabled={ total === 0 }

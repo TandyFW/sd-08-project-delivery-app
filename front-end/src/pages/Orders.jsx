@@ -64,9 +64,10 @@ const Orderer = () => {
 
   return (
     <>
-      <NavBar user={ user.name } />
+      <NavBar user={ user.name } contextPage="PEDIDOS" />
       <Container>
-        {!loading && sales.length > 0
+        {!loading
+          && sales.length > 0
           && sales.map((sale) => (
             <div key={ sale.id }>
               <CardOrder
