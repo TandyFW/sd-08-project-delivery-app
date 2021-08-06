@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import NavBar from '../../components/NavBar';
 import ListOrders from '../../components/ListOrders';
+import Context from '../../context/Context';
 
 function Orders() {
   const [ordersSeller, setOrdersSeller] = useState([]);
+  const { sellerOrders } = useContext(Context);
   const prefix = 'seller_orders__';
   const isSeller = true;
+
   const getOrders = async () => {
     const user = JSON.parse(localStorage.getItem('user'));
     const config = {
@@ -20,6 +23,7 @@ function Orders() {
       .then((response) => {
         console.log(response.data);
         setOrdersSeller(response.data);
+        sellerOrders.set(response.data);
       })
       .catch((error) => {
         console.log(error);
