@@ -15,17 +15,19 @@ function StatusNav({ orderData }) {
   const socket = socketIOClient(ENDPOINT);
   const TEN = 10;
 
-  console.log('console', orderData);
+  console.log('console', status);
 
   useEffect(() => {
-    socket.emit('setOrderStatus', { id, status: '' });
+    console.log('Execuet socket call');
+    // socketCallBack();
+    socket.emit('getUpdatedStatus', id);
     socket.on('getUpdatedStatus', (statusFromBrack) => {
       setStatus(statusFromBrack);
     });
-  }, [socket, id]);
+  }, [id, socket, socket.id]);
 
   function changeOrderStatus(newStatus) {
-    socket.emit('setOrderStatus', { id, status: newStatus });
+    socket.emit('clientSetOrderStatus', { id, status: newStatus });
   }
 
   return (

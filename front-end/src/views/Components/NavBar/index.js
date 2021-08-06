@@ -7,6 +7,7 @@ function NavBar(props) {
   const { userType, userName } = props;
   const history = useHistory();
   let prefix = '';
+  console.log(prefix);
 
   if (userType === 'customer') {
     prefix = 'customer_products__';
@@ -29,7 +30,7 @@ function NavBar(props) {
               <button
                 type="button"
                 onClick={ () => history.push('/customer/products') }
-                data-testid={ `${prefix}element-navbar-link-products` }
+                data-testid="customer_products__element-navbar-link-products"
               >
                 Produtos
               </button>
@@ -38,7 +39,7 @@ function NavBar(props) {
               <button
                 type="button"
                 onClick={ () => history.push('/customer/orders') }
-                data-testid={ `${prefix}element-navbar-link-orders` }
+                data-testid="customer_products__element-navbar-link-orders"
               >
                 Meus pedidos
               </button>
@@ -47,19 +48,20 @@ function NavBar(props) {
         )}
         { userType === 'seller' && (
           <li>
-            <a
-              href="/seller/requests"
-              data-testid={ `${prefix}element-navbar-link-orders` }
+            <button
+              type="button"
+              onClick={ () => history.push('/seller/orders') }
+              data-testid="customer_products__element-navbar-link-orders"
             >
-              Pedidos
-            </a>
+              Meus pedidos
+            </button>
           </li>
         )}
         { userType === 'admin' && (
           <li>
             <a
               href="/admin/manage"
-              data-testid={ `${prefix}element-navbar-link-manage` }
+              data-testid="customer_products__element-navbar-link-manage"
             >
               Gerenciar usuários
             </a>
@@ -69,14 +71,14 @@ function NavBar(props) {
 
           <li
             className="nav-name"
-            data-testid={ `${prefix}element-navbar-user-full-name` }
+            data-testid="customer_products__element-navbar-user-full-name"
           >
             {userName}
           </li>
           <li>
             <a
               href="/login"
-              data-testid={ `${prefix}element-navbar-link-logout` }
+              data-testid="customer_products__element-navbar-link-logout"
               onClick={ () => localStorage.clear() }
             >
               Sair

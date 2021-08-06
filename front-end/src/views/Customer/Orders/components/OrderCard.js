@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import socketIOClient from 'socket.io-client';
@@ -8,16 +8,25 @@ const ENDPOINT = 'http://localhost:3001';
 function OrderCard({ data, index }) {
   const { id } = data;
   const [status, setStatus] = useState();
-  console.log(data);
+  console.log(status);
 
   const socket = socketIOClient(ENDPOINT);
 
+  // useEffect(() => {
+  //   socket.emit('setOrderStatus', { id, status: '' });
+  //   socket.on('getUpdatedStatus', (statusFromBrack) => {
+  //     setStatus(statusFromBrack);
+  //   });
+  // }, [socket, id]);
+
   useEffect(() => {
-    socket.emit('setOrderStatus', { id, status: '' });
+    console.log('Execuet socket call');
+    // socketCallBack();
+    socket.emit('getUpdatedStatus', id);
     socket.on('getUpdatedStatus', (statusFromBrack) => {
       setStatus(statusFromBrack);
     });
-  }, [socket, id]);
+  }, [id, socket, socket.id]);
 
   const TEN = 10;
   return (
@@ -39,7 +48,7 @@ function OrderCard({ data, index }) {
         <p
           data-testid={ `customer_orders__element-order-date-${data.id}` }
         >
-          {`DATA: ${data.saleDate.slice(0, TEN).split('-').reverse().join('/')}`}
+          {`${data.saleDate.slice(0, TEN).split('-').reverse().join('/')}`}
         </p>
         <p
           data-testid={ `customer_orders__element-card-price-${data.id}` }
