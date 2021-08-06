@@ -10,9 +10,9 @@ const createSale = rescue(async (req, res) => {
   const { id: userId } = req.user;
   const saleId = await SaleService.createSale(req.body, userId);
   const sale = await SaleService.getSaleById(saleId, { 
-    attributes: ['id', 'status', 'saleDate', 'totalPrice', 'deliveryAddress']
+    attributes: ['id', 'status', 'saleDate', 'totalPrice', 'deliveryAddress'],
   });
-  require('../sockets').emit('newSale', sale);
+  res.io.emit('newSale', sale);
   res.status(201).json({ saleId });
 });
 

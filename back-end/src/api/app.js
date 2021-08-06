@@ -1,13 +1,21 @@
 const express = require('express');
-
-const http = require('http');
 const cors = require('cors');
 const path = require('path');
+const http = require('http');
+const { Server } = require('socket.io');
 const middlewares = require('../middlewares');
 const routes = require('../routes');
 
 const app = express();
 const server = http.createServer(app);
+const io = new Server(server, { cors: { origin: '*' } });
+
+require('../sockets')(io);
+
+app.use((_req, res, next) => {
+  res.io = io;
+  next();
+});
 
 app.use(express.json());
 
