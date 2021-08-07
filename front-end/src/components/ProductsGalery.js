@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Flex, Spinner, Box, Link, Button } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
+import { Flex, Spinner, Box, Button } from '@chakra-ui/react';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 import Header from './Header';
 import ProductCard from './ProductCard';
+import Footer from './Footer';
 
 export default function ProductsGalery() {
   const { cardsList, route, totalPrice } = useContext(DeliveryAppContext);
@@ -41,15 +43,15 @@ export default function ProductsGalery() {
           justifyContent="center"
           top="500"
           left="0"
-          paddingTop="5"
           width="60"
+          p="5"
           opacity="0.65"
         >
           <Box color="white">
             Ver carrinho: R$
           </Box>
           <Link
-            href="/customer/checkout"
+            to="/customer/checkout"
             marginBottom="5"
             className="btn-link-checkout"
             data-testid="customer_products__checkout-bottom-value"
@@ -66,6 +68,7 @@ export default function ProductsGalery() {
           </Link>
         </Flex>
       </Flex>
+      <Footer />
     </>
   );
 }

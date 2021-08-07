@@ -1,28 +1,36 @@
 import React, { useContext } from 'react';
+import { Table, Thead, Tbody, Tr, Th } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import TableRow from './TableRow';
 import TableRowManage from './TableRowManage';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 
-export default function Table({ heading, body = [] }) {
+export default function TableList({ heading, body = [] }) {
   const { route } = useContext(DeliveryAppContext);
   const ARRAY_SIZE = 5;
 
   if (!body) return <p>Carregando ...</p>;
   return (
-    <table className="products-table">
-      <thead>
-        <tr className="products-table-heading">
+    <Table
+      className="products-table"
+      variant="simple"
+      bg="orange"
+      colorScheme="blackAlpha"
+    >
+      <Thead color="black">
+        <Tr className="products-table-heading">
           {heading.map((element, index) => (
-            <th
+            <Th
               className="products-table-column"
               key={ index }
+              color="#fffafa"
+              fontWeight="bold"
             >
               { element }
-            </th>))}
-        </tr>
-      </thead>
-      <tbody>
+            </Th>))}
+        </Tr>
+      </Thead>
+      <Tbody color="#121212">
         {(route === 'customer' || route === 'seller')
           && (
             body.map((row, index) => (
@@ -45,12 +53,12 @@ export default function Table({ heading, body = [] }) {
                 showRemove={ heading.length > ARRAY_SIZE }
               />
             )))}
-      </tbody>
-    </table>
+      </Tbody>
+    </Table>
   );
 }
 
-Table.propTypes = {
+TableList.propTypes = {
   heading: PropTypes.arrayOf(PropTypes.string).isRequired,
   body: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

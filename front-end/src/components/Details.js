@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 // import PropTypes from 'prop-types';
+import { Box, Text, Heading, Flex, Button } from '@chakra-ui/react';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 import Table from './Table';
 import { HEADING_LIST_DETAILS } from '../utils/Lists';
@@ -68,47 +69,78 @@ export default function Details() {
   }, [order]);
 
   return (
-    <section className="order-details-container">
-      <h2 className="title-2">
+    <Box className="order-details-container" bg="orange" height="xl">
+      <Heading className="title-2" marginLeft="2" color="#121212">
         Detalhe do Pedido
-      </h2>
-      <div className="order-details-info-bar">
-        <p
-          className="order-details-order-id"
-          data-testid={ `${DATA_TESTID_PREFIX}element-order-details-label-order-id` }
-        >
-          { `PEDIDO ${order.id}`}
-        </p>
-        <p
-          className="order-details-seller-name"
-          data-testid={ `${DATA_TESTID_PREFIX}element-order-details-label-seller-name` }
-        >
-          { sellerName }
-        </p>
-        <p
-          className="order-details-order-date"
-          data-testid={ `${DATA_TESTID_PREFIX}element-order-details-label-order-date` }
-        >
-          { orderDate }
-        </p>
-        <p
-          className="order-details-order-status"
-          data-testid={
-            `${DATA_TESTID_PREFIX}element-order-details-label-delivery-status`
-          }
-        >
-          { order.status }
-        </p>
+      </Heading>
+      <Flex
+        className="order-details-info-bar"
+        justifyContent="space-between"
+        alignItems="flex-end"
+        marginBottom="5"
+      >
+        <Flex>
+          <Text
+            marginRight="2"
+            marginLeft="2"
+            fontWeight="bold"
+            color="#121212"
+          >
+            Número do pedido:
+          </Text>
+          <Text
+            className="order-details-order-id"
+            data-testid={ `${DATA_TESTID_PREFIX}element-order-details-label-order-id` }
+            color="#121212"
+          >
+            { `${order.id}`}
+          </Text>
+        </Flex>
+        <Flex>
+          <Text marginRight="2" fontWeight="bold" color="#121212">Nome do vendedor:</Text>
+          <Text
+            className="order-details-seller-name"
+            data-testid={ `${DATA_TESTID_PREFIX}element-order-details-label-seller-name` }
+            color="#121212"
+          >
+            { sellerName }
+          </Text>
+        </Flex>
+        <Flex>
+          <Text marginRight="2" fontWeight="bold" color="#121212">Data do pedido:</Text>
+          <Text
+            className="order-details-order-date"
+            data-testid={ `${DATA_TESTID_PREFIX}element-order-details-label-order-date` }
+            color="#121212"
+          >
+            { orderDate }
+          </Text>
+        </Flex>
+        <Flex>
+          <Text marginRight="2" fontWeight="bold" vcolor="#121212">Status:</Text>
+          <Text
+            className="order-details-order-status"
+            data-testid={
+              `${DATA_TESTID_PREFIX}element-order-details-label-delivery-status`
+            }
+            color="#121212"
+          >
+            { order.status }
+          </Text>
+        </Flex>
         {route === 'seller'
               && (
-                <button
+                <Button
                   data-testid="seller_order_details__button-preparing-check"
                   type="button"
+                  bg="black"
+                  color="white"
+                  _hover="none"
                 >
                   PREPARAR PEDIDO
-                </button>
+                </Button>
               )}
-        <button
+        <Button
           type="button"
           className="btn-confirm-delivery"
           onClick={ confirmDelivery }
@@ -120,18 +152,24 @@ export default function Details() {
           }
         >
           {route === 'seller' ? 'SAIU PARA ENTREGA' : 'MARCAR COMO ENTREGUE'}
-        </button>
-      </div>
+        </Button>
+      </Flex>
       <Table
         heading={ HEADING_LIST_DETAILS }
         body={ order && order.products }
       />
-      <p
-        data-testid={ `${DATA_TESTID_PREFIX}element-order-total-price` }
-      >
-        { total }
-      </p>
-    </section>
+      <Flex justifyContent="flex-end" marginRight="5">
+        <Text fontSize="2xl" transform="skewX(-12deg)" color="#121212">Total: R$ </Text>
+        <Text
+          fontSize="2xl"
+          transform="skewX(-12deg)"
+          color="#121212"
+          data-testid={ `${DATA_TESTID_PREFIX}element-order-total-price` }
+        >
+          { total }
+        </Text>
+      </Flex>
+    </Box>
   );
 }
 

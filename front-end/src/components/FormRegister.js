@@ -80,7 +80,7 @@ export default function FormRegister() {
             textAlign="center"
             transform="skewX(-12deg)"
           >
-            Inscreva-se grátis e comece a BEBER.
+            Inscreva-se grátis e comece a DIVERSÃO.
           </Heading>
           <Text fontSize="lg" color="#454545" transform="skewX(-12deg)">
             Aqui não entra bêbado só sai.

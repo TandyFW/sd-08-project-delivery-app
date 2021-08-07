@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Flex, Box, Text, Image } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 import fetchOrders from '../services/fetchOrders';
+import logo from '../images/Neto_Logo_BG_Orange_Transp.png';
 
 export default function OrdersList() {
   const { route, userId } = useContext(DeliveryAppContext);
@@ -17,6 +19,7 @@ export default function OrdersList() {
 
   const getOrders = async () => {
     const data = await fetchOrders(route, userId);
+    console.log(data);
     const newData = data.map((sale) => {
       const day = sale.saleDate.slice(SLICE_INDEX_EIGHT, SLICE_INDEX_TEN);
       const month = sale.saleDate.slice(SLICE_INDEX_FIVE, SLICE_INDEX_SEVEN);
@@ -38,47 +41,81 @@ export default function OrdersList() {
 
   if (isLoading) return <p>Carregando...</p>;
   return (
-    <section className="orders-container">
-      {ordersList.map((order, index) => (
-        <div className="order-card" key={ index }>
-          <Link to={ `/${route}/orders/${order.id}` }>
-            <div
-              className="order-id"
-              data-testid={ `${route}_orders__element-order-id-${order.id}` }
-            >
-              { `Pedido ${order.id}` }
-            </div>
-            <div
-              className="order-status"
-              data-testid={ `${route}_orders__element-delivery-status-${order.id}` }
-            >
-              { order.status }
-            </div>
-            <div className="order-infos-overview-container">
-              <div
-                className="order-date"
-                data-testid={ `${route}_orders__element-order-date-${order.id}` }
-              >
-                { order.saleDate }
-              </div>
-              <div
-                className="order-card-price"
-                data-testid={ `${route}_orders__element-card-price-${index + 1}` }
-              >
-                { order.totalPrice.replace('.', ',') }
-              </div>
-              {route === 'seller'
-              && (
-                <div className="order-card-address">
-                  <p data-testid={ `seller_orders__element-card-address-${order.id}` }>
-                    { `${order.deliveryAddress},${order.deliveryNumber}` }
-                  </p>
-                </div>
-              )}
-            </div>
-          </Link>
-        </div>
-      ))}
-    </section>
+    <Box height="100vh" bg="orange">
+      <Flex
+        className="orders-container"
+        justifyContent="space-around"
+        bg="orange"
+      >
+        {ordersList.map((order, index) => (
+          <Flex
+            className="order-card"
+            key={ index }
+            width="md"
+            bg="white"
+            justifyContent="center"
+            margin="5"
+            borderWidth="1px"
+            borderColor="black"
+            borderRadius="lg"
+            p="2"
+          >
+            <Link to={ `/${route}/orders/${order.id}` }>
+              <Flex width="sm" justifyContent="space-between" alignItems="center" p="5">
+                <Flex flexDirection="column">
+                  <Image src={ logo } height="12" />
+                  <Box
+                    className="order-id"
+                    data-testid={ `${route}_orders__element-order-id-${order.id}` }
+                    width="65px"
+                    color="#121212"
+                  >
+                    { `Pedido ${order.id}` }
+                  </Box>
+                </Flex>
+                <Box
+                  className="order-status"
+                  data-testid={ `${route}_orders__element-delivery-status-${order.id}` }
+                  bg="black"
+                  color="white"
+                  p="5"
+                  borderRadius="lg"
+                  marginLeft="8"
+                >
+                  { order.status }
+                </Box>
+                <Box className="order-infos-overview-container" marginLeft="8">
+                  <Box
+                    className="order-date"
+                    data-testid={ `${route}_orders__element-order-date-${order.id}` }
+                    color="#121212"
+                  >
+                    { order.saleDate }
+                  </Box>
+                  <Box
+                    className="order-card-price"
+                    data-testid={ `${route}_orders__element-card-price-${index + 1}` }
+                    color="#121212"
+                  >
+                    { order.totalPrice.replace('.', ',') }
+                  </Box>
+                  {route === 'seller'
+                  && (
+                    <Box className="order-card-address">
+                      <Text
+                        data-testid={ `seller_orders__element-card-address-${order.id}` }
+                        color="#121212"
+                      >
+                        { `${order.deliveryAddress},${order.deliveryNumber}` }
+                      </Text>
+                    </Box>
+                  )}
+                </Box>
+              </Flex>
+            </Link>
+          </Flex>
+        ))}
+      </Flex>
+    </Box>
   );
 }

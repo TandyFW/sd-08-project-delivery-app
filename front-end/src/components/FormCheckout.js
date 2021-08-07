@@ -1,5 +1,7 @@
 import React, { useContext, useState } from 'react';
 // import { Link } from 'react-router-dom';
+import { Box, Flex, FormControl, FormLabel, Input,
+  Select, Button, Heading } from '@chakra-ui/react';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 import sendOrder from '../services/sendOrder';
 
@@ -39,17 +41,32 @@ export default function FormCheckout() {
   };
 
   return (
-    <div className="form-checkout-container">
-      <h2 className="title-h2">
+    <Box
+      className="form-checkout-container"
+      bg="orange"
+      p="50"
+      marginTop="5"
+    >
+      <Heading className="title-h2" textAlign="center" size="lg" color="#121212">
         Detalhes e Endereço para Entrega
-      </h2>
-      <form action="" method="POST" id="formCheckout">
-        <label htmlFor="checkoutSeller" className="label-form-checkout">
-          P. Vendedora Responsável:
-          <select
+      </Heading>
+      <Flex>
+        <FormControl p="10">
+          <FormLabel
+            transform="skewX(-12deg)"
+            fontWeight="bold"
+            color="#121212"
+          >
+            P. Vendedora Responsável
+          </FormLabel>
+          <Select
             className="seller-select"
             name="select-seller"
             id="checkoutSeller"
+            bg="white"
+            borderColor="black"
+            focusBorderColor="black"
+            _hover="none"
             onChange={ selectSeller }
             data-testid="customer_checkout__select-seller"
           >
@@ -62,42 +79,60 @@ export default function FormCheckout() {
               >
                 { seller.name }
               </option>))}
-          </select>
-        </label>
-        <label htmlFor="checkoutAddress" className="label-form-checkout">
-          Endereço
-          <input
+          </Select>
+        </FormControl>
+        <FormControl p="10">
+          <FormLabel
+            transform="skewX(-12deg)"
+            fontWeight="bold"
+            color="#121212"
+          >
+            Endereço
+          </FormLabel>
+          <Input
             type="text"
             maxLength="100"
             className="input-address"
+            bg="white"
+            borderColor="black"
+            focusBorderColor="black"
+            _hover="none"
             onKeyUp={ () => setDeliveryAddress(document
               .querySelector('#checkoutAddress').value) }
             id="checkoutAddress"
             data-testid="customer_checkout__input-address"
           />
-        </label>
-        <label htmlFor="checkoutAddressNumber" className="label-form-checkout">
-          Número
-          <input
+        </FormControl>
+        <FormControl p="10">
+          <FormLabel transform="skewX(-12deg)" fontWeight="bold">Número</FormLabel>
+          <Input
             type="text"
             minLength="1"
             maxLength="5"
+            bg="white"
+            borderColor="black"
+            focusBorderColor="black"
+            _hover="none"
             className="input-address-number"
             onKeyUp={ () => setDeliveryNumber(document
               .querySelector('#checkoutAddressNumber').value) }
             id="checkoutAddressNumber"
             data-testid="customer_checkout__input-addressNumber"
           />
-        </label>
-      </form>
-      <button
-        type="submit"
-        className="btn-form-checkout"
-        id="btnCheckout"
-        onClick={ (e) => submitOrder(e) }
-        data-testid="customer_checkout__button-submit-order"
-      >
-        FINALIZAR PEDIDO
-      </button>
-    </div>);
+        </FormControl>
+      </Flex>
+      <Flex justifyContent="center" width="200vh">
+        <Button
+          type="submit"
+          className="btn-form-checkout"
+          id="btnCheckout"
+          onClick={ (e) => submitOrder(e) }
+          data-testid="customer_checkout__button-submit-order"
+          bg="black"
+          color="white"
+        >
+          FINALIZAR PEDIDO
+        </Button>
+      </Flex>
+    </Box>);
 }

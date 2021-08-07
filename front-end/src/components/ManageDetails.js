@@ -1,6 +1,8 @@
 import md5 from 'md5';
 import React, { useState, useContext } from 'react';
 // import PropTypes from 'prop-types';
+import { Box, Button, Flex,
+  FormControl, FormLabel, Heading, Input, Select, Text } from '@chakra-ui/react';
 import administradorRegister from '../services/administradorRegister';
 import Table from './Table';
 import { HEADING_MANAGER_DETAILS } from '../utils/Lists';
@@ -67,54 +69,86 @@ export default function ManageDetails() {
   };
 
   return (
-    <section className="order-details-container">
-      <h2 className="title-2">
+    <Box className="order-details-container" bg="orange" height="100vh">
+      <Heading className="title-2" marginLeft="2" p="2">
         Cadastrar novo usuário
-      </h2>
-      <div className="order-details-info-bar">
-        <label htmlFor="Nome">
-          Nome
-          <input
+      </Heading>
+      <Flex
+        className="order-details-info-bar"
+        justifyContent="space-around"
+        alignItems="flex-end"
+      >
+        <FormControl width="80">
+          <FormLabel transform="skewX(-12deg)" fontWeight="bold">Nome</FormLabel>
+          <Input
             type="text"
             name="Nome"
             maxLength="100"
             placeholder="Nome e sobrenome"
             onKeyUp={ validation }
             id="name"
+            size="sm"
+            width="80"
+            bg="white"
+            borderColor="black"
+            focusBorderColor="black"
+            _hover="none"
+            _placeholder={ { color: 'black', opacity: '0.50' } }
             data-testid={ `${DATA_TESTID_PREFIX}input-name` }
           />
-        </label>
-        <label htmlFor="Email">
-          Email
-          <input
+        </FormControl>
+        <FormControl width="80">
+          <FormLabel transform="skewX(-12deg)" fontWeight="bold">Email</FormLabel>
+          <Input
             type="text"
             name="Email"
             maxLength="100"
             placeholder="seu-email@site.com.br"
             onKeyUp={ validation }
             id="email"
+            size="sm"
+            width="80"
+            bg="white"
+            borderColor="black"
+            focusBorderColor="black"
+            _hover="none"
+            _placeholder={ { color: 'black', opacity: '0.50' } }
             data-testid={ `${DATA_TESTID_PREFIX}input-email` }
           />
-        </label>
-        <label htmlFor="Senha">
-          Senha
-          <input
+        </FormControl>
+        <FormControl width="50">
+          <FormLabel transform="skewX(-12deg)" fontWeight="bold">Senha</FormLabel>
+          <Input
             type="password"
             name="Senha"
             maxLength="30"
             placeholder="**********"
             onKeyUp={ validation }
             id="password"
+            size="sm"
+            width="50"
+            bg="white"
+            borderColor="black"
+            focusBorderColor="black"
+            _hover="none"
+            _placeholder={ { color: 'black', opacity: '0.50' } }
             data-testid={ `${DATA_TESTID_PREFIX}input-password` }
           />
-        </label>
-        <label htmlFor="type" className="label-form-manage">
-          Tipo
-          <select
+        </FormControl>
+        <FormControl width="40">
+          <FormLabel transform="skewX(-12deg)" fontWeight="bold">Tipo</FormLabel>
+          <Select
             className="type-select"
             name="type-select"
             id="type"
+            size="sm"
+            width="40"
             onChange={ selectType }
+            bg="white"
+            borderColor="black"
+            focusBorderColor="black"
+            _hover="none"
+            _placeholder={ { color: 'black' } }
             data-testid={ `${DATA_TESTID_PREFIX}select-role` }
           >
             <option
@@ -136,34 +170,36 @@ export default function ManageDetails() {
             >
               Administrador
             </option>
-          </select>
-        </label>
-        <button
+          </Select>
+        </FormControl>
+        <Button
           type="button"
           className="btn-confirm-delivery"
           disabled={ !isValid }
           onClick={ (e) => register(e) }
+          bg="black"
+          color="white"
           data-testid={ `${DATA_TESTID_PREFIX}button-register` }
         >
           CADASTRAR
-        </button>
-      </div>
+        </Button>
+      </Flex>
       {showMessage
         && (
-          <p
+          <Text
             className="error-message"
             data-testid={ `${DATA_TESTID_PREFIX}element-invalid-register` }
           >
             Usuário já cadastrado.
-          </p>)}
-      <h2 className="title-2">
+          </Text>)}
+      <Heading className="title-2" marginLeft="2" p="2" marginTop="10">
         Lista de usuários
-      </h2>
+      </Heading>
       <Table
         heading={ HEADING_MANAGER_DETAILS }
         // body={ order && order.products }
       />
-    </section>
+    </Box>
   );
 }
 

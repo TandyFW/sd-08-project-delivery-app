@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Tr, Td, Button } from '@chakra-ui/react';
+import { DeleteIcon } from '@chakra-ui/icons';
 import PropTypes from 'prop-types';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 
@@ -39,42 +41,42 @@ export default function TableRow({ row, tableIndex, showRemove }) {
   useEffect(() => componentSettings(), []);
 
   return (
-    <tr key={ tableIndex }>
-      <td
+    <Tr key={ tableIndex } textAlign="center">
+      <Td
         className="products-table-cel"
         data-testid={ `customer_checkout__element-order-table-item-number-${tableIndex}` }
       >
         { tableIndex + 1 }
-      </td>
-      <td
+      </Td>
+      <Td
         className="products-table-cel"
         data-testid={ `customer_checkout__element-order-table-name-${tableIndex}` }
       >
         { row.name }
-      </td>
-      <td
+      </Td>
+      <Td
         className="products-table-cel"
         data-testid={ `customer_checkout__element-order-table-quantity-${tableIndex}` }
       >
         { rowQuantity }
-      </td>
-      <td
+      </Td>
+      <Td
         className="products-table-cel"
         data-testid={ `customer_checkout__element-order-table-unit-price-${tableIndex}` }
       >
         { rowUnitaryPrice
           .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }
-      </td>
-      <td
+      </Td>
+      <Td
         className="products-table-cel"
         data-testid={ `customer_checkout__element-order-table-sub-total-${tableIndex}` }
       >
         { rowSubtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }
-      </td>
+      </Td>
       {showRemove
       && (
-        <td>
-          <button
+        <Td>
+          <Button
             type="button"
             className="btn-remove"
             onClick={ remove }
@@ -82,11 +84,11 @@ export default function TableRow({ row, tableIndex, showRemove }) {
               `customer_checkout__element-order-table-remove-${tableIndex}`
             }
           >
-            Remover
-          </button>
-        </td>
+            <DeleteIcon />
+          </Button>
+        </Td>
       )}
-    </tr>
+    </Tr>
   );
 }
 
