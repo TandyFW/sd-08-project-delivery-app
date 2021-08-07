@@ -84,8 +84,19 @@ const getSaleById = async (id) => {
     return { sales: sale };
 };
 
+const getSalesByUserId = async (userId) => {    
+    const sales = await Sale.findAll({
+        where: { userId },
+        attributes: { 
+          exclude: ['user_id', 'seller_id'],
+        },
+    }).then();
+    return { sales };
+};
+
 module.exports = {
     saveSale,
     getSales,
     getSaleById,
+    getSalesByUserId,
 };

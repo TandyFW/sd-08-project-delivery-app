@@ -5,7 +5,7 @@ import OrderStatus from '../OrderStatus';
 
 import { OrderCardBody, DatePrice } from './styled';
 
-function OrderCard({ order: { id, status, date, price } }) {
+function OrderCard({ order: { id, status, saleDate, totalPrice } }) {
   return (
     <OrderCardBody>
       <span
@@ -21,12 +21,17 @@ function OrderCard({ order: { id, status, date, price } }) {
         <span
           data-testid={ `customer_orders__element-order-date-${id}` }
         >
-          {date}
+          {new Date(saleDate).toLocaleString('pt-br').split(' ')[0]}
         </span>
         <span
           data-testid={ `customer_orders__element-card-price-${id}` }
         >
-          {price}
+          {'R$ '}
+          <span>
+            { totalPrice
+              .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
+              .replace('.', ',') }
+          </span>
         </span>
       </DatePrice>
     </OrderCardBody>

@@ -9,6 +9,7 @@ import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Checkout from './Pages/Checkout';
 import OrderDetails from './Pages/OrderDetails';
+import CustomerOrders from './Pages/CustomerOrders';
 
 import theme from './theme';
 
@@ -26,6 +27,7 @@ function App() {
           <Route exact path="/customer/products" component={ Products } />
           <Route exact path="/customer/checkout" component={ Checkout } />
           <Route exact path="/customer/orders/:id" component={ OrderDetails } />
+          <Route exact path="/customer/orders/" component={ CustomerOrders } />
         </Switch>
       </ThemeProvider>
     </Provider>
