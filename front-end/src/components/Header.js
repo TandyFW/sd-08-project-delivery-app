@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Flex, Image, Box, Link, Button, Heading } from '@chakra-ui/react';
+import { Flex, Image, Box, Link, Button, Text } from '@chakra-ui/react';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 import logo from '../images/Neto_Logo_BG_Orange_Transp.png';
 
@@ -58,15 +58,15 @@ export default function Header() {
           </Button>)}
       </Box>
       <Flex p="2">
-        <Heading
-          as="h3"
+        <Text
           color="white"
           data-testid={ `${NICK}` }
           marginRight="15"
           transform="skewX(-12deg)"
+          fontSize="3xl"
         >
           { user.name }
-        </Heading>
+        </Text>
         <Link href="/">
           <Button
             type="button"
@@ -78,45 +78,5 @@ export default function Header() {
         </Link>
       </Flex>
     </Flex>
-    // <header>
-    //   {route === 'customer'
-    //     && (
-    //       <Link to="/customer/products">
-    //         <button
-    //           type="button"
-    //           data-testid={ `${ITEM1}` }
-    //         >
-    //           PRODUTOS
-    //         </button>
-    //       </Link>)}
-    //   {route !== 'administrator'
-    //     && (
-    //       <Link to={ `/${route}/orders` }>
-    //         <button
-    //           type="button"
-    //           data-testid={ `${ITEM2}` }
-    //         >
-    //           MEUS PEDIDOS
-    //         </button>
-    //       </Link>)}
-    //   {route === 'administrator'
-    //     && (
-    //       <button
-    //         type="button"
-    //         data-testid={ `${ITEM1}` }
-    //       >
-    //         GERENCIAR USUÁRIOS
-    //       </button>)}
-    //   <h3 data-testid={ `${NICK}` }>{ user.name }</h3>
-    //   <Link to="/">
-    //     <button
-    //       type="button"
-    //       onClick={ clear }
-    //       data-testid={ `${SAIR}` }
-    //     >
-    //       SAIR
-    //     </button>
-    //   </Link>
-    // </header>
   );
 }

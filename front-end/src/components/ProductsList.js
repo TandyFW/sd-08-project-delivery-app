@@ -19,6 +19,7 @@ export default function ProductsList() {
   };
 
   const setLoadingMessage = () => {
+    console.log(itemsList);
     if (!heading.length || !itemsList.length) return setIsLoading(true);
     if (heading.length && itemsList.length) return setIsLoading(false);
   };

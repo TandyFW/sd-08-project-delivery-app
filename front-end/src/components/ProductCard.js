@@ -153,59 +153,6 @@ export default function ProductCard({ data }) {
         </Button>
       </Flex>
     </Box>
-    // <section className="products-card">
-    //   <div className="card-price-container">
-    //     R$
-    //     <p
-    //       className="card-price"
-    //       data-testid={ `customer_products__element-card-price-${id}` }
-    //     >
-    //       { `${price.replace('.', ',')}` }
-    //     </p>
-    //   </div>
-    //   <img
-    //     src={ urlImage }
-    //     alt={ name }
-    //     className="card-img"
-    //     data-testid={ `customer_products__img-card-bg-image-${id}` }
-    //   />
-    //   <div className="card-footer">
-    //     <p
-    //       className="card-title"
-    //       data-testid={ `customer_products__element-card-title-${id}` }
-    //     >
-    //       { name }
-    //     </p>
-    //     <div className="card-control">
-    //       <button
-    //         type="button"
-    //         onClick={ decrementItem }
-    //         className="btn-card-decrement"
-    //         id="btnCardDecrement"
-    //         data-testid={ `customer_products__button-card-rm-item-${id}` }
-    //       >
-    //         -
-    //       </button>
-    //       <input
-    //         id={ `inputProduct${id}` }
-    //         className="card-display-quantity"
-    //         data-testid={ `customer_products__input-card-quantity-${id}` }
-    //         value={ quantity }
-    //         onChange={ chaceQuantity }
-    //         type="number"
-    //       />
-    //       <button
-    //         type="button"
-    //         onClick={ incrementItem }
-    //         className="btn-card-increment"
-    //         id="btnCardIncrement"
-    //         data-testid={ `customer_products__button-card-add-item-${id}` }
-    //       >
-    //         +
-    //       </button>
-    //     </div>
-    //   </div>
-    // </section>
   );
 }
 
