@@ -4,6 +4,10 @@ import { HeaderSeller, ItemListOrderSeller } from '../../components';
 import api from '../../Apis/api1';
 import { TotalOrder } from '../../components/ProductsList/Styled';
 import { Context } from '../../Context';
+import {
+  Container,
+  ProductsCustomerContainer,
+} from './Styled';
 
 const TARGET_LENGTH = 4;
 
@@ -54,60 +58,62 @@ const OrdersDetailsSeller = ({ match }) => {
   };
 
   return (
-    <div>
+    <Container>
       <HeaderSeller />
       <h3>Detalhes do Pedido</h3>
-      <span data-testid="seller_order_details__element-order-details-label-order-id">
-        {sale.id.toString().padStart(TARGET_LENGTH, '0')}
-      </span>
-      <span data-testid="seller_order_details__element-order-details-label-order-date">
-        {formatDate(sale.sale_date)}
-      </span>
-      <span
-        data-testid="seller_order_details__element-order-details-label-delivery-status"
-      >
-        {sale.status}
-      </span>
-      <button
-        type="button"
-        data-testid="seller_order_details__button-preparing-check"
-        onClick={ () => handleClickChangeStatus('Preparando') }
-        disabled={ sale.status !== 'Pendente' }
-      >
-        Preparar Pedido
-      </button>
-      <button
-        type="button"
-        disabled={ sale.status !== 'Preparando' }
-        onClick={ () => handleClickChangeStatus('Em Trânsito') }
-        data-testid="seller_order_details__button-dispatch-check"
-      >
-        Saiu para Entrega
-      </button>
-      <div>
-        {sale.products.length > 0 ? (
-          sale.products.map((item, index) => (
-            <ItemListOrderSeller
-              key={ index }
-              item={ item.id }
-              description={ item.name }
-              quantity={ item.salesProduct.quantity }
-              unitaryValue={ item.price }
-              index={ index }
-              dataTestId="seller_order_details"
-            />
-          ))
-        ) : (
-          <h2>Não há pedidos a entregar</h2>
-        )}
-        <TotalOrder>
-          Total: R$
-          <span data-testid="seller_order_details__element-order-total-price">
-            {sale.total_price.replace(/\./, ',')}
-          </span>
-        </TotalOrder>
-      </div>
-    </div>
+      <ProductsCustomerContainer>
+        <span data-testid="seller_order_details__element-order-details-label-order-id">
+          {sale.id.toString().padStart(TARGET_LENGTH, '0')}
+        </span>
+        <span data-testid="seller_order_details__element-order-details-label-order-date">
+          {formatDate(sale.sale_date)}
+        </span>
+        <span
+          data-testid="seller_order_details__element-order-details-label-delivery-status"
+        >
+          {sale.status}
+        </span>
+        <button
+          type="button"
+          data-testid="seller_order_details__button-preparing-check"
+          onClick={ () => handleClickChangeStatus('Preparando') }
+          disabled={ sale.status !== 'Pendente' }
+        >
+          Preparar Pedido
+        </button>
+        <button
+          type="button"
+          disabled={ sale.status !== 'Preparando' }
+          onClick={ () => handleClickChangeStatus('Em Trânsito') }
+          data-testid="seller_order_details__button-dispatch-check"
+        >
+          Saiu para Entrega
+        </button>
+        <div>
+          {sale.products.length > 0 ? (
+            sale.products.map((item, index) => (
+              <ItemListOrderSeller
+                key={ index }
+                item={ item.id }
+                description={ item.name }
+                quantity={ item.salesProduct.quantity }
+                unitaryValue={ item.price }
+                index={ index }
+                dataTestId="seller_order_details"
+              />
+            ))
+          ) : (
+            <h2>Não há pedidos a entregar</h2>
+          )}
+          <TotalOrder>
+            Total: R$
+            <span data-testid="seller_order_details__element-order-total-price">
+              {sale.total_price.replace(/\./, ',')}
+            </span>
+          </TotalOrder>
+        </div>
+      </ProductsCustomerContainer>
+    </Container>
   );
 };
 
