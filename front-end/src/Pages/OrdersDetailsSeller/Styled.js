@@ -9,21 +9,56 @@ export const Container = styled.div`
 `;
 
 export const ProductsCustomerContainer = styled.div`
+  align-items: center;
   background-color: #f6f2df;
   color: #2e1b0f;
+  margin: auto;
 `;
 
-export const preparingCheckButton = styled.button`
-  background-color: #35c85c;
+export const PreparingCheckButton = styled.button`
+  /* background-color: #35c85c;*/
+  border-radius: 5px;
   padding: 5px;
   color: #2e1b0f;
-  width: 40%;
-  margin-bottom: 5px;
-  font-size: 12px;
-  font-weight: bold;
+  width: 20%;
+  font-weight: 700;
   text-align: center;
+
+  &:hover {
+    background-color: #5DD37C;
+  }
 `;
 
-/* export const HeaderOrderStatus = styled.div`
+export const HeaderOrderStatus = styled.div`
+  align-items: center;
   background-color: white;
-`; */
+  border-radius: 5px;
+  display: flex;
+  font-weight: 700;
+  justify-content: space-between;
+  padding: 5px;
+  margin-left: 40px;
+  width: 94%;
+`;
+
+export const BodyItensOrders = styled.div`
+  width: 100%;
+`;
+
+export const DispatchCheckButton = styled.button`
+  /* background-color: #ff914d; */
+  border-radius: 5px;
+  padding: 5px;
+  color: #2e1b0f;
+  width: 20%;
+  font-weight: 700;
+  text-align: center;
+
+  &:hover {
+    background-color: #ffaf4d;
+  }
+`;
+
+export const HeaderTitle = styled.h3`
+  margin-left: 40px;
+`;

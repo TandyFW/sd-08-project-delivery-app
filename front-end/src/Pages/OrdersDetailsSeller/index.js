@@ -7,6 +7,11 @@ import { Context } from '../../Context';
 import {
   Container,
   ProductsCustomerContainer,
+  PreparingCheckButton,
+  HeaderOrderStatus,
+  BodyItensOrders,
+  DispatchCheckButton,
+  HeaderTitle,
 } from './Styled';
 
 const TARGET_LENGTH = 4;
@@ -60,36 +65,40 @@ const OrdersDetailsSeller = ({ match }) => {
   return (
     <Container>
       <HeaderSeller />
-      <h3>Detalhes do Pedido</h3>
       <ProductsCustomerContainer>
-        <span data-testid="seller_order_details__element-order-details-label-order-id">
-          {sale.id.toString().padStart(TARGET_LENGTH, '0')}
-        </span>
-        <span data-testid="seller_order_details__element-order-details-label-order-date">
-          {formatDate(sale.sale_date)}
-        </span>
-        <span
-          data-testid="seller_order_details__element-order-details-label-delivery-status"
-        >
-          {sale.status}
-        </span>
-        <button
-          type="button"
-          data-testid="seller_order_details__button-preparing-check"
-          onClick={ () => handleClickChangeStatus('Preparando') }
-          disabled={ sale.status !== 'Pendente' }
-        >
-          Preparar Pedido
-        </button>
-        <button
-          type="button"
-          disabled={ sale.status !== 'Preparando' }
-          onClick={ () => handleClickChangeStatus('Em Trânsito') }
-          data-testid="seller_order_details__button-dispatch-check"
-        >
-          Saiu para Entrega
-        </button>
-        <div>
+        <HeaderTitle>Detalhes do Pedido</HeaderTitle>
+        <HeaderOrderStatus>
+          <span data-testid="seller_order_details__element-order-details-label-order-id">
+            {sale.id.toString().padStart(TARGET_LENGTH, '0')}
+          </span>
+          <span
+            data-testid="seller_order_details_element-order-details-label-order-date"
+          >
+            {formatDate(sale.sale_date)}
+          </span>
+          <span
+            data-testid="seller_order_details_element-order-details-label-delivery-status"
+          >
+            {sale.status}
+          </span>
+          <PreparingCheckButton
+            type="button"
+            data-testid="seller_order_details__button-preparing-check"
+            onClick={ () => handleClickChangeStatus('Preparando') }
+            disabled={ sale.status !== 'Pendente' }
+          >
+            PREPARAR PEDIDO
+          </PreparingCheckButton>
+          <DispatchCheckButton
+            type="button"
+            disabled={ sale.status !== 'Preparando' }
+            onClick={ () => handleClickChangeStatus('Em Trânsito') }
+            data-testid="seller_order_details__button-dispatch-check"
+          >
+            SAIU PARA ENTREGA
+          </DispatchCheckButton>
+        </HeaderOrderStatus>
+        <BodyItensOrders>
           {sale.products.length > 0 ? (
             sale.products.map((item, index) => (
               <ItemListOrderSeller
@@ -111,7 +120,7 @@ const OrdersDetailsSeller = ({ match }) => {
               {sale.total_price.replace(/\./, ',')}
             </span>
           </TotalOrder>
-        </div>
+        </BodyItensOrders>
       </ProductsCustomerContainer>
     </Container>
   );
