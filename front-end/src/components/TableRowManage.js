@@ -8,10 +8,7 @@ export default function TableRow({ row, tableIndex, showRemove }) {
   const [rowUnitaryPrice, setRowUnitaryPrice] = useState(0);
   const [setRowSubtotal] = useState(0);
 
-  // console.log(row);
-
   const remove = () => {
-    // console.log(row.name);
     const currentList = itemsList.filter((item) => item.name !== row.name);
     setItemsList(currentList);
   };
@@ -30,7 +27,6 @@ export default function TableRow({ row, tableIndex, showRemove }) {
 
   useEffect(() => {
     const srtList = JSON.stringify(itemsList);
-    // console.log(srtList);
     return localStorage.setItem('currentItemsList', srtList);
   }, [itemsList]);
 
