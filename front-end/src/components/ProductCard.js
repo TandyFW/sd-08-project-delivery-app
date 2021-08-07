@@ -1,5 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Box, Image,
+  Text, Input, Button, Flex, useColorModeValue } from '@chakra-ui/react';
+import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 
 export default function ProductCard({ data }) {
@@ -72,59 +75,137 @@ export default function ProductCard({ data }) {
   // [itemsList, quantity]);
 
   return (
-    <section className="products-card">
-      <div className="card-price-container">
-        R$
-        <p
-          className="card-price"
-          data-testid={ `customer_products__element-card-price-${id}` }
-        >
-          { `${price.replace('.', ',')}` }
-        </p>
-      </div>
-      <img
+    <Box
+      borderWidth="1px"
+      borderColor="black"
+      borderRadius="lg"
+      overflow="hidden"
+      textAlign="center"
+      margin="15"
+      bg={ useColorModeValue('white', 'gray.700') }
+    >
+      <Text
+        bg="black"
+        color={ useColorModeValue('white', 'gray.700') }
+        className="card-price"
+        fontWeight="bold"
+        data-testid={ `customer_products__element-card-price-${id}` }
+      >
+        { `${price.replace('.', ',')}` }
+      </Text>
+      <Image
         src={ urlImage }
         alt={ name }
         className="card-img"
+        height="200px"
+        display="inline"
+        alignContent="center"
         data-testid={ `customer_products__img-card-bg-image-${id}` }
       />
-      <div className="card-footer">
-        <p
-          className="card-title"
-          data-testid={ `customer_products__element-card-title-${id}` }
+      <Box
+        as="p"
+        mt="1"
+        fontWeight="bold"
+        lineHeight="tight"
+        isTruncated
+        transform="skewX(-12deg)"
+        data-testid={ `customer_products__element-card-title-${id}` }
+      >
+        { name }
+      </Box>
+      <Flex>
+        <Button
+          borderRadius="none"
+          bg="black"
+          size="sm"
+          type="button"
+          onClick={ incrementItem }
+          className="btn-card-increment"
+          id="btnCardIncrement"
+          data-testid={ `customer_products__button-card-add-item-${id}` }
         >
-          { name }
-        </p>
-        <div className="card-control">
-          <button
-            type="button"
-            onClick={ decrementItem }
-            className="btn-card-decrement"
-            id="btnCardDecrement"
-            data-testid={ `customer_products__button-card-rm-item-${id}` }
-          >
-            -
-          </button>
-          <input
-            id={ `inputProduct${id}` }
-            className="card-display-quantity"
-            data-testid={ `customer_products__input-card-quantity-${id}` }
-            value={ quantity }
-            onChange={ chaceQuantity }
-            type="number"
-          />
-          <button
-            type="button"
-            onClick={ incrementItem }
-            className="btn-card-increment"
-            id="btnCardIncrement"
-            data-testid={ `customer_products__button-card-add-item-${id}` }
-          >
-            +
-          </button>
-        </div>
-      </div>
-    </section>
+          <AddIcon color="white" />
+        </Button>
+        <Input
+          focusBorderColor="black"
+          borderColor="black"
+          borderRadius="none"
+          textAlign="center"
+          size="sm"
+          id={ `inputProduct${id}` }
+          className="card-display-quantity"
+          data-testid={ `customer_products__input-card-quantity-${id}` }
+          value={ quantity }
+          onChange={ chaceQuantity }
+          type="number"
+        />
+        <Button
+          bg="black"
+          borderRadius="none"
+          size="sm"
+          type="button"
+          onClick={ decrementItem }
+          className="btn-card-decrement"
+          id="btnCardDecrement"
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
+        >
+          <MinusIcon color="white" />
+        </Button>
+      </Flex>
+    </Box>
+    // <section className="products-card">
+    //   <div className="card-price-container">
+    //     R$
+    //     <p
+    //       className="card-price"
+    //       data-testid={ `customer_products__element-card-price-${id}` }
+    //     >
+    //       { `${price.replace('.', ',')}` }
+    //     </p>
+    //   </div>
+    //   <img
+    //     src={ urlImage }
+    //     alt={ name }
+    //     className="card-img"
+    //     data-testid={ `customer_products__img-card-bg-image-${id}` }
+    //   />
+    //   <div className="card-footer">
+    //     <p
+    //       className="card-title"
+    //       data-testid={ `customer_products__element-card-title-${id}` }
+    //     >
+    //       { name }
+    //     </p>
+    //     <div className="card-control">
+    //       <button
+    //         type="button"
+    //         onClick={ decrementItem }
+    //         className="btn-card-decrement"
+    //         id="btnCardDecrement"
+    //         data-testid={ `customer_products__button-card-rm-item-${id}` }
+    //       >
+    //         -
+    //       </button>
+    //       <input
+    //         id={ `inputProduct${id}` }
+    //         className="card-display-quantity"
+    //         data-testid={ `customer_products__input-card-quantity-${id}` }
+    //         value={ quantity }
+    //         onChange={ chaceQuantity }
+    //         type="number"
+    //       />
+    //       <button
+    //         type="button"
+    //         onClick={ incrementItem }
+    //         className="btn-card-increment"
+    //         id="btnCardIncrement"
+    //         data-testid={ `customer_products__button-card-add-item-${id}` }
+    //       >
+    //         +
+    //       </button>
+    //     </div>
+    //   </div>
+    // </section>
   );
 }
 
