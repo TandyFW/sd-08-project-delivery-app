@@ -39,9 +39,12 @@ function OrderDetail() {
     getSaleById(saleId).then((response) => setSale(response));
   }, [saleId]);
 
+  const { role } = JSON.parse(localStorage.getItem('user')) || '';
   // const totalPrice = sale.sales.reduce(
   //   (acc, curr) => (acc + (curr.count * curr.price)), 0,
   // ).toFixed(2);
+
+  const prefix = role === 'customer' ? 'customer_order_details' : 'seller_order_details';
 
   return (
     <OrderListBody>
@@ -49,7 +52,7 @@ function OrderDetail() {
       {sale
       && (
         <>
-          <SaleInfo sale={ sale.sales } />
+          <SaleInfo sale={ sale.sales } role={ role } />
           <OrderTable
             products={ sale.sales.Products }
             testIds={ testIds }
@@ -57,7 +60,7 @@ function OrderDetail() {
           />
         </>)}
       <span
-        data-testid="customer_order_details__element-order-total-price"
+        data-testid={ `${prefix}__element-order-total-price` }
       >
         {sale && sale.sales.totalPrice.replace('.', ',') }
       </span>

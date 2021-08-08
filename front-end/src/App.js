@@ -11,6 +11,7 @@ import Checkout from './Pages/Checkout';
 import OrderDetails from './Pages/OrderDetails';
 import CustomerOrders from './Pages/CustomerOrders';
 import SellerOrders from './Pages/SellerOrders';
+import SellerOrderDetails from './Pages/SellerOrderDetails';
 
 import theme from './theme';
 
@@ -29,6 +30,7 @@ function App() {
           <Route exact path="/customer/checkout" component={ Checkout } />
           <Route exact path="/customer/orders/:id" component={ OrderDetails } />
           <Route exact path="/customer/orders/" component={ CustomerOrders } />
+          <Route exact path="/seller/orders/:id" component={ SellerOrderDetails } />
           <Route exact path="/seller/orders/" component={ SellerOrders } />
         </Switch>
       </ThemeProvider>
