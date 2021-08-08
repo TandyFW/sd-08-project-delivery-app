@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-
+import socketIOClient from 'socket.io-client';
 import './styles.css';
+
+const ENDPOINT = 'http://localhost:3001';
 
 function OrderDetailsCard(order) {
   console.log(order);
+  const [status, setStatus] = useState();
+  const socket = socketIOClient(ENDPOINT);
   const { order: {
     id,
-    status,
     saleDate,
     deliveryAddress,
     deliveryNumber,
@@ -18,6 +21,15 @@ function OrderDetailsCard(order) {
   function handleClick() {
     history.push(`/seller/orders/${id}`);
   }
+
+  useEffect(() => {
+    console.log('Execuet socket call');
+    // socketCallBack();
+    socket.emit('getUpdatedStatus', id);
+    socket.on('getUpdatedStatus', (statusFromBrack) => {
+      setStatus(statusFromBrack);
+    });
+  }, [id, socket, socket.id]);
 
   function formatDate(fullDate) {
     const date = fullDate.split('T');
