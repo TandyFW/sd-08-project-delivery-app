@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { FaCartPlus } from 'react-icons/fa';
 import NavBar from '../components/NavBar';
 import CardProduct from '../components/CardProduct';
 import {
@@ -45,6 +46,7 @@ function ClientProducts() {
           data-testid={ `${prefix}button-cart` }
           color={ colors.teal }
         >
+          <FaCartPlus className="cart-icon" />
           <span>Ver Carrinho</span>
           <span data-testid={ `${prefix}checkout-bottom-value` }>
             {total.toFixed(2).replace('.', ',')}

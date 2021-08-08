@@ -93,7 +93,7 @@ const CustomerDetails = () => {
                 data-testid={ `${prefix}button-delivery-check` }
                 color={ colors.teal }
               >
-                PEPARAR PEDIDO
+                PREPARAR PEDIDO
               </OrderButton>
             </section>
           </DetailsBar>
@@ -119,7 +119,10 @@ const CustomerDetails = () => {
           ))}
           <div className="total-order">
             <strong>TOTAL: R$</strong>
-            <LabelInfo data-testid={ `${prefix}element-order-total-price` }>
+            <LabelInfo
+              color={ colors.teal }
+              data-testid={ `${prefix}element-order-total-price` }
+            >
               {sale.total_price.replace('.', ',')}
             </LabelInfo>
           </div>

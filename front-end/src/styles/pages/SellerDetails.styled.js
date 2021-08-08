@@ -9,8 +9,9 @@ export const Container = styled.div`
 
 export const DetailsContainer = styled.div`
   strong {
+    padding-left: 15px;
     margin-left: 10px;
-    margin-right: -15px;
+    margin-right: -2px;
   }
   .total-order {
     margin-left: 10px;
@@ -18,7 +19,7 @@ export const DetailsContainer = styled.div`
     border-radius: 5px;
     color: white;
     display: inline-block;
-    background-color: teal;
+    background-color: rgb(2, 51, 10);
   }
   width: 90%;
   height: auto;
