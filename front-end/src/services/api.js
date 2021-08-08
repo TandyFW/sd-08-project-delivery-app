@@ -21,7 +21,9 @@ const requestApi = async (route, method = 'GET', data = {}, token = '') => {
 export const loginRequest = (user, setUsrNotFound, history) => (
   requestApi('/login', 'POST', user)
     .then((response) => {
-      history.push('/customer/products');
+      const { role } = response;
+      if (role === 'customer') history.push('/customer/products');
+      if (role === 'seller') history.push('/seller/orders');
       return response;
     })
     .catch((err) => {
@@ -66,6 +68,10 @@ export const getSaleById = (id, token) => requestApi(`/sale/${id}`, 'GET', {}, t
 
 export const getSalesByUserId = (id, token) => requestApi(
   `/sale/user/${id}`, 'GET', {}, token,
+);
+
+export const getSalesBySellerId = (id, token) => requestApi(
+  `/sale/seller/${id}`, 'GET', {}, token,
 );
 
 export default requestApi;

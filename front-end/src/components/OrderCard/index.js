@@ -6,27 +6,27 @@ import OrderStatus from '../OrderStatus';
 
 import { OrderCardBody, DatePrice } from './styled';
 
-function OrderCard({ order: { id, status, saleDate, totalPrice }, redirect }) {
+function OrderCard({ order: { id, status, saleDate, totalPrice }, redirect, userRole }) {
   const history = useHistory();
   return (
     <OrderCardBody onClick={ () => history.push(redirect) }>
       <span
-        data-testid={ `customer_orders__element-order-id-${id}` }
+        data-testid={ `${userRole}_orders__element-order-id-${id}` }
       >
         {`pedido ${id}`}
       </span>
       <OrderStatus
         status={ status }
-        testId={ `customer_orders__element-delivery-status-${id}` }
+        testId={ `${userRole}_orders__element-delivery-status-${id}` }
       />
       <DatePrice>
         <span
-          data-testid={ `customer_orders__element-order-date-${id}` }
+          data-testid={ `${userRole}_orders__element-order-date-${id}` }
         >
           {new Date(saleDate).toLocaleString('pt-br').split(' ')[0]}
         </span>
         <span
-          data-testid={ `customer_orders__element-card-price-${id}` }
+          data-testid={ `${userRole}_orders__element-card-price-${id}` }
         >
           {'R$ '}
           <span>
@@ -43,6 +43,7 @@ function OrderCard({ order: { id, status, saleDate, totalPrice }, redirect }) {
 OrderCard.propTypes = {
   order: PropTypes.objectOf(PropTypes.any).isRequired,
   redirect: PropTypes.string.isRequired,
+  userRole: PropTypes.string.isRequired,
 };
 
 export default OrderCard;

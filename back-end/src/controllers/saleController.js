@@ -21,15 +21,23 @@ const getSaleById = rescue(async (req, res) => {
 });
 
 const getSalesByUserId = rescue(async (req, res) => {
-      const { id } = req.params;
-  
-      const Sales = await saleServices.getSalesByUserId(id);
-        res.status(OK).json(Sales);
-  });
+  const { id } = req.params;
+
+  const Sales = await saleServices.getSalesByUserId(id);
+  res.status(OK).json(Sales);
+});
+
+const getSalesBySellerId = rescue(async (req, res) => {
+  const { id } = req.params;
+
+  const Sales = await saleServices.getSalesBySellerId(id);
+  res.status(OK).json(Sales);
+});
 
 module.exports = {
       saveSale,
       getSales,
       getSaleById,
       getSalesByUserId,
+      getSalesBySellerId,
  };
