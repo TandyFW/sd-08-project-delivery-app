@@ -6,7 +6,7 @@ export const clientHeaderLinks = [
   },
   {
     name: 'meus pedidos',
-    link: '/customer/checkout',
+    link: '/customer/orders',
     testId: 'customer_products__element-navbar-link-orders',
   },
 ];

@@ -20,8 +20,16 @@ const getSaleById = rescue(async (req, res) => {
       res.status(OK).json(Sale);
 });
 
+const getSalesByUserId = rescue(async (req, res) => {
+      const { id } = req.params;
+  
+      const Sales = await saleServices.getSalesByUserId(id);
+        res.status(OK).json(Sales);
+  });
+
 module.exports = {
       saveSale,
       getSales,
       getSaleById,
+      getSalesByUserId,
  };

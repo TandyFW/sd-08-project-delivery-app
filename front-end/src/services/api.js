@@ -64,4 +64,8 @@ export const postSale = async (sellerId,
 
 export const getSaleById = (id, token) => requestApi(`/sale/${id}`, 'GET', {}, token);
 
+export const getSalesByUserId = (id, token) => requestApi(
+  `/sale/user/${id}`, 'GET', {}, token,
+);
+
 export default requestApi;

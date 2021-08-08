@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { TextField, Button } from '@material-ui/core/';
@@ -13,6 +14,7 @@ import Logo from '../../components/Logo';
 
 const Login = ({ history }) => {
   const [usrNotFound, setUsrNotFound] = useState(false);
+  const [usrToken, setUsrToken] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -25,6 +27,13 @@ const Login = ({ history }) => {
     const data = await loginRequest({ email, password }, setUsrNotFound, history);
     localStorage.setItem('user', JSON.stringify(data));
   };
+
+  useEffect(() => {
+    const { token } = JSON.parse(localStorage.getItem('user')) || '';
+    setUsrToken(token);
+  }, []);
+
+  if (usrToken) return <Redirect to="/customer/products" />;
 
   return (
     <LoginPage>
