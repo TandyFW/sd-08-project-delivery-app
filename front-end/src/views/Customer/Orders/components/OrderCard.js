@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import './styles.css';
 import socketIOClient from 'socket.io-client';
 
+const ENDPOINT = 'http://localhost:3001';
+
 function OrderCard({ data }) {
   const { id } = data;
   const [status, setStatus] = useState();
@@ -56,7 +58,6 @@ function OrderCard({ data }) {
         <div className="half-data-status">
           <p
             data-testid={ `customer_orders__element-delivery-status-${data.id}` }
-            className={ statusColor() }
           >
             {status}
           </p>

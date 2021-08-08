@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Context from '../../context/Context';
-import NavBar from '../Components/NavBar/index';
+import NavBar from '../Components/NavBar';
 import OrderDetailsCard from '../Components/OrderDetailCard';
 import './styles.css';
 
