@@ -86,7 +86,17 @@ const getSalesByUserId = async (userId) => {
         attributes: { 
           exclude: ['user_id', 'seller_id'],
         },
-    }).then();
+    });
+    return { sales };
+};
+
+const getSalesBySellerId = async (sellerId) => {    
+    const sales = await Sale.findAll({
+        where: { sellerId },
+        attributes: { 
+          exclude: ['user_id', 'seller_id'],
+        },
+    });
     return { sales };
 };
 
@@ -95,4 +105,5 @@ module.exports = {
     getSales,
     getSaleById,
     getSalesByUserId,
+    getSalesBySellerId,
 };

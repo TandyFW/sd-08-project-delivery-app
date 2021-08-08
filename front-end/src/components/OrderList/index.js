@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import OrderCard from '../OrderCard';
-import { getSalesByUserId } from '../../services/api';
+import { getSalesByUserId, getSalesBySellerId } from '../../services/api';
 
 import OrderListBody from './styled';
 
@@ -11,17 +11,34 @@ import OrderListBody from './styled';
 
 function OrderList() {
   const [orders, setOrders] = useState([]);
+  const [userRole, setUserRole] = useState('');
+
+  const getPageRole = (orderId) => {
+    if (userRole === 'seller') return `/seller/orders/${orderId}`;
+    if (userRole === 'customer') return `/customer/orders/${orderId}`;
+  };
 
   useEffect(() => {
-    const { id, token } = JSON.parse(localStorage.getItem('user')) || '';
+    const { id, token, role } = JSON.parse(localStorage.getItem('user')) || '';
+    setUserRole(role);
 
-    getSalesByUserId(id, token)
-      .then(({ sales }) => {
-        setOrders(sales);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (role === 'customer') {
+      getSalesByUserId(id, token)
+        .then(({ sales }) => {
+          setOrders(sales);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else if (role === 'seller') {
+      getSalesBySellerId(id, token)
+        .then(({ sales }) => {
+          setOrders(sales);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, []);
 
   return (
@@ -29,7 +46,8 @@ function OrderList() {
       {orders.map((order) => (<OrderCard
         key={ order.id }
         order={ order }
-        redirect={ `/customer/orders/${order.id}` }
+        redirect={ getPageRole(order.id) }
+        userRole={ userRole }
       />))}
     </OrderListBody>
   );

@@ -23,6 +23,13 @@ const Login = ({ history }) => {
     password: ({ target }) => setPassword(target.value),
   };
 
+  const getLoginRole = () => {
+    const { role } = JSON.parse(localStorage.getItem('user'));
+    if (role === 'seller') return '/seller/orders';
+    if (role === 'customer') return '/customer/products';
+    if (role === 'administrator') return '/admin/manage';
+  };
+
   const login = async () => {
     const data = await loginRequest({ email, password }, setUsrNotFound, history);
     localStorage.setItem('user', JSON.stringify(data));
@@ -33,7 +40,7 @@ const Login = ({ history }) => {
     setUsrToken(token);
   }, []);
 
-  if (usrToken) return <Redirect to="/customer/products" />;
+  if (usrToken) return <Redirect to={ getLoginRole() } />;
 
   return (
     <LoginPage>
