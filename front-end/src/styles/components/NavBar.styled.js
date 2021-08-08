@@ -6,11 +6,15 @@ export const Menu = styled.div`
 `;
 
 export const MenuItem = styled.button`
+  &:hover {
+    transform: scale(1.1);
+    transition: all 0.5s;
+  }
   cursor: ${(props) => (props.show ? 'auto' : 'pointer')};
-  padding: 10px;
+  padding: 20px;
   border: none;
   color: white;
   font-weight: bold;
-  font-size: 0.8rem;
+  font-size: 1rem;
   background-color: ${(props) => props.color};
 `;

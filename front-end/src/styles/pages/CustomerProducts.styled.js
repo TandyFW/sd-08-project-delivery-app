@@ -22,8 +22,18 @@ export const MenuItem = styled.button`
   background-color: ${(props) => props.color};
 `;
 export const CartButton = styled.button`
+  &:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
+    transition: all 0.5s;
+  }
+  .cart-icon {
+    font-size: 20px;
+  }
   span {
-    margin-right: 5px;
+    font-size: 16px;
+    margin-right: 10px;
+    margin-left: 10px;
   }
   margin: 10px;
   min-width: 200px;

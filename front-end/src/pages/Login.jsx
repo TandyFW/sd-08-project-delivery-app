@@ -5,8 +5,9 @@ import axios from 'axios';
 import loginValidation from '../services/loginValidation';
 import Button from '../components/Button';
 import Input from '../components/Input';
-import { Container } from '../styles/pages/Login.styled';
+import { Container, LogoArea } from '../styles/pages/Login.styled';
 import colors from '../styles/colors';
+import logo from '../images/ja-vou-delivery.gif';
 
 const Login = () => {
   const prefix = 'common_login__';
@@ -69,6 +70,7 @@ const Login = () => {
   return (
     <>
       <Container color={ colors.whitesmoke }>
+        <LogoArea src={ logo } />
         <section className="inputs">
           Login
           <Input

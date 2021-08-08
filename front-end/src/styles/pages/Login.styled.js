@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 
+export const LogoArea = styled.img`
+  width: 300px;
+  margin-bottom: 10px;
+  margin: auto;
+`;
+
 export const Container = styled.div`
   background-color: ${(props) => props.color};
   .inputs {
@@ -19,7 +25,7 @@ export const Container = styled.div`
   padding: 20px;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
   button {
-    background-color: teal;
+    background-color: rgb(2,51,10);
     margin: 10px 0;
     width: 100%;
     padding: 10px;
@@ -30,8 +36,8 @@ export const Container = styled.div`
   }
   .create-account {
     background-color: white;
-    border: 1px solid teal;
-    color: teal;
+    border: 1px solid rgb(2,51,10);
+    color: rgb(2,51,10);
   }
 `;
 export const Button = styled.div``;
