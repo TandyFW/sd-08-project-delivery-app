@@ -30,7 +30,7 @@ function NavBar(props) {
         <div className="flexLeft">
           <button
             type="button"
-            href="/seller/orders"
+            onClick={ () => history.push('/seller/orders') }
             data-testid="customer_products__element-navbar-link-orders"
           >
             Pedidos

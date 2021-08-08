@@ -67,7 +67,7 @@ describe(requirement(37), () => {
   });
 });
 
-describe(requirement(38), () => {
+describe.only(requirement(38), () => {
   test("O avaliador verificará se, ao alterar o status do pedido na tela do cliente, o mesmo também é alterado na tela de detalhes do pedido da pessoa vendedora", async () => {
     expect(await updateStatus({ situation: 3, COD: page, SOD: sellerPage, currentOrder, realTime: true })).toBeTruthy();
   });
