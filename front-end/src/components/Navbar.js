@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import '../styles/Navbar.css';
 
-const Navbar = ({ name }) => {
+const Navbar = ({ name, activeTab }) => {
   const history = useHistory();
 
   const logout = () => {
@@ -16,7 +16,7 @@ const Navbar = ({ name }) => {
     <header>
       <nav className="navbar">
         <ul>
-          <li>
+          <li className={ activeTab === 1 && 'navbar-active' }>
             <Link
               data-testid="customer_products__element-navbar-link-products"
               to="/customer/products"
@@ -24,7 +24,10 @@ const Navbar = ({ name }) => {
               Produtos
             </Link>
           </li>
-          <li data-testid="customer_products__element-navbar-link-orders">
+          <li
+            className={ activeTab === 2 && 'navbar-active' }
+            data-testid="customer_products__element-navbar-link-orders"
+          >
             <Link to="/customer/orders">
               Meus Pedidos
             </Link>
@@ -47,6 +50,7 @@ const Navbar = ({ name }) => {
 
 Navbar.propTypes = {
   name: PropTypes.string,
+  activeTab: PropTypes.number.isRequired,
 };
 
 Navbar.defaultProps = {

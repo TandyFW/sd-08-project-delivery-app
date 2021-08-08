@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
+import beerSignIcon from '../images/beer-sign.png';
+
 export default function InputLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -62,59 +64,63 @@ export default function InputLogin() {
   }, [email, password]);
 
   return (
-    <div id="page-login">
-      <div
-        id="Image-logo"
-      />
-      <h1>Lovers App</h1>
-
-      <div id="card-login">
-        <form>
-          <legend id="legend-login">Login</legend>
-          <input
-            data-testid="common_login__input-email"
-            type="text"
-            id="Input-login"
-            placeholder="example@gmail.com"
-            name="email"
-            onChange={ handleEmail }
-          />
-
-          <legend>Senha</legend>
-          <input
-            data-testid="common_login__input-password"
-            type="text"
-            id="Input-password"
-            placeholder="*******"
-            name="password"
-            onChange={ handlePassword }
-          />
+    <>
+      <div className="sign-container">
+        <header>
+          <h1>Gam</h1>
+          <img src={ beerSignIcon } alt="beer toast" />
+          <h1>arra</h1>
+        </header>
+        <form className="sign-form">
+          <label htmlFor="Input-login">
+            <p>Login</p>
+            <input
+              data-testid="common_login__input-email"
+              type="text"
+              id="Input-login"
+              placeholder="example@gmail.com"
+              name="email"
+              onChange={ handleEmail }
+            />
+          </label>
+          <label htmlFor="Input-password">
+            <p>Senha</p>
+            <input
+              data-testid="common_login__input-password"
+              type="password"
+              id="Input-password"
+              placeholder="*******"
+              name="password"
+              onChange={ handlePassword }
+            />
+          </label>
+          <button
+            type="button"
+            data-testid="common_login__button-login"
+            id="btn-login"
+            disabled={ disabled }
+            onClick={ handleLogin }
+          >
+            LOGIN
+          </button>
+          <button
+            type="button"
+            data-testid="common_login__button-register"
+            id="btn-cadastro"
+            onClick={ handleClick }
+          >
+            Ainda não tenho cadastro
+          </button>
         </form>
-        <button
-          type="button"
-          data-testid="common_login__button-login"
-          id="btn-login"
-          disabled={ disabled }
-          onClick={ handleLogin }
-        >
-          LOGIN
-        </button>
-        <button
-          type="button"
-          data-testid="common_login__button-register"
-          id="btn-cadastro"
-          onClick={ handleClick }
-        >
-          Ainda não tenho cadastro
-        </button>
       </div>
       {redirected && (
-        <b
+        <p
+          className="error-message"
           data-testid="common_login__element-invalid-email"
         >
           Senha ou usuário incorreto
-        </b>
+        </p>
       )}
-    </div>
+    </>
   );
 }
