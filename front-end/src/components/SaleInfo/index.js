@@ -5,6 +5,7 @@ import SaleInfoBody from './styled';
 import { updateSalerStatusById } from '../../services/api';
 
 const NEED_A_ZERO = 10;
+const EmTransito = 'Em Trânsito';
 
 export default function SaleInfo({ sale: { id, seller, saleDate, status }, role }) {
   const [statusOrder, setStatusOrder] = useState(status);
@@ -62,6 +63,11 @@ export default function SaleInfo({ sale: { id, seller, saleDate, status }, role 
           color="primary"
           type="Button"
           style={ { display: role === 'seller' ? 'none' : 'block' } }
+          disabled={ statusOrder !== EmTransito }
+          onClick={ () => {
+            updateSalerStatusById(id, token, 'Entregue');
+            setStatusOrder('Entregue');
+          } }
         >
           MARCAR COMO ENTREGUE
         </Button>
@@ -87,8 +93,8 @@ export default function SaleInfo({ sale: { id, seller, saleDate, status }, role 
           style={ { display: role === 'seller' ? 'block' : 'none' } }
           disabled={ statusOrder !== 'Preparando' }
           onClick={ () => {
-            updateSalerStatusById(id, token, 'Em Trânsito');
-            setStatusOrder('Em Trânsito');
+            updateSalerStatusById(id, token, EmTransito);
+            setStatusOrder(EmTransito);
           } }
         >
           SAIU PARA ENTREGA
