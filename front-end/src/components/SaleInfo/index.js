@@ -50,6 +50,7 @@ export default function SaleInfo({ sale: { id, seller, saleDate, status } }) {
         variant="contained"
         color="primary"
         type="Button"
+        disabled
       >
         MARCAR COMO ENTREGUE
       </Button>

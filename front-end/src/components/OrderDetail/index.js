@@ -7,20 +7,20 @@ import SaleInfo from '../SaleInfo';
 import OrderTable from '../Table';
 import OrderListBody from './styled';
 
-const fakeOrders = [
-  { id: 1,
-    status: 'pendente',
-    date: '01/01/2001',
-    price: '4.59',
-    name: 'test item 1',
-    count: 18 },
-  { id: 1,
-    status: 'entregue',
-    date: '01/01/2001',
-    price: '5.59',
-    name: 'test item 2',
-    count: 18 },
-];
+// const fakeOrders = [
+//   { id: 1,
+//     status: 'pendente',
+//     date: '01/01/2001',
+//     price: '4.59',
+//     name: 'test item 1',
+//     count: 18 },
+//   { id: 1,
+//     status: 'entregue',
+//     date: '01/01/2001',
+//     price: '5.59',
+//     name: 'test item 2',
+//     count: 18 },
+// ];
 const testIds = {
   item: 'customer_order_details__element-order-table-item-number-',
   name: 'customer_order_details__element-order-table-name-',
@@ -39,9 +39,9 @@ function OrderDetail() {
     getSaleById(saleId).then((response) => setSale(response));
   }, [saleId]);
 
-  const totalPrice = fakeOrders.reduce(
-    (acc, curr) => (acc + (curr.count * curr.price)), 0,
-  ).toFixed(2);
+  // const totalPrice = sale.sales.reduce(
+  //   (acc, curr) => (acc + (curr.count * curr.price)), 0,
+  // ).toFixed(2);
 
   return (
     <OrderListBody>
@@ -59,7 +59,7 @@ function OrderDetail() {
       <span
         data-testid="customer_order_details__element-order-total-price"
       >
-        {totalPrice.replace('.', ',')}
+        {sale && sale.sales.totalPrice.replace('.', ',') }
       </span>
     </OrderListBody>
   );
