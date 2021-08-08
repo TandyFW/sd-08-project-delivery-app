@@ -30,7 +30,7 @@ const testIds = {
   remove: '',
 };
 
-function OrderList() {
+function OrderDetail() {
   const location = useLocation();
   const [sale, setSale] = useState(null);
   const saleId = location.pathname.split('/')[3];
@@ -65,4 +65,4 @@ function OrderList() {
   );
 }
 
-export default OrderList;
+export default OrderDetail;

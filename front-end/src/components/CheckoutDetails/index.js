@@ -14,7 +14,7 @@ const testIds = {
   total: 'customer_checkout__element-order-total-price',
 };
 
-function OrderDetails() {
+function CheckoutDetails() {
   const { cart } = useContext(DeliveryContext);
   const totalPrice = cart.reduce(
     (acc, curr) => (acc + (curr.quantity * curr.price)), 0,
@@ -35,4 +35,4 @@ function OrderDetails() {
   );
 }
 
-export default OrderDetails;
+export default CheckoutDetails;
