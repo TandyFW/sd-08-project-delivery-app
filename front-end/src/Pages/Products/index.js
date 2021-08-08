@@ -11,7 +11,7 @@ const Products = ({ history }) => {
   const { cart } = useContext(DeliveryContext);
 
   const totalPrice = () => cart.reduce((acc, curr) => (
-    acc + (curr.count * curr.price)), 0).toFixed(2).replace('.', ',');
+    acc + (curr.quantity * curr.price)), 0).toFixed(2).replace('.', ',');
 
   return (
     <>

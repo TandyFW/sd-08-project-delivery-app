@@ -50,11 +50,11 @@ export const postSale = async (sellerId,
     userId: user.id,
     sellerId,
     totalPrice: products
-      .reduce((acc, { count, price }) => acc + Number(count * price), 0)
+      .reduce((acc, { quantity, price }) => acc + Number(quantity * price), 0)
       .toFixed(2),
     deliveryAddress,
     deliveryNumber,
-    products: products.map(({ id, count }) => ({ id, quantity: count })),
+    products: products.map(({ id, quantity }) => ({ id, quantity })),
   };
 
   console.log(data);

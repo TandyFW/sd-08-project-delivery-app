@@ -12,18 +12,18 @@ import DeliveryContext from '../../context/DeliveryContext';
 import { minProductVerify } from '../../services/validations';
 
 const ProductCard = ({ product: { id, name, urlImage, price } }) => {
-  const [count, setCount] = useState(0);
+  const [quantity, setQuantity] = useState(0);
 
   const { cart, setCart } = useContext(DeliveryContext);
 
   const handleChange = ({ target }) => {
-    setCount(target.value);
+    setQuantity(target.value);
   };
 
   const updateCard = () => {
     const itemExists = cart.find((elem) => elem.id === id);
 
-    if (count === 0) {
+    if (quantity === 0) {
       const removeProduct = cart.filter((elem) => elem.id !== id);
       setCart(removeProduct);
     } else if (itemExists) {
@@ -31,7 +31,7 @@ const ProductCard = ({ product: { id, name, urlImage, price } }) => {
         if (elem.id === id) {
           return {
             ...elem,
-            count,
+            quantity,
           };
         }
         return elem;
@@ -42,7 +42,7 @@ const ProductCard = ({ product: { id, name, urlImage, price } }) => {
         id,
         price,
         name,
-        count,
+        quantity,
       };
 
       setCart([...cart, item]);
@@ -51,7 +51,7 @@ const ProductCard = ({ product: { id, name, urlImage, price } }) => {
 
   useEffect(() => {
     updateCard();
-  }, [count]);
+  }, [quantity]);
 
   return (
     <CardBody>
@@ -79,15 +79,15 @@ const ProductCard = ({ product: { id, name, urlImage, price } }) => {
           type="button"
           variant="contained"
           color="primary"
-          onClick={ () => { setCount(count - 1); } }
+          onClick={ () => { setQuantity(quantity - 1); } }
           data-testid={ `customer_products__button-card-rm-item-${id}` }
-          disabled={ minProductVerify(count) }
+          disabled={ minProductVerify(quantity) }
         >
           <Remove />
         </Button>
         <input
           type="number"
-          value={ count }
+          value={ quantity }
           onChange={ handleChange }
           data-testid={ `customer_products__input-card-quantity-${id}` }
           min="0"
@@ -96,7 +96,7 @@ const ProductCard = ({ product: { id, name, urlImage, price } }) => {
           type="button"
           variant="contained"
           color="primary"
-          onClick={ () => { setCount(Number(count) + 1); } }
+          onClick={ () => { setQuantity(Number(quantity) + 1); } }
           data-testid={ `customer_products__button-card-add-item-${id}` }
         >
           <Add />
