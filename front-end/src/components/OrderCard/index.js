@@ -1,13 +1,15 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import OrderStatus from '../OrderStatus';
 
 import { OrderCardBody, DatePrice } from './styled';
 
-function OrderCard({ order: { id, status, date, price } }) {
+function OrderCard({ order: { id, status, saleDate, totalPrice }, redirect }) {
+  const history = useHistory();
   return (
-    <OrderCardBody>
+    <OrderCardBody onClick={ () => history.push(redirect) }>
       <span
         data-testid={ `customer_orders__element-order-id-${id}` }
       >
@@ -21,12 +23,17 @@ function OrderCard({ order: { id, status, date, price } }) {
         <span
           data-testid={ `customer_orders__element-order-date-${id}` }
         >
-          {date}
+          {new Date(saleDate).toLocaleString('pt-br').split(' ')[0]}
         </span>
         <span
           data-testid={ `customer_orders__element-card-price-${id}` }
         >
-          {price}
+          {'R$ '}
+          <span>
+            { totalPrice
+              .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
+              .replace('.', ',') }
+          </span>
         </span>
       </DatePrice>
     </OrderCardBody>
@@ -35,6 +42,7 @@ function OrderCard({ order: { id, status, date, price } }) {
 
 OrderCard.propTypes = {
   order: PropTypes.objectOf(PropTypes.any).isRequired,
+  redirect: PropTypes.string.isRequired,
 };
 
 export default OrderCard;
