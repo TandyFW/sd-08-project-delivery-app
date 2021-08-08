@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import Context from '../../../context/Context';
+import './styles.css';
 
 import NavBar from '../../Components/NavBar';
 import Form from './Components/form';
@@ -9,7 +10,7 @@ const AdminManage = () => {
   const { userData } = useContext(Context);
 
   return (
-    <div>
+    <div className="main-adm-wrapper">
       <NavBar userType="admin" userName={ userData.name } />
       <Form />
       <AdminTable />

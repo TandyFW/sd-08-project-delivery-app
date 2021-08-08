@@ -36,9 +36,16 @@ function SellerOrders() {
   }, [userData.token]);
 
   return (
-    <div>
+    <div className="main-wrapper-seller-orders">
       <NavBar userType="seller" userName={ userData.name } />
-      { orders.map((order) => <OrderDetailsCard key={ order.id } order={ order } />)}
+      { orders.map((order, index) => (
+        <div className="seller-orders" key={ index }>
+          <OrderDetailsCard
+            key={ order.id }
+            order={ order }
+          />
+        </div>
+      ))}
     </div>
   );
 }
