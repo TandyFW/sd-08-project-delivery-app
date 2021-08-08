@@ -12,7 +12,6 @@ function NavBar(props) {
         <div className="flexLeft">
           <button
             type="button"
-            id="products"
             onClick={ () => history.push('/customer/products') }
             data-testid="customer_products__element-navbar-link-products"
           >

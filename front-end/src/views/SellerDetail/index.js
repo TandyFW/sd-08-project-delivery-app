@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import socketIOClient from 'socket.io-client';
 import SellerDetailTable from '../../components/SellerDetailTable';
@@ -11,20 +11,19 @@ const ENDPOINT = 'http://localhost:3001';
 function SellerDetailPage(props) {
   const { userData } = useContext(Context);
   const [order, setOrder] = useState({});
-  // const [orderStatus, setOrderStatus] = useState('Pendente');
   const [status, setStatus] = useState();
   const datatest = 'seller_order_details__element-order-details-label-delivery-status';
   const emtransito = 'Em Trânsito';
 
   const socket = socketIOClient(ENDPOINT);
 
-  console.log('Detalhes', order);
-  console.log('Status socket', status);
+  // console.log('Detalhes', order);
+  // console.log('Status socket', status);
 
   const { match: { params: { id } } } = props;
-  console.log(id);
+  // console.log(id);
 
-  useEffect(() => {
+  const fetchData = useCallback(() => {
     const userDataLocal = JSON.parse(localStorage.getItem('user'));
     async function getData() {
       const myInit = {
@@ -36,19 +35,34 @@ function SellerDetailPage(props) {
         },
       };
       await fetch(`http://localhost:3001/order/${id}`, myInit)
-        .then((response) => console.log(response) || response.json())
-        .then((data) => console.log(data) || setOrder(data))
+        .then((response) => response.json())
+        .then((data) => setOrder(data))
         .catch((err) => console.log(err));
     }
     getData();
   }, [id, userData.token]);
 
   useEffect(() => {
-    socket.emit('setOrderStatus', { id, status: '' });
+    console.log('execute function in useEffect');
+    fetchData();
+  }, [fetchData]);
+
+  // const socketCallBack = useCallback(() => {
+  //   // socket.emit('setOrderStatus', { id, status: '' });
+  //   socket.emit('getUpdatedStatus', id);
+  //   socket.on('getUpdatedStatus', (statusFromBrack) => {
+  //     setStatus(statusFromBrack);
+  //   });
+  // }, [id, socket]);
+
+  useEffect(() => {
+    console.log('Execuet socket call');
+    // socketCallBack();
+    socket.emit('getUpdatedStatus', id);
     socket.on('getUpdatedStatus', (statusFromBrack) => {
       setStatus(statusFromBrack);
     });
-  }, [socket, id]);
+  }, [id, socket, socket.id]);
 
   function changeOrderStatus(newStatus) {
     socket.emit('setOrderStatus', { id, status: newStatus });
@@ -64,7 +78,7 @@ function SellerDetailPage(props) {
 
   return (
     <div>
-      <NavBar userType={ userData.role } userName={ userData.name } />
+      <NavBar userType="seller" userName={ userData.name } />
       <div className="Seller-details-container">
         <div>
           <span data-testid="seller_order_details__element-order-details-label-order-id">

@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
-import socketIOClient from 'socket.io-client';
+// import socketIOClient from 'socket.io-client';
 import { useHistory } from 'react-router-dom';
 import './styles.css';
 import Error from '../../components/error';
 import Context from '../../context/Context';
 
-const ENDPOINT = 'http://localhost:3001';
+// const ENDPOINT = 'http://localhost:3001';
 
 function Login() {
   const { setUserData, userData } = useContext(Context);
@@ -26,7 +26,7 @@ function Login() {
     return true;
   }
 
-  const socket = socketIOClient(ENDPOINT);
+  // const socket = socketIOClient(ENDPOINT);
   useEffect(() => {
     if (userData && userData.token) {
       const { role } = userData;
@@ -55,7 +55,7 @@ function Login() {
       .map((letter, index) => `<span style="transition-delay:${index * FIFTY}ms">
       ${letter}</span>`)
       .join('');
-  }, [history, userData, socket]);
+  }, [history, userData]);
 
   const handleSubmit = async () => {
     const myInit = {

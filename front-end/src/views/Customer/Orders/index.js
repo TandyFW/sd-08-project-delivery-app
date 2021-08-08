@@ -8,23 +8,24 @@ import './styles.css';
 function Orders() {
   const { userData } = useContext(Context);
   const [orderData, setOrderData] = useState();
-  async function fetchOrder() {
-    const myInit = {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: userData.token,
-      },
-    };
-    await fetch('http://localhost:3001/order/', myInit)
-      .then((response) => response.json())
-      .then((data) => setOrderData(data.sale))
-      .catch((err) => console.log(err));
-  }
   useEffect(() => {
+    async function fetchOrder() {
+      const myInit = {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: userData.token,
+        },
+      };
+      await fetch('http://localhost:3001/order/', myInit)
+        .then((response) => response.json())
+        .then((data) => setOrderData(data.sale))
+        .catch((err) => console.log(err));
+    }
     fetchOrder();
-  }, []);
+  }, [userData.token]);
+
   return (
     <div className="main-wrapper-orders">
       <NavBar
