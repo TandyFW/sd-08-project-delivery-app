@@ -1,13 +1,15 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import OrderStatus from '../OrderStatus';
 
 import { OrderCardBody, DatePrice } from './styled';
 
-function OrderCard({ order: { id, status, saleDate, totalPrice } }) {
+function OrderCard({ order: { id, status, saleDate, totalPrice }, redirect }) {
+  const history = useHistory();
   return (
-    <OrderCardBody>
+    <OrderCardBody onClick={ () => history.push(redirect) }>
       <span
         data-testid={ `customer_orders__element-order-id-${id}` }
       >
@@ -40,6 +42,7 @@ function OrderCard({ order: { id, status, saleDate, totalPrice } }) {
 
 OrderCard.propTypes = {
   order: PropTypes.objectOf(PropTypes.any).isRequired,
+  redirect: PropTypes.string.isRequired,
 };
 
 export default OrderCard;

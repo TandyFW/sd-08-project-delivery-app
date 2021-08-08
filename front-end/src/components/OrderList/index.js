@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import React from 'react';
 import OrderCard from '../OrderCard';
 import { getSalesByUserId } from '../../services/api';
 
@@ -22,8 +21,6 @@ function OrderList() {
       })
       .catch((err) => {
         console.log(err);
-        // const UNAUTHORIZED = 401;
-        // if (err.response.status === UNAUTHORIZED) logout(history);
       });
   }, []);
 
@@ -32,6 +29,7 @@ function OrderList() {
       {orders.map((order) => (<OrderCard
         key={ order.id }
         order={ order }
+        redirect={ `/customer/orders/${order.id}` }
       />))}
     </OrderListBody>
   );
