@@ -64,7 +64,7 @@ function SellerDetailPage(props) {
 
   return (
     <div>
-      <NavBar userType="customer" userName={ userData.name } />
+      <NavBar userType={ userData.role } userName={ userData.name } />
       <div className="Seller-details-container">
         <div>
           <span data-testid="seller_order_details__element-order-details-label-order-id">

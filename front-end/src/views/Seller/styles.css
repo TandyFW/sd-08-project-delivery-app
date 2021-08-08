@@ -1,0 +1,10 @@
+.main-wrapper-seller-orders {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+}
+
+.seller-orders {
+  margin-top: 5px;
+}
