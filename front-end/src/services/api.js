@@ -24,6 +24,8 @@ export const loginRequest = (user, setUsrNotFound, history) => (
       const { role } = response;
       if (role === 'customer') history.push('/customer/products');
       if (role === 'seller') history.push('/seller/orders');
+      if (role === 'administrator') history.push('/admin/manage');
+
       return response;
     })
     .catch((err) => {
