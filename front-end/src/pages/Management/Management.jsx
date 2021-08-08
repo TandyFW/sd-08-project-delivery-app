@@ -7,7 +7,7 @@ import UserList from '../../Components/UserList/UserList';
 export default function Management() {
   return (
     <div>
-      <NavBar screen="Gerenciar Usuários" />
+      <NavBar label="GERENCIAR USUÁRIOS" />
       <RegisterNewUserForm />
       <UserList />
     </div>
