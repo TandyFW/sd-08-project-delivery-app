@@ -71,7 +71,7 @@ const SellerDetails = () => {
 
   return (
     <Container>
-      <NavBar user={ user.name } />
+      <NavBar user={ user.name } contextPage="PEDIDOS" />
       <h4>Detalhe do Pedido</h4>
       {!loading && sale.seller && (
         <DetailsContainer>

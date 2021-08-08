@@ -61,7 +61,7 @@ function ClientCheckout() {
 
   return (
     <>
-      <NavBar user={ currUser.name || 'Fulano' } />
+      <NavBar user={ currUser.name || 'Fulano' } contextPage="PRODUTOS" />
       <h3>Finalizar Pedido</h3>
       <Table />
       <span data-testid={ `${prefix}element-order-total-price` }>

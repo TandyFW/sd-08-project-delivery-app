@@ -52,11 +52,11 @@ function ListItem({
 
 ListItem.propTypes = {
   prefix: PropTypes.string.isRequired,
-  index: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
   description: PropTypes.string.isRequired,
-  quantity: PropTypes.string.isRequired,
+  quantity: PropTypes.number.isRequired,
   unitPrice: PropTypes.string.isRequired,
-  totalPrice: PropTypes.string.isRequired,
+  totalPrice: PropTypes.number.isRequired,
 };
 
 export default ListItem;

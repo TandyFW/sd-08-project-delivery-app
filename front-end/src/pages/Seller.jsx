@@ -13,21 +13,32 @@ const Seller = () => {
   const prefix = 'seller_orders__';
   const [sale, setSale] = useState([]);
 
-  const fetchApi = async () => {
-    const { data } = await axios.get(
-      'http://localhost:3001/delivery/sellersales',
-      {
+  // const fetchApi = async () => {
+  //   const { data } = await axios.get(
+  //     'http://localhost:3001/delivery/sellersales',
+  //     {
+  //       headers: {
+  //         authorization: user.token,
+  //       },
+  //     },
+  //   );
+  //   setSale(data);
+  // };
+
+  useEffect(() => {
+    const mounted = true;
+    axios
+      .get('http://localhost:3001/delivery/sellersales', {
         headers: {
           authorization: user.token,
         },
-      },
-    );
-    setSale(data);
-  };
-
-  useEffect(() => {
-    fetchApi();
-  }, [fetchApi]);
+      })
+      .then(({ data }) => {
+        if (mounted) {
+          setSale(data);
+        }
+      });
+  }, []);
 
   const onClick = (id) => {
     history.push(`/seller/orders/${id}`);
@@ -35,7 +46,7 @@ const Seller = () => {
 
   return (
     <>
-      <NavBar user={ user.name } show />
+      <NavBar user={ user.name } show contextPage="PEDIDOS" />
       <Container>
         {sale.map((infos, key) => (
           <CardOrder

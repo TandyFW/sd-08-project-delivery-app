@@ -57,7 +57,7 @@ function UserList({ index, name, email, userType, id, setOK, OK }) {
 }
 
 UserList.propTypes = {
-  index: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   userType: PropTypes.string.isRequired,

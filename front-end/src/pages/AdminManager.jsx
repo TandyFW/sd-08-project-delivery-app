@@ -5,7 +5,6 @@ import api from '../services/api';
 import registerValidation from '../services/registerValidation';
 import { ErrorMessage, ListHeader } from '../styles/pages/SellerDetails.styled';
 import colors from '../styles/colors';
-// import statusCode from '../services/statusCode';
 import {
   ButtonRegister,
   Container,
@@ -47,11 +46,21 @@ const AdminManager = () => {
   const [OK, setOK] = useState(true);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const userBar = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
+    let mounted = true;
     setLoading(true);
-    getUsers().then((response) => setUsers(response));
-    setLoading(false);
+    getUsers().then((response) => {
+      if (mounted) {
+        setUsers(response);
+        setLoading(false);
+      }
+    });
+    return () => {
+      mounted = false;
+      return mounted;
+    };
   }, [OK]);
   const registerUser = () => {
     const newUser = { name: userName, email, password, role };
@@ -84,7 +93,7 @@ const AdminManager = () => {
   }, [userName, email, password]);
   return (
     <>
-      <NavBar show user="Nome do Patrão" />
+      <NavBar show user={ userBar.name } contextPage="GERENCIAR USUÁRIOS" />
       <Container>
         <h4>Cadastrar novo usuário</h4>
         <ErrorMessage

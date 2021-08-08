@@ -21,12 +21,6 @@ const getSale = async (id) => {
   const result = await api.get(`/delivery/sales/${id}`);
   return result.data;
 };
-
-// const socketStatus = async (func, status) => {
-//   await func(true);
-//   return status;
-// };
-
 const updateStatus = async (id, status, setFunction) => {
   const { data } = await api({
     method: 'put',
@@ -53,17 +47,7 @@ const CustomerDetails = () => {
       .then(() => setLoading(false));
   }, [id]);
 
-  // useEffect(() => {
-  //   console.log('socket on');
-  //   socket.on('statusUpdate', (status) => {
-  //     socketStatus(setLoading, status)
-  //       .then((statusUpdated) => setSale({ ...sale, status: statusUpdated }))
-  //       .then(() => setLoading(false));
-  //   });
-  // }, [sale]);
-
   useEffect(() => {
-    console.log('socket on');
     socket.on('statusUpdate', (status) => {
       setSale({ ...sale, status });
     });
@@ -71,7 +55,7 @@ const CustomerDetails = () => {
 
   return (
     <Container>
-      <NavBar user={ user.name } />
+      <NavBar user={ user.name } contextPage="PRODUTOS" />
       <h4>Detalhe do Pedido</h4>
       {!loading && sale.seller && (
         <DetailsContainer>
