@@ -12,6 +12,7 @@ import OrderDetails from './Pages/OrderDetails';
 import CustomerOrders from './Pages/CustomerOrders';
 import SellerOrders from './Pages/SellerOrders';
 import SellerOrderDetails from './Pages/SellerOrderDetails';
+import Admin from './Pages/Admin';
 
 import theme from './theme';
 
@@ -32,6 +33,8 @@ function App() {
           <Route exact path="/customer/orders/" component={ CustomerOrders } />
           <Route exact path="/seller/orders/:id" component={ SellerOrderDetails } />
           <Route exact path="/seller/orders/" component={ SellerOrders } />
+          <Route exact path="/admin/manage" component={ Admin } />
+
         </Switch>
       </ThemeProvider>
     </Provider>
