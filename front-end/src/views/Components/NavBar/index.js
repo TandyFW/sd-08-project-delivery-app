@@ -55,7 +55,7 @@ function NavBar(props) {
 
           <li
             className="nav-name"
-            data-testid="element-navbar-user-full-name"
+            data-testid="customer_products__element-navbar-user-full-name"
           >
             {userName}
           </li>
