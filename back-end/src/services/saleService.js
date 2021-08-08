@@ -100,10 +100,18 @@ const getSalesBySellerId = async (sellerId) => {
     return { sales };
 };
 
+const updateSalerStatusById = async (id, status) => {    
+   await Sale.update(
+       { status },
+       { where: { id } },
+    );
+};
+
 module.exports = {
     saveSale,
     getSales,
     getSaleById,
     getSalesByUserId,
     getSalesBySellerId,
+    updateSalerStatusById,
 };
