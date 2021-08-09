@@ -1,8 +1,13 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  background-color: #F6F2DF;
   display: flex;
   justify-content: center;
+  margin-bottom: 80px;
+  * {
+  margin: 0;
+  }
 `;
 export const Form = styled.div`
   padding: 10px;
@@ -21,14 +26,14 @@ export const ContainerDiv = styled.div`
 export const Title = styled.h1`
   padding: 10px;
   color: black;
-  font-size: 18px;
+  font-size: 22px;
   font-weight: bold;
   text-align: left;
 `;
 export const Paragraph = styled.p`
   color: black;
   font-size: 17px;
-  text-align: left;
+  text-align: center;
 `;
 export const ContainerLabel = styled.label`
   padding: 10px;
@@ -39,6 +44,7 @@ export const ContainerLabel = styled.label`
   text-align: center;
 `;
 export const ContainerName = styled.input`
+  border-radius: 5px;
   padding: 5px;
   color: black;
   margin-bottom: 15px;
@@ -46,6 +52,7 @@ export const ContainerName = styled.input`
   width: 200px;
 `;
 export const ContainerEmail = styled.input`
+  border-radius: 5px;
   padding: 5px;
   color: black;
   margin-bottom: 15px;
@@ -53,6 +60,7 @@ export const ContainerEmail = styled.input`
   width: 200px;
 `;
 export const ContainerPassword = styled.input`
+  border-radius: 5px;
   padding: 5px;
   color: black;
   margin-bottom: 15px;
@@ -76,19 +84,18 @@ export const ContainerOption = styled.option`
   width: 200px;
 `;
 export const FinalizeRegister = styled.button`
-  background-color: #216844;
+  background-color: #35c85c;
   border-radius: 8px;
-  padding: 10px;
-  color: white;
+  padding: 10px 15px;
+  color: black;
   border: none;
   outline: none;
-  font-weight: bold;
   margin-bottom: 15px;
   cursor: pointer;
   transition: 0.2s ease all;
-  font-size: 18px;
+  font-size: 19px;
   &:hover {
-    background-color: #298859;
-    color: white;
+    background-color: #4ED070;
+    color: black;
   }
 `;

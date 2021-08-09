@@ -2,16 +2,16 @@ import styled from 'styled-components';
 
 export const Container = styled.ul`
   display: flex;
-  justify-content: center;;
+  justify-content: center;
 `;
 export const ContainerItem = styled.div`
-  background-color: #3FBF7F;
+  background-color: #FF914D;
+  border-radius: 6px 0 0 6px;
   padding: 10px;
   color: black;
-  width: 25px;
-  font-weight: bold;
+  width: 35px;
   margin-bottom: 15px;
-  font-size: 18px;
+  font-size: 20px;
   text-align: center;
 `;
 export const ContainerName = styled.div`
@@ -20,42 +20,40 @@ export const ContainerName = styled.div`
   color: black;
   width: 300px;
   margin-bottom: 15px;
-  font-size: 18px;
+  font-size: 20px;
 `;
 export const ContainerEmail = styled.div`
-  background-color: #216844;
+background-color: #E8DCA9;
   padding: 10px;
-  color: white;
+  color: black;
   width: 300px;
   margin-bottom: 15px;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 20px;
   text-align: center;
 `;
 export const ContainerType = styled.div`
-  background-color: #7033AC;
+  background-color: #35C85C;
   padding: 10px;
-  color: white;
+  color: black;
   width: 200px;
   margin-bottom: 15px;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 20px;
   text-align: center;
 `;
 export const DeleteItem = styled.button`
-  background-color: #319CCD;
+  background-color: #FF7070;
+  border-radius: 0 6px 5px 0;
   padding: 10px;
-  color: white;
+  color: black;
   width: 120px;
   border: none;
   outline: none;
-  font-weight: bold;
   margin-bottom: 15px;
   cursor: pointer;
-  transition: 0.2s ease all;
-  font-size: 18px;
+  transition: 0.5s ease all;
+  font-size: 20px;
   &:hover {
-    background-color: #5AAFD7;
+    background-color: #FF3333;
     color: white;
   }
 `;

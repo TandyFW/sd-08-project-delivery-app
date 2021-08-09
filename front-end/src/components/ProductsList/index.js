@@ -4,8 +4,16 @@ import ItemList from '../ItemList';
 
 import {
   Container,
+  ContainerHeader,
+  ContainerItem,
+  ContainerDescription,
+  ContainerQuantity,
+  ContainerUnitValue,
+  ContainerTotalValue,
+  DeleteItem,
   Title,
   ContainerDiv,
+  EmptyCart,
   TotalOrder,
 } from './Styled';
 
@@ -16,6 +24,14 @@ export default function ProductsList() {
   return (
     <Container>
       <Title>Finalizar Pedido</Title>
+      <ContainerHeader>
+        <ContainerItem>Item</ContainerItem>
+        <ContainerDescription>Descrição</ContainerDescription>
+        <ContainerQuantity>Quantidade</ContainerQuantity>
+        <ContainerUnitValue>Valor Unitário</ContainerUnitValue>
+        <ContainerTotalValue>Sub-total</ContainerTotalValue>
+        <DeleteItem>Remover Item</DeleteItem>
+      </ContainerHeader>
       <ContainerDiv>
         {selectedProducts.length > 0 ? (
           selectedProducts.map((item, index) => (
@@ -30,7 +46,7 @@ export default function ProductsList() {
             />
           ))
         ) : (
-          <h2>Não há produtos no carrinho</h2>
+          <EmptyCart>Não há produtos no carrinho</EmptyCart>
         )}
         <TotalOrder>
           Total: R$
