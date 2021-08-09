@@ -5,7 +5,7 @@ import axios from 'axios';
 import { getUserInfo } from '../../service/getLocalStorage';
 import { requestAllUsers } from '../../redux/actions/index.action';
 import {
-  Container, Form, RegisterButton, RegisterMessage,
+  Container, Form, RegisterMessage,
 } from './RegisterNewUserForm.styled';
 
 export default function RegisterNewUserForm() {
@@ -125,7 +125,6 @@ export default function RegisterNewUserForm() {
           Tipo
           <select
             name="type"
-            className="register-new-user-select"
             data-testid="admin_manage__select-role"
             onChange={ handleRole }
             value={ role }
@@ -135,15 +134,14 @@ export default function RegisterNewUserForm() {
             <option value="customer">Cliente</option>
           </select>
         </label>
-        <RegisterButton
+        <button
           type="button"
-          className="register-new-user-button"
           data-testid="admin_manage__button-register"
           onClick={ saveNewUser }
           disabled={ isDisabled }
         >
           Cadastrar
-        </RegisterButton>
+        </button>
       </Form>
       {showMessageRegister ? (
         <RegisterMessage data-testid="admin_manage__element-invalid-register">

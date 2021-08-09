@@ -1,60 +1,40 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`align-items: center;
-  display: flex;
-  margin-top: 20px;
+export const Container = styled.div`margin-top: 20px;
 `;
 
-export const Form = styled.form`align-items: baseline;
-  background-color: #f9bc60;
-  border-radius: 15px;
+export const Form = styled.form`align-items: center;
+  background: var(--background);
   display: flex;
-  height: 100px;
+  justify-content: space-evenly;
   margin: auto;
-  width: 78%;
+  width: 82%;
 
   label {
-    margin-left: 20px;
+    color: var(--headline);
+  }
+
+  input {
+    color: var(--headline);
+    padding: 1.5rem;
+    width: 22rem;
   }
 
   select {
     border-radius: 5px;
-    font-family: Poppins , sans-serif;
-    font-size: x-large;
-    height: 50px;
-    margin-top: 5px;
-    padding: 1px;
-    width: 200px;
-  }
-`;
-
-export const RegisterButton = styled.button`background-color: #f9bc60;
-  border: 2px solid #001e1d;
-  border-radius: 5px;
-  color: #001e1d;
-  cursor: pointer;
-  font-family: Poppins , monospace;
-  font-size: x-large;
-  font-weight: 600;
-  height: 50px;
-  margin: auto;
-  margin-left: 20px;
-  margin-top: 35px;
-  transition: 250ms;
-  width: 160px;
-
-
-  &:hover {
-    background-color: #001e1d;
-    color: #f9bc60;
+    font-size: 1.5rem;
+    padding: 0.7rem 0.5rem;
   }
 
-  &:disabled {
-    background-color: white;
+  button {
+    background: var(--link);
     border: none;
-    color: grey;
-    cursor: not-allowed;
-    transition: none;
+    border-radius: 0.25rem;
+    color: var(--form-button-text);
+    font-size: 1.5rem;
+    font-weight: 600;
+    height: 3.5rem;
+    padding: 0 1rem;
   }
 `;
 

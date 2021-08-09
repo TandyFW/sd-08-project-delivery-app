@@ -4,14 +4,14 @@ export const Container = styled.ul`background-color: #abd1c6;
   display: flex;
   justify-content: space-between;
   list-style: none;
-  margin: 0;
+  margin: auto;
   overflow: hidden;
   padding: 0;
+  width: 79%;
 `;
 
 export const LeftItem = styled.li`background-color: #e16162;
-  border-bottom-right-radius: 15px;
-  border-top-right-radius: 15px;
+  border-radius: 15px;
   padding: 14px 16px;
   text-align: center;
   text-decoration: none;
@@ -29,8 +29,7 @@ export const LeftItem = styled.li`background-color: #e16162;
 
 export const RightItem = styled.li`align-items: center;
   background-color: #e16162;
-  border-bottom-left-radius: 15px;
-  border-top-left-radius: 15px;
+  border-radius: 15px;
   color: #fffffe;
   display: flex;
   font-family: Nunito , sans-serif;
@@ -40,7 +39,7 @@ export const RightItem = styled.li`align-items: center;
   padding: 0 20px;
   text-align: center;
   text-decoration: none;
-  width: 260px;
+  width: 300px;
 
   button {
     background-color: #e16162;
