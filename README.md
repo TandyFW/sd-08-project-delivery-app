@@ -18,13 +18,21 @@ Participantes:
 * Certifique-se que seu Mysql está rodando na sua máquina
 * Na pasta back end crie um arquivo .env com as seguintes configurações:
 NODE_ENV=development
+
 API_PORT=3001
+
 MYSQL_HOST=localhost
+
 MYSQL_PORT=3306
+
 MYSQL_USER=[nome do usuário do seu Mysql]
+
 MYSQL_PASSWORD=[Senha do seu Mysql]
+
 MYSQL_DB_NAME=delivery-app
+
 EVAL_ALWAYS_RESTORE_DEV_DB=true
+
 SECRET=MySecretPassword
 
 * Na pasta raiz do projeto use o comando npm run dev
