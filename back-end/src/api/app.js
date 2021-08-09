@@ -40,7 +40,7 @@ app.post('/login', userController.login);
 app.post('/register', userController.register);
 // saleController
 app.post('/orders', saleController.getSalesByUser);
-app.post('/sale/created', saleController.getGeneratedSell);
+app.post('/sale/created', saleController.getGeneratedSale);
 app.post('/sales', TokenAuth, saleController.createSale);
 app.put('/update/sale', saleController.updateStatusSale);
 // productController

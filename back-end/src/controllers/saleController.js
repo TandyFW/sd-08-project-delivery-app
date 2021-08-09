@@ -107,7 +107,7 @@ const createSale = async (req, res) => {
   }
 };
 
-const getGeneratedSell = async (req, res) => {
+const getGeneratedSale = async (req, res) => {
   const { sellId } = req.body;
   try {
     const data = await sale.findOne({
@@ -118,8 +118,7 @@ const getGeneratedSell = async (req, res) => {
         { model: product, as: 'products', through: { attributes: ['quantity'] } },
       ],
     });
-    console.log(data.dataValues);
-    return res.status(200).json({ data: [data] });
+    return res.status(200).json([data]);
   } catch (err) {
     return res.status(500).json({ message: messageError, err: err.message });
   }
@@ -153,6 +152,6 @@ module.exports = {
   // CALLBACK VALIDAS
   getSalesByUser,
   createSale,
-  getGeneratedSell,
+  getGeneratedSale,
   updateStatusSale,
 };

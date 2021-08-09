@@ -28,15 +28,11 @@ export default function ClientOrders() {
       });
     setLoading(false);
   }, []);
-  if (loading === true) {
-    return (
-      <Loading />
-    );
-  }
+
   return (
     <div>
       {
-        userSales.map((obj, index) => (
+        loading ? <Loading /> : userSales.map((obj, index) => (
           <div
             /* https://pt.stackoverflow.com/questions/51391/pra-que-serve-o-atributo-role e */
             /* https://developer.mozilla.org/pt-BR/docs/Web/HTML/Global_attributes/tabindex */
@@ -57,9 +53,7 @@ export default function ClientOrders() {
             <p data-testid={ `customer_orders__element-order-date-${obj.id}` }>
               {new Date(obj.saleDate).toLocaleDateString('pt-BR')}
             </p>
-            <p
-              data-testid={ `customer_orders__element-card-price-${obj.id}` }
-            >
+            <p data-testid={ `customer_orders__element-card-price-${obj.id}` }>
               { `R$ ${obj.totalPrice.replace('.', ',')} ` }
             </p>
           </div>

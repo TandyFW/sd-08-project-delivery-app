@@ -1,26 +1,25 @@
 /* eslint-disable */
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import OrdersClientTable from '../components/OrdersClientTable';
 import Header from '../components/Header';
+import Loading from '../components/Loading';
 import { sendData, updateSale } from '../services/apiRequest';
 
-export default function DetailsCustomerOrders() {
+export default function DetailsClientOrders() {
   const [loading, setLoading] = useState(false);
   const [currentSell, setCurrentSell] = useState([]);
   const { id } = useParams();
-  const thounsand = 1000;
+  const status = { 1: 'Pendente', 2: 'Preparando', 3: 'Em Trânsito', 4: 'Entregue' };
 
   useEffect(() => {
     setLoading(true);
     sendData('http://localhost:3001/sale/created', id)
-      .then((res) => {
-        console.log(res.data);
-        setCurrentSell(res.data.data);
+      .then(({ data }) => {
+        setCurrentSell(data);
       })
-      .catch((err) => {
-        console.log(err.message);
-      });
+      .catch((err) => console.log(err));
     setLoading(false);
   }, [id]);
 
@@ -35,15 +34,15 @@ export default function DetailsCustomerOrders() {
   };
 
   return (
-    <div>
+    <>
       <Header />
-      <OrdersClientTable
+      {console.log(loading)}
+      {loading ? <Loading /> : <OrdersClientTable
         orders={ currentSell }
-        loading={ loading }
-        thounsand={ thounsand }
         updateOnClick={ updateOnClick }
-        dataTestBegin="customer_order_details__"
-      />
-    </div>
+        dataTestPrefix="customer_order_details__element-order-"
+        status={ status }
+      />}
+    </>
   );
 }
