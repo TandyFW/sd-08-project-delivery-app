@@ -9,6 +9,7 @@ export const CardContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   padding: 10px;
   border-radius: 40px;
   background-color: white;
@@ -32,6 +33,8 @@ export const ImageContainer = styled.button`
   border: none;
   padding: 0;
   margin: 0;
+  outline: 0;
+  cursor: pointer;
 
   img {
     max-width: 100%;

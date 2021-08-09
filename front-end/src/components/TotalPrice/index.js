@@ -2,12 +2,13 @@ import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import { PriceTag, Container, Container1 } from './Styled';
+import { PriceTag, Container, Container1, Beer } from './Styled';
 import { Context } from '../../Context';
 
 export default function TotalPrice() {
-  const [show, setShow] = useState(false);
+  /* const [show, setShow] = useState(false); */
   const { setTotalPrice } = useContext(Context);
+  const [showCart, setShowCart] = useState(false);
   const history = useHistory();
   const { products } = useContext(Context);
   const selectedProducts = products.filter((product) => product.quantity > 0);
@@ -17,12 +18,13 @@ export default function TotalPrice() {
     return total;
   }, 0);
   setTotalPrice(totalValue);
-  return (
+
+  const bodyReturn = () => (
     <PriceTag
       data-testid="customer_products__button-cart"
       disabled={ !totalValue }
-      onClick={ () => setShow(!show) }
-      show={ show }
+      onClick={ () => setShowCart(!showCart) }
+      /*    show={ show } */
     >
       <Container>
         <ShoppingBasketIcon style={ { height: 50, width: 50 } } />
@@ -36,21 +38,26 @@ export default function TotalPrice() {
             position: 'absolute',
             right: 0,
             top: 0,
-            display: show ? 'inline' : 'none' } }
+          } }
         />
 
       </Container>
-      <Container1 show={ show }>
+      <Container1>
         {selectedProducts.map((e, i) => (
           <div
             style={ { display: 'flex',
               justifyContent: 'space-between',
-              alignItems: 'center' } }
+              alignItems: 'center',
+              marginTop: '15px',
+            } }
             key={ i }
           >
             <img
               style={ {
-                height: 50, width: 50, borderRadius: '50%', border: '3px solid black' } }
+                height: 50,
+                width: 50,
+                borderRadius: '50%',
+                border: '3px solid black' } }
               alt={ e }
               src={ e.urlImage }
             />
@@ -72,6 +79,7 @@ export default function TotalPrice() {
             background: 'transparent',
             outline: 0,
             border: 0,
+            cursor: 'pointer',
           } }
           onClick={ () => { history.push('/customer/checkout'); } }
         >
@@ -79,5 +87,17 @@ export default function TotalPrice() {
         </button>
       </Container1>
     </PriceTag>
+  );
+  return (
+    <>
+      {!showCart
+
+        && <Beer
+          onClick={ () => setShowCart(!showCart) }
+          alt="beer"
+          src="https://icons-for-free.com/iconfiles/png/512/beer-1320568024709964641.png"
+        />}
+      {showCart && bodyReturn()}
+    </>
   );
 }
