@@ -3,6 +3,8 @@ import styled from 'styled-components';
 export const Container = styled.ul`
   display: flex;
   justify-content: center;
+  margin-left: 0;
+  padding-left: 0;
 `;
 export const ContainerItem = styled.div`
   background-color: #ff914d;

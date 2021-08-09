@@ -4,8 +4,17 @@ import { Header, ItemList } from '../../components';
 import api from '../../Apis/api1';
 import { TotalOrder } from '../../components/ProductsList/Styled';
 import { Context } from '../../Context';
+import {
+  Container,
+  ProductsCustomerContainer,
+  HeaderOrderStatus,
+  BodyItensOrders,
+  HeaderTitle,
+  DeliveredCheckButton,
+} from './Styled';
 
 const TARGET_LENGTH = 4;
+const DATATESTID = 'customer_order_details';
 
 const formatDate = (date) => {
   const [month, day, year] = new Date(date).toLocaleDateString().split('/');
@@ -54,55 +63,65 @@ const OrdersDetails = ({ match }) => {
   if (!Object.keys(sale).length || !Object.keys(seller).length) return <p />;
 
   return (
-    <div>
+    <Container>
       <Header />
-      <h3>Detalhes do Pedido</h3>
-      <span data-testid="customer_order_details__element-order-details-label-order-id">
-        {sale.id.toString().padStart(TARGET_LENGTH, '0')}
-      </span>
-      <span data-testid="customer_order_details__element-order-details-label-seller-name">
-        {seller.name}
-      </span>
-      <span data-testid="customer_order_details__element-order-details-label-order-date">
-        {formatDate(sale.sale_date)}
-      </span>
-      <span
-        data-testid="customer_order_details__element-order-details-label-delivery-status"
-      >
-        {sale.status}
-      </span>
-      <button
-        type="button"
-        disabled={ sale.status !== 'Em Trânsito' }
-        data-testid="customer_order_details__button-delivery-check"
-        onClick={ () => handleClickChangeStatus('Entregue') }
-      >
-        Marcar como entregue
-      </button>
-      <div>
-        {sale.products.length > 0 ? (
-          sale.products.map((item, index) => (
-            <ItemList
-              key={ index }
-              item={ item.id }
-              description={ item.name }
-              quantity={ item.salesProduct.quantity }
-              unitaryValue={ item.price }
-              index={ index }
-              dataTestId="customer_order_details"
-            />
-          ))
-        ) : (
-          <h2>Não há produtos no carrinho</h2>
-        )}
-        <TotalOrder>
-          Total: R$
-          <span data-testid="customer_order_details__element-order-total-price">
-            {sale.total_price.replace(/\./, ',')}
+      <ProductsCustomerContainer>
+        <HeaderTitle>Detalhes do Pedido</HeaderTitle>
+        <HeaderOrderStatus>
+          <span
+            data-testid={ `${DATATESTID}__element-order-details-label-order-id` }
+          >
+            {sale.id.toString().padStart(TARGET_LENGTH, '0')}
           </span>
-        </TotalOrder>
-      </div>
-    </div>
+          <span
+            data-testid={ `${DATATESTID}__element-order-details-label-seller-name` }
+          >
+            {seller.name}
+          </span>
+          <span
+            data-testid={ `${DATATESTID}__element-order-details-label-order-date` }
+          >
+            {formatDate(sale.sale_date)}
+          </span>
+          <span
+            data-testid={ `${DATATESTID}__element-order-details-label-delivery-status` }
+          >
+            {sale.status}
+          </span>
+          <DeliveredCheckButton
+            type="button"
+            disabled={ sale.status !== 'Em Trânsito' }
+            data-testid={ `${DATATESTID}__button-delivery-check` }
+            onClick={ () => handleClickChangeStatus('Entregue') }
+          >
+            Marcar como entregue
+          </DeliveredCheckButton>
+        </HeaderOrderStatus>
+        <BodyItensOrders>
+          {sale.products.length > 0 ? (
+            sale.products.map((item, index) => (
+              <ItemList
+                key={ index }
+                item={ item.id }
+                description={ item.name }
+                quantity={ item.salesProduct.quantity }
+                unitaryValue={ item.price }
+                index={ index }
+                dataTestId={ DATATESTID }
+              />
+            ))
+          ) : (
+            <h2>Não há produtos no carrinho</h2>
+          )}
+          <TotalOrder>
+            Total: R$
+            <span data-testid={ `${DATATESTID}__element-order-total-price` }>
+              {sale.total_price.replace(/\./, ',')}
+            </span>
+          </TotalOrder>
+        </BodyItensOrders>
+      </ProductsCustomerContainer>
+    </Container>
   );
 };
 

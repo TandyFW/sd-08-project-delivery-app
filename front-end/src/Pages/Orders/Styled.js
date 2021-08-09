@@ -8,8 +8,8 @@ export const OrdersPage = styled.div`
 
 export const OrderCardContainer = styled.div`
   display: grid;
-  grid-gap: 50px 50px;
+  gap: 50px 50px;
   grid-template-columns: auto auto;
   justify-content: center;
-  margin: 25px 0
+  margin: 50px 0;
 `;

@@ -5,7 +5,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 0;
-  height: 65px;
+  height: 80px;
 `;
 
 export const RigthButtons = styled.div`

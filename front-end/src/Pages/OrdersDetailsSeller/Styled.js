@@ -5,14 +5,18 @@ export const Container = styled.div`
   color: #2e1b0f;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  min-height: 100vh;
 `;
 
 export const ProductsCustomerContainer = styled.div`
-  align-items: center;
+  border-radius: 20px;
+  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.5);
   background-color: #f6f2df;
   color: #2e1b0f;
-  margin: auto;
+  margin: 50px auto;
+  padding: 10px;
+  width: 60%;
+  margin-bottom: 30px;
 `;
 
 export const PreparingCheckButton = styled.button`
@@ -42,8 +46,8 @@ export const HeaderOrderStatus = styled.div`
   font-weight: 700;
   justify-content: space-between;
   padding: 5px;
-  margin-left: 40px;
-  width: 94%;
+  width: 855px;
+  margin: 10px auto;
 `;
 
 export const BodyItensOrders = styled.div`
@@ -70,5 +74,6 @@ export const DispatchCheckButton = styled.button`
 `;
 
 export const HeaderTitle = styled.h3`
-  margin-left: 40px;
+  width: 855px;
+  margin: 10px auto;
 `;

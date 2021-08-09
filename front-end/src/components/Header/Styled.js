@@ -16,7 +16,6 @@ export const ProductsButton = styled.button`
   border: none;
   outline: none;
   font-weight: bold;
-  margin-bottom: 15px;
   cursor: pointer;
   transition: 0.2s ease all;
   font-size: 18px;
@@ -34,7 +33,6 @@ export const OrdersButton = styled.button`
   border: none;
   outline: none;
   font-weight: bold;
-  margin-bottom: 15px;
   cursor: pointer;
   transition: 0.2s ease all;
   font-size: 18px;
@@ -52,7 +50,6 @@ export const UserButton = styled.button`
   border: none;
   outline: none;
   font-weight: bold;
-  margin-bottom: 15px;
   cursor: pointer;
   transition: 0.2s ease all;
   font-size: 18px;
@@ -66,7 +63,6 @@ export const LogoutButton = styled.button`
   border: none;
   outline: none;
   font-weight: bold;
-  margin-bottom: 15px;
   cursor: pointer;
   transition: 0.2s ease all;
   font-size: 18px;
