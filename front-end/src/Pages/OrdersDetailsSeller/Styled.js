@@ -16,7 +16,7 @@ export const ProductsCustomerContainer = styled.div`
 `;
 
 export const PreparingCheckButton = styled.button`
-  /* background-color: #35c85c;*/
+  background-color: #35c85c;
   border-radius: 5px;
   padding: 5px;
   color: #2e1b0f;
@@ -26,6 +26,11 @@ export const PreparingCheckButton = styled.button`
 
   &:hover {
     background-color: #5DD37C;
+  }
+
+  &:disabled{
+    background: transparent;
+    color: gray;
   }
 `;
 
@@ -46,7 +51,7 @@ export const BodyItensOrders = styled.div`
 `;
 
 export const DispatchCheckButton = styled.button`
-  /* background-color: #ff914d; */
+  background-color: #ff914d;
   border-radius: 5px;
   padding: 5px;
   color: #2e1b0f;
@@ -56,6 +61,11 @@ export const DispatchCheckButton = styled.button`
 
   &:hover {
     background-color: #ffaf4d;
+  }
+
+  &:disabled{
+    background: transparent;
+    color: gray;
   }
 `;
 
