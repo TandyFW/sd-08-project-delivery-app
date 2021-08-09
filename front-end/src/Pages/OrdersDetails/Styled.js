@@ -29,6 +29,11 @@ export const DeliveredCheckButton = styled.button`
     background-color: #9D5C32;
     color: white;
   }
+
+  &:disabled {
+    background-color: transparent;
+    color: gray;
+  }
 `;
 
 export const HeaderOrderStatus = styled.div`
