@@ -1,18 +1,15 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-
   display:flex;
   justify-content:center;
   align-items:center;
   height:100vh;
-
 `;
 export const InnerContainer = styled.div`
   display:flex;
   height:700px;
   width:400px;
-
   flex-direction:column;
   `;
 export const ProfileImage = styled.img`
@@ -26,7 +23,6 @@ export const ProfileImage = styled.img`
   transition:0.2s ease all;
   &:hover{
     opacity:0.5
-
 }
 `;
 export const AppName = styled.h1`

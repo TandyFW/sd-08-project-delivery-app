@@ -2,12 +2,14 @@ import React from 'react';
 
 import { HeaderAdmin, NewUserForm, UsersList } from '../../components';
 
+import ContainerAdmin from './Styled';
+
 const Admin = () => (
-  <div>
+  <ContainerAdmin>
     <HeaderAdmin />
     <NewUserForm />
     <UsersList />
-  </div>
+  </ContainerAdmin>
 );
 
 export default Admin;

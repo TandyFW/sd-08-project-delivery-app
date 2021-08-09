@@ -3,6 +3,12 @@ import ItemListUser from '../ItemListUser';
 import { Context } from '../../Context';
 import {
   Container,
+  ContainerHeader,
+  ContainerItem,
+  ContainerName,
+  ContainerEmail,
+  ContainerType,
+  DeleteItem,
   Title,
   ContainerDiv,
 } from './Styled';
@@ -11,7 +17,14 @@ export default function Users() {
   const { users } = useContext(Context);
   return (
     <Container>
-      <Title>Finalizar Pedido</Title>
+      <Title>Lista de usuários</Title>
+      <ContainerHeader>
+        <ContainerItem>Item</ContainerItem>
+        <ContainerName>Nome</ContainerName>
+        <ContainerEmail>E-mail</ContainerEmail>
+        <ContainerType>Tipo</ContainerType>
+        <DeleteItem>Excluir</DeleteItem>
+      </ContainerHeader>
       <ContainerDiv>
         { users.length > 0 ? (
           users.map((user, index) => (

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  background-color: #F6F2DF;
   display: flex;
   justify-content: center;
   margin: 0;
@@ -8,7 +9,7 @@ export const Container = styled.div`
 `;
 
 export const ProductsButton = styled.button`
-  background-color: #ff914d;
+  background-color: #FF914D;
   padding: 10px;
   color: #2e1b0f;
   width: 20%;
@@ -26,7 +27,7 @@ export const ProductsButton = styled.button`
 `;
 
 export const OrdersButton = styled.button`
-  background-color: #e8dca9;
+  background-color: #E8DCA9;
   padding: 10px;
   color: #2e1b0f;
   width: 50%;
@@ -44,7 +45,7 @@ export const OrdersButton = styled.button`
 `;
 
 export const UserButton = styled.button`
-  background-color: #35c85c;
+  background-color: #35C85C;
   padding: 10px;
   color: #2e1b0f;
   width: 20%;

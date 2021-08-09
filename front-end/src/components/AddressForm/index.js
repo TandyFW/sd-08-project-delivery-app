@@ -62,8 +62,8 @@ export default function AddressForm() {
   return (
     <Container>
       <Form>
-        <Title>Detalhes e Endereço para Entrega</Title>
         <ContainerDiv>
+          <Title>Detalhes e Endereço para Entrega</Title>
           <Paragraph>P. Vendedora Responsável</Paragraph>
           <ContainerLabel htmlFor="sellers">
             <ContainerSelect

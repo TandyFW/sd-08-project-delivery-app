@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  background-color: #F6F2DF;
   display: flex;
   justify-content: center;
 `;
@@ -21,15 +22,13 @@ export const ContainerDiv = styled.div`
 export const Title = styled.h1`
   padding: 10px;
   color: black;
-  font-size: 18px;
+  font-size: 22px;
   font-weight: bold;
-  margin-left: 100px;
   text-align: left;
 `;
 export const Paragraph = styled.p`
   color: black;
   font-size: 17px;
-  text-align: left;
 `;
 export const ContainerLabel = styled.label`
   padding: 10px;
@@ -40,30 +39,38 @@ export const ContainerLabel = styled.label`
   text-align: center;
 `;
 export const ContainerAddress = styled.input`
-  padding: 5px;
+  background-color: #E0E0E1;
+  padding: 8px;
   color: black;
-  margin-bottom: 15px;
+  border: 0 none;
+  outline: 0;
+  margin-bottom: 20px;
   font-size: 18px;
   width: 600px;
 `;
 export const ContainerNumber = styled.input`
-  padding: 5px;
+  background-color: #E0E0E1;
+  padding: 8px;
   color: black;
-  margin-bottom: 15px;
+  border: 0 none;
+  outline: 0;
+  margin-bottom: 20px;
   font-size: 18px;
   width: 200px;
 `;
 export const ContainerSelect = styled.select`
-  padding: 5px;
+  padding: 8px;
   color: black;
-  margin-bottom: 15px;
+  border-color: #EFEFF0;
+  margin-bottom: 20px;
   font-size: 18px;
   text-align: center;
-  width: 200px;
+  width: 300px;
 `;
 export const FinalizeOrder = styled.button`
-  background-color: #216844;
-  padding: 10px;
+  background-color: #22813C;
+  border-radius: 10px;
+  padding: 20px 10px;
   color: white;
   width: 20%;
   border: none;
@@ -74,7 +81,7 @@ export const FinalizeOrder = styled.button`
   transition: 0.2s ease all;
   font-size: 18px;
   &:hover {
-    background-color: #298859;
+    background-color: #2BA14A;
     color: white;
   }
 `;
