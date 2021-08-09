@@ -74,7 +74,7 @@ const Login = () => {
     <Container>
       <InnerContainer>
         <AreaImage>
-          <ProfileImage src="https://i.pinimg.com/originals/bd/d4/8a/bdd48a385d53511c6248594eedb3560d.png" />
+          <ProfileImage src="https://icons-for-free.com/iconfiles/png/512/beer-1320568024709964641.png" />
           <AppName>TryJuice</AppName>
         </AreaImage>
         <ContainerForm>

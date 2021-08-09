@@ -35,7 +35,6 @@ export const AreaImage = styled.div`
 `;
 
 export const ProfileImage = styled.img`
-  background: url('https://www.collinsdictionary.com/images/full/beer_123784216.jpg');
   background-position: center;
   background-size: 150px;
   cursor: pointer;
