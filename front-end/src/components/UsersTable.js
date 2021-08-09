@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import '../styles/Table.css';
+
 function UsersTable({ handleDelete, usersData }) {
   return (
     <table>

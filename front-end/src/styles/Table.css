@@ -1,0 +1,56 @@
+table {
+  border-collapse: collapse;
+  border-radius: 5px 5px 0 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  font-size: 1.2vw;
+  margin-top: 10px;
+  overflow: hidden;
+  width: 50vw;
+}
+
+
+table thead tr {
+  background: var(--blue-100);
+  color: var(--white);
+  font-size: 1vw;
+  text-align: left;
+}
+
+table th, main table td {
+  padding: 8px;
+}
+
+table tbody tr {
+  border-bottom: 1px solid #d1cfcf;
+}
+
+table tbody tr:nth-of-type( even ) {
+  background: rgb(242, 242, 242, 0.6);
+}
+
+table tbody tr:nth-of-type( odd ) {
+  background: rgba(255, 227, 163, 0.6);
+}
+
+table tbody tr:last-of-type {
+  border-bottom: 2px solid var(--blue-100);
+}
+
+table button {
+  background: var(--orange-500);
+  border-radius: 10px;
+  display: block;
+  height: 100%;
+  opacity: 0.7;
+  transition: 0.5s;
+  width: 100%;
+}
+
+table button:hover {
+  opacity: 1;
+}
+
+.total-checkout {
+  font-weight: 700;
+  margin-bottom: 20px;
+}

@@ -16,7 +16,7 @@ const Navbar = ({ name, activeTab }) => {
     <header>
       <nav className="navbar">
         <ul>
-          <li className={ activeTab === 1 && 'navbar-active' }>
+          <li className={ activeTab === 1 ? 'navbar-active' : undefined }>
             <Link
               data-testid="customer_products__element-navbar-link-products"
               to="/customer/products"
@@ -25,7 +25,7 @@ const Navbar = ({ name, activeTab }) => {
             </Link>
           </li>
           <li
-            className={ activeTab === 2 && 'navbar-active' }
+            className={ activeTab === 2 ? 'navbar-active' : undefined }
             data-testid="customer_products__element-navbar-link-orders"
           >
             <Link to="/customer/orders">

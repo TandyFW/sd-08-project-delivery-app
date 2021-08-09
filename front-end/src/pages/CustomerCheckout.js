@@ -21,8 +21,9 @@ export default function CustomerCheckout() {
   return (
     <div>
       <Navbar name={ userData.name } activeTab={ 1 } />
-      <h1>Finalizar Pedido</h1>
+      <h2>Finalizar Pedido</h2>
       <TableCheckout />
+      <h3>Detalhes e Endereço para Entrega</h3>
       <InputCheckout seller={ sellers } />
     </div>
   );

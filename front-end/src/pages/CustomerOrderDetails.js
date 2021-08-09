@@ -7,6 +7,8 @@ import OrderTableHead from '../components/OrderTableHead';
 import OrderDetailsHeader from '../components/OrderDetailsHeader';
 import OrderTableRow from '../components/OrderTableRow';
 
+import '../styles/Table.css';
+
 function CustomerOrderDetails({ match }) {
   const [order, setOrder] = useState(undefined);
   const { id } = match.params;

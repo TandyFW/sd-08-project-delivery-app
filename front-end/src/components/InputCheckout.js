@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import CartContext from './CartContext';
 
+import '../styles/InputCheckout.css';
+
 function InputCheckout({ seller }) {
   const { total } = useContext(CartContext);
   const [address, setAddress] = useState('');
@@ -43,56 +45,48 @@ function InputCheckout({ seller }) {
   };
 
   const handleSellerName = ({ target: { value } }) => {
-    console.log(value);
     setSellerName(value);
   };
 
   return (
-    <div>
-      <h1>Detalhes e Endereço para Entrega</h1>
+    <div className="delivery-details-container">
       <form>
-        <legend
-          id="select-seller"
-        >
-          P. vendedora responsável
-        </legend>
-        <select
-          data-testid="customer_checkout__select-seller"
-          onChange={ handleSellerName }
-          id="select-seller"
-        >
-          <option value="default">-</option>
-          {seller && seller.map((sellers) => (
-            <option
-              key={ sellers.name }
-              value={ sellers.id }
-            >
-              { sellers.id }
-            </option>))}
-        </select>
-        <legend
-          id="input-address"
-        >
-          Endereço
-        </legend>
-        <input
-          type="text"
-          id="input-address"
-          data-testid="customer_checkout__input-address"
-          onChange={ handleAddress }
-        />
-        <legend
-          id="input-number"
-        >
-          Número
-        </legend>
-        <input
-          type="number"
-          min="0"
-          id="input-number"
-          data-testid="customer_checkout__input-addressNumber"
-          onChange={ handleNumber }
-        />
+        <label htmlFor="select-seller">
+          <p>P. vendedora resp</p>
+          <select
+            data-testid="customer_checkout__select-seller"
+            onChange={ handleSellerName }
+            id="select-seller"
+          >
+            <option value="default">-</option>
+            {seller && seller.map((sellers) => (
+              <option
+                key={ sellers.name }
+                value={ sellers.id }
+              >
+                { sellers.id }
+              </option>))}
+          </select>
+        </label>
+        <label htmlFor="input-address">
+          <p>Endereço</p>
+          <input
+            type="text"
+            id="input-address"
+            data-testid="customer_checkout__input-address"
+            onChange={ handleAddress }
+          />
+        </label>
+        <label htmlFor="input-number">
+          <p>Número</p>
+          <input
+            type="number"
+            min="0"
+            id="input-number"
+            data-testid="customer_checkout__input-addressNumber"
+            onChange={ handleNumber }
+          />
+        </label>
       </form>
       <button
         type="button"
