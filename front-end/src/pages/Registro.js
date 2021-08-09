@@ -1,15 +1,17 @@
-/* eslint-disable */
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Input from '../components/Input';
+
 import { sendRegister } from '../services/apiRequest';
-import '../Styles/Login.css';
+import Input from '../components/Input';
 import Button from '../components/Button';
 import Error from '../components/Error';
 import Loading from '../components/Loading';
 
-const six = 6;
-const Twelve = 12;
+import '../Styles/Login.css';
+
+const passwordLength = 6;
+const nameLength = 12;
+
 const Registro = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -31,13 +33,10 @@ const Registro = () => {
   };
 
   useEffect(() => {
-    if (!validEmail() || password.length < six || name.length < Twelve) {
+    if (!validEmail() || password.length < passwordLength || name.length < nameLength) {
       return setValid(true);
     }
     return setValid(false);
-
-    // !validEmail(email) || password.length < six
-    // || name.length < Twelve ? setValid(true) : setValid(false);
   }, [name, email, password]);
 
   useEffect(() => {
@@ -74,48 +73,46 @@ const Registro = () => {
   };
 
   return (
-    <div>
-      <form>
-        <div className="form">
-          <Input
-            name="name"
-            type="input"
-            value={ name }
-            change={ setName }
-            inputclass="input-back"
-            testId="common_register__input-name"
+    <form>
+      <div className="form">
+        <Input
+          name="name"
+          type="input"
+          value={ name }
+          change={ setName }
+          inputclass="input-back"
+          testId="common_register__input-name"
 
-          />
-          <Input
-            name="email"
-            type="email"
-            value={ email }
-            change={ setEmail }
-            inputclass="input-back"
-            testId="common_register__input-email"
-          />
-          <Input
-            name="senha"
-            type="password"
-            value={ password }
-            change={ setPassword }
-            inputclass="input-back"
-            testId="common_register__input-password"
+        />
+        <Input
+          name="email"
+          type="email"
+          value={ email }
+          change={ setEmail }
+          inputclass="input-back"
+          testId="common_register__input-email"
+        />
+        <Input
+          name="senha"
+          type="password"
+          value={ password }
+          change={ setPassword }
+          inputclass="input-back"
+          testId="common_register__input-password"
 
-          />
+        />
 
-          <Button
-            onClick={ registration }
-            disable={ formValid }
-            btnclass="LoginButton"
-            name="Finalizar"
-            type="button"
-            testId="common_register__button-register"
-          />
-          {errorDisplay()}
-        </div>
-      </form>
-    </div>
+        <Button
+          onClick={ registration }
+          disable={ formValid }
+          btnclass="LoginButton"
+          name="Finalizar"
+          type="button"
+          testId="common_register__button-register"
+        />
+        {errorDisplay()}
+      </div>
+    </form>
   );
 };
 

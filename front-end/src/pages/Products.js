@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -35,17 +34,15 @@ export default function Products() {
     <>
       <Header />
       <ul>
-        {loading
-          ? <loading />
-          : products
-            .map((product) => <CardProduct key={product.id} item={product} />)}
+        {loading ? <loading /> : products
+          .map((product) => <CardProduct key={ product.id } item={ product } />)}
       </ul>
       <button
         type="button"
         data-testid="customer_products__button-cart"
         className="total-button"
-        onClick={() => history.push('/customer/checkout')}
-        disabled={Object.keys(cart).length === 0}
+        onClick={ () => history.push('/customer/checkout') }
+        disabled={ Object.keys(cart).length === 0 }
       >
         Ver Carrinho: R$
         <div data-testid="customer_products__checkout-bottom-value">{total}</div>

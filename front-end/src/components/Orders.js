@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -17,6 +16,7 @@ export default function Button({ testId, name, btnclass, disable, onClick }) {
     </button>
   );
 }
+
 Button.propTypes = {
   name: PropTypes.string.isRequired,
   btnclass: PropTypes.string.isRequired,

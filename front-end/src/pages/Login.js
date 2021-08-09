@@ -1,15 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+
 import appContext from '../context/appContext';
+import { sendLogin } from '../services/apiRequest';
+import { saveUserInLocalStorage, getUserRole } from '../services/localStorage';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import Error from '../components/Error';
 import Loading from '../components/Loading';
-import '../Styles/Login.css';
-import { sendLogin } from '../services/apiRequest';
-import { saveUserInLocalStorage, getUserRole } from '../services/localStorage';
 
-const six = 6;
+import '../Styles/Login.css';
+
+const passwordLength = 6;
+
 const Login = () => {
   const {
     setLoginEmail,
@@ -43,7 +46,7 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (!validEmail(loginEmail) || loginPassword.length < six) {
+    if (!validEmail(loginEmail) || loginPassword.length < passwordLength) {
       return setValid(true);
     }
     return setValid(false);
@@ -62,10 +65,7 @@ const Login = () => {
         setUserInfo(res.data.user);
         saveUserInLocalStorage(res.data.user);
       })
-      .catch((error) => {
-        setReqError(error.response.data.message);
-      });
-
+      .catch((error) => setReqError(error.response.data.message));
     setLoading(false);
   };
 
@@ -101,7 +101,6 @@ const Login = () => {
           inputclass="input-back"
           testId="common_login__input-password"
         />
-
         <Button
           onClick={ SendLogin }
           disable={ formValid }
@@ -117,9 +116,7 @@ const Login = () => {
           testId="common_login__button-register"
         />
         {errorDisplay()}
-
       </div>
-
     </form>
   );
 };

@@ -1,5 +1,5 @@
-/* eslint-disable */
 import React from 'react';
+
 import '../Styles/Login.css';
 
 export default function Error({ error, testId }) {
@@ -8,13 +8,10 @@ export default function Error({ error, testId }) {
       return (
         <p className="error" data-testid={ testId }>
           {error}
-        </p>);
+        </p>
+      );
     }
     return '';
   };
-
-  return (
-
-    errorManagement()
-  );
+  return errorManagement();
 }

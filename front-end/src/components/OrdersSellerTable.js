@@ -1,7 +1,8 @@
-/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from './Button';
+
+const zeroLeft = -4;
 
 const OrdersSellerTable = ({ orders, updateOnClick, dataTestPrefix, status }) => (
   <>
@@ -10,17 +11,17 @@ const OrdersSellerTable = ({ orders, updateOnClick, dataTestPrefix, status }) =>
         <table key={ item.id }>
           <thead>
             <tr>
-              <th data-testid={`${dataTestPrefix}details-label-order-id`}>
+              <th data-testid={ `${dataTestPrefix}details-label-order-id` }>
                 Detalhes de Pedido
-                {("0000" + item.id).slice(-4)}
+                {(`0000 ${item.id}`).slice(zeroLeft)}
               </th>
               {'  '}
-              <th data-testid={`${dataTestPrefix}details-label-order-date`}>
+              <th data-testid={ `${dataTestPrefix}details-label-order-date` }>
                 {new Date(item.saleDate).toLocaleDateString('pt-BR')}
               </th>
               {'  '}
-              <th data-testid={`${dataTestPrefix}details-label-delivery-status`}>
-                {item.status }
+              <th data-testid={ `${dataTestPrefix}details-label-delivery-status` }>
+                {item.status}
               </th>
               {'  '}
               <th>
@@ -60,41 +61,41 @@ const OrdersSellerTable = ({ orders, updateOnClick, dataTestPrefix, status }) =>
       </thead>
       <tbody>
         {orders.map((item) => item.products.map((obj, i) => (
-            <tr key={ obj.id }>
-              <td
-                data-testid={`${dataTestPrefix}table-item-number-${i}`}
-                className="tableId"
-              >
-                {i + 1 }
-              </td>
-              <td
-                data-testid={`${dataTestPrefix}table-name-${i}`}
-                className="tableDesc"
-              >
-                {obj.name}
-              </td>
-              <td
-                data-testid={`${dataTestPrefix}table-quantity-${i}`}
-                className="tableQua"
-              >
-                {obj.saleProduct.quantity}
-              </td>
-              <td
-                data-testid={`${dataTestPrefix}table-sub-total-${i}`}
-                className="tableVal"
-              >
-                {obj.price.replace(/\./g, ',')}
-              </td>
-              <td 
-                data-testid={`${dataTestPrefix}total-price-${i}`}
-                className="tableTotal"
-              >
-                {(obj.saleProduct.quantity * obj.price).toFixed(2).replace(/\./g, ',')}
-              </td>
-            </tr>
-          )))}
+          <tr key={ obj.id }>
+            <td
+              data-testid={ `${dataTestPrefix}table-item-number-${i}` }
+              className="tableId"
+            >
+              {i + 1}
+            </td>
+            <td
+              data-testid={ `${dataTestPrefix}table-name-${i}` }
+              className="tableDesc"
+            >
+              {obj.name}
+            </td>
+            <td
+              data-testid={ `${dataTestPrefix}table-quantity-${i}` }
+              className="tableQua"
+            >
+              {obj.saleProduct.quantity}
+            </td>
+            <td
+              data-testid={ `${dataTestPrefix}table-sub-total-${i}` }
+              className="tableVal"
+            >
+              {obj.price.replace(/\./g, ',')}
+            </td>
+            <td
+              data-testid={ `${dataTestPrefix}total-price-${i}` }
+              className="tableTotal"
+            >
+              {(obj.saleProduct.quantity * obj.price).toFixed(2).replace(/\./g, ',')}
+            </td>
+          </tr>
+        )))}
         <div>
-          <h1 data-testid={`${dataTestPrefix}total-price`}>
+          <h1 data-testid={ `${dataTestPrefix}total-price` }>
             Total: R$
             {' '}
             {orders.map((item) => item.totalPrice.replace(/\./, ','))}
@@ -109,7 +110,7 @@ OrdersSellerTable.propTypes = {
   orders: PropTypes.func.isRequired,
   dataTestPrefix: PropTypes.string.isRequired,
   updateOnClick: PropTypes.func.isRequired,
-  status: PropTypes.object.isRequired,
+  status: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default OrdersSellerTable;

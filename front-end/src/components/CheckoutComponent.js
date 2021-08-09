@@ -1,15 +1,16 @@
-/* eslint-disable */
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+
+import appContext from '../context/appContext';
+import { getData } from '../services/apiRequest';
+import { getUserName, getUserToken } from '../services/localStorage';
 import Button from './Button';
 import DropDown from './DropDown';
 import Input from './Input';
-import '../Styles/checkout.css';
-import { getData } from '../services/apiRequest';
-import { getUserName, getUserToken } from '../services/localStorage';
-import appContext from '../context/appContext';
 import CheckoutTable from './CheckoutTable';
+
+import '../Styles/checkout.css';
 
 export default function Checkout() {
   const [loading, setloading] = useState(false);

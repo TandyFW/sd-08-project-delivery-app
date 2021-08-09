@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -16,16 +15,14 @@ export default function DetailsSellersOrders() {
   useEffect(() => {
     setLoading(true);
     sendData('http://localhost:3001/sale/created', id)
-      .then(({data}) => {
-        setCurrentSell(data);
-      })
+      .then(({ data }) => setCurrentSell(data))
       .catch((err) => console.log(err));
     setLoading(false);
   }, [id]);
 
-  const updateOnClick = (idSale, status) => {
+  const updateOnClick = (idSale, currentStatus) => {
     setLoading(true);
-    updateSale('http://localhost:3001/update/sale', idSale, status)
+    updateSale('http://localhost:3001/update/sale', idSale, currentStatus)
       .then(({ data }) => {
         const updateSell = { ...currentSell[0], ...data };
         setCurrentSell([updateSell]);

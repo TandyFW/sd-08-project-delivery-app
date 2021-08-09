@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
@@ -6,7 +5,6 @@ export default function DropDown({ selectClass, value, change, state, testId }) 
   const [loading] = useState(false);
 
   return (
-
     <select
       data-testid={ testId }
       className={ selectClass }

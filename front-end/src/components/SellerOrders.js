@@ -13,18 +13,18 @@ export default function SellerOrders() {
     const email = getUserEmail();
     setLoading(true);
     requestUser('http://localhost:3001/orders', email)
-      .then((data) => {
-        setUserSales(data.data);
-      });
+      .then((data) => setUserSales(data.data));
     setLoading(false);
   }, []);
+
   if (loading === true) {
     return (
       <Loading />
     );
   }
+
   return (
-    <div>
+    <>
       {
         userSales.map((obj, index) => (
           <div
@@ -56,6 +56,6 @@ export default function SellerOrders() {
           </div>
         ))
       }
-    </div>
+    </>
   );
 }

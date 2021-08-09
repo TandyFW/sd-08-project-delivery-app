@@ -1,6 +1,5 @@
 import { getUserToken } from './localStorage';
 
-/* eslint-disable */
 const axios = require('axios');
 
 const axiosConfig = {
@@ -9,7 +8,6 @@ const axiosConfig = {
     'Access-Control-Allow-Origin': '*',
     Accept: 'application/json',
     authorization: getUserToken(),
-
   },
 };
 export const getData = async (url) => {
