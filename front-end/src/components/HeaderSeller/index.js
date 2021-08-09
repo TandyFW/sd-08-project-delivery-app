@@ -44,7 +44,7 @@ export default function HeaderSeller() {
           data-testid="customer_products__element-navbar-link-logout"
           onClick={ logout }
         >
-          Sair
+          SAIR
         </LogoutButton>
       </RigthButtons>
     </Container>

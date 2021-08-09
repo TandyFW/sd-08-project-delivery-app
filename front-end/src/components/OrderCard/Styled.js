@@ -7,6 +7,10 @@ export const OrderContainer = styled.div`
   box-shadow: rgba(0, 0, 0, 0.322) 2px 2px 6px;
   display: flex;
   width: 790px;
+
+  &:hover {
+    background-color: #f2ecd0;
+  }
 `;
 
 export const OrderIdContainer = styled.div`
