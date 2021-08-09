@@ -1,10 +1,10 @@
 import { useState, useEffect, React } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
-import './Login.css';
 import delivery from '../../images/delivery.jpeg';
 import { setUserInfo } from '../../service/setLocalStorage';
 import { getUserInfo } from '../../service/getLocalStorage';
+import Container from './Login.styled';
 
 export default function Login() {
   const history = useHistory();
@@ -76,10 +76,10 @@ export default function Login() {
   console.log(tokenLogin);
 
   return (
-    <div className="login">
+    <Container>
       <img src={ delivery } alt="Entrega de produto" />
-      <h1 className="title">Delivery da Terezona</h1>
-      <form className="login-form">
+      <h1>Delivery da Terezona</h1>
+      <form>
         <label htmlFor="login">
           Login
           <input
@@ -102,7 +102,6 @@ export default function Login() {
         </label>
         <button
           type="button"
-          className="login-button"
           data-testid="common_login__button-login"
           disabled={ isDisabled }
           onClick={ postLogin }
@@ -112,7 +111,6 @@ export default function Login() {
         <Link to="/register">
           <button
             type="button"
-            className="register-button"
             data-testid="common_login__button-register"
           >
             Ainda não tenho conta
@@ -126,6 +124,6 @@ export default function Login() {
       ) : (
         ''
       )}
-    </div>
+    </Container>
   );
 }
