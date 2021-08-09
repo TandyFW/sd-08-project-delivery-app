@@ -1,5 +1,37 @@
 .product-list {
   display: flex;
   flex-wrap: wrap;
-  width: 50%;
+  justify-content: flex-start;
+  width: 60%;
+}
+
+.total-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 8vw;
+}
+
+.total-container img {
+  display: block;
+  width: 6vw;
+}
+
+.total-container button {
+  background: var(--blue-100);
+  border-radius: 10px;
+  bottom: 30%;
+  box-shadow: 4px 4px 10px var(--gray-500);
+  color: var(--white);
+  font-size: 1vw;
+  font-weight: 700;
+  margin-top: 10px;
+  padding: 0.8vw;
+  transition: 0.5s;
+}
+
+.total-container button:hover {
+  background: var(--blue-200);
+
 }

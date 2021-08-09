@@ -26,42 +26,46 @@ const ProductCard = ({ product }) => {
 
   return (
     <div className="card">
-      <span
-        className="price"
-        data-testid={ `customer_products__element-card-price-${id}` }
-      >
-        {`${price.replace('.', ',')}`}
-      </span>
-      <img
-        data-testid={ `customer_products__img-card-bg-image-${id}` }
-        src={ urlImage }
-        alt="product"
-      />
-      <div>
-        <p data-testid={ `customer_products__element-card-title-${id}` }>{name}</p>
-        <button
-          onClick={ decreaseQuantity }
-          data-testid={ `customer_products__button-card-rm-item-${id}` }
-          type="button"
+      <div className="card-image">
+        <span
+          className="price"
+          data-testid={ `customer_products__element-card-price-${id}` }
         >
-          -
-        </button>
-        <input
-          type="number"
-          step={ 1 }
-          min={ 0 }
-          className="quantity"
-          onInput={ (e) => setQuantity(e.target.value) }
-          value={ quantity }
-          data-testid={ `customer_products__input-card-quantity-${id}` }
+          {`${price.replace('.', ',')}`}
+        </span>
+        <img
+          data-testid={ `customer_products__img-card-bg-image-${id}` }
+          src={ urlImage }
+          alt="product"
         />
-        <button
-          onClick={ increaseQuantity }
-          data-testid={ `customer_products__button-card-add-item-${id}` }
-          type="button"
-        >
-          +
-        </button>
+      </div>
+      <div className="card-legend">
+        <p data-testid={ `customer_products__element-card-title-${id}` }>{name}</p>
+        <div className="card-input-container">
+          <button
+            onClick={ decreaseQuantity }
+            data-testid={ `customer_products__button-card-rm-item-${id}` }
+            type="button"
+          >
+            -
+          </button>
+          <input
+            type="number"
+            step={ 1 }
+            min={ 0 }
+            className="quantity"
+            onInput={ (e) => setQuantity(e.target.value) }
+            value={ quantity }
+            data-testid={ `customer_products__input-card-quantity-${id}` }
+          />
+          <button
+            onClick={ increaseQuantity }
+            data-testid={ `customer_products__button-card-add-item-${id}` }
+            type="button"
+          >
+            +
+          </button>
+        </div>
       </div>
     </div>
   );

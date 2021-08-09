@@ -24,7 +24,7 @@ const CustomerOrders = () => {
 
   return (
     <>
-      <Navbar name={ user.name } />
+      <Navbar name={ user.name } activeTab={ 2 } />
       <section className="order-cards-container">
         { console.log('ordersListPage: ', ordersList) }
         { ordersList

@@ -1,35 +1,74 @@
 .card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  display: inline-block;
-  font-size: 12px;
+  background: rgba(255, 227, 163, 0.6);
+  border-radius: 10px;
+  box-shadow: 4px 4px 15px var(--gray-500);
+  display: flex;
+  flex-direction: column;
+  font-size: 0.7vw;
+  height: 13vw;
+  justify-content: space-between;
   margin: 20px 10px;
+  overflow: hidden;
   position: relative;
   transition: 0.3s;
-  width: 100px;
+  width: 8vw;
 }
 
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
-.card input {
-  width: 50px;
-}
-
 .card img {
-  height: 80px;
-  max-width: 100px;
+  max-height: 15vh;
+  max-width: 20vw;
+  mix-blend-mode: multiply;
 }
 
 .price {
+  font-weight: 700;
+  left: 10px;
   position: absolute;
   top: 10px;
   z-index: 2;
 }
 
-
 .card div {
   padding: 5px 10px;
   text-align: center;
   width: 100%;
+}
+
+.card-legend {
+  background: rgba(153, 173, 224, 0.6);
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+  height: 30%;
+  justify-content: space-between;
+}
+
+.card-legend input {
+  border-radius: 2px;
+  text-align: center;
+  width: 40%;
+}
+
+.card-legend button {
+  background: var(--blue-100);
+  border-radius: 2px;
+  color: var(--white);
+  font-weight: 700;
+  transition: 0.5s;
+  width: 20%;
+}
+
+.card-legend button:hover {
+  background: var(--blue-200);
+}
+
+.card-image {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
 }

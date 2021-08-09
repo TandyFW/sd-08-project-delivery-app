@@ -1,6 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
 import CartContext from './CartContext';
 
+import '../styles/Table.css';
+
 function TableCheckout() {
   const { total, cart, removeFromCart } = useContext(CartContext);
   const NUMBER_ONE = 1;
@@ -21,7 +23,7 @@ function TableCheckout() {
             <th>Quantidade</th>
             <th>Valor Unitário</th>
             <th>Sub-Total</th>
-            <th>Remover Item</th>
+            <th>Remover</th>
           </tr>
         </thead>
         <tbody>
@@ -79,6 +81,7 @@ function TableCheckout() {
         </tbody>
       </table>
       <p
+        className="total-checkout"
         data-testid="customer_checkout__element-order-total-price"
       >
         { `Total: R$ ${Number(total).toFixed(2).replace('.', ',')}` }

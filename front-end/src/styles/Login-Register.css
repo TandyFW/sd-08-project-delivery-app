@@ -1,4 +1,4 @@
-.register-container {
+.sign-container {
   align-items: center;
   background: var(--white);
   border: 1px solid var(--gray-100);
@@ -6,31 +6,31 @@
   box-shadow: 3px 3px 10px;
   display: flex;
   flex-direction: column;
-  height: 400px;
+  height: 55%;
   justify-content: space-around;
   overflow: hidden;
-  width: 300px;
+  width: 22%;
 }
 
-.register-container header {
+.sign-container header {
   display: flex;
   justify-content: center;
   width: 100%;
 }
 
-.register-container img {
-  margin: 13px;
-  width: 50px;
+.sign-container img {
+  margin: 3px 0 15px;
+  width: 3vw;
 }
 
-.register-container h1 {
-  font-size: 24px;
-  margin: 20px 0;
+.sign-container h1 {
+  font-size: 1.7vw;
+  margin: 18px 0;
 }
 
-.register-form {
+.sign-form {
   align-items: center;
-  background: var(--orange-100);
+  background: var(--orange-300);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -38,51 +38,51 @@
   width: 100%;
 }
 
-.register-form label {
+.sign-form label {
   width: 90%;
 }
 
-.register-form label p {
+.sign-form label p {
   margin-left: 30px;
 }
 
-.register-form input {
+.sign-form input {
   border: 1px solid var(--gray-100);
   border-radius: 5px;
   box-shadow: 2px 2px 7px var(--gray-500);
-  font-size: 18px;
+  font-size: 1.2vw;
   margin: 5px;
-  padding: 10px;
+  padding: 2%;
   width: 95%;
 }
 
-.register-form button {
+.sign-form button {
   background: var(--blue-100);
   border: 1px solid var(--gray-500);
   border-radius: 10px;
   box-shadow: 4px 4px 10px var(--gray-500);
   color: var(--white);
   cursor: pointer;
-  font-size: 20px;
+  font-size: 1.2vw;
   font-weight: 700;
   margin-top: 15px;
-  padding: 12px;
+  padding: 0.5vw;
   transition: 0.5s;
   width: 85%;
 }
 
-.register-form button:disabled {
+.sign-form button:disabled {
   cursor: default;
   opacity: 0.65;
 }
 
-.register-form button:hover:enabled {
+.sign-form button:hover:enabled {
   background: var(--blue-200);
 }
 
 .error-message {
-  color: var(--orange-200);
-  font-size: 1.7rem;
+  color: var(--orange-500);
+  font-size: 1.2vw;
   font-weight: 700;
   margin-top: 15px;
 }

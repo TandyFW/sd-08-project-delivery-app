@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap');
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,7 +8,7 @@
 
 :root {
 
-  --white: white;
+  --white: #ffffff;
 
   --gray-100: #afb2b1;
 
@@ -18,9 +20,13 @@
 
   --blue-200: #3b548f;
 
-  --orange-100: #fec844;
+  --orange-100: #ffe3a3;
 
-  --orange-200: #ff8e01;
+  --orange-300: #fec844;
+
+  --orange-500: #ff8e01;
+
+  --orange-900: #c68400;
 
 }
 
@@ -35,7 +41,7 @@ body {
   color: var(--gray-900);
   display: flex;
   flex-direction: column;
-  font-size: 1.5rem;
+  font-size: 1.2vw;
   height: 100vh;
   justify-content: center;
   width: 100%;

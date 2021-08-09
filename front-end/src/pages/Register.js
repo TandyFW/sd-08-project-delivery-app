@@ -5,9 +5,9 @@ import { createUser } from '../services/Api';
 import { saveState } from '../services/LocalStorage';
 import Input from '../components/Input';
 
-import beerToastIcon from '../images/beer.png';
+import beerToastIcon from '../images/beer-toast.png';
 
-import '../styles/Register.css';
+import '../styles/Login-Register.css';
 
 function Register() {
   const [user, setUser] = useState(undefined);
@@ -46,12 +46,12 @@ function Register() {
 
   return (
     <>
-      <div className="register-container">
+      <div className="sign-container">
         <header>
           <img src={ beerToastIcon } alt="beer toast" />
           <h1>Cadastro</h1>
         </header>
-        <form className="register-form">
+        <form className="sign-form">
           <Input
             id="common_register__input-name"
             name="Nome"
