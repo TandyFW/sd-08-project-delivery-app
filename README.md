@@ -36,5 +36,5 @@ EVAL_ALWAYS_RESTORE_DEV_DB=true
 
 SECRET=MySecretPassword
 ````
-
+* Ainda na pasta backend, use o comando npm run db:reset
 * Na pasta raiz do projeto use o comando npm run dev
